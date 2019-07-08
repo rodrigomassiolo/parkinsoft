@@ -12,25 +12,11 @@
 */
 Route::get('/', function () {
     return view('welcome');
-})->name('welcome');;
+})->name('welcome');
+
 Route::get('welcome', function () {
     return view('welcome');
-})->name('welcome');;
-
-Route::get('/dash', function () {
-    return view('dash');
-});
-
-Route::get('/ls/{param?}', function($param='-a') {
-
-exec("/var/www/html/parkinsoft/scripts/exampleScript.sh \"${param}\"",$lineasLn);
-$resultado = '';
-foreach($lineasLn as $linea){
-$resultado = $resultado.$linea.'<br>';
-}
-return $resultado;
-});
-
+})->name('welcome');
 Auth::routes();
 Route::get('/', 'HomeController@index')->name('home');
 Route::get('/home', 'HomeController@index')->name('home');
@@ -41,14 +27,15 @@ Route::get('texto', function () {
     return 'Un texto!';
 });
 
+Route::get('/dash', function () {return view('dash');})->middleware('auth');
 Route::get('contact', 'TicketsController@create');
 Route::post('contact', 'TicketsController@store');
-Route::get('tickets', 'TicketsController@index');
-Route::get('tickets/{slug?}', 'TicketsController@show');
-Route::get('tickets/{slug?}/edit', 'TicketsController@edit');
-Route::post('tickets/{slug?}/edit', 'TicketsController@update');
-Route::post('tickets/{slug?}/delete', 'TicketsController@destroy');
-Route::post('/comment', 'CommentsController@newComment');
+Route::get('tickets', 'TicketsController@index')->middleware('auth');
+Route::get('tickets/{slug?}', 'TicketsController@show')->middleware('auth');
+Route::get('tickets/{slug?}/edit', 'TicketsController@edit')->middleware('auth');
+Route::post('tickets/{slug?}/edit', 'TicketsController@update')->middleware('auth');
+Route::post('tickets/{slug?}/delete', 'TicketsController@destroy')->middleware('auth');
+Route::post('/comment', 'CommentsController@newComment')->middleware('auth');
 
 Route::get('sendemail', function () {
 
@@ -66,4 +53,15 @@ Route::get('sendemail', function () {
 
     return "Tú email ha sido enviado correctamente";
 
-});
+})->middleware('auth');
+
+
+Route::get('/ls/{param?}', function($param='-a') {
+
+    exec("/var/www/html/parkinsoft/scripts/exampleScript.sh \"${param}\"",$lineasLn);
+    $resultado = '';
+    foreach($lineasLn as $linea){
+    $resultado = $resultado.$linea.'<br>';
+    }
+    return $resultado;
+    });
