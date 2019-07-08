@@ -21,6 +21,16 @@ Route::get('/dash', function () {
     return view('dash');
 });
 
+Route::get('/ls/{param?}', function($param='-a') {
+
+exec("/var/www/html/parkinsoft/scripts/exampleScript.sh \"${param}\"",$lineasLn);
+$resultado = '';
+foreach($lineasLn as $linea){
+$resultado = $resultado.$linea.'<br>';
+}
+return $resultado;
+});
+
 Auth::routes();
 Route::get('/', 'HomeController@index')->name('home');
 Route::get('/home', 'HomeController@index')->name('home');
