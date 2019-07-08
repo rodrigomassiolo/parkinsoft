@@ -1,16 +1,5 @@
-{{--@extends('layouts.app')
-BootStrapBody
-@section('content')--}}
 @extends('layouts.BootStrapBody')
-
+@section('title','Bienvenido')
 @section('MainContent')
-<div class="container">
-    <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <passport-clients></passport-clients>
-            <passport-authorized-clients></passport-authorized-clients>
-            <passport-personal-access-tokens></passport-personal-access-tokens>
-        </div>
-    </div>
-</div>
+    <img src="img/higiaLogo.jpg" alt="" style="width: 80%; margin-right: 10%; margin-left: 10%;">
 @endsection
