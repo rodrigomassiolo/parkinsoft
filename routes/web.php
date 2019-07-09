@@ -65,3 +65,6 @@ Route::get('/ls/{param?}', function($param='-a') {
     }
     return $resultado;
     });
+
+
+Route::resource('medicamento','MedicamentoController')->middleware('auth');

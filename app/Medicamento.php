@@ -36,7 +36,7 @@ class Medicamento extends Model
     /**
      * @var array
      */
-    protected $fillable = ['nombre', 'numero', 'fechaConHora', 'booleano', 'fecha', 'Letra', 'commentId', 'created_at', 'updated_at'];
+    protected $fillable = ['nombre','numero','fechaConHora','booleano','fecha','Letra','commentId'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
@@ -45,4 +45,23 @@ class Medicamento extends Model
     {
         return $this->belongsTo('App\Comment', 'commentId');
     }
+
+    public function scopeFilter($query, $params)
+    {
+        if ( isset($params['nombre']) && trim($params['nombre'] !== '') ) {
+            $query->where('nombre', 'LIKE', trim($params['nombre']) . '%');
+        }
+
+        if ( isset($params['numero']) && trim($params['numero']) !== '' )
+        {
+            $query->where('numero', '=', trim($params['numero']));
+        }
+
+        if ( isset($params['Letra']) && trim($params['Letra']) !== '' )
+        {
+            $query->where('Letra', '=', trim($params['Letra']));
+        }
+        return $query;
+    }
+
 }
