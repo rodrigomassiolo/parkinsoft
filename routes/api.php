@@ -57,7 +57,7 @@ Route::post('/register', function (Request $request) {
 	$user->genero = $jsonReq['genero'];
 	$user->nacimiento = $jsonReq['nacimiento'];
 	$user->email = $jsonReq['email'];
-	$user->password = $jsonReq['password'];
+	$user->password = bcrypt($jsonReq['password']);
 	$user->save();
 
 	$secret = str_random(40);
