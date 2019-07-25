@@ -7,9 +7,9 @@
 <h2>higia.com.ar</h2>
 
 <div>
-    Pediste un cambio de Password.
-    Para volver a ingresar por favor usé el siguiente Password Temporal:
-    {!! $pass !!}
+    Olvidaste tu Password.<br>
+    Para volver a ingresar por favor usé el siguiente Password Temporal:<br>
+    </h3>{!! $pass !!}</h3>
 </div>
 
 </body>

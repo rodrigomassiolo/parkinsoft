@@ -124,7 +124,6 @@ Route::get('/user', function (Request $request) {
 
 Route::post('/resetPassword', function (Request $request) {
 
-
 	$jsonReq = json_decode($request->getContent(), true);
 	$user = App\User::where([
 		['email', '=', $jsonReq['email']],
@@ -136,12 +135,12 @@ Route::post('/resetPassword', function (Request $request) {
 		$data = array(
 			'pass' => $pass,
 		);
-		$user->password = bcrypt($pass);
-		Mail::send('emails.resetPass', $data, function ($message) {
-	
-			$message->from('support@higia.com.ar', 'higia');
+		$user[0]->password = bcrypt($pass);
+		$user[0]->save();
+
+		Mail::send('emails.resetPass', $data, function ($message) use($jsonReq) {
+			$message->from('support@higia.com.ar', 'support@higia.com.ar');
 			$message->to($jsonReq['email'])->subject('Cambio de Password');
-	
 		});
 		return "ok";
 	}
