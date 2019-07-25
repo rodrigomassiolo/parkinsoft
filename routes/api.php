@@ -122,6 +122,33 @@ Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:api');
 
+Route::post('/resetPassword', function (Request $request) {
+
+
+	$jsonReq = json_decode($request->getContent(), true);
+	$user = App\User::where([
+		['email', '=', $jsonReq['email']],
+	])->take(1)->get();
+
+	if (count($user) != 0)
+	{//enviar mail
+		$pass = str_random(6);
+		$data = array(
+			'pass' => $pass,
+		);
+		$user->password = bcrypt($pass);
+		Mail::send('emails.resetPass', $data, function ($message) {
+	
+			$message->from('support@higia.com.ar', 'higia');
+			$message->to($jsonReq['email'])->subject('Cambio de Password');
+	
+		});
+		return "ok";
+	}
+	else{
+		return "error";
+	}
+});
 
 /*
 
