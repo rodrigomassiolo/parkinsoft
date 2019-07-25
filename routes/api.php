@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Auth;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -30,6 +30,9 @@ Route::post('/register', function (Request $request) {
 	}
 	if(!$jsonReq['password']){
 		return "Error: el password es requerido";
+		if(strlen($jsonReq['password'])<6){
+			return "Error: el password debe tener al menos 6 caracteres";
+		}
 	}
 	$user = App\User::where([
 		['email', '=', $jsonReq['email']],
@@ -148,6 +151,96 @@ Route::post('/resetPassword', function (Request $request) {
 		return "error";
 	}
 });
+
+Route::post('/updateUser', function (Request $request) {
+	$actualUser = $request->user();
+
+	$user0 = App\User::where([
+		['id', '=', $actualUser['id']],
+	])->take(1)->get();
+
+	if (count($user0) == 0)
+	{
+		return "error";
+	}else {
+		$user = $user0[0];
+	}
+
+	$jsonReq = json_decode($request->getContent(), true);
+	if(!($jsonReq['genero'] && ($jsonReq['genero']=='F' || $jsonReq['genero']=='M'))){
+		return "Error: el género es requerido";
+	}
+	else{
+		$user->genero = $jsonReq['genero'];
+	}
+
+	$test_date  = explode('-', $jsonReq['nacimiento']);
+	if (! (count($test_date)==3 && checkdate($test_date[1], $test_date[2], $test_date[0])) ) {
+		return "Error: la fecha de nacimiento es requerida";
+	}
+	else{
+		$user->nacimiento = $jsonReq['nacimiento'];
+	}
+
+	if (!$jsonReq['email'] && !filter_var($jsonReq['email'], FILTER_VALIDATE_EMAIL)){
+		return "Error: la dirección de email es requerida";
+	}else{
+		$user->email = $jsonReq['email'];
+	}
+	$user->save();
+
+	return "ok";
+
+})->middleware('auth:api');
+
+Route::post('/updatePassword', function (Request $request) {
+
+	$jsonReq = json_decode($request->getContent(), true);
+	$actualUser = $request->user();
+
+	$user0 = App\User::where([
+		['id', '=', $actualUser['id']],
+	])->take(1)->get();
+
+	if (count($user0) == 0)
+	{
+		return "error";
+	}else {
+		$user = $user0[0];
+	}
+
+	 if(!$jsonReq['password']){
+		return "Error: el password es requerido";
+		if(strlen($jsonReq['password'])<6){
+			return "Error: el password debe tener al menos 6 caracteres";
+		}
+	}
+	if($jsonReq['confirmaPassword'] != $jsonReq['password'])	{
+		return "Error: El password no coincide";
+	}
+
+	$user->password = bcrypt($jsonReq['password']);
+	$user->save();
+    return "ok";
+})->middleware('auth:api');
+
+Route::post('/deleteUser', function (Request $request) {
+
+	$actualUser = $request->user();
+
+	$user0 = App\User::where([
+		['id', '=', $actualUser['id']],
+	])->take(1)->get();
+
+	if (count($user0) == 0)
+	{
+		return "error";
+	}else {
+		$user = $user0[0];
+	}
+	$user->delete();
+    return "ok";
+})->middleware('auth:api');
 
 /*
 
