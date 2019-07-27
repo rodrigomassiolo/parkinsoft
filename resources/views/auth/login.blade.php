@@ -58,7 +58,7 @@ BootStrapBody
                                     Login
                                 </button>
 
-                                <a class="btn btn-link" href="{{ route('password.reset') }}">
+                                <a class="btn btn-link" href="{{ route('resetPassword') }}">
                                 ¿Olvidó su contraseña?
                                 </a>
                             </div>
