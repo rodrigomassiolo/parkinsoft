@@ -79,7 +79,8 @@ Route::get('/deleteUser', function () {
 	if ($user->delete()) {
 		 return Redirect::route('home');
 	}
-})->middleware('auth');
+})->middleware('auth')->name('/deleteUser');
+
 Route::post('/resetPassword', function (Request $request) {
 
     $email = $request->get('email');

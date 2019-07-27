@@ -19,7 +19,7 @@ BootStrapBody
                 <div style="margin-top:5%">
 
                 <h6> ¿Realmente desea eliminar su cuenta? Esta acción no puede ser revertida </h6>
-                    <form class="form-horizontal" method="POST" action="{{ route('deleteUser') }}">
+                    <form class="form-horizontal" method="GET" action="{{ route('/deleteUser') }}">
                         {{ csrf_field() }}
 
 <!-- 
