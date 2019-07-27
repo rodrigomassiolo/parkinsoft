@@ -66,6 +66,16 @@ Route::get('sendemail', function () {
 Route::get('/user','UserController@index')->middleware('auth')->name('user');
 Route::post('/user/update','UserController@update')->middleware('auth')->name('user/update');
 
+
+Route::get('/deleteUser', function () {
+	$user = App\User::find(Auth::user()->id);
+
+	Auth::logout();
+	
+	if ($user->delete()) {
+		 return Redirect::route('home');
+	}
+})->middleware('auth');
 Route::post('/resetPassword', function (Request $request) {
 
     $email = $request->get('email');
