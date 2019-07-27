@@ -70,6 +70,16 @@ Route::get('/user/delete','UserController@delete')->middleware('auth')->name('us
 // Route::post('/user/deleted','UserController@deleted')->middleware('auth')->name('user/deleted');
 
 
+
+Route::get('/deleteUser', function () {
+	$user = App\User::find(Auth::user()->id);
+
+	Auth::logout();
+	
+	if ($user->delete()) {
+		 return Redirect::route('home');
+	}
+})->middleware('auth');
 Route::post('/resetPassword', function (Request $request) {
 
     $email = $request->get('email');
