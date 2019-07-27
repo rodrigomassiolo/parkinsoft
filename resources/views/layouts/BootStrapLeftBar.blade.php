@@ -1,11 +1,11 @@
 <div class="sidebar-sticky">
   <ul class="nav flex-column">
-    <li class="nav-item">
+    <!-- <li class="nav-item">
       <a class="nav-link active" href="../dash">
         <span data-feather="layout"></span>
         Dashboard <span class="sr-only">(current)</span>
       </a>
-    </li>
+    </li> -->
     <li class="nav-item">
       <a class="nav-link" href="../tickets">
         <span data-feather="file"></span>
@@ -24,8 +24,32 @@
         Enviar Mail
       </a>
     </li>
+    <!-- @if (Auth::user()->id == 1)
+    <li class="nav-item">
+      <a class="nav-link" href="../medicamento">
+        <span data-feather="thermometer"></span>
+        ABM Medicamento
+      </a>
+    </li>
+     @endif 
+     @if (Auth::user()->id == 1)
+    <li class="nav-item">
+      <a class="nav-link" href="../medico">
+        <span data-feather="activity"></span>
+        ABM Medicos
+      </a>
+    </li>
+     @endif 
+     @if (Auth::user()->id == 1)
+    <li class="nav-item">
+      <a class="nav-link" href="../paciente">
+        <span data-feather="heart"></span>
+        ABM Pacientes
+      </a>
+    </li>
+     @endif  -->
   </ul>
-
+<!-- 
   <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
     <span>Saved reports</span>
     <a class="d-flex align-items-center text-muted" href="#">
@@ -56,6 +80,6 @@
         <span data-feather="file-text"></span>
         Year-end sale
       </a>
-    </li>
+    </li> -->
   </ul>
 </div>

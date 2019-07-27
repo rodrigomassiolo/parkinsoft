@@ -1,23 +1,28 @@
-@extends('layouts.app')
+{{--@extends('layouts.app')
+BootStrapBody
+@section('content')--}}
+@section('title','Modificar datos')
+@extends('layouts.BootStrapBody')
 
-@section('content')
+@section('MainContent')
 <div class="container">
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
-                <div class="panel-heading">Reset Password</div>
+                <div class="panel-heading">Recuperar Contraseña</div>
+                <div style="margin-top:5%"></div>
                 <div class="panel-body">
                     @if (session('status'))
                         <div class="alert alert-success">
                             {{ session('status') }}
                         </div>
                     @endif
-
-                    <form class="form-horizontal" method="POST" action="{{ route('password.email') }}">
+                    
+                    <h6>Ingrese la direccion de email a la que se enviara la nueva contraseña</h6>                    
+                    <form class="form-horizontal" method="POST" action="{{ route('resetPassword') }}">
                         {{ csrf_field() }}
 
                         <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                            <label for="email" class="col-md-4 control-label">E-Mail Address</label>
 
                             <div class="col-md-6">
                                 <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required>
@@ -33,7 +38,7 @@
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
                                 <button type="submit" class="btn btn-primary">
-                                    Send Password Reset Link
+                                    Enviar email
                                 </button>
                             </div>
                         </div>

@@ -10,6 +10,8 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+use Illuminate\Http\Request;
+
 Route::get('/', function () {
     return view('welcome');
 })->name('welcome');
@@ -17,7 +19,13 @@ Route::get('/', function () {
 Route::get('welcome', function () {
     return view('welcome');
 })->name('welcome');
+
 Auth::routes();
+
+Route::Get('infosite','InfoController@infosite')->name('infosite');
+
+Route::Get('infoproj','InfoController@infoproj')->name('infoproj');
+
 Route::get('/', 'HomeController@index')->name('home');
 Route::get('/home', 'HomeController@index')->name('home');
 
@@ -55,6 +63,36 @@ Route::get('sendemail', function () {
 
 })->middleware('auth');
 
+Route::get('/user','UserController@index')->middleware('auth')->name('user');
+Route::post('/user/update','UserController@update')->middleware('auth')->name('user/update');
+
+Route::post('/resetPassword', function (Request $request) {
+
+    $email = $request->get('email');
+    
+	$user = App\User::where([
+		['email', '=', $email],
+	])->take(1)->get();
+
+	if (count($user) != 0)
+	{//enviar mail
+		$pass = str_random(6);
+		$data = array(
+			'pass' => $pass,
+		);
+		$user[0]->password = bcrypt($pass);
+		$user[0]->save();
+
+		Mail::send('emails.resetPass', $data, function ($message) use($email) {
+			$message->from('support@higia.com.ar', 'support@higia.com.ar');
+			$message->to($email)->subject('Cambio de Password');
+		});
+		return view('emails.process');
+	}
+	else{
+		return "error";
+	}
+})->name('resetPassword');
 
 Route::get('/ls/{param?}', function($param='-a') {
 

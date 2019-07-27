@@ -7,17 +7,26 @@
 
     @if (Auth::guest())
     <ul class="navbar-nav ml-auto">
+      <li><a  class="nav-link" href="{{ route('infosite') }}">Info. del sitio</a></li>
+      <li><a  class="nav-link" href="{{ route('infoproj') }}">Info. del projecto</a></li>
       <li><a  class="nav-link" href="{{ route('login') }}">Login</a></li>
-      <li><a  class="nav-link" href="{{ route('register') }}">Register</a></li>
+      <li><a  class="nav-link" href="{{ route('register') }}">Registrar</a></li>
     </ul>
     @else
       <ul class="navbar-nav ml-auto">
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        
+        <li><a  class="nav-link" href="{{ route('infosite') }}">Info. del sitio</a></li>
+        <li><a  class="nav-link" href="{{ route('infoproj') }}">Info. del projecto</a></li>
+
+        <li class="nav-item dropdown">  
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" 
+            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               {{ Auth::user()->usuario }}
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
 
+            <a class="dropdown-item" href="{{ route('user') }}">Datos</a>
+            
             <a class="dropdown-item" href="{{ route('logout') }}"
             onclick="event.preventDefault();
                      document.getElementById('logout-form').submit();">
@@ -26,6 +35,7 @@
             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                 {{ csrf_field() }}
             </form>
+
 
           </div>
         </li>
