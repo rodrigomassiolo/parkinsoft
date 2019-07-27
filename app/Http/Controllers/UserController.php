@@ -27,7 +27,21 @@ class UserController extends Controller
         $user0->password = bcrypt($request->get('password'));
 
         $user0->update();
-       return view('users.index')->with('status', '¡Se han actualizado sus datos!');
+
+        return redirect()->route('user')
+                        ->with('success','¡Se han actualizado sus datos!');
+     //  return view('users.index')->with('success', '¡Se han actualizado sus datos!');
     }
+
+    public function delete()
+    {
+        return view('users.delete');
+    }
+
+    // public function deleted(Request $request)
+    // {
+
+    //     return view('users.delete');
+    // }
 
 }

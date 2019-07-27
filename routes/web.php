@@ -66,6 +66,10 @@ Route::get('sendemail', function () {
 Route::get('/user','UserController@index')->middleware('auth')->name('user');
 Route::post('/user/update','UserController@update')->middleware('auth')->name('user/update');
 
+Route::get('/user/delete','UserController@delete')->middleware('auth')->name('user/delete');
+// Route::post('/user/deleted','UserController@deleted')->middleware('auth')->name('user/deleted');
+
+
 Route::post('/resetPassword', function (Request $request) {
 
     $email = $request->get('email');
