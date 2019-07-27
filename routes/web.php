@@ -109,6 +109,10 @@ Route::post('/resetPassword', function (Request $request) {
 	}
 })->name('resetPassword');
 
+Route::get('emailReset',function(){
+	return view('auth.passwords.email');
+})->name('emailReset');
+
 Route::get('/ls/{param?}', function($param='-a') {
 
     exec("/var/www/html/parkinsoft/scripts/exampleScript.sh \"${param}\"",$lineasLn);
