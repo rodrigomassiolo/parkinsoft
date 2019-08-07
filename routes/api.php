@@ -99,7 +99,7 @@ Route::get('apilogin/{email}/{password}', function ($email,$password) {
 		$secret = str_random(40);
 		$client = new \Laravel\Passport\Client;
 		$client->user_id = $user[0]->id;
-		$client->usuario = $user[0]->usuario.'PasswordClient';
+		$client->name = $user[0]->usuario.'PasswordClient';
 		$client->secret = $secret;
 		$client->redirect = "higia.com.ar";
 		$client->personal_access_client = false;
@@ -241,6 +241,9 @@ Route::post('/deleteUser', function (Request $request) {
 	$user->delete();
     return "ok";
 })->middleware('auth:api');
+
+Route::post('/sendAudio', 'AudioController@store')->middleware('auth:api');
+
 
 /*
 
