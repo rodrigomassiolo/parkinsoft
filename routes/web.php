@@ -69,8 +69,6 @@ Route::post('/user/update','UserController@update')->middleware('auth')->name('u
 Route::get('/user/delete','UserController@delete')->middleware('auth')->name('user/delete');
 // Route::post('/user/deleted','UserController@deleted')->middleware('auth')->name('user/deleted');
 
-
-
 Route::get('/deleteUser', function () {
 	$user = App\User::find(Auth::user()->id);
 
@@ -126,5 +124,11 @@ Route::get('/ls/{param?}', function($param='-a') {
 
 Route::resource('medicamento','MedicamentoController')->middleware('auth');
 
-Route::post('/sendAudio', 'AudioController@store')->middleware('auth');
+Route::post('/sendAudio', 'AudioController@store')->middleware('auth')->name('sendAudio');
 Route::post('/sendLevodopa', 'AudioController@storeLevodopa')->middleware('auth');
+
+Route::get('/audio','AudioController@index')->middleware('auth')->name('audio');
+
+//Route::get('/medico','MedicoController@index')->middleware('auth');
+Route::resource('medico','MedicoController')->middleware('auth');
+

@@ -24,15 +24,17 @@
         Enviar Mail
       </a>
     </li>
-    <!-- @if (Auth::user()->id == 1)
+      
+    @if (Auth::user()->rol->type == 2) 
     <li class="nav-item">
-      <a class="nav-link" href="../medicamento">
-        <span data-feather="thermometer"></span>
-        ABM Medicamento
+      <a class="nav-link" href="../medico">
+        <span data-feather="activity"></span>
+        ABM Medicos
       </a>
     </li>
+      <h5>Deberia ser admin para ver esto</h5>
      @endif 
-     @if (Auth::user()->id == 1)
+     <!-- @if (Auth::user()->id == 1)
     <li class="nav-item">
       <a class="nav-link" href="../medico">
         <span data-feather="activity"></span>
@@ -47,7 +49,7 @@
         ABM Pacientes
       </a>
     </li>
-     @endif  -->
+     @endif   -->
   </ul>
 <!-- 
   <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
@@ -80,6 +82,7 @@
         <span data-feather="file-text"></span>
         Year-end sale
       </a>
-    </li> -->
-  </ul>
+    </li> 
+  </ul>-->
+
 </div>

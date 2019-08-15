@@ -6,6 +6,7 @@ use App\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use App\Rol;
 
 class RegisterController extends Controller
 {
@@ -73,12 +74,19 @@ class RegisterController extends Controller
 
         $fill = $make1 . $make2 . $make3;
 
+        $rol = Rol::create([
+            'type' => 2,
+            'medico_id' => null
+        ]);
+
         return User::create([
             'usuario' => $fill,
             'genero' => $data['genero'],
             'nacimiento' => $data['nacimiento'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
+            'rol_id' => $rol['id'],
+            'status' => 'A'
         ]);
     }
 }

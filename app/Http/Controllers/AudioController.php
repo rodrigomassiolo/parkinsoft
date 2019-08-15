@@ -13,6 +13,7 @@ class AudioController extends Controller
      */
     public function index(Request $request)
     {
+        return view('audio.index');
     }
 
     /**
@@ -32,6 +33,9 @@ class AudioController extends Controller
      */
     public function store(Request $request)
     {
+
+        // echo($request);
+
         if(!$request->hasFile('audio')) {
             return response()->json(['upload_file_not_found'], 400);
         }

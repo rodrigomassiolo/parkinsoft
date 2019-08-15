@@ -6,6 +6,7 @@ use Laravel\Passport\HasApiTokens;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use App\Rol;
 
 class User extends Authenticatable
 {
@@ -18,7 +19,7 @@ class User extends Authenticatable
      */
     protected $fillable = [
         //'name', 'email', 'password',
-        'usuario', 'genero', 'nacimiento', 'email', 'password',
+        'usuario', 'genero', 'nacimiento', 'email', 'password','rol_id','status'
     ];
 
     /**
@@ -29,4 +30,9 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function rol()
+    {
+        return $this->hasOne('App\Rol','id','rol_id');
+    }
 }
