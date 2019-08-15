@@ -127,3 +127,4 @@ Route::get('/ls/{param?}', function($param='-a') {
 Route::resource('medicamento','MedicamentoController')->middleware('auth');
 
 Route::post('/sendAudio', 'AudioController@store')->middleware('auth');
+Route::post('/sendLevodopa', 'AudioController@storeLevodopa')->middleware('auth');

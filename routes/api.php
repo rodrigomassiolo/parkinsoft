@@ -243,7 +243,7 @@ Route::post('/deleteUser', function (Request $request) {
 })->middleware('auth:api');
 
 Route::post('/sendAudio', 'AudioController@store')->middleware('auth:api');
-
+Route::post('/sendLevodopa', 'AudioController@storeLevodopa')->middleware('auth:api');
 
 /*
 

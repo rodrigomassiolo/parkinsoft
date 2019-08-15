@@ -58,5 +58,55 @@ class AudioController extends Controller
 
         return "Ejecutando audio";
     }
+    public function storeLevodopa(Request $request)
+    {
+        if(!$request->hasFile('audio1')) {
+            return response()->json(['upload_file_not_found'], 400);
+        }
+        $file1 = $request->file('audio1');
+        
+        if(!$file1->isValid()) {
+            return response()->json(['invalid_file_upload'], 400);
+        }
+        if($file1->getClientSize() > $file1->getMaxFilesize()){
+            return response()->json(['File_Too_Big'], 400);
+        }
+        $mime = $file1->getClientMimeType();
+        if(explode('/',$mime)[0] != 'audio'){
+            return response()->json(['File_is_not_Audio'], 400);
+        }
+        $extens= $file1->getClientOriginalExtension();
+        if($file1->getClientOriginalExtension()== 'mp3'){
+            return response()->json(['NO_mp3'], 400);
+        }
+
+        if(!$request->hasFile('audio2')) {
+            return response()->json(['upload_file_not_found'], 400);
+        }
+        $file2 = $request->file('audio2');
+        
+        if(!$file2->isValid()) {
+            return response()->json(['invalid_file_upload'], 400);
+        }
+        if($file2->getClientSize() > $file2->getMaxFilesize()){
+            return response()->json(['File_Too_Big'], 400);
+        }
+        $mime = $file2->getClientMimeType();
+        if(explode('/',$mime)[0] != 'audio'){
+            return response()->json(['File_is_not_Audio'], 400);
+        }
+        $extens= $file2->getClientOriginalExtension();
+        if($file2->getClientOriginalExtension()== 'mp3'){
+            return response()->json(['NO_mp3'], 400);
+        }
+
+    
+        $usr_folder = $request->user()->usuario;
+        $path = public_path() . '/uploads/audios/'.$usr_folder.'/levodopa/';
+        $file1->move($path, date("Ymd").'_1.'.$extens);
+        $file2->move($path, date("Ymd").'_2.'.$extens);
+        return "Ejecutando audios";
+    }
+
 
 }
