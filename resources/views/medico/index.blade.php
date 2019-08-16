@@ -68,12 +68,12 @@
     </div>
    
     @if ($message = Session::get('success'))
-        <!-- <div class="alert alert-success">
+        <div class="alert alert-success">
             <p>{{ $message }}</p>
-        </div> -->
-        <script>
+        </div>
+        <!-- <script>
         alert("{{ $message }}");
-    </script>
+    </script> -->
     @endif
    
     <table class="table table-bordered table-sm table-hover">

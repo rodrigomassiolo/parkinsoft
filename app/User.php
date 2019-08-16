@@ -35,4 +35,23 @@ class User extends Authenticatable
     {
         return $this->hasOne('App\Rol','id','rol_id');
     }
+
+    public function scopeFilter($query, $params)
+    {
+        if ( isset($params['email']) && trim($params['email'] !== '') ) {
+            $query->where('email', 'LIKE', trim($params['email']) . '%');
+        }
+
+        if ( isset($params['genero']) && trim($params['genero'] !== '') ) {
+           $query->where('genero', 'LIKE', trim($params['genero']) . '%');
+       }
+
+       if ( isset($params['fechaDeNac']) && trim($params['fechaDeNac']) !== '' )
+       {
+           $query->where('fechaDeNac', '=', trim($params['fechaDeNac']));
+       }
+        return $query;
+    }
+
+
 }

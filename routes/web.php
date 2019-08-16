@@ -132,3 +132,6 @@ Route::get('/audio','AudioController@index')->middleware('auth')->name('audio');
 //Route::get('/medico','MedicoController@index')->middleware('auth');
 Route::resource('medico','MedicoController')->middleware('auth');
 
+Route::resource('abmUser','AbmUserController')->middleware('auth');
+
+Route::get('abmUser/show/{id}','AbmUserController@show')->middleware('auth');

@@ -68,7 +68,7 @@ class MedicoController extends Controller
        $medico->save();
 
        $rol = Rol::create([
-        'type' => 2,
+        'type' => 1,
         'medico_id' => $medico['id']
         ]);
 
@@ -119,19 +119,18 @@ class MedicoController extends Controller
      */
     public function update(Request $request, Medico $medico)
     {
-        //
-        // $request->validate([
-        //     'nombre' => 'required',
-        //     'apellido' => 'required',
-        //     'matricula' => 'required'
-        // ]);
+        
+        $request->validate([
+            'nombre' => 'required',
+            'apellido' => 'required',
+            'matricula' => 'required',
+            'dni' => 'required'
+        ]);
   
-        // $medico->update($request->all());
+        $medico->update($request->all());
   
-        // return redirect()->route('medico.index')
-        //                 ->with('success','Medico modificado correctamente');
         return redirect()->route('medico.index')
-                        ->with('success','Falta implementar');
+                        ->with('success','Medico modificado correctamente');
     }
 
     /**
@@ -151,6 +150,7 @@ class MedicoController extends Controller
            $rol->delete();
 
            $medico->delete();
+
            return redirect()->route('medico.index')
                            ->with('success','Medico eliminado correctamente');
     }
