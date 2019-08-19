@@ -1,13 +1,13 @@
 @extends('layouts.BootStrapBody')
-@section('title','medico')
+@section('title','abmAdmin')
 @section('MainContent')
     <div class="row">
         <div class="col-lg-12 margin-tb">
             <div class="pull-left">
-                <h2>Editar medico</h2>
+                <h2>Editar abmAdmin</h2>
             </div>
             <div class="pull-right">
-                <a class="btn btn-primary" href="{{ route('medico.index') }}"> Atras</a>
+                <a class="btn btn-primary" href="{{ route('abmAdmin.index') }}"> Atras</a>
             </div>
         </div>
     </div>
@@ -23,35 +23,42 @@
         </div>
     @endif
   
-    <form action="{{ route('medico.update',$medico->id) }}" method="POST">
+    <form action="{{ route('abmAdmin.update',$user->id) }}" method="POST">
         @csrf
         @method('PUT')
    
          <div class="row">
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
-                    <strong>Nombre:</strong>
-                    <input type="text" name="nombre" value="{{ $medico->nombre }}" class="form-control" placeholder="Nombre a editar">
+                    <strong>Nombre Codificado:</strong>
+                    <input type="text" name="nombre" value="{{ $user->nombreCodificado }}"
+                     class="form-control" placeholder="Nombre codificado a editar">
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
-                    <strong>Apellido:</strong>
-                    <input type="text" name="apellido" value="{{ $medico->apellido }}" class="form-control" placeholder="Apellido a editar">
+                    <strong>Nacionalidad:</strong>
+                    <input type="text" name="nacionalidad" value="{{ $user->nacionalidad }}"
+                     class="form-control" placeholder="Nacionalidad a editar">
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
-                    <strong>Matricula:</strong>
-                    <input type="number" name="matricula" value="{{ $medico->matricula }}" class="form-control" placeholder="Matricula a editar">
+                    <strong>Sexo:</strong>
+                    <input type="text" name="sexo" maxlength="1" 
+                    @if ($user->sexo == 'M') value="Masculino"
+                    @else value="Femenino"
+                    @endif
+                     class="form-control" placeholder="Sexo a editar">
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12">
-            <div class="form-group">
-                <strong>Dni:</strong>
-                <input type="number" name="dni" value="{{ $medico->dni }}" class="form-control" placeholder="dni">
+                <div class="form-group">
+                    <strong>Fecha de Nacimiento:</strong>
+                    <input type="date" name="fechaDeNac" value="{{ $user->fechaDeNac }}" 
+                    class="form-control" placeholder="Fecha de nacimiento a editar">
+                </div>
             </div>
-        </div>
             <div class="col-xs-12 col-sm-12 col-md-12 text-center">
               <button type="submit" class="btn btn-primary">Editar</button>
             </div>

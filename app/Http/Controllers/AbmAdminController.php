@@ -3,12 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\User;
-use App\Http\Controllers\Auth\RegisterController;
 use App\Rol;
+use App\User;
 
-
-class AbmUserController extends Controller
+class AbmAdminController extends Controller
 {
     public function index(Request $request)
     {
@@ -17,9 +15,11 @@ class AbmUserController extends Controller
 
         session()->flashInput($request->input());
 
-        $user = User::filter($params)->where('email','<>','')->paginate(10);
+        $user = User::filter($params)->whereHas('rol',function($q){
+            $q->where('type',0);
+        })->paginate(10);
 
-         return view('abmUser.index',compact('user'))
+         return view('abmAdmin.index',compact('user'))
              ->with('i', (request()->input('page', 1) - 1) * 10);
     }
 
@@ -31,7 +31,7 @@ class AbmUserController extends Controller
     public function create()
     {
         //
-        return view('abmUser.create');
+        return view('abmAdmin.create');
     }
 
     /**
@@ -42,21 +42,6 @@ class AbmUserController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'dni' =>  array(
-                'required',
-                'regex:/^[0-9]+$/',
-                'max:8'
-            ),
-            'nombre' => 'required|string|max:255',
-            'apellido' => 'required|string|max:255',
-            'genero' => 'required|string|max:1',
-            'nacimiento' => 'required|date',
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:6',
-        ]);
-
-
         $make1 = \mb_substr($request['nombre'],0,2);
         $make2 = \mb_substr($request['apellido'],0,2);
         $make3 = substr($request['dni'],-3);
@@ -64,7 +49,7 @@ class AbmUserController extends Controller
         $fill = $make1 . $make2 . $make3;
 
         $rol = Rol::create([
-            'type' => 2,
+            'type' => 0,
             'medico_id' => null
         ]);
 
@@ -78,7 +63,7 @@ class AbmUserController extends Controller
             'status' => 'A'
         ]);
 
-        return redirect()->route('abmUser.index')
+        return redirect()->route('abmAdmin.index')
                         ->with('success','Paciente creado correctamente.');
         
     }
@@ -92,7 +77,7 @@ class AbmUserController extends Controller
     public function show($id)
     {
         $user = User::findOrFail($id);
-        return view('abmUser.show',compact('user'));
+        return view('abmAdmin.show',compact('user'));
     }
 
     /**
@@ -104,29 +89,29 @@ class AbmUserController extends Controller
     public function edit($id)
     {
         $user = User::findOrFail($id);
-        return view('abmUser.edit',compact('user'));
+        return view('abmAdmin.edit',compact('user'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Paciente  $paciente
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
     {
         $request->validate([
-            'genero' => 'required|string|max:1',
-            'nacimiento' => 'required|date',
-            'password' => 'required|string|min:6|confirmed',
+            'genero' => 'required',
+            'fechaDeNac' => 'required'
         ]);
 
         $user = User::findOrFail($id);
 
-        $user->update($request->all());
+         $user->update($request->all());
   
-        return redirect()->route('abmUser.index')
-                        ->with('success','Usuario actualizado');
+        return redirect()->route('abmAdmin.index')
+                        ->with('success','No implementado');
     }
 
     /**
@@ -135,23 +120,11 @@ class AbmUserController extends Controller
      * @param  \App\Paciente  $paciente
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(User $user)
     {
-        $user = User::where('id',$id)->first();
-
-        $rol = Rol::where('id', $user['rol_id'])->first();;
-
-        $user->usuario = '';
-        $user->email = null;
-        $user->password = '';
-        $user->status = 'D';
-
-        $rol->type = 3;
-
-        $rol->update();
-        $user->update();
+        $user->update('status','D');
         
-        return redirect()->route('abmUser.index')
+        return redirect()->route('abmAdmin.index')
                            ->with('success','Usuario eliminado correctamente');
     }
 }

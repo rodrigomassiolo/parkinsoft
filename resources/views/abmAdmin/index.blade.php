@@ -2,16 +2,13 @@
 @section('title','Abm Usuarios')
 
 @section('MainContent')
-
-
     <div class="row">
         <div class="col-lg-12 margin-tb">
-            <div class="pull-center">
+            <div class="pull-left">
                 <h2>ABM Usuarios</h2>
             </div>
             <div class="float-right">
-                <a href="{{ route('abmUser.create') }}" class="btn btn-success" >
-                <span data-feather="plus-circle"></span>Crear nuevo usuario</a>
+                <a class="btn btn-success btn-sm" href="{{ route('abmAdmin.create') }}"> Crear usuario</a>
             </div>
         </div>
     </div>
@@ -22,7 +19,7 @@
     </button>
     </p>
         <div class="collapse show" id="filterPanel">
-        <form action="{{ route('abmUser.index') }}" method="GET">
+        <form action="{{ route('abmAdmin.index') }}" method="GET">
         @csrf
   
         <div class="row">
@@ -61,7 +58,7 @@
                         <button type="submit" class="btn btn-primary">Filtrar</button>
                 </div>             
                 </form>
-                    <form action="{{ route('abmUser.index') }}" method="GET">
+                    <form action="{{ route('abmAdmin.index') }}" method="GET">
                     @csrf
                     <div class="col-xs-6 col-sm-6 col-md-6" style="margin-bottom: 1%;">
                         <button type="submit" class="btn btn-primary">Borrar filtros</button>
@@ -86,7 +83,7 @@
             <th>Usuario</th>
             <th>Genero</th>
             <th>Fecha de Nacimiento</th>
-            <th width="320px">Acciones</th>
+            <th width="280px">Acciones</th>
         </tr>
     </thead>
     <tbody>
@@ -98,26 +95,19 @@
             <td>{{ $row->genero}}</td>
             <td>{{ $row->nacimiento}}</td>
             <td>
-                <form action="{{ route('abmUser.destroy',$row->id) }}" method="POST">
+                <form action="{{ route('abmAdmin.destroy',$row->id) }}" method="POST">
    
-                    <a class="btn btn-info btn-sm" href="{{ route('abmUser.show',[$row->id]) }}"
-                    data-toggle="tooltip" title="Mostrar">
-                    <span data-feather="eye"></span>
+                    <a class="btn btn-info btn-sm" href="{{ route('abmAdmin.show',[$row->id]) }}">
+                    <span data-feather="trash"></span>
                         Mostrar
                     </a>
     
-                    <a class="btn btn-primary btn-sm" href="{{ route('abmUser.edit',$row->id) }}" 
-                    data-toggle="tooltip" title="Editar">
-                    <span data-feather="edit"></span>
-                    Editar
-                    </a>
-
+                    <a class="btn btn-primary btn-sm" href="{{ route('abmAdmin.edit',$row->id) }}"><span class=""></span>Editar</a>
+   
                     @csrf
                     @method('DELETE')
       
-                    <button type="submit" class="btn btn-danger btn-sm" data-toggle="tooltip" title="Eliminar">
-                    <span data-feather="trash-2"></span>
-                    Eliminar</button>
+                    <button type="submit" class="btn btn-danger btn-sm"><span class=""></span>Eliminar</button>
                 </form>
             </td>
         </tr>

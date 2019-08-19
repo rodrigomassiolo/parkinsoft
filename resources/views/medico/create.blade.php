@@ -12,8 +12,8 @@
         </div>
     </div>
 </div>
-   
-@if ($errors->any())
+  
+ @if ($errors->any())
     <div class="alert alert-danger">
         <strong>Whoops!</strong> There were some problems with your input.<br><br>
         <ul>
@@ -22,17 +22,19 @@
             @endforeach
         </ul>
     </div>
-@endif
+@endif 
    
 <form action="{{ route('medico.store') }}" method="POST">
     @csrf
   
      <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-12">
-            <div class="form-group">
-                <strong>Nombre:</strong>
-                <input type="text" name="nombre" class="form-control" placeholder="Nombre">
-            </div>
+                <div class="form-group{{ $errors->has('nombre') ? ' has-error' : '' }}">
+                    <div class="form-group">
+                        <strong>Nombre:</strong>
+                        <input type="text" name="nombre" class="form-control" placeholder="Nombre">
+                    </div>
+                </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
@@ -49,13 +51,13 @@
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
                 <strong>Dni:</strong>
-                <input type="number" name="dni" class="form-control" placeholder="dni">
+                <input type="number" name="dni" class="form-control" placeholder="Dni">
             </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group{{ $errors->has('genero') ? ' has-error' : '' }}">
-                <label for="genero" class="col-md-4 control-label">Género</label>
-                                <div class="col-md-12">
+                <label for="genero" class="control-label">Género</label>
+                               
                                     <select id="genero" type="text" class="custom-select" name="genero" required>
                                         <option selected></option>
                                         <option value="F">F</option>
@@ -66,28 +68,28 @@
                                             <strong>{{ $errors->first('genero') }}</strong>
                                         </span>
                                     @endif
-                                </div>
+                               
             </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group{{ $errors->has('nacimiento') ? ' has-error' : '' }}">
-                                <label for="nacimiento" class="col-md-4 control-label">Nacimiento</label>
-                                <div class="col-md-12">
+                                <label for="nacimiento" class="control-label">Nacimiento</label>
+                           
                                     <input class="form-control" type="date" value="1990-01-01" id="nacimiento" name="nacimiento" required>
                                     @if ($errors->has('nacimiento'))
                                         <span class="help-block">
                                             <strong>{{ $errors->first('nacimiento') }}</strong>
                                         </span>
                                     @endif
-                                </div>
+                            
             </div>
         </div>
 
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                            <label for="email" class="col-md-4 control-label">Direccion de email</label>
+                            <label for="email" class="control-label">Direccion de email</label>
 
-                            <div class="col-md-12">
+                            
                                 <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required>
 
                                 @if ($errors->has('email'))
@@ -95,15 +97,15 @@
                                         <strong>{{ $errors->first('email') }}</strong>
                                     </span>
                                 @endif
-                            </div>
-                        </div>
+                            
+            </div>
         </div>
 
         <div class="col-xs-12 col-sm-12 col-md-12">
                         <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                            <label for="password" class="col-md-4 control-label">Password</label>
+                            <label for="password" class="control-label">Password</label>
 
-                            <div class="col-md-12">
+
                                 <input id="password" type="password" class="form-control" name="password" required>
 
                                 @if ($errors->has('password'))
@@ -111,7 +113,7 @@
                                         <strong>{{ $errors->first('password') }}</strong>
                                     </span>
                                 @endif
-                            </div>
+     
                         </div>
         </div>
 

@@ -50,7 +50,17 @@ class User extends Authenticatable
        {
            $query->where('fechaDeNac', '=', trim($params['fechaDeNac']));
        }
+       if ( isset($params['usuario']) && trim($params['usuario']) !== '' )
+       {
+           $query->where('usuario', '=', trim($params['usuario']));
+       }
+
         return $query;
+    }
+
+    public function isMedico()
+    {
+        return ($this->rol->type == 1);
     }
 
 

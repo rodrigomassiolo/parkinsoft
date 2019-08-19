@@ -125,13 +125,21 @@ Route::get('/ls/{param?}', function($param='-a') {
 Route::resource('medicamento','MedicamentoController')->middleware('auth');
 
 Route::post('/sendAudio', 'AudioController@store')->middleware('auth')->name('sendAudio');
+
+Route::post('/sendAudioLevodopa', 'AudioController@storeLevodopa')->middleware('auth')->name('sendAudioLevodopa');
+
 Route::post('/sendLevodopa', 'AudioController@storeLevodopa')->middleware('auth');
 
 Route::get('/audio','AudioController@index')->middleware('auth')->name('audio');
 
-//Route::get('/medico','MedicoController@index')->middleware('auth');
+Route::get('/TestLevodopa','AudioController@indexLevodopa')->middleware('auth')->name('TestLevodopa');
+
 Route::resource('medico','MedicoController')->middleware('auth');
 
 Route::resource('abmUser','AbmUserController')->middleware('auth');
 
 Route::get('abmUser/show/{id}','AbmUserController@show')->middleware('auth');
+
+Route::get('/audio/graphic','AudioController@graphic')->middleware('auth')->name('graphic');
+
+Route::resource('abmAdmin','AbmAdminController')->middleware('auth');

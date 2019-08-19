@@ -20,7 +20,7 @@ class MedicoController extends Controller
 
         session()->flashInput($request->input());
 
-        $medico = Medico::filter($params)->paginate(10);
+        $medico = Medico::filter($params)->where('nombre','<>','')->paginate(10);
 
          return view('medico.index',compact('medico'))
              ->with('i', (request()->input('page', 1) - 1) * 10);
@@ -46,10 +46,22 @@ class MedicoController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nombre' => 'required',
-            'apellido' => 'required',
-            'matricula' => 'required',
-            'dni' => 'required'
+            'matricula' =>  array(
+                'required',
+                'regex:/^[0-9]+$/',
+                'max:10'
+            ),
+            'dni' =>  array(
+                'required',
+                'regex:/^[0-9]+$/',
+                'max:8'
+            ),
+            'nombre' => 'required|string|max:255',
+            'apellido' => 'required|string|max:255',
+            'genero' => 'required|string|max:1',
+            'nacimiento' => 'required|date',
+            'email' => 'required|string|email|max:255|unique:users',
+            'password' => 'required|string|min:6',
         ]);
   
         $make1 = \mb_substr($request['nombre'],0,2);
@@ -84,7 +96,6 @@ class MedicoController extends Controller
 
         return redirect()->route('medico.index')
                         ->with('success','Medico creado correctamente.');
-        
     }
 
     /**
@@ -121,10 +132,18 @@ class MedicoController extends Controller
     {
         
         $request->validate([
-            'nombre' => 'required',
-            'apellido' => 'required',
-            'matricula' => 'required',
-            'dni' => 'required'
+            'matricula' =>  array(
+                'required',
+                'regex:/^[0-9]+$/',
+                'max:10'
+            ),
+            'dni' =>  array(
+                'required',
+                'regex:/^[0-9]+$/',
+                'max:8'
+            ),
+            'nombre' => 'required|string|max:255',
+            'apellido' => 'required|string|max:255'
         ]);
   
         $medico->update($request->all());
@@ -141,17 +160,29 @@ class MedicoController extends Controller
      */
     public function destroy(Medico $medico)
     {
-           $rol = Rol::where('medico_id', $medico['id'])->first();;
 
-           $user = User::where('rol_id',$rol['id'])->first();
+        $rol = Rol::where('medico_id', $medico['id'])->first();;
 
-           $user->delete();
+        $user = User::where('rol_id',$rol['id'])->first();
 
-           $rol->delete();
+        $medico = Medico::where('id',$medico['id'])->first();
 
-           $medico->delete();
+        $medico->nombre = "";
+        $medico->apellido = "";
+        $medico->matricula = "";
+        $medico->dni = "";
 
-           return redirect()->route('medico.index')
-                           ->with('success','Medico eliminado correctamente');
+        $user->usuario = '';
+        $user->email = null;
+        $user->password = '';
+        $user->status = 'D';
+
+        $rol->type = 3;
+
+        $medico->update();
+        $rol->update();
+        $user->update();
+
+        return redirect()->route('medico.index')->with('success','Medico eliminado correctamente');
     }
 }

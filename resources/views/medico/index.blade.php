@@ -1,5 +1,5 @@
 @extends('layouts.BootStrapBody')
-@section('title','medico')
+@section('title','Medico')
 
 @section('MainContent')
 
@@ -10,9 +10,8 @@
                 <h2>ABM Medico</h2>
             </div>
             <div class="float-right">
-            <a href="{{ route('medico.create') }}" class="btn btn-success">
-            <span data-feather="plus-circle"></span> Crear nuevo medico</a>
-                <!-- <a class="btn btn-success btn-sm" href="{{ route('medico.create') }}"> Crear Medico</a> -->
+                <a href="{{ route('medico.create') }}" class="btn btn-success">
+                <span data-feather="plus-circle"></span> Crear nuevo medico</a>
             </div>
         </div>
     </div>
@@ -84,7 +83,7 @@
             <th>Apellido</th>
             <th>Matricula</th>
             <th>Fecha de Creación</th>
-            <th width="280px">Acciones</th>
+            <th width="320px">Acciones</th>
         </tr>
     </thead>
     <tbody>
@@ -101,19 +100,24 @@
                     <a class="btn btn-info btn-sm" href="{{ route('medico.show',$row->id) }}"
                     data-toggle="tooltip" title="Mostrar">
                     <span data-feather="eye"></span>
+                    Mostrar
                     </a>
     
                     <a class="btn btn-primary btn-sm" href="{{ route('medico.edit',$row->id) }}" 
                     data-toggle="tooltip" title="Editar">
                     <span data-feather="edit"></span>
+                    Editar
                     </a>
    
                     @csrf
                     @method('DELETE')
       
                     <button type="submit" class="btn btn-danger btn-sm" data-toggle="tooltip" title="eliminar">
-                    <span data-feather="trash-2"></span></button>
+                    <span data-feather="trash-2"></span>
+                    Eliminar</button>
                 </form>
+
+
             </td>
         </tr>
         @endforeach

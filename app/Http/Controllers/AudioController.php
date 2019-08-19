@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class AudioController extends Controller
 {
@@ -16,6 +17,11 @@ class AudioController extends Controller
         return view('audio.index');
     }
 
+    public function indexLevodopa(Request $request)
+    {
+        return view('audio.indexLevodopa');
+    }
+    
     /**
      * Show the form for creating a new resource.
      *
@@ -112,5 +118,9 @@ class AudioController extends Controller
         return "Ejecutando audios";
     }
 
-
+    public function graphic(){
+        $response = Storage::disk('local')->get('pepe.html');
+        
+        return View('audio.graphic')->with('data',$response);
+    }
 }

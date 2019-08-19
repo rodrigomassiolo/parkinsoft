@@ -24,65 +24,50 @@
         Enviar Mail
       </a>
     </li>
-      
+    <li class="nav-item">
+      <a class="nav-link" href="../audio">
+        <span data-feather="music"></span>
+        Cargar Audio
+      </a>
+    </li>
+    <h5>Deberia ser medico para ver esto</h5>
+    <li class="nav-item">
+      <a class="nav-link" href="../TestLevodopa">
+        <span data-feather="activity"></span> 
+        Test de Levodopa
+      </a>
+    </li>  
+    <li class="nav-item">
+      <a class="nav-link" href="../audio/graphic">  
+        <span data-feather="activity"></span> 
+        Visualizar graficos
+      </a>
+    </li>  
+    <h5>Deberia ser admin para ver esto</h5>
     @if (Auth::user()->rol->type == 2) 
     <li class="nav-item">
       <a class="nav-link" href="../medico">
         <span data-feather="activity"></span>
         ABM Medicos
       </a>
-    </li>
-      <h5>Deberia ser admin para ver esto</h5>
+    </li>  
      @endif 
-     <!-- @if (Auth::user()->id == 1)
+     @if (Auth::user()->rol->type == 2) 
     <li class="nav-item">
-      <a class="nav-link" href="../medico">
-        <span data-feather="activity"></span>
-        ABM Medicos
-      </a>
-    </li>
-     @endif 
-     @if (Auth::user()->id == 1)
-    <li class="nav-item">
-      <a class="nav-link" href="../paciente">
+      <a class="nav-link" href="../abmUser">
         <span data-feather="heart"></span>
-        ABM Pacientes
+        ABM Usuarios
       </a>
     </li>
-     @endif   -->
+     @endif 
+     @if (Auth::user()->rol->type == 2) 
+    <li class="nav-item">
+      <a class="nav-link" href="../abmAdmin">
+        <span data-feather="activity"></span>
+        ABM Administradores
+      </a>
+    </li>
+     @endif  
   </ul>
-<!-- 
-  <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
-    <span>Saved reports</span>
-    <a class="d-flex align-items-center text-muted" href="#">
-      <span data-feather="plus-circle"></span>
-    </a>
-  </h6>
-  <ul class="nav flex-column mb-2">
-    <li class="nav-item">
-      <a class="nav-link" href="#">
-        <span data-feather="file-text"></span>
-        Current month
-      </a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="#">
-        <span data-feather="file-text"></span>
-        Last quarter
-      </a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="#">
-        <span data-feather="file-text"></span>
-        Social engagement
-      </a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="#">
-        <span data-feather="file-text"></span>
-        Year-end sale
-      </a>
-    </li> 
-  </ul>-->
 
 </div>
