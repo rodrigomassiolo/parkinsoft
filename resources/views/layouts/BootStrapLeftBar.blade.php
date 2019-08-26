@@ -68,6 +68,14 @@
       </a>
     </li>
      @endif  
+     @if (Auth::user()->rol->type == 0) 
+    <li class="nav-item">
+      <a class="nav-link" href="../abmEjercicio">
+        <span data-feather="activity"></span>
+        ABM Ejercicios
+      </a>
+    </li>
+     @endif  
   </ul>
 
 </div>

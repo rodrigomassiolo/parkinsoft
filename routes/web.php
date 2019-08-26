@@ -70,13 +70,26 @@ Route::get('/user/delete','UserController@delete')->middleware('auth')->name('us
 // Route::post('/user/deleted','UserController@deleted')->middleware('auth')->name('user/deleted');
 
 Route::get('/deleteUser', function () {
-	$user = App\User::find(Auth::user()->id);
+	//$user = App\User::find(Auth::user()->id);
 
 	Auth::logout();
+
+	$user = User::where('id',Auth::user()->id)->first();
+
+	$rol = Rol::where('id', $user['rol_id'])->first();;
+
+	$user->usuario = '';
+	$user->email = bcrypt($user->email);
+	$user->password = '';
+	$user->status = 'D';
+
+	$rol->type = 3;
+
+	$rol->update();
+	$user->update();
 	
-	if ($user->delete()) {
-		 return Redirect::route('home');
-	}
+	return Redirect::route('home');
+
 })->middleware('auth')->name('/deleteUser');
 
 Route::post('/resetPassword', function (Request $request) {
@@ -143,3 +156,5 @@ Route::get('abmUser/show/{id}','AbmUserController@show')->middleware('auth');
 Route::get('/audio/graphic','AudioController@graphic')->middleware('auth')->name('graphic');
 
 Route::resource('abmAdmin','AbmAdminController')->middleware('auth');
+
+Route::resource('abmEjercicio','AbmEjercicioController')->middleware('auth');

@@ -173,7 +173,7 @@ class MedicoController extends Controller
         $medico->dni = "";
 
         $user->usuario = '';
-        $user->email = null;
+        $user->email = bcrypt($user->email);
         $user->password = '';
         $user->status = 'D';
 

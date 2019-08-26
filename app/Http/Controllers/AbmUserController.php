@@ -17,7 +17,9 @@ class AbmUserController extends Controller
 
         session()->flashInput($request->input());
 
-        $user = User::filter($params)->where('email','<>','')->paginate(10);
+        $user = User::filter($params)->whereHas('rol',function($q){
+            $q->where('type','<>',3);
+        })->paginate(10);
 
          return view('abmUser.index',compact('user'))
              ->with('i', (request()->input('page', 1) - 1) * 10);
@@ -142,7 +144,7 @@ class AbmUserController extends Controller
         $rol = Rol::where('id', $user['rol_id'])->first();;
 
         $user->usuario = '';
-        $user->email = null;
+        $user->email = bcrypt($user->email);
         $user->password = '';
         $user->status = 'D';
 

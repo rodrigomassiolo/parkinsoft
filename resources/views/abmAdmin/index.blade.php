@@ -1,11 +1,11 @@
 @extends('layouts.BootStrapBody')
-@section('title','Abm Usuarios')
+@section('title','Abm Admin')
 
 @section('MainContent')
     <div class="row">
         <div class="col-lg-12 margin-tb">
             <div class="pull-left">
-                <h2>ABM Usuarios</h2>
+                <h2>ABM Admin</h2>
             </div>
             <div class="float-right">
                 <a class="btn btn-success btn-sm" href="{{ route('abmAdmin.create') }}"> Crear usuario</a>

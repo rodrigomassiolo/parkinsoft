@@ -108,10 +108,10 @@ class AbmAdminController extends Controller
 
         $user = User::findOrFail($id);
 
-         $user->update($request->all());
+        $user->update($request->all());
   
         return redirect()->route('abmAdmin.index')
-                        ->with('success','No implementado');
+                        ->with('success','Administrador modificado correctamente');
     }
 
     /**
@@ -120,11 +120,23 @@ class AbmAdminController extends Controller
      * @param  \App\Paciente  $paciente
      * @return \Illuminate\Http\Response
      */
-    public function destroy(User $user)
+    public function destroy($id)
     {
-        $user->update('status','D');
+        $user = User::where('id',$id)->first();
+
+        $rol = Rol::where('id', $user['rol_id'])->first();;
+
+        $user->usuario = '';
+        $user->email = bcrypt($user->email);
+        $user->password = '';
+        $user->status = 'D';
+
+        $rol->type = 3;
+
+        $rol->update();
+        $user->update();
         
         return redirect()->route('abmAdmin.index')
-                           ->with('success','Usuario eliminado correctamente');
+                           ->with('success','Administrador eliminado correctamente');
     }
 }
