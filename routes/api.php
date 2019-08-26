@@ -30,8 +30,8 @@ Route::post('/paciente/update', 'API\\PacienteController@update')->middleware('a
 Route::post('/paciente/destroy/{id}', 'API\\PacienteController@destroy')->middleware('auth:api');
 
 /*Para Medicos*/
-Route::get('/medicoActual', 'API\\medicoController@show')->middleware('auth:api');
-Route::post('/medico', 'API\\medicoController@index')->middleware('auth:api');
-Route::post('/medico/register', 'API\\medicoController@store');
-Route::post('/medico/update', 'API\\medicoController@update')->middleware('auth:api');
-Route::post('/medico/destroy/{id}', 'API\\medicoController@destroy')->middleware('auth:api');
+Route::get('/medicoActual', 'API\\MedicoController@show')->middleware('auth:api');
+Route::post('/medico', 'API\\MedicoController@index')->middleware('auth:api');
+Route::post('/medico/register', 'API\\MedicoController@store');
+Route::post('/medico/update', 'API\\MedicoController@update')->middleware('auth:api');
+Route::post('/medico/destroy/{id}', 'API\\MedicoController@destroy')->middleware('auth:api');
