@@ -15,7 +15,7 @@ class CreateRolTable extends Migration
     {
         Schema::create('rol', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('type'); // 0 admin // 1 medico // 2 paciente
+            $table->integer('type'); // 0 admin // 1 medico // 2 paciente //3 elminado
             $table->integer('medico_id')->nullable()->unsigned();
             $table->foreign('medico_id')->references('id')->on('medico');
             $table->timestamps();

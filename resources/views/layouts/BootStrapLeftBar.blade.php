@@ -44,7 +44,7 @@
       </a>
     </li>  
     <h5>Deberia ser admin para ver esto</h5>
-    @if (Auth::user()->rol->type == 2) 
+    @if (Auth::user()->rol->type == 0) 
     <li class="nav-item">
       <a class="nav-link" href="../medico">
         <span data-feather="activity"></span>
@@ -52,7 +52,7 @@
       </a>
     </li>  
      @endif 
-     @if (Auth::user()->rol->type == 2) 
+     @if (Auth::user()->rol->type == 0) 
     <li class="nav-item">
       <a class="nav-link" href="../abmUser">
         <span data-feather="heart"></span>
@@ -60,7 +60,7 @@
       </a>
     </li>
      @endif 
-     @if (Auth::user()->rol->type == 2) 
+     @if (Auth::user()->rol->type == 0) 
     <li class="nav-item">
       <a class="nav-link" href="../abmAdmin">
         <span data-feather="activity"></span>
