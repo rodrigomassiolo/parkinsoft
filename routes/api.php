@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Auth;
 Route::get('apilogin/{email}/{password}','API\\UsuarioController@apilogin');
 Route::post('/resetPassword','API\\UsuarioController@resetPassword');
 Route::post('/updatePassword','API\\UsuarioController@updatePassword')->middleware('auth:api');
+Route::get('/userActual', 'API\\UsuarioController@show')->middleware('auth:api');
 
 /*Envio de Audios*/
 Route::post('/sendAudio', 'AudioController@store')->middleware('auth:api');

@@ -104,4 +104,16 @@ class UsuarioController extends Controller
         $user->save();
         return "ok";
     }
+
+    public function show(Request $request)
+    {
+        $user = $request->user();
+        $rol = Rol::where('id', $user->rol_id)->first();
+        $user->Rol = $rol;
+        if(isset($rol->medico_id)){
+            $medico = Medico::where('id', $rol->medico_id)->first();
+            $user->Rol->Medico = $medico;
+        }
+        return $user;
+    }
 }
