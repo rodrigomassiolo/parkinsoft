@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\User;
+use App\Rol;
 use Illuminate\Support\Facades\Mail;
 class UsuarioController extends Controller
 {
