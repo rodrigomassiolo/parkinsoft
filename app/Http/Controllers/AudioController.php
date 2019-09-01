@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\DB;
 
 class AudioController extends Controller
 {
@@ -123,4 +124,23 @@ class AudioController extends Controller
         
         return View('audio.graphic')->with('data',$response);
     }
+
+    public function processEnergy(Request $request){//$user_id, $basepath){
+        
+        $user_id = 1; 
+        $basepath = "/home/rodrigomassiolo/energy.csv";
+        $queryCsvDB = "LOAD DATA LOCAL INFILE {$basepath} INTO TABLE ENERGY
+        FIELDS TERMINATED BY ';' 
+        LINES TERMINATED BY '\n'
+        IGNORE 1 ROWS (frameIndex, frameTime, pcm_LOGenergy)
+        SET id = NULL, user_id = {$user_id}, created=NOW();";
+
+        $result = DB::statement($queryCsvDB);
+        return "codigo: ".$result;
+    }
+
+
+
+
+
 }
