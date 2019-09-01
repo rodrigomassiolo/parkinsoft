@@ -129,7 +129,7 @@ class AudioController extends Controller
         
         $user_id = 1; 
         $basepath = "/home/rodrigomassiolo/energy.csv";
-        $queryCsvDB = "LOAD DATA LOCAL INFILE {$basepath} INTO TABLE ENERGY FIELDS TERMINATED BY ';' LINES TERMINATED BY '\n' IGNORE 1 ROWS (frameIndex, frameTime, pcm_LOGenergy)SET id = NULL, user_id = {$user_id}, created=NOW();";
+        $queryCsvDB = "LOAD DATA LOCAL INFILE '{$basepath}' INTO TABLE ENERGY FIELDS TERMINATED BY ';' LINES TERMINATED BY '\n' IGNORE 1 ROWS (frameIndex, frameTime, pcm_LOGenergy)SET id = NULL, user_id = {$user_id}, created=NOW();";
 
         $result = DB::statement($queryCsvDB);
         return "codigo: ".$result;
