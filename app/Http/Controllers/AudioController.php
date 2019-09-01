@@ -128,7 +128,7 @@ class AudioController extends Controller
     public function processEnergy(Request $request){//$user_id, $basepath){
         $user_id = 1; 
         $basepath = "/home/rodrigomassiolo/energy.csv";
-        exec("/var/www/html/parkinsoft/scripts/csvtodb.sh {$basepath} {$user_id}",$lineasLn);
+        exec("/var/www/html/parkinsoft/scripts/csvtodb.sh",$lineasLn);
         $resultado = '';
         foreach($lineasLn as $linea){
         $resultado = $resultado.$linea.'<br>';
