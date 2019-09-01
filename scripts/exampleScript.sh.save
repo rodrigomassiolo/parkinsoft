@@ -1,0 +1,7 @@
+#!/bin/bash
+function retorna_texto() {
+ls -l
+}
+VALOR=$( retorna_texto $1)
+echo $VALOR
+exit
