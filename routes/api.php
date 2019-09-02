@@ -23,9 +23,9 @@ Route::get('/userActual', 'API\\UsuarioController@show')->middleware('auth:api')
 Route::post('/sendAudio', 'AudioController@store')->middleware('auth:api');
 Route::post('/sendLevodopa', 'AudioController@storeLevodopa')->middleware('auth:api');
 
-Route::get('/ffmpeg/{path}/{name}/{extens}', 'AudioController@ffmpeg');
-Route::get('/openSmile/{openSmileScript}/{path}/{name}', 'AudioController@openSmile');
-Route::get('/csvToDB/{csvToDBScript}/{user_id}/{path}/{name}', 'AudioController@csvToDB');
+Route::get('/ffmpeg','AudioController@ffmpeg');
+Route::get('/openSmile', 'AudioController@openSmile');
+Route::get('/csvToDB', 'AudioController@csvToDB');
 
 /*Para Pacientes*/
 Route::get('/pacienteActual', 'API\\PacienteController@show')->middleware('auth:api');

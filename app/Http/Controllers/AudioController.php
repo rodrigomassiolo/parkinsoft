@@ -135,21 +135,30 @@ class AudioController extends Controller
         return View('audio.graphic')->with('data',$response);
     }
     public function ffmpeg($path,$name,$extens){
-        $audioPath = $path.$name.'.'.$extens;
-        $wavPath = $path.$name.'.wav';
-        $exec = "/var/www/html/parkinsoft/scripts/ffmpeg.sh".$audioPath ." ".$wavPath;
+
+        //$audioPath = $path.$name.'.'.$extens;
+        //$wavPath = $path.$name.'.wav';
+        $audioPath ='/var/www/html/parkinsoft/public/uploads/audios/adhi456/20190902.wav';
+        $wavPath    ='/var/www/html/parkinsoft/public/uploads/audios/adhi456/20190902.wav';
+        $exec = "/var/www/html/parkinsoft/scripts/ffmpeg.sh ".$audioPath ." ".$wavPath;
         exec($exec);
         return $exec;
     }
     public function openSmile($openSmileScript,$path,$name){
-        $wavPath = $path.$name.'.wav';
-        $csvPath = $path.$name.'.csv';
+        //$wavPath = $path.$name.'.wav';
+        //$csvPath = $path.$name.'.csv';
+        $openSmileScript = "openSmileEnergy.sh";
+        $wavPath ='/var/www/html/parkinsoft/public/uploads/audios/adhi456/20190902.wav';
+        $csvPath ='/var/www/html/parkinsoft/public/uploads/audios/adhi456/20190902.csv';
         $exec = "/var/www/html/parkinsoft/scripts/".$openSmileScript." ".$wavPath ." ".$csvPath;
         exec($exec);
         return $exec;
     }
     public function csvToDB($csvToDBScript,$user_id, $path,$name){
-        $csvpath = $path.$name.'.csv';
+        //$csvpath = $path.$name.'.csv';
+        $csvToDBScript = "csvToDBEnergy.sh";
+        $user_id = 1;
+        $csvPath ='/var/www/html/parkinsoft/public/uploads/audios/adhi456/20190902.csv';
         $exec = "/var/www/html/parkinsoft/scripts/".$csvToDBScript." ".$csvpath ." ".$user_id;
         exec($exec);
         return $exec;
