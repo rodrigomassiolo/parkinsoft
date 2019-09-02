@@ -129,8 +129,8 @@ class AudioController extends Controller
         $user_id = 1; 
         $basepath = "/home/rodrigomassiolo/energy.csv";
         $exec = "/var/www/html/parkinsoft/scripts/csvtodb.sh ".$basepath ." ".$user_id;
-        exec($exec,$lineasLn);
-        return 'ok';
+        exec($exec);
+        return $exec;
     }
 
 
