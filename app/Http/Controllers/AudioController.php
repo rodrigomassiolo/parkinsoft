@@ -139,7 +139,7 @@ class AudioController extends Controller
         //$audioPath = $path.$name.'.'.$extens;
         //$wavPath = $path.$name.'.wav';
         $audioPath ='/var/www/html/parkinsoft/public/uploads/audios/adhi456/20190902.wav';
-        $wavPath    ='/var/www/html/parkinsoft/public/uploads/audios/adhi456/20190902.wav';
+        $wavPath    ='/var/www/html/parkinsoft/public/uploads/audios/adhi456/20190904.wav';
         $exec = "/var/www/html/parkinsoft/scripts/ffmpeg.sh ".$audioPath ." ".$wavPath;
         exec($exec);
         return $exec;
