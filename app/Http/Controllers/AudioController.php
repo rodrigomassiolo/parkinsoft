@@ -131,13 +131,6 @@ class AudioController extends Controller
         $exec = "/var/www/html/parkinsoft/scripts/csvtodb.sh ".$basepath ." ".$user_id;
         exec($exec,$lineasLn);
         return 'ok';
-
-            
-
-        $queryCsvDB = "LOAD DATA LOCAL INFILE '{$basepath}' INTO TABLE ENERGY FIELDS TERMINATED BY ';' LINES TERMINATED BY '\\n' IGNORE 1 ROWS (frameIndex, frameTime, pcm_LOGenergy) SET id = NULL, user_id = {$user_id}, created=NOW();";
-
-        $result = DB::statement( DB::raw($queryCsvDB) );
-        return "codigo: ".$result;
     }
 
 
