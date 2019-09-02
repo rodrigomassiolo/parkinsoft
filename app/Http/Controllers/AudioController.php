@@ -73,6 +73,8 @@ class AudioController extends Controller
             $this->ffmpeg($path,$name,$extens);
         }
         $this->openSmile("openSmileEnergy.sh",$path,$name);
+
+        $user_id = $request->user()->id;
         $this->csvToDB("csvToDBEnergy.sh",$user_id,$path,$name);
 
         return "Ejecutando audio";
