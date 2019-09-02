@@ -143,7 +143,7 @@ class AudioController extends Controller
     }
     public function openSmile($openSmileScript,$path,$name){
         $wavPath = $path.$name.'.wav';
-        $csvPath = $name.'.csv';
+        $csvPath = $path.$name.'.csv';
         $exec = "/var/www/html/parkinsoft/scripts/".$openSmileScript." ".$wavPath ." ".$csvPath;
         exec($exec);
         return $exec;
