@@ -65,7 +65,15 @@ class AudioController extends Controller
     
         $usr_folder = $request->user()->usuario;
         $path = public_path() . '/uploads/audios/'.$usr_folder.'/';
-        $file->move($path, date("Ymd").'.'.$extens);
+        $name = date("Ymd");
+        $filename = $name.'.'.$extens;
+        $file->move($path, $filename);
+
+        if($extens != 'wav'){
+            $this->ffmpeg($path,$name,$extens);
+        }
+        $this->openSmile("openSmileEnergy.sh",$path,$name);
+        $this->csvToDB("csvToDBEnergy.sh",$user_id,$path,$name);
 
         return "Ejecutando audio";
     }
@@ -124,11 +132,23 @@ class AudioController extends Controller
         
         return View('audio.graphic')->with('data',$response);
     }
-
-    public function processEnergy(Request $request){//$user_id, $basepath){
-        $user_id = 1; 
-        $basepath = "/home/rodrigomassiolo/energy.csv";
-        $exec = "/var/www/html/parkinsoft/scripts/csvtodb.sh ".$basepath ." ".$user_id;
+    public function ffmpeg($path,$name,$extens){
+        $audioPath = $path.$name.'.'.$extens;
+        $wavPath = $path.$name.'.wav';
+        $exec = "/var/www/html/parkinsoft/scripts/ffmpeg.sh".$audioPath ." ".$wavPath;
+        exec($exec);
+        return $exec;
+    }
+    public function openSmile($openSmileScript,$path,$name){
+        $wavPath = $path.$name.'.wav';
+        $csvPath = $path.$name.'.csv';
+        $exec = "/var/www/html/parkinsoft/scripts/".$openSmileScript." ".$wavPath ." ".$csvPath;
+        exec($exec);
+        return $exec;
+    }
+    public function csvToDB($csvToDBScript,$user_id, $path,$name){
+        $csvpath = $path.$name.'.csv';
+        $exec = "/var/www/html/parkinsoft/scripts/".$csvToDBScript." ".$csvpath ." ".$user_id;
         exec($exec);
         return $exec;
     }
