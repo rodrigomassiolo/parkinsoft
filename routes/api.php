@@ -22,7 +22,6 @@ Route::get('/userActual', 'API\\UsuarioController@show')->middleware('auth:api')
 /*Envio de Audios*/
 Route::post('/sendAudio', 'AudioController@store')->middleware('auth:api');
 Route::post('/sendLevodopa', 'AudioController@storeLevodopa')->middleware('auth:api');
-Route::get('/processEnergy', 'AudioController@processEnergy');
 
 
 /*Para Pacientes*/
