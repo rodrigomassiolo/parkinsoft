@@ -134,7 +134,7 @@ class AudioController extends Controller
         
         return View('audio.graphic')->with('data',$response);
     }
-    public function ffmpeg($path,$name,$extens){
+    public function ffmpeg($path="",$name="",$extens=""){
 
         //$audioPath = $path.$name.'.'.$extens;
         //$wavPath = $path.$name.'.wav';
@@ -144,7 +144,7 @@ class AudioController extends Controller
         exec($exec);
         return $exec;
     }
-    public function openSmile($openSmileScript,$path,$name){
+    public function openSmile($openSmileScript="",$path="",$name=""){
         //$wavPath = $path.$name.'.wav';
         //$csvPath = $path.$name.'.csv';
         $openSmileScript = "openSmileEnergy.sh";
@@ -154,7 +154,7 @@ class AudioController extends Controller
         exec($exec);
         return $exec;
     }
-    public function csvToDB($csvToDBScript,$user_id, $path,$name){
+    public function csvToDB($csvToDBScript="",$user_id="", $path="",$name=""){
         //$csvpath = $path.$name.'.csv';
         $csvToDBScript = "csvToDBEnergy.sh";
         $user_id = 1;
