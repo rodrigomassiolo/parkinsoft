@@ -72,10 +72,18 @@ class AudioController extends Controller
         if($extens != 'wav'){
             $this->ffmpeg($path,$name,$extens);
         }
-        $this->openSmile("openSmileEnergy.sh",$path,$name);
+        $this->openSmile("openSmileEnergy",$path,$name);
+        $this->openSmile("openSmileEGMaps",$path,$name);
+        $this->openSmile("openSmileChroma",$path,$name);
+        $this->openSmile("openSmileAudspec",$path,$name);
+        $this->openSmile("openSmileProsodyAcf",$path,$name);
 
         $user_id = $request->user()->id;
-        $this->csvToDB("csvToDBEnergy.sh",$user_id,$path,$name);
+        $this->csvToDB("csvToDBEnergy.sh","openSmileEnergy",$user_id,$path,$name);
+        $this->csvToDB("csvToDBEGMaps.sh","openSmileEGMaps",$user_id,$path,$name);
+        $this->csvToDB("csvToDBChroma.sh","openSmileChroma",$user_id,$path,$name);
+        $this->csvToDB("csvToDBAudspec.sh","openSmileAudspec",$user_id,$path,$name);
+        $this->csvToDB("csvToDBProsodyAcf.sh","openSmileProsodyAcf",$user_id,$path,$name);
 
         return "Ejecutando audio";
     }
@@ -146,16 +154,16 @@ class AudioController extends Controller
     }
     public function openSmile($openSmileScript,$path,$name){
         $wavPath = $path.$name.'.wav';
-        $csvPath = $path.$name.'.csv';
-       //$openSmileScript = "openSmileEnergy.sh";
+        $csvPath = $path.$name.$openSmileScript.'.csv';
+       //$openSmileScript = "openSmileEnergy";
        //$wavPath ='/var/www/html/parkinsoft/public/uploads/audios/adhi456/20190902.wav';
        //$csvPath ='/var/www/html/parkinsoft/public/uploads/audios/adhi456/20190902.csv';
-        $exec = "/var/www/html/parkinsoft/scripts/".$openSmileScript." ".$wavPath ." ".$csvPath;
+        $exec = "/var/www/html/parkinsoft/scripts/".$openSmileScript.".sh ".$wavPath ." ".$csvPath;
         exec($exec);
         return $exec;
     }
-    public function csvToDB($csvToDBScript,$user_id, $path,$name){
-        $csvPath = $path.$name.'.csv';
+    public function csvToDB($csvToDBScript,$openSmileScript,$user_id, $path,$name){
+        $csvPath = $path.$name.$openSmileScript.'.csv';
         //$csvToDBScript = "csvToDBEnergy.sh";
         //$user_id = 1;
         //$csvPath ='/var/www/html/parkinsoft/public/uploads/audios/adhi456/20190902.csv';
