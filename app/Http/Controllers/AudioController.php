@@ -155,11 +155,11 @@ class AudioController extends Controller
         return $exec;
     }
     public function csvToDB($csvToDBScript="",$user_id="", $path="",$name=""){
-        //$csvpath = $path.$name.'.csv';
+        //$csvPath = $path.$name.'.csv';
         $csvToDBScript = "csvToDBEnergy.sh";
         $user_id = 1;
         $csvPath ='/var/www/html/parkinsoft/public/uploads/audios/adhi456/20190902.csv';
-        $exec = "/var/www/html/parkinsoft/scripts/".$csvToDBScript." ".$csvpath ." ".$user_id;
+        $exec = "/var/www/html/parkinsoft/scripts/".$csvToDBScript." ".$csvPath ." ".$user_id;
         exec($exec);
         return $exec;
     }
