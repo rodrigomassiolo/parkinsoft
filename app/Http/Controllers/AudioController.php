@@ -72,6 +72,9 @@ class AudioController extends Controller
         if($extens != 'wav'){
             $this->ffmpeg($path,$name,$extens);
         }
+
+        exec("/var/www/html/parkinsoft/scripts/clearTables.sh"); //eliminar cuando parametricemos ejercicios
+
         $this->openSmile("openSmileEnergy",$path,$name);
         $this->openSmile("openSmileEGMaps",$path,$name);
         $this->openSmile("openSmileChroma",$path,$name);
@@ -85,6 +88,9 @@ class AudioController extends Controller
         $this->csvToDB("csvToDBAudspec.sh","openSmileAudspec",$user_id,$path,$name);
         $this->csvToDB("csvToDBProsodyAcf.sh","openSmileProsodyAcf",$user_id,$path,$name);
 
+        $this->plotRmd('pdf_document', $path.$name.".pdf");
+        //$this->plotRmd('html_document', $path.$name.".html");
+        return response()->download(storage_path($path.$name.".html"));
         return "Ejecutando audio";
     }
     public function storeLevodopa(Request $request)
@@ -168,6 +174,12 @@ class AudioController extends Controller
         //$user_id = 1;
         //$csvPath ='/var/www/html/parkinsoft/public/uploads/audios/adhi456/20190902.csv';
         $exec = "/var/www/html/parkinsoft/scripts/".$csvToDBScript." ".$csvPath ." ".$user_id;
+        exec($exec);
+        return $exec;
+    }
+    public function plotRmd($tipoSalida, $pathsalida){
+        //$tipoSalida ['html_document', 'pdf_document']
+        $exec = "/var/www/html/parkinsoft/scripts/knit.R /var/www/html/parkinsoft/scripts/plot.Rmd"." ".$tipoSalida ." ".$pathsalida;
         exec($exec);
         return $exec;
     }
