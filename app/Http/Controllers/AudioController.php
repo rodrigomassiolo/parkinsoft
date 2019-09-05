@@ -90,7 +90,7 @@ class AudioController extends Controller
 
         $this->plotRmd('pdf_document', $path.$name.".pdf");
         //$this->plotRmd('html_document', $path.$name.".html");
-        return response()->download(storage_path($path.$name.".html"));
+        return response()->download(storage_path('../public/uploads/audios/'.$usr_folder.'/'.$name.'.pdf'));
         return "Ejecutando audio";
     }
     public function storeLevodopa(Request $request)
@@ -179,7 +179,7 @@ class AudioController extends Controller
     }
     public function plotRmd($tipoSalida, $pathsalida){
         //$tipoSalida ['html_document', 'pdf_document']
-        $exec = "/var/www/html/parkinsoft/scripts/knit.R /var/www/html/parkinsoft/scripts/plot.Rmd"." ".$tipoSalida ." ".$pathsalida;
+        $exec = "Rscript /var/www/html/parkinsoft/scripts/knit.R /var/www/html/parkinsoft/scripts/plot.Rmd"." ".$tipoSalida ." ".$pathsalida;
         exec($exec);
         return $exec;
     }
