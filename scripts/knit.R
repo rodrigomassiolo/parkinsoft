@@ -4,6 +4,7 @@ args <- commandArgs(trailingOnly = TRUE)
 rmarkdown::render(
                   args[1],#path archivo Rmd a procesar
                   args[2],#pdf_document o html_document
+                  params = list ( data=args ),
                   #params = list (
                   #               ejercicio = args[4],
                   #               user = args[5]
