@@ -30,7 +30,7 @@
         Cargar Audio
       </a>
     </li>
-    <h5>Deberia ser medico para ver esto</h5>
+    <!-- <h5>Deberia ser medico para ver esto</h5> -->
     <li class="nav-item">
       <a class="nav-link" href="../TestLevodopa">
         <span data-feather="activity"></span> 
@@ -43,7 +43,7 @@
         Visualizar graficos
       </a>
     </li>  
-    <h5>Deberia ser admin para ver esto</h5>
+    <!-- <h5>Deberia ser admin para ver esto</h5> -->
     @if (Auth::user()->rol->type == 0) 
     <li class="nav-item">
       <a class="nav-link" href="../medico">

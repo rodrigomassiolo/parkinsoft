@@ -17,6 +17,7 @@
   <script src="{{ asset('js/feather.min.js') }}"></script>
   <script src="{{ asset('js/Chart.min.js') }}"></script>
   <script src="{{ asset('js/dashboard.js') }}"></script>
+  <script type="text/javascript" src="{{ asset('js/listaDeEjercicios.js') }}"></script>
 
 </body>
 

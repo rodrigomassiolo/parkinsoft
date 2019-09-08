@@ -158,3 +158,8 @@ Route::get('/audio/graphic','AudioController@graphic')->middleware('auth')->name
 Route::resource('abmAdmin','AbmAdminController')->middleware('auth');
 
 Route::resource('abmEjercicio','AbmEjercicioController')->middleware('auth');
+
+Route::get('/listaDeEjercicios','PacienteEjercicioController@index')->middleware('auth')->name('listaDeEjercicios');
+
+Route::get('/listaDeEjercicios/show/{id}','PacienteEjercicioController@show')->middleware('auth');
+Route::get('/listaDeEjercicios/download/{id}','PacienteEjercicioController@download')->middleware('auth');
