@@ -14,7 +14,7 @@ library(knitr)
 library(DBI)
 mydb <- dbConnect(RMySQL::MySQL(),user='higia',password='Server123',dbname='parkinsoft', host='localhost') 
 
-#Chroma
+#CHROMA###########################################################################################################################################
 datosChroma <- dbReadTable(mydb,"CHROMA") 
 datosChroma <- datosChroma[,5:16]
 resultado <- expand.grid(Tiempo_segundos = seq(0,(nrow(datosChroma)-1)/100,0.01),Tono = c('C', 'C#', 'D', 'D#', 'E' ,'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'))
@@ -45,20 +45,20 @@ resultadoMMM <- data.frame(Tono = c('C', 'C#', 'D', 'D#', 'E' ,'F', 'F#', 'G', '
 chromaMax <- ggplot(data = resultadoMMM ,aes(x= Tono,y=Max,fill = Max)) + geom_bar(stat = "identity") + labs(title='Maximo')
 chromaMean <-ggplot(data = resultadoMMM ,aes(x= Tono,y=Media,fill = Media)) + geom_bar(stat = "identity") + labs(title='Media')
 chromaMin <- ggplot(data = resultadoMMM ,aes(x= Tono,y=Min,fill = Min)) + geom_bar(stat = "identity") + labs(title='Minimo')
-
-
-##energy###########################################################################################################################################
-#
-#datos <- dbReadTable(mydb,"ENERGY")
-#datos <- datos[,4:ncol(datos)]
-#datos2 <- data.frame(tiempo=c(datos$frameTime),LogEnergy=c(datos$pcm_LOGenergy))
-#datosEnergy <- datos2
-#energygraph <- ggplot(datos2,aes(x=tiempo,y=LogEnergy))+geom_line()+ geom_hline(yintercept=max(datos2$LogEnergy), linetype="dashed", color = "red") + 
-#  geom_hline(yintercept=min(datos2$LogEnergy), linetype="dashed", color = "blue") + geom_hline(yintercept=mean(datos2$LogEnergy), linetype="dashed", color = "green") +
-#  scale_y_continuous(breaks=seq(round(min(datos2$LogEnergy)), round(max(datos2$LogEnergy)), 1)) + labs(title='Energia de la voz')
 ###################################################################################################################################################
 
-#audspect###########################################################################################################################################
+#ENERGY###########################################################################################################################################
+
+datos <- dbReadTable(mydb,"ENERGY")
+datos <- datos[,4:ncol(datos)]
+datos2 <- data.frame(tiempo=c(datos$frameTime),LogEnergy=c(datos$pcm_LOGenergy))
+datosEnergy <- datos2
+energygraph <- ggplot(datos2,aes(x=tiempo,y=LogEnergy))+geom_line()+ geom_hline(yintercept=max(datos2$LogEnergy), linetype="dashed", color = "red") + 
+  geom_hline(yintercept=min(datos2$LogEnergy), linetype="dashed", color = "blue") + geom_hline(yintercept=mean(datos2$LogEnergy), linetype="dashed", color = "green") +
+  scale_y_continuous(breaks=seq(round(min(datos2$LogEnergy)), round(max(datos2$LogEnergy)), 1)) + labs(title='Energia de la voz')
+###################################################################################################################################################
+
+#AUDSPEC###########################################################################################################################################
 #datos <- dbReadTable(mydb,"AUDSPEC")
 #datos <- datos[,4:ncol(datos)]
 #resultadoAudspect <- expand.grid(Tiempo_segundos = seq(0,(nrow(datos)-1)/100,0.01),Espectro = seq(0,25,1))
@@ -67,7 +67,8 @@ chromaMin <- ggplot(data = resultadoMMM ,aes(x= Tono,y=Min,fill = Min)) + geom_b
 ##audspectgraph <- ggplot(resultadoAudspect, aes(Tiempo_segundos, Espectro, z= intensidad)) + geom_tile(aes(fill = intensidad)) + theme_bw() + labs(title='AudSpect') + scale_fill_gradient(low="black", high="blue") 
 ####################################################################################################################################################
 
-##F0 con probabilidad######################################################################################################################
+##PROSODY############################################################################################################################
+#F0 con probabilidad
 #datos = dbReadTable(mydb,"PROSODY")
 #datos <- datos[,4:ncol(datos)]
 #
@@ -97,7 +98,8 @@ chromaMin <- ggplot(data = resultadoMMM ,aes(x= Tono,y=Min,fill = Min)) + geom_b
 #  labs(x="Frames",y="Hertz",col = "Leyenda",title = "F0 y Volumen")
 ##############################################################################################################################################
 
-##Formantes######################################################################################################################
+##EGEMAPS######################################################################################################################
+##Formantes
 #datos = dbReadTable(mydb,"EGEMAPS")
 #
 #xs   <- seq(-2*pi,0,pi/100)
@@ -130,6 +132,7 @@ dbDisconnect(mydb)
 
 
 ```{r pressure, echo=FALSE}
+#CHROMA######################################################################################
 plot(chromagraph)
 
 kable(datosChroma[1:70,],caption="Tabla de los valores del chroma")
@@ -141,24 +144,34 @@ plot(chromaMax)
 plot(chromaMean)
 plot(chromaMin)
 kable(resultadoMMM[1:12,],caption="Tabla de los valores del Altas, media y baja del Chroma")
+#############################################################################################
 
-#plot(energygraph)
-#kable(datosEnergy[1:70,],caption="Tabla de los valores del Energy")
-#
+#ENERGY######################################################################################
+plot(energygraph)
+kable(datosEnergy[1:70,],caption="Tabla de los valores del Energy")
+#############################################################################################
+
+#AUDSPEC#####################################################################################
 #plot(audspectgraph)
 #kable(resultadoAudspect[1:70,],caption="Tabla de los valores del AudSpect")
-#
+#############################################################################################
+
+##PROSODY####################################################################################
 #plot(F0_Prob)
 #
 #plot(F0_Volumen)
 #kable(resultado2F0_Vol_Prob[1:70,],caption="Tabla de los valores del F0 y Volumen")
-#
+#############################################################################################
+
+##EGEMAPS####################################################################################
+##Formantes
 #plot(formanteGraph)
 #kable(resultado[1:70,],caption="Tabla de los valores del Formantes")
 #kable(resumeneGemaps[1:8,],caption="Tabla de los valores del eGemaps")
 #
 #plot(vowelGraph)
 #kable(vowel[1:16,],caption="Tabla de los valores del Vowel")
+#############################################################################################
 ```
 
 
