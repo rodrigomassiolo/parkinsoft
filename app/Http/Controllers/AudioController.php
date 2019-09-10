@@ -88,9 +88,9 @@ class AudioController extends Controller
         $this->csvToDB("csvToDBAudspec.sh","openSmileAudspec",$user_id,$path,$name);
         $this->csvToDB("csvToDBProsodyAcf.sh","openSmileProsodyAcf",$user_id,$path,$name);
 
-        $this->plotRmd('pdf_document', $path.$name.".pdf");
+        $this->plotRmd('html_document', $path.$name.".pdf");
         //$this->plotRmd('html_document', $path.$name.".html");
-        return response()->download('/var/www/html/parkinsoft/public/uploads/audios/'.$usr_folder.'/'.$name.'.pdf');
+        return response()->download('/var/www/html/parkinsoft/public/uploads/audios/'.$usr_folder.'/'.$name.'.html');
         return "Ejecutando audio";
     }
     public function storeLevodopa(Request $request)
