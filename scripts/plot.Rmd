@@ -59,12 +59,12 @@ energygraph <- ggplot(datos2,aes(x=tiempo,y=LogEnergy))+geom_line()+ geom_hline(
 ###################################################################################################################################################
 
 #AUDSPEC###########################################################################################################################################
-#datos <- dbReadTable(mydb,"AUDSPEC")
-#datos <- datos[,4:ncol(datos)]
-#resultadoAudspect <- expand.grid(Tiempo_segundos = seq(0,(nrow(datos)-1)/100,0.01),Espectro = seq(0,25,1))
-#resultadoAudspect$intensidad <- unlist(datos[,3:28],use.names=FALSE)
-#audspectgraph <- ggplot(resultadoAudspect, aes(Tiempo_segundos, Espectro, z= intensidad)) + geom_tile(aes(fill = intensidad)) + theme_bw() + labs(title='AudSpect')
-##audspectgraph <- ggplot(resultadoAudspect, aes(Tiempo_segundos, Espectro, z= intensidad)) + geom_tile(aes(fill = intensidad)) + theme_bw() + labs(title='AudSpect') + scale_fill_gradient(low="black", high="blue") 
+datos <- dbReadTable(mydb,"AUDSPEC")
+datos <- datos[,4:ncol(datos)]
+resultadoAudspect <- expand.grid(Tiempo_segundos = seq(0,(nrow(datos)-1)/100,0.01),Espectro = seq(0,25,1))
+resultadoAudspect$intensidad <- unlist(datos[,3:28],use.names=FALSE)
+audspectgraph <- ggplot(resultadoAudspect, aes(Tiempo_segundos, Espectro, z= intensidad)) + geom_tile(aes(fill = intensidad)) + theme_bw() + labs(title='AudSpect')
+#audspectgraph <- ggplot(resultadoAudspect, aes(Tiempo_segundos, Espectro, z= intensidad)) + geom_tile(aes(fill = intensidad)) + theme_bw() + labs(title='AudSpect') + scale_fill_gradient(low="black", high="blue") 
 ####################################################################################################################################################
 
 ##PROSODY############################################################################################################################
@@ -152,8 +152,8 @@ kable(datosEnergy[1:70,],caption="Tabla de los valores del Energy")
 #############################################################################################
 
 #AUDSPEC#####################################################################################
-#plot(audspectgraph)
-#kable(resultadoAudspect[1:70,],caption="Tabla de los valores del AudSpect")
+plot(audspectgraph)
+kable(resultadoAudspect[1:70,],caption="Tabla de los valores del AudSpect")
 #############################################################################################
 
 ##PROSODY####################################################################################
