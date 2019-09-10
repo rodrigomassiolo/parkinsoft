@@ -1,6 +1,7 @@
 ##To call this --> Rscript --vanilla params.R '../rmd.Rmd' 'pdf_document' '../archivo.pdf' 1 123
 ##To call this --> Rscript --vanilla params.R '../rmd.Rmd' 'html_document' '..pagina.html' ejemplo 123
 args <- commandArgs(trailingOnly = TRUE)
+Sys.setenv(HOME = "/home/rodrigomassiolo")
 rmarkdown::render(
                   args[1],#path archivo Rmd a procesar
                   args[2],#pdf_document o html_document
