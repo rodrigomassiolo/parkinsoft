@@ -68,34 +68,34 @@ audspectgraph <- ggplot(resultadoAudspect, aes(Tiempo_segundos, Espectro, z= int
 ####################################################################################################################################################
 
 ##PROSODY############################################################################################################################
-#F0 con probabilidad
-#datos = dbReadTable(mydb,"PROSODY")
-#datos <- datos[,4:ncol(datos)]
-#
-##paso los datos a un data frame
-#resultado <- expand.grid(frame =datos$frame)
-#resultado$F0_sma = unlist( datos$F0_sma)
-#resultado$voiceProb =unlist( datos$voiceProb_sma)
-#resultado$loudness = log(unlist( datos$pcm_loudness_sma))
-#
-##copio para poder alterar los valores
-#resultado2F0_Vol_Prob <- resultado
-#
-##Busco el efecto de que tengan la misma proporción
-#resultado2F0_Vol_Prob$voiceProb = resultado2F0_Vol_Prob$voiceProb * max(resultado$F0_sma)
-#
-##grafico probabilidad
-#F0_Prob = ggplot(resultado2F0_Vol_Prob, aes(frame))+
-#  geom_line(aes(y=resultado2F0_Vol_Prob$F0_sma,col="F0")) +
-#  geom_line(aes(y=resultado2F0_Vol_Prob$voiceProb,col="Proba. de voz")) +
-#  geom_hline(yintercept=max(resultado2F0_Vol_Prob$F0_sma), linetype="dashed", color = "blue")+
-#  labs(x="Frames",y="Hertz",col = "Leyenda",title = "F0 y probabilidad de voz")
-#
-##Grafico Volumen y F0
-#F0_Volumen = ggplot(resultado2F0_Vol_Prob, aes(frame))+
-#  geom_line(aes(y=resultado2F0_Vol_Prob$F0_sma,col="F0")) +
-#  geom_line(aes(y=resultado2F0_Vol_Prob$loudness,col="Volumen")) +
-#  labs(x="Frames",y="Hertz",col = "Leyenda",title = "F0 y Volumen")
+F0 con probabilidad
+datos = dbReadTable(mydb,"PROSODY")
+datos <- datos[,4:ncol(datos)]
+
+#paso los datos a un data frame
+resultado <- expand.grid(frame =datos$frame)
+resultado$F0_sma = unlist( datos$F0_sma)
+resultado$voiceProb =unlist( datos$voiceProb_sma)
+resultado$loudness = log(unlist( datos$pcm_loudness_sma))
+
+#copio para poder alterar los valores
+resultado2F0_Vol_Prob <- resultado
+
+#Busco el efecto de que tengan la misma proporción
+resultado2F0_Vol_Prob$voiceProb = resultado2F0_Vol_Prob$voiceProb * max(resultado$F0_sma)
+
+#grafico probabilidad
+F0_Prob = ggplot(resultado2F0_Vol_Prob, aes(frame))+
+  geom_line(aes(y=resultado2F0_Vol_Prob$F0_sma,col="F0")) +
+  geom_line(aes(y=resultado2F0_Vol_Prob$voiceProb,col="Proba. de voz")) +
+  geom_hline(yintercept=max(resultado2F0_Vol_Prob$F0_sma), linetype="dashed", color = "blue")+
+  labs(x="Frames",y="Hertz",col = "Leyenda",title = "F0 y probabilidad de voz")
+
+#Grafico Volumen y F0
+F0_Volumen = ggplot(resultado2F0_Vol_Prob, aes(frame))+
+  geom_line(aes(y=resultado2F0_Vol_Prob$F0_sma,col="F0")) +
+  geom_line(aes(y=resultado2F0_Vol_Prob$loudness,col="Volumen")) +
+  labs(x="Frames",y="Hertz",col = "Leyenda",title = "F0 y Volumen")
 ##############################################################################################################################################
 
 ##EGEMAPS######################################################################################################################
@@ -156,11 +156,11 @@ plot(audspectgraph)
 kable(resultadoAudspect[1:70,],caption="Tabla de los valores del AudSpect")
 #############################################################################################
 
-##PROSODY####################################################################################
-#plot(F0_Prob)
-#
-#plot(F0_Volumen)
-#kable(resultado2F0_Vol_Prob[1:70,],caption="Tabla de los valores del F0 y Volumen")
+#PROSODY####################################################################################
+plot(F0_Prob)
+
+plot(F0_Volumen)
+kable(resultado2F0_Vol_Prob[1:70,],caption="Tabla de los valores del F0 y Volumen")
 #############################################################################################
 
 ##EGEMAPS####################################################################################
