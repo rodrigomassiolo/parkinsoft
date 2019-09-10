@@ -68,7 +68,7 @@ audspectgraph <- ggplot(resultadoAudspect, aes(Tiempo_segundos, Espectro, z= int
 ####################################################################################################################################################
 
 ##PROSODY############################################################################################################################
-F0 con probabilidad
+#F0 con probabilidad
 datos = dbReadTable(mydb,"PROSODY")
 datos <- datos[,4:ncol(datos)]
 
