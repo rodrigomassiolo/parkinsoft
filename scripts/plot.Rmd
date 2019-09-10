@@ -99,20 +99,20 @@ F0_Volumen = ggplot(resultado2F0_Vol_Prob, aes(frame))+
 ##############################################################################################################################################
 
 ##EGEMAPS######################################################################################################################
-##Formantes
-#datos = dbReadTable(mydb,"EGEMAPS")
-#
-#xs   <- seq(-2*pi,0,pi/100)
-#wave <- 0.5*sin(datos$F1frequency_sma3nz_amean * xs) + 0.25*sin(datos$F2frequency_sma3nz_amean * xs) + 0.125 * sin(datos$F3frequency_sma3nz_amean * xs)
-#
-#resultado <- expand.grid(xs = xs)
-#resultado$wave <- wave
-#
-#formanteGraph <- ggplot(resultado,aes(x=xs,y=wave)) + geom_line() + labs(title = "Transformada de fourier con las medias de F1, F2 y F3")
-#
-#resumeneGemaps <- expand.grid (NombreVariable = c ("Media F0","Media F1","Media F2","Media F3","Media de jitter Local","Desviación estándar de jitter Local en DB","Media de shimmer Local","Desviación estándar de shimmer Local en dB"))
-#resumeneGemaps$Valor <- c(datos$F0semitoneFrom27_5Hz_sma3nz_amean,datos$F1frequency_sma3nz_amean,datos$F2frequency_sma3nz_amean,datos$F3frequency_sma3nz_amean,datos$jitterLocal_sma3nz_amean,datos$jitterLocal_sma3nz_stddevNorm,datos$shimmerLocaldB_sma3nz_amean,datos$shimmerLocaldB_sma3nz_stddevNorm)
-#
+#Formantes
+datos = dbReadTable(mydb,"EGEMAPS")
+
+xs   <- seq(-2*pi,0,pi/100)
+wave <- 0.5*sin(datos$F1frequency_sma3nz_amean * xs) + 0.25*sin(datos$F2frequency_sma3nz_amean * xs) + 0.125 * sin(datos$F3frequency_sma3nz_amean * xs)
+
+resultado <- expand.grid(xs = xs)
+resultado$wave <- wave
+
+formanteGraph <- ggplot(resultado,aes(x=xs,y=wave)) + geom_line() + labs(title = "Transformada de fourier con las medias de F1, F2 y F3")
+
+resumeneGemaps <- expand.grid (NombreVariable = c ("Media F0","Media F1","Media F2","Media F3","Media de jitter Local","Desviación estándar de jitter Local en DB","Media de shimmer Local","Desviación estándar de shimmer Local en dB"))
+resumeneGemaps$Valor <- c(datos$F0semitoneFrom27_5Hz_sma3nz_amean,datos$F1frequency_sma3nz_amean,datos$F2frequency_sma3nz_amean,datos$F3frequency_sma3nz_amean,datos$jitterLocal_sma3nz_amean,datos$jitterLocal_sma3nz_stddevNorm,datos$shimmerLocaldB_sma3nz_amean,datos$shimmerLocaldB_sma3nz_stddevNorm)
+
 ## Vowel
 #vowel <- data.frame(vocal = c('i','e','y','theta','epsilon','AE','omega','gamma','a','ce','lambda','mu','o','o abierta','alpha','alpha invertida'),
 #                   #(vocal = c('i','e','y','ø','ɛ','œ','ɯ','ɤ','a','ɶ','ʌ','u','o','ɔ','ɑ','ɒ'),
@@ -164,11 +164,11 @@ kable(resultado2F0_Vol_Prob[1:70,],caption="Tabla de los valores del F0 y Volume
 #############################################################################################
 
 ##EGEMAPS####################################################################################
-##Formantes
-#plot(formanteGraph)
-#kable(resultado[1:70,],caption="Tabla de los valores del Formantes")
-#kable(resumeneGemaps[1:8,],caption="Tabla de los valores del eGemaps")
-#
+#FORMANTES
+plot(formanteGraph)
+kable(resultado[1:70,],caption="Tabla de los valores del Formantes")
+kable(resumeneGemaps[1:8,],caption="Tabla de los valores del eGemaps")
+#VOWEL
 #plot(vowelGraph)
 #kable(vowel[1:16,],caption="Tabla de los valores del Vowel")
 #############################################################################################
