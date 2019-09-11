@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\User;
 use App\Rol;
+use App\Medico;
 use Illuminate\Support\Facades\Mail;
 class UsuarioController extends Controller
 {
