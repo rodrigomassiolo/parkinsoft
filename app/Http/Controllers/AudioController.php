@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
+use App\User;
 use App\Ejercicio;
 use App\PacienteEjercicio;
 
@@ -62,15 +63,15 @@ class AudioController extends Controller
         if($file->getClientOriginalExtension()== 'mp3'){
             return response()->json(['NO_mp3'], 400);
         }
-
+        
         $user = User::findOrFail($request->input('user'));
         $ejercicio = Ejercicio::findOrFail($request->input('ejercicio'));
-        $path = '/uploads/audios/'.$user->usuario.'/'.$ejercicio->nombre.'/';
+        $path = storage_path().'/resultados/'.$user->usuario.'/';
 
-        $name = date("Ymd");
+        $name = date("Ymd").$ejercicio->nombre;//hasta un ejercicio del mismo tipo por dia, si lo hace devuelta reemplaza
         $filename = $name.'.'.$extens;
         $file->move($path, $filename);
-
+        
         PacienteEjercicio::create([
             'user_id' => $user->id,
             'ejercicio_id' => $ejercicio->id,
@@ -140,8 +141,6 @@ class AudioController extends Controller
 
         $audioPath = $path.$name.'.'.$extens;
         $wavPath = $path.$name.'.wav';
-        //$audioPath ='/var/www/html/parkinsoft/public/uploads/audios/adhi456/20190902.wav';
-        //$wavPath    ='/var/www/html/parkinsoft/public/uploads/audios/adhi456/20190904.wav';
         $exec = "/var/www/html/parkinsoft/scripts/ffmpeg.sh ".$audioPath ." ".$wavPath;
         exec($exec);
         return $exec;
@@ -150,8 +149,6 @@ class AudioController extends Controller
         $wavPath = $path.$name.'.wav';
         $csvPath = $path.$name.$openSmileScript.'.csv';
        //$openSmileScript = "openSmileEnergy";
-       //$wavPath ='/var/www/html/parkinsoft/public/uploads/audios/adhi456/20190902.wav';
-       //$csvPath ='/var/www/html/parkinsoft/public/uploads/audios/adhi456/20190902.csv';
         $exec = "/var/www/html/parkinsoft/scripts/".$openSmileScript.".sh ".$wavPath ." ".$csvPath;
         exec($exec);
         return $exec;
@@ -159,8 +156,6 @@ class AudioController extends Controller
     public function csvToDB($csvToDBScript,$openSmileScript,$user_id, $path,$name){
         $csvPath = $path.$name.$openSmileScript.'.csv';
         //$csvToDBScript = "csvToDBEnergy.sh";
-        //$user_id = 1;
-        //$csvPath ='/var/www/html/parkinsoft/public/uploads/audios/adhi456/20190902.csv';
         $exec = "/var/www/html/parkinsoft/scripts/".$csvToDBScript." ".$csvPath ." ".$user_id;
         exec($exec);
         return $exec;
@@ -209,12 +204,15 @@ class AudioController extends Controller
 
         
         if($request->input('output')== "html"){
-        $this->plotRmd('html_document', $path.$name.".html",$ejercicio);
-        return response()->download($path.$name.'.html');
-
-        $response = Storage::disk('local')->get('pepe.html');
-        return View('audio.graphic')->with('data',$response);
-
+            $this->plotRmd('html_document', $path.$name.".html",$ejercicio);
+            if($request->input('Download')== "1"){
+                return response()->download($path.$name.'.html');                
+            }
+            if($request->input('View')== "1"){
+            //$path = '/storage/app/results/'.$user->usuario.'/'.$ejercicio->nombre.'/';
+            $response = Storage::disk('local')->get($name.".html");
+            return View('audio.graphic')->with('data',$response);
+            }
         }
         if($request->input('output')== "pdf"){
             $this->plotRmd('pdf_document', $path.$name.".pdf",$ejercicio);
