@@ -13,12 +13,14 @@ class CreatePacienteEjercicioTable extends Migration
      */
     public function up()
     {
-        Schema::create('PacienteEjercicio', function (Blueprint $table) {
+        Schema::create('pacienteEjercicio', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users');
-            $table->integer('tipoDeEjercicio');
-            $table->integer('audio_id');
+            $table->integer('ejercicio_id')->references('id')->on('ejercicio');
+            $table->string('audio_path')->nullable();
+            $table->string('audio_name')->nullable();
+            $table->string('audio_ext')->nullable();
             $table->timestamps();
         });
     }
@@ -30,6 +32,6 @@ class CreatePacienteEjercicioTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('PacienteEjercicio');
+        Schema::dropIfExists('pacienteEjercicio');
     }
 }

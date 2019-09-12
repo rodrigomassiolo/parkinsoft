@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
+use App\Ejercicio;
+use App\PacienteEjercicio;
 
 class AudioController extends Controller
 {
@@ -41,8 +43,6 @@ class AudioController extends Controller
     public function store(Request $request)
     {
 
-        // echo($request);
-
         if(!$request->hasFile('audio')) {
             return response()->json(['upload_file_not_found'], 400);
         }
@@ -62,36 +62,24 @@ class AudioController extends Controller
         if($file->getClientOriginalExtension()== 'mp3'){
             return response()->json(['NO_mp3'], 400);
         }
-    
-        $usr_folder = $request->user()->usuario;
-        $path = public_path() . '/uploads/audios/'.$usr_folder.'/';
+
+        $user = User::findOrFail($request->input('user'));
+        $ejercicio = Ejercicio::findOrFail($request->input('ejercicio'));
+        $path = '/uploads/audios/'.$user->usuario.'/'.$ejercicio->nombre.'/';
+
         $name = date("Ymd");
         $filename = $name.'.'.$extens;
         $file->move($path, $filename);
 
-        if($extens != 'wav'){
-            $this->ffmpeg($path,$name,$extens);
-        }
-
-        exec("/var/www/html/parkinsoft/scripts/clearTables.sh"); //eliminar cuando parametricemos ejercicios
-
-        $this->openSmile("openSmileEnergy",$path,$name);
-        $this->openSmile("openSmileEGMaps",$path,$name);
-        $this->openSmile("openSmileChroma",$path,$name);
-        $this->openSmile("openSmileAudspec",$path,$name);
-        $this->openSmile("openSmileProsodyAcf",$path,$name);
-
-        $user_id = $request->user()->id;
-        $this->csvToDB("csvToDBEnergy.sh","openSmileEnergy",$user_id,$path,$name);
-        $this->csvToDB("csvToDBEGMaps.sh","openSmileEGMaps",$user_id,$path,$name);
-        $this->csvToDB("csvToDBChroma.sh","openSmileChroma",$user_id,$path,$name);
-        $this->csvToDB("csvToDBAudspec.sh","openSmileAudspec",$user_id,$path,$name);
-        $this->csvToDB("csvToDBProsodyAcf.sh","openSmileProsodyAcf",$user_id,$path,$name);
-
-        $this->plotRmd('html_document', $path.$name.".html");
-        //$this->plotRmd('html_document', $path.$name.".html");
-        return response()->download('/var/www/html/parkinsoft/public/uploads/audios/'.$usr_folder.'/'.$name.'.html');
-        return "Ejecutando audio";
+        PacienteEjercicio::create([
+            'user_id' => $user->id,
+            'ejercicio_id' => $ejercicio->id,
+            'audio_path' => $path,
+            'audio_name' => $name,
+            'audio_ext' =>$extens 
+        ]);
+        
+        return "ok";
     }
     public function storeLevodopa(Request $request)
     {
@@ -177,6 +165,64 @@ class AudioController extends Controller
         exec($exec);
         return $exec;
     }
+    public function processAudio(Request $request){
+
+        $pacienteEjercicio = PacienteEjercicio::findOrFail($request->input('pacienteEjercicio'));
+        $ejercicio = $pacienteEjercicio->ejercicio();
+        $user = $pacienteEjercicio->usuario();
+        $user_id = $user->id;
+        $name = $pacienteEjercicio->audio_name;
+        $extens = $pacienteEjercicio->audio_ext;
+        $path = public_path() . $pacienteEjercicio->audio_path;
+
+        if($extens != 'wav'){
+            $this->ffmpeg($path,$name,$extens);
+        }
+        $pacienteEjercicio->audio_ext = 'wav';
+        $pacienteEjercicio->save();
+
+        exec("/var/www/html/parkinsoft/scripts/clearTables.sh"); //eliminar cuando parametricemos ejercicios
+        if($request->input('Energy') == "1"){
+            $this->openSmile("openSmileEnergy",$path,$name);
+            $this->csvToDB("csvToDBEnergy.sh","openSmileEnergy",$user_id,$path,$name);
+        }
+
+        if($request->input('eGemaps')== "1"){
+        $this->openSmile("openSmileEGMaps",$path,$name);
+        $this->csvToDB("csvToDBEGMaps.sh","openSmileEGMaps",$user_id,$path,$name);
+        }
+
+        if($request->input('Chroma')== "1"){
+        $this->openSmile("openSmileChroma",$path,$name);
+        $this->csvToDB("csvToDBChroma.sh","openSmileChroma",$user_id,$path,$name);
+        }
+
+        if($request->input('Audspec')== "1"){
+        $this->openSmile("openSmileAudspec",$path,$name);
+        $this->csvToDB("csvToDBAudspec.sh","openSmileAudspec",$user_id,$path,$name);
+        }
+
+        if($request->input('Prosody')== "1"){
+        $this->openSmile("openSmileProsodyAcf",$path,$name);        
+        $this->csvToDB("csvToDBProsodyAcf.sh","openSmileProsodyAcf",$user_id,$path,$name);
+        }
+
+        
+        if($request->input('output')== "html"){
+        $this->plotRmd('html_document', $path.$name.".html",$ejercicio);
+        return response()->download($path.$name.'.html');
+
+        $response = Storage::disk('local')->get('pepe.html');
+        return View('audio.graphic')->with('data',$response);
+
+        }
+        if($request->input('output')== "pdf"){
+            $this->plotRmd('pdf_document', $path.$name.".pdf",$ejercicio);
+            return response()->download($path.$name.'.pdf');
+        }
+        
+    }
+
     public function plotRmd($tipoSalida, $pathsalida){
         //$tipoSalida ['html_document', 'pdf_document']
         $exec = "Rscript /var/www/html/parkinsoft/scripts/knit.R /var/www/html/parkinsoft/scripts/plot.Rmd"." ".$tipoSalida ." ".$pathsalida;

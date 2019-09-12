@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class PacienteEjercicio extends Model
 {
 
-    protected $table = 'PacienteEjercicio';
+    protected $table = 'pacienteEjercicio';
 
     /**
      * The attributes that are mass assignable.
@@ -15,7 +15,7 @@ class PacienteEjercicio extends Model
      * @var array
      */
     protected $fillable = [
-        'user_id', 'tipoDeEjercicio', 'audio_id'];
+        'user_id', 'ejercicio_id','audio_path','audio_name','audio_ext'];
     
 
     public function user()
@@ -25,14 +25,14 @@ class PacienteEjercicio extends Model
 
     public function ejercicio()
     {
-        return $this->hasOne('App\Ejercicio','id','tipoDeEjercicio');
+        return $this->hasOne('App\Ejercicio','id','ejercicio_id');
     }
 
 
     public function scopeFilter($query, $params)
     {
-        if ( isset($params['tipoDeEjercicio']) && trim($params['tipoDeEjercicio'] !== '') ) {
-            $query->where('tipoDeEjercicio', 'LIKE', trim($params['tipoDeEjercicio']) . '%');
+        if ( isset($params['ejercicio_id']) && trim($params['ejercicio_id'] !== '') ) {
+            $query->where('ejercicio_id', 'LIKE', trim($params['ejercicio_id']) . '%');
         }
 
     //     if ( isset($params['genero']) && trim($params['genero'] !== '') ) {
