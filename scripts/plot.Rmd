@@ -22,7 +22,8 @@ mydb <- dbConnect(RMySQL::MySQL(),user='higia',password='Server123',dbname='park
 
 #CHROMA###########################################################################################################################################
 if (params$chroma == 1) {
-datosChroma <- dbReadTable(mydb,"CHROMA") 
+##datosChroma <- dbReadTable(mydb,"CHROMA") 
+datosChroma <- dbGetQuery(mydb,paste0("SELECT * FROM CHROMA WHERE ejerciciopaciente_id = ",params$pacienteEjercicio))
 datosChroma <- datosChroma[,6:17]
 resultado <- expand.grid(Tiempo_segundos = seq(0,(nrow(datosChroma)-1)/100,0.01),Tono = c('C', 'C#', 'D', 'D#', 'E' ,'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'))
 resultado$intensidad <- unlist(datosChroma,use.names=FALSE)
@@ -59,7 +60,7 @@ chromaMin <- ggplot(data = resultadoMMM ,aes(x= Tono,y=Min,fill = Min)) + geom_b
 #ENERGY###########################################################################################################################################
 if (params$energy == 1) {
 ##datos <- dbReadTable(mydb,"ENERGY")
-datos <- dbGetQuery(mydb,paste0("SELECT * FROM ENERGY WHERE ejerciciopaciente_id = ",params$pacienteEjercicio)
+datos = dbGetQuery(mydb,paste0("SELECT * FROM ENERGY WHERE ejerciciopaciente_id = ",params$pacienteEjercicio))
 
 datos <- datos[,5:ncol(datos)]
 datos2 <- data.frame(tiempo=c(datos$frameTime),LogEnergy=c(datos$pcm_LOGenergy))
@@ -72,7 +73,8 @@ energygraph <- ggplot(datos2,aes(x=tiempo,y=LogEnergy))+geom_line()+ geom_hline(
 
 #AUDSPEC###########################################################################################################################################
 if (params$audspec == 1) {
-datos <- dbReadTable(mydb,"AUDSPEC")
+##datos <- dbReadTable(mydb,"AUDSPEC")
+datos = dbGetQuery(mydb,paste0("SELECT * FROM AUDSPEC WHERE ejerciciopaciente_id = ",params$pacienteEjercicio))
 datos <- datos[,5:ncol(datos)]
 resultadoAudspect <- expand.grid(Tiempo_segundos = seq(0,(nrow(datos)-1)/100,0.01),Espectro = seq(0,25,1))
 resultadoAudspect$intensidad <- unlist(datos[,3:28],use.names=FALSE)##corregir el 3,28
@@ -84,7 +86,8 @@ audspectgraph <- ggplot(resultadoAudspect, aes(Tiempo_segundos, Espectro, z= int
 ##PROSODY############################################################################################################################
 #F0 con probabilidad
 if (params$prosody == 1) {
-datos = dbReadTable(mydb,"PROSODY")
+##datos = dbReadTable(mydb,"PROSODY")
+datos = dbGetQuery(mydb,paste0("SELECT * FROM AUDSPEC WHERE ejerciciopaciente_id = ",params$pacienteEjercicio))
 datos <- datos[,5:ncol(datos)]
 
 #paso los datos a un data frame
@@ -117,8 +120,8 @@ F0_Volumen = ggplot(resultado2F0_Vol_Prob, aes(frame))+
 ##EGEMAPS######################################################################################################################
 #Formantes
 if (params$eGemaps == 1) {
-datos = dbReadTable(mydb,"EGEMAPS")
-
+##datos = dbReadTable(mydb,"EGEMAPS")
+datos = dbGetQuery(mydb,paste0("SELECT * FROM EGEMAPS WHERE ejerciciopaciente_id = ",params$pacienteEjercicio))
 xs   <- seq(-2*pi,0,pi/100)
 wave <- 0.5*sin(datos$F1frequency_sma3nz_amean * xs) + 0.25*sin(datos$F2frequency_sma3nz_amean * xs) + 0.125 * sin(datos$F3frequency_sma3nz_amean * xs)
 
