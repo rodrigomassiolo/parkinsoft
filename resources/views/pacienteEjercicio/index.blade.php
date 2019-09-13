@@ -25,7 +25,7 @@
                 <div class="form-group">
                     <strong>Usuario: </strong>
                     <input type="text" name="usuario" class="form-control"
-                     placeholder="Usuario a filtrar" value= "{{Request::old('usuario')}}">
+                     placeholder="Usuario a filtrar" value= "{{Request::old('user_id')}}">
                 </div>
             </div>
             <div class="col-xs-3 col-sm-3 col-md-3">
