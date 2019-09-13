@@ -182,7 +182,7 @@ class AudioController extends Controller
         $user_id = $user->id;
         $name = $pacienteEjercicio->audio_name;
         $extens = $pacienteEjercicio->audio_ext;
-        $path = public_path() . $pacienteEjercicio->audio_path;
+        $path = $pacienteEjercicio->audio_path;
 
         if($extens != 'wav'){
             $this->ffmpeg($path,$name,$extens);
