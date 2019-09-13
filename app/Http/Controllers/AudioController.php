@@ -192,7 +192,7 @@ class AudioController extends Controller
 
         $energy = 0;
 
-        exec("/var/www/html/parkinsoft/scripts/clearTables.sh"); //eliminar cuando parametricemos ejercicios
+        //exec("/var/www/html/parkinsoft/scripts/clearTables.sh"); //eliminar cuando parametricemos ejercicios
         if($request->input('Energy') == "1"){
             $energy = 1;
             $this->openSmile("openSmileEnergy",$path,$name);
