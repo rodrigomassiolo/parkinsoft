@@ -183,20 +183,12 @@ class AudioController extends Controller
 
         $pepe= Storage::disk('local')->exists($path);
 
-        if($pepe){
-            return "si pepe si";
-        }
-        else{
-            return "Error en ffmpeg";
-        }
-
-
         if($extens != 'wav'){
             $this->ffmpeg($path,$name,$extens);
             if(Storage::disk('local')->exists($path.$name.".wav")){
                 $pacienteEjercicio->audio_ext = 'wav';
                 $pacienteEjercicio->save();
-                return "si pepe si";
+                return "si pepe";
             }
             else{
                 return "Error en ffmpeg";
