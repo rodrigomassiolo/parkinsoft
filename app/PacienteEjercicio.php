@@ -17,6 +17,11 @@ class PacienteEjercicio extends Model
     protected $fillable = [
         'user_id', 'ejercicio_id','audio_path','audio_name','audio_ext'];
     
+        public function usuario()
+        {
+            return $this->hasOne('App\User','id','user_id');
+        }
+
     public function scopeFilter($query, $params)
     {
         
