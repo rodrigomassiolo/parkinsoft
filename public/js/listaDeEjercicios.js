@@ -16,7 +16,7 @@ $('#exampleModal').on('show.bs.modal', function (event) {
 
     downloadGraphic: function(){
       $("#graphicForm")
-      .attr('action', '/listaDeEjercicios/download/' + $('#row').val())
+      .attr('action', '/audio/processAudio/' + $('#row').val())
       .submit();
     }
   }

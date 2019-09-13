@@ -69,7 +69,11 @@ class PacienteEjercicioController extends Controller
         $request['View'] = 0;
         $request['output'] = 1;
         
-        return app()->call('App\Http\Controllers\AudioController@processAudio', [$request]);
+        //return app()->call('App\Http\Controllers\AudioController@processAudio', [$request]);
+
+        return redirect()->action(
+            'AudioController@processAudio', $request
+        );
 
     }
 }

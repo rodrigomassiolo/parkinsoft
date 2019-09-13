@@ -105,9 +105,9 @@
       </div>
       <div class="modal-body">
         <input type="hidden" id="row" name="row">
-        <form method = "GET" id="graphicForm">
+        <form method = "POST" id="graphicForm">
           <div class="form-group">
-           
+          @csrf
             <label><input type="checkbox" name="Energy" value="1"> Energy</label><br>
 
            
