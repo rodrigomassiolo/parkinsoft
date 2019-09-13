@@ -15,11 +15,11 @@ class PacienteEjercicioController extends Controller
     private function craftFilterRequest($filters)
     {
         $pacienteEjercicioFilters=array(
-            'id' => ['pacienteejercicio.id','='],
+            'id' => ['pacienteEjercicio.id','='],
             'user_id'  => ['user_id','='],
             'ejercicio_id' => ['ejercicio_id','='],
-            'created_at_from' => ['pacienteejercicio.created_at','>='],
-            'created_at_to' => ['pacienteejercicio.created_at','<=']
+            'created_at_from' => ['pacienteEjercicio.created_at','>='],
+            'created_at_to' => ['pacienteEjercicio.created_at','<=']
                         );
         $filterRequest = "";
 
@@ -38,15 +38,15 @@ class PacienteEjercicioController extends Controller
         $filterRequest = $this->craftFilterRequest($jsonReq['filters']);
 
         $query = '';
-        $results = DB::select( DB::raw("SELECT pacienteejercicio.id AS pacienteejercicio_id,
-                                        pacienteejercicio.created_at AS fecha,
+        $results = DB::select( DB::raw("SELECT pacienteEjercicio.id AS pacienteejercicio_id,
+                                        pacienteEjercicio.created_at AS fecha,
                                         users.id AS user_id,
                                         users.usuario AS user_usuario,
                                         ejercicio.id AS ejercicio_id,
                                         ejercicio.nombre AS ejercicio_nombre
-                                        FROM pacienteejercicio
-                                        INNER JOIN users on pacienteejercicio.user_id = users.id
-                                        INNER JOIN ejercicio on pacienteejercicio.ejercicio_id = ejercicio.id
+                                        FROM pacienteEjercicio
+                                        INNER JOIN users on pacienteEjercicio.user_id = users.id
+                                        INNER JOIN ejercicio on pacienteEjercicio.ejercicio_id = ejercicio.id
                                         WHERE 1=1".$filterRequest
                                         )
                                         );
