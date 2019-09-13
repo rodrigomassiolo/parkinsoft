@@ -22,7 +22,7 @@ Route::get('/userActual', 'API\\UsuarioController@show')->middleware('auth:api')
 /*Envio de Audios*/
 Route::post('/sendAudio', 'AudioController@store')->middleware('auth:api');
 Route::post('/sendLevodopa', 'AudioController@storeLevodopa')->middleware('auth:api');
-Route::post('/processAudio', 'AudioController@processAudio');
+Route::post('/processAudio', 'AudioController@processAudio')->middleware('auth:api');
 
 
 Route::get('/ffmpeg','AudioController@ffmpeg');

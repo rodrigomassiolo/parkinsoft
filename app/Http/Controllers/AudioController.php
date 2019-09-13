@@ -66,13 +66,13 @@ class AudioController extends Controller
         
         $ejercicio_id= 1;
         $ejercicio_nombre= 'a';
-        if($request->input('ejercicio')){
+        if($request->has('ejercicio')){
             $ejercicio = Ejercicio::findOrFail($request->input('ejercicio'));
             $ejercicio_id=$ejercicio->id;
             $ejercicio_nombre=$ejercicio->nombre;
         }
 
-        if($request->input('user')){
+        if($request->has('user')){
             $user = User::findOrFail($request->input('user'));
         }
         else{
