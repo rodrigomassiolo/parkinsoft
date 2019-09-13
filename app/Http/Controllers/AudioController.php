@@ -241,8 +241,8 @@ class AudioController extends Controller
             }
         }
         if($request->input('output')== "pdf"){
-            $this->plotRmd('pdf_document', $path.$name.".pdf",$pacienteEjercicio->id,$energy,$eGemaps,$chroma,$audspec,$prosody);
-            return response()->download($path.$name.'.pdf');
+            $this->plotRmd('pdf_document', $absPath.$name.".pdf",$pacienteEjercicio->id,$energy,$eGemaps,$chroma,$audspec,$prosody);
+            return response()->download($absPath.$name.'.pdf');
         }
         
     }
