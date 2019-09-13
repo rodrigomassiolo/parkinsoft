@@ -163,3 +163,4 @@ Route::get('/listaDeEjercicios','PacienteEjercicioController@index')->middleware
 
 Route::get('/listaDeEjercicios/show/{id}','PacienteEjercicioController@show')->middleware('auth');
 Route::get('/listaDeEjercicios/download/{id}','PacienteEjercicioController@download')->middleware('auth');
+

@@ -76,6 +76,15 @@
       </a>
     </li>
      @endif  
+     @if (Auth::user()->rol->type == 0) 
+    <li class="nav-item">
+      <a class="nav-link" href="../listaDeEjercicios">
+        <span data-feather="activity"></span>
+        Lista de Audios
+      </a>
+    </li>
+     @endif  
+     
   </ul>
 
 </div>

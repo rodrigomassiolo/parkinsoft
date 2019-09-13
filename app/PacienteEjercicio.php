@@ -31,22 +31,30 @@ class PacienteEjercicio extends Model
 
     public function scopeFilter($query, $params)
     {
-        if ( isset($params['ejercicio_id']) && trim($params['ejercicio_id'] !== '') ) {
-            $query->where('ejercicio_id', 'LIKE', trim($params['ejercicio_id']) . '%');
+        
+        /**
+         * this filter by ejercicio_id and you want to filter by "ejercicio type"
+         * Not filter by 2 but by "Repetir A"  
+         */
+        // if ( isset($params['ejercicio_id']) && trim($params['ejercicio_id'] !== '') ) {
+        //     $query->where('ejercicio_id', 'LIKE', trim($params['ejercicio_id']) . '%');
+        // }
+
+        if ( isset($params['tipoDeEjercicio']) && trim($params['tipoDeEjercicio'] !== '') ) {
+            $query->whereHas('ejercicio', function($query) use($params){
+                $query->where('nombre', 'LIKE', trim($params['tipoDeEjercicio']) . '%');
+            });
+        } 
+        
+        if ( isset($params['created_at']) && trim($params['created_at']) !== '' )
+        {
+            $query->where('created_at', '>=', trim($params['created_at']));
         }
 
-    //     if ( isset($params['genero']) && trim($params['genero'] !== '') ) {
-    //        $query->where('genero', 'LIKE', trim($params['genero']) . '%');
-    //    }
-
-    //    if ( isset($params['fechaDeNac']) && trim($params['fechaDeNac']) !== '' )
-    //    {
-    //        $query->where('fechaDeNac', '=', trim($params['fechaDeNac']));
-    //    }
-    //    if ( isset($params['usuario']) && trim($params['usuario']) !== '' )
-    //    {
-    //        $query->where('usuario', '=', trim($params['usuario']));
-    //    }
+        if ( isset($params['usuario']) && trim($params['usuario']) !== '' )
+        {
+            $query->where('usuario', '=', trim($params['usuario']));
+        }
 
         return $query;
     }

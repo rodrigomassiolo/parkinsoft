@@ -35,6 +35,14 @@
                     placeholder="Tipo de ejercicio a filtrar" value= "{{Request::old('tipoDeEjercicio')}}">
                 </div>
             </div>
+
+            <div class="col-xs-3 col-sm-3 col-md-3">
+                <div class="form-group">
+                    <strong>Tipo de ejercicio:</strong>
+                    <input type="date" name="created_at" class="form-control" 
+                    placeholder="Fecha de subida" value= "{{Request::old('created_at')}}">
+                </div>
+            </div>
         </div>
         <div>
             <div class="row">
@@ -65,7 +73,7 @@
             <th>No</th>
             <th>Usuario</th>
             <th>Ejercicio</th>
-            <th>Id Audio</th>
+            <th>Fecha de Creación</th>
             <th width="320px">Acciones</th>
         </tr>
     </thead>
@@ -75,7 +83,7 @@
             <td>{{ $row->id }}</td>  
             <td>{{ $row->user->usuario }}</td>
             <td>{{ $row->ejercicio->nombre }}</td>
-            <td>{{ $row->audio_id }}</td>
+            <td>{{ $row->created_at }}</td>
             <td>
                 <button type="button" class="btn btn-primary" id="{{$row->id}}"
                  data-toggle="modal" data-target="#exampleModal" data-whatever="{{$row->id}}">Mostrar acciones</button>
@@ -99,15 +107,25 @@
         <input type="hidden" id="row" name="row">
         <form method = "GET" id="graphicForm">
           <div class="form-group">
-            <select name="graphicType">
-                <option value="heatMap">Heat Map</option>
-                <option value="another">Otro</option>
-            </select>
+           
+            <label><input type="checkbox" name="Energy" value="1"> Energy</label><br>
+
+           
+            <label><input type="checkbox" name="eGemaps" value="1"> eGemaps</label><br>
+
+            
+            <label><input type="checkbox" name="Chroma" value="1"> Chroma</label><br>
+
+            
+            <label><input type="checkbox" name="Audspec" value="1"> Audspec</label><br>
+            
+           
+            <label><input type="checkbox" name="Prosody" value="1"> Prosody</label><br>    
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-            <button type="button" class="btn btn-primary" onClick="Lista.generateGraphic();">Ver grafico</button>
-            <button type="input"  class="btn btn-primary" onClick="Lista.downloadGraphic();">Descargar como PDF</button>
+            <button type="submit" name="View" value="1" class="btn btn-primary" onClick="Lista.generateGraphic();">Ver grafico</button>
+            <button type="submit" name="output" value="1" class="btn btn-primary" onClick="Lista.downloadGraphic();">Descargar como PDF</button>
           </div>   
         </form>
       </div>

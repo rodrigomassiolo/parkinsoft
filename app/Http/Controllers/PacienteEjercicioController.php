@@ -22,23 +22,54 @@ class PacienteEjercicioController extends Controller
     public function show($id, Request $request)
     {
         $PacienteEjercicio = PacienteEjercicio::findOrFail($id);
-        echo($request->get('graphicType'));
 
-        //devolver vista con el grafico generado
+        if(!(isset($request['Energy']))){
+            $request['Energy'] = 0;
+        }
+        if(!(isset($request['eGemaps']))){
+            $request['eGemaps'] = 0;
+        }
+        if(!(isset($request['Chroma']))){
+            $request['Chroma'] = 0;
+        }
+        if(!(isset($request['Audspec']))){
+            $request['Audspec'] = 0;
+        }
+        if(!(isset($request['Prosody']))){
+            $request['Prosody'] = 0;
+        }
+        $request['html'] = 0;
+        $request['View'] = 1;
+        $request['output'] = 0;
         
-        //return view('PacienteEjercicio.show',compact('PacienteEjercicio'));
+        return app()->call('App\Http\Controllers\AudioController@processAudio', [$request]);
     }
 
-    public function download($id)
+    public function download($id, Request $request)
     {
         $PacienteEjercicio = PacienteEjercicio::findOrFail($id);
 
-        //find the audio graphic with the audio id in pacienteEjercicio
-
-        header('Content-type: application/pdf');
-        header('Content-Disposition: attachment; filename=".pdf"');
+        if(!(isset($request['Energy']))){
+            $request['Energy'] = 0;
+        }
+        if(!(isset($request['eGemaps']))){
+            $request['eGemaps'] = 0;
+        }
+        if(!(isset($request['Chroma']))){
+            $request['Chroma'] = 0;
+        }
+        if(!(isset($request['Audspec']))){
+            $request['Audspec'] = 0;
+        }
+        if(!(isset($request['Prosody']))){
+            $request['Prosody'] = 0;
+        }
+      
+        $request['html'] = 0;
+        $request['View'] = 0;
+        $request['output'] = 1;
         
-        //devolver pdf para descargar
+        return app()->call('App\Http\Controllers\AudioController@processAudio', [$request]);
 
     }
 }
