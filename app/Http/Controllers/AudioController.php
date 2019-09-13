@@ -65,9 +65,11 @@ class AudioController extends Controller
         }
         
         $ejercicio_id= 1;
+        $ejercicio_nombre= 'a';
         if($request->input('ejercicio')){
             $ejercicio = Ejercicio::findOrFail($request->input('ejercicio'));
             $ejercicio_id=$ejercicio->id;
+            $ejercicio_nombre=$ejercicio->nombre;
         }
 
         if($request->input('user')){
@@ -81,7 +83,7 @@ class AudioController extends Controller
 
         $path = storage_path().'/resultados/'.$user->usuario.'/';
 
-        $name = date("Ymd").$ejercicio->nombre;//hasta un ejercicio del mismo tipo por dia, si lo hace devuelta reemplaza
+        $name = date("Ymd").$ejercicio_nombre;//hasta un ejercicio del mismo tipo por dia, si lo hace devuelta reemplaza
         $filename = $name.'.'.$extens;
         $file->move($path, $filename);
         
