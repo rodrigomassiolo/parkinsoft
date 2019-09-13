@@ -153,17 +153,22 @@ class AudioController extends Controller
         exec($exec);
         return $exec;
     }
-    public function csvToDB($csvToDBScript,$openSmileScript,$user_id, $path,$name){
+    public function csvToDB($csvToDBScript,$openSmileScript,$user_id, $path,$name,$ejerciciopaciente_id){
         $csvPath = $path.$name.$openSmileScript.'.csv';
         //$csvToDBScript = "csvToDBEnergy.sh";
-        $exec = "/var/www/html/parkinsoft/scripts/".$csvToDBScript." ".$csvPath ." ".$user_id;
+        $exec = "/var/www/html/parkinsoft/scripts/".$csvToDBScript." ".$csvPath ." ".$user_id." ".$ejerciciopaciente_id;
         exec($exec);
         return $exec;
     }
     public function processAudio(Request $request){
 
         $pacienteEjercicio = PacienteEjercicio::findOrFail($request->input('pacienteEjercicio'));
+
+        return $pacienteEjercicio->audio_path.$pacienteEjercicio->audio_name.".".$pacienteEjercicio->audio_ext;
+
         $ejercicio = $pacienteEjercicio->ejercicio();
+
+
         $user = $pacienteEjercicio->usuario();
         $user_id = $user->id;
         $name = $pacienteEjercicio->audio_name;
@@ -172,39 +177,50 @@ class AudioController extends Controller
 
         if($extens != 'wav'){
             $this->ffmpeg($path,$name,$extens);
+            $pacienteEjercicio->audio_ext = 'wav';
+            $pacienteEjercicio->save();
         }
-        $pacienteEjercicio->audio_ext = 'wav';
-        $pacienteEjercicio->save();
+
+        $energy = 0;
 
         exec("/var/www/html/parkinsoft/scripts/clearTables.sh"); //eliminar cuando parametricemos ejercicios
         if($request->input('Energy') == "1"){
+            $energy = 1;
             $this->openSmile("openSmileEnergy",$path,$name);
-            $this->csvToDB("csvToDBEnergy.sh","openSmileEnergy",$user_id,$path,$name);
+            $this->csvToDB("csvToDBEnergy.sh","openSmileEnergy",$user_id,$path,$name,$pacienteEjercicio->id);
         }
-
+        
+        $eGemaps = 0;
         if($request->input('eGemaps')== "1"){
-        $this->openSmile("openSmileEGMaps",$path,$name);
-        $this->csvToDB("csvToDBEGMaps.sh","openSmileEGMaps",$user_id,$path,$name);
+            $eGemaps = 1;
+            $this->openSmile("openSmileEGMaps",$path,$name);
+            $this->csvToDB("csvToDBEGMaps.sh","openSmileEGMaps",$user_id,$path,$name,$pacienteEjercicio->id);
         }
 
+        $chroma = 0;
         if($request->input('Chroma')== "1"){
-        $this->openSmile("openSmileChroma",$path,$name);
-        $this->csvToDB("csvToDBChroma.sh","openSmileChroma",$user_id,$path,$name);
+            $chroma = 1;
+            $this->openSmile("openSmileChroma",$path,$name);
+            $this->csvToDB("csvToDBChroma.sh","openSmileChroma",$user_id,$path,$name,$pacienteEjercicio->id);
         }
 
+        $audspec= 0;
         if($request->input('Audspec')== "1"){
-        $this->openSmile("openSmileAudspec",$path,$name);
-        $this->csvToDB("csvToDBAudspec.sh","openSmileAudspec",$user_id,$path,$name);
+            $audspec = 1;
+            $this->openSmile("openSmileAudspec",$path,$name);
+            $this->csvToDB("csvToDBAudspec.sh","openSmileAudspec",$user_id,$path,$name,$pacienteEjercicio->id);
         }
 
+        $prosody = 0;
         if($request->input('Prosody')== "1"){
-        $this->openSmile("openSmileProsodyAcf",$path,$name);        
-        $this->csvToDB("csvToDBProsodyAcf.sh","openSmileProsodyAcf",$user_id,$path,$name);
+            $prosody = 1;
+            $this->openSmile("openSmileProsodyAcf",$path,$name);        
+            $this->csvToDB("csvToDBProsodyAcf.sh","openSmileProsodyAcf",$user_id,$path,$name,$pacienteEjercicio->id);
         }
 
         
         if($request->input('output')== "html"){
-            $this->plotRmd('html_document', $path.$name.".html",$ejercicio);
+            $this->plotRmd('html_document', $path.$name.".html",$pacienteEjercicio->id,$energy,$eGemaps,$chroma,$audspec,$prosody);
             if($request->input('Download')== "1"){
                 return response()->download($path.$name.'.html');                
             }
@@ -215,15 +231,16 @@ class AudioController extends Controller
             }
         }
         if($request->input('output')== "pdf"){
-            $this->plotRmd('pdf_document', $path.$name.".pdf",$ejercicio);
+            $this->plotRmd('pdf_document', $path.$name.".pdf",$pacienteEjercicio->id,$energy,$eGemaps,$chroma,$audspec,$prosody);
             return response()->download($path.$name.'.pdf');
         }
         
     }
 
-    public function plotRmd($tipoSalida, $pathsalida){
-        //$tipoSalida ['html_document', 'pdf_document']
-        $exec = "Rscript /var/www/html/parkinsoft/scripts/knit.R /var/www/html/parkinsoft/scripts/plot.Rmd"." ".$tipoSalida ." ".$pathsalida;
+    public function plotRmd($tipoSalida, $pathsalida,$pacienteEjercicio, $energy,$eGemaps,$chroma,$audspec,$prosody){
+        $scriptR = "/var/www/html/parkinsoft/scripts/knit.R";
+        $scriptRMD = "/var/www/html/parkinsoft/scripts/plot.Rmd";
+        $exec = "Rscript ".$scriptR." ".$scriptRMD." ".$tipoSalida ." ".$pathsalida." ".$pacienteEjercicio." ".$energy." ".$eGemaps." ".$chroma." ".$audspec." ".$prosody;
         exec($exec);
         return $exec;
     }

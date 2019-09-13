@@ -22,6 +22,8 @@ Route::get('/userActual', 'API\\UsuarioController@show')->middleware('auth:api')
 /*Envio de Audios*/
 Route::post('/sendAudio', 'AudioController@store')->middleware('auth:api');
 Route::post('/sendLevodopa', 'AudioController@storeLevodopa')->middleware('auth:api');
+Route::post('/processAudio', 'AudioController@processAudio');
+
 
 Route::get('/ffmpeg','AudioController@ffmpeg');
 Route::get('/openSmile', 'AudioController@openSmile');
@@ -40,3 +42,6 @@ Route::post('/medico', 'API\\MedicoController@index')->middleware('auth:api');
 Route::post('/medico/register', 'API\\MedicoController@store');
 Route::post('/medico/update', 'API\\MedicoController@update')->middleware('auth:api');
 Route::post('/medico/destroy/{id}', 'API\\MedicoController@destroy')->middleware('auth:api');
+
+/*PacienteEjercicio*/
+Route::post('/pacienteEjercicio', 'API\\PacienteEjercicioController@index');
