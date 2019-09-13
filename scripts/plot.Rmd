@@ -23,7 +23,7 @@ mydb <- dbConnect(RMySQL::MySQL(),user='higia',password='Server123',dbname='park
 #CHROMA###########################################################################################################################################
 if (params$chroma == 1) {
 ##datosChroma <- dbReadTable(mydb,"CHROMA") 
-datosChroma <- dbGetQuery(mydb,paste0("SELECT * FROM CHROMA WHERE ejerciciopaciente_id = ",params$pacienteEjercicio))
+datosChroma = dbGetQuery(mydb,paste0("SELECT * FROM CHROMA WHERE ejerciciopaciente_id = ",params$pacienteEjercicio))
 datosChroma <- datosChroma[,6:17]
 resultado <- expand.grid(Tiempo_segundos = seq(0,(nrow(datosChroma)-1)/100,0.01),Tono = c('C', 'C#', 'D', 'D#', 'E' ,'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'))
 resultado$intensidad <- unlist(datosChroma,use.names=FALSE)
