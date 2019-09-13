@@ -53,7 +53,7 @@ class PacienteEjercicioController extends Controller
             $request['Energy'] = 0;
         }
         if(!(isset($request['eGemaps']))){
-            $request['eGemaps'] = 0;
+            $request['eGemaps'] = 0; 
         }
         if(!(isset($request['Chroma']))){
             $request['Chroma'] = 0;
