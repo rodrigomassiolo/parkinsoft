@@ -178,10 +178,7 @@ class AudioController extends Controller
     public function processAudio(Request $request){
 
         $pacienteEjercicio = PacienteEjercicio::findOrFail($request->input('pacienteEjercicio'));
-        $ejercicio = $pacienteEjercicio->ejercicio();
-
-
-        $user = $pacienteEjercicio->user();
+        $user = User::findOrFail($pacienteEjercicio->id);
         $user_id = $user->id;
         $name = $pacienteEjercicio->audio_name;
         $extens = $pacienteEjercicio->audio_ext;
