@@ -78,10 +78,7 @@ class AudioController extends Controller
         else{
             $user = $request->user();
         }
-
-
-
-        $path = storage_path().'/resultados/'.$user->usuario.'/';
+        $path = storage_path('app').'/resultados/'.$user->usuario.'/';
 
         $name = date("Ymd").$ejercicio_nombre;//hasta un ejercicio del mismo tipo por dia, si lo hace devuelta reemplaza
         $filename = $name.'.'.$extens;
@@ -90,7 +87,7 @@ class AudioController extends Controller
         PacienteEjercicio::create([
             'user_id' => $user->id,
             'ejercicio_id' => $ejercicio_id,
-            'audio_path' => $path,
+            'audio_path' => '/resultados/'.$user->usuario.'/',
             'audio_name' => $name,
             'audio_ext' =>$extens 
         ]);
@@ -178,16 +175,32 @@ class AudioController extends Controller
     public function processAudio(Request $request){
 
         $pacienteEjercicio = PacienteEjercicio::findOrFail($request->input('pacienteEjercicio'));
-        $user = User::findOrFail($pacienteEjercicio->id);
+        $user = User::findOrFail($pacienteEjercicio->user_id);
         $user_id = $user->id;
         $name = $pacienteEjercicio->audio_name;
         $extens = $pacienteEjercicio->audio_ext;
         $path = $pacienteEjercicio->audio_path;
 
+        $pepe= Storage::disk('local')->exists($path);
+
+        if($pepe){
+            return "si pepe si";
+        }
+        else{
+            return "Error en ffmpeg";
+        }
+
+
         if($extens != 'wav'){
             $this->ffmpeg($path,$name,$extens);
-            $pacienteEjercicio->audio_ext = 'wav';
-            $pacienteEjercicio->save();
+            if(Storage::disk('local')->exists($path.$name.".wav")){
+                $pacienteEjercicio->audio_ext = 'wav';
+                $pacienteEjercicio->save();
+                return "si pepe si";
+            }
+            else{
+                return "Error en ffmpeg";
+            }
         }
 
         $energy = 0;
