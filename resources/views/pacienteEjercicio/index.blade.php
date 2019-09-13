@@ -125,7 +125,7 @@
           <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
             <button type="submit" name="View" value="1" class="btn btn-primary" onClick="Lista.generateGraphic();">Ver grafico</button>
-            <button type="submit" name="output" value="1" class="btn btn-primary" onClick="Lista.downloadGraphic();">Descargar como PDF</button>
+            <button type="submit" name="output" value="pdf" class="btn btn-primary" onClick="Lista.downloadGraphic();">Descargar como PDF</button>
           </div>   
         </form>
       </div>
