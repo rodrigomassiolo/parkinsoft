@@ -66,8 +66,7 @@ datos <- datos[,5:ncol(datos)]
 datos2 <- data.frame(tiempo=c(datos$frameTime),LogEnergy=c(datos$pcm_LOGenergy))
 datosEnergy <- datos2
 energygraph <- ggplot(datos2,aes(x=tiempo,y=LogEnergy))+geom_line()+ geom_hline(yintercept=max(datos2$LogEnergy), linetype="dashed", color = "red") + 
-  geom_hline(yintercept=min(datos2$LogEnergy), linetype="dashed", color = "blue") + geom_hline(yintercept=mean(datos2$LogEnergy), linetype="dashed", color = "green") +
-  scale_y_continuous(breaks=seq(round(min(datos2$LogEnergy)), round(max(datos2$LogEnergy)), 1)) + labs(title='Energia de la voz')
+  geom_hline(yintercept=min(datos2$LogEnergy), linetype="dashed", color = "blue") + geom_hline(yintercept=mean(datos2$LogEnergy), linetype="dashed", color = "green") + labs(title='Energia de la voz')
 }
 ###################################################################################################################################################
 
@@ -77,7 +76,7 @@ if (params$audspec == 1) {
 datos = dbGetQuery(mydb,paste0("SELECT * FROM AUDSPEC WHERE ejerciciopaciente_id = ",params$pacienteEjercicio))
 datos <- datos[,5:ncol(datos)]
 resultadoAudspect <- expand.grid(Tiempo_segundos = seq(0,(nrow(datos)-1)/100,0.01),Espectro = seq(0,25,1))
-resultadoAudspect$intensidad <- unlist(datos[,3:28],use.names=FALSE)##corregir el 3,28
+resultadoAudspect$intensidad <- unlist(datos[,6:31],use.names=FALSE)
 audspectgraph <- ggplot(resultadoAudspect, aes(Tiempo_segundos, Espectro, z= intensidad)) + geom_tile(aes(fill = intensidad)) + theme_bw() + labs(title='AudSpect')
 }
 #audspectgraph <- ggplot(resultadoAudspect, aes(Tiempo_segundos, Espectro, z= intensidad)) + geom_tile(aes(fill = intensidad)) + theme_bw() + labs(title='AudSpect') + scale_fill_gradient(low="black", high="blue") 
@@ -88,12 +87,12 @@ audspectgraph <- ggplot(resultadoAudspect, aes(Tiempo_segundos, Espectro, z= int
 if (params$prosody == 1) {
 ##datos = dbReadTable(mydb,"PROSODY")
 datos = dbGetQuery(mydb,paste0("SELECT * FROM AUDSPEC WHERE ejerciciopaciente_id = ",params$pacienteEjercicio))
-datos <- datos[,5:ncol(datos)]
+datos <- datos[,6:ncol(datos)]
 
 #paso los datos a un data frame
-resultado <- expand.grid(frame =datos$frame)
+resultado <- expand.grid(frame = seq(0,(nrow(datos)-1)/100,0.01))
 resultado$F0_sma = unlist( datos$F0_sma)
-resultado$voiceProb =unlist( datos$voiceProb_sma)
+resultado$voiceProb =unlist( datos$voiceProb_sma/1000000)
 resultado$loudness = log(unlist( datos$pcm_loudness_sma))
 
 #copio para poder alterar los valores
