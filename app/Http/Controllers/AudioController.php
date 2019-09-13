@@ -64,8 +64,21 @@ class AudioController extends Controller
             return response()->json(['NO_mp3'], 400);
         }
         
-        $user = User::findOrFail($request->input('user'));
-        $ejercicio = Ejercicio::findOrFail($request->input('ejercicio'));
+        $ejercicio_id= 1;
+        if($request->input('ejercicio')){
+            $ejercicio = Ejercicio::findOrFail($request->input('ejercicio'));
+            $ejercicio_id=$ejercicio->id;
+        }
+
+        if($request->input('user')){
+            $user = User::findOrFail($request->input('user'));
+        }
+        else{
+            $user = $request->user();
+        }
+
+
+
         $path = storage_path().'/resultados/'.$user->usuario.'/';
 
         $name = date("Ymd").$ejercicio->nombre;//hasta un ejercicio del mismo tipo por dia, si lo hace devuelta reemplaza
@@ -74,7 +87,7 @@ class AudioController extends Controller
         
         PacienteEjercicio::create([
             'user_id' => $user->id,
-            'ejercicio_id' => $ejercicio->id,
+            'ejercicio_id' => $ejercicio_id,
             'audio_path' => $path,
             'audio_name' => $name,
             'audio_ext' =>$extens 
