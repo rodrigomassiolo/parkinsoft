@@ -180,15 +180,12 @@ class AudioController extends Controller
         $name = $pacienteEjercicio->audio_name;
         $extens = $pacienteEjercicio->audio_ext;
         $path = $pacienteEjercicio->audio_path;
-
-        $pepe= Storage::disk('local')->exists($path);
-
+        $absPath = storage_path('app').$path;
         if($extens != 'wav'){
-            $this->ffmpeg(storage_path('app').$path,$name,$extens);
+            $this->ffmpeg($absPath,$name,$extens);
             if(Storage::disk('local')->exists($path.$name.".wav")){
                 $pacienteEjercicio->audio_ext = 'wav';
                 $pacienteEjercicio->save();
-                return "si pepe";
             }
             else{
                 return "Error en ffmpeg";
@@ -200,47 +197,46 @@ class AudioController extends Controller
         //exec("/var/www/html/parkinsoft/scripts/clearTables.sh"); //eliminar cuando parametricemos ejercicios
         if($request->input('Energy') == "1"){
             $energy = 1;
-            $this->openSmile("openSmileEnergy",$path,$name);
-            $this->csvToDB("csvToDBEnergy.sh","openSmileEnergy",$user_id,$path,$name,$pacienteEjercicio->id);
+            $this->openSmile("openSmileEnergy",$absPath,$name);
+            $this->csvToDB("csvToDBEnergy.sh","openSmileEnergy",$user_id,$absPath,$name,$pacienteEjercicio->id);
         }
         
         $eGemaps = 0;
         if($request->input('eGemaps')== "1"){
             $eGemaps = 1;
-            $this->openSmile("openSmileEGMaps",$path,$name);
-            $this->csvToDB("csvToDBEGMaps.sh","openSmileEGMaps",$user_id,$path,$name,$pacienteEjercicio->id);
+            $this->openSmile("openSmileEGMaps",$absPath,$name);
+            $this->csvToDB("csvToDBEGMaps.sh","openSmileEGMaps",$user_id,$absPath,$name,$pacienteEjercicio->id);
         }
 
         $chroma = 0;
         if($request->input('Chroma')== "1"){
             $chroma = 1;
-            $this->openSmile("openSmileChroma",$path,$name);
-            $this->csvToDB("csvToDBChroma.sh","openSmileChroma",$user_id,$path,$name,$pacienteEjercicio->id);
+            $this->openSmile("openSmileChroma",$absPath,$name);
+            $this->csvToDB("csvToDBChroma.sh","openSmileChroma",$user_id,$absPath,$name,$pacienteEjercicio->id);
         }
 
         $audspec= 0;
         if($request->input('Audspec')== "1"){
             $audspec = 1;
-            $this->openSmile("openSmileAudspec",$path,$name);
-            $this->csvToDB("csvToDBAudspec.sh","openSmileAudspec",$user_id,$path,$name,$pacienteEjercicio->id);
+            $this->openSmile("openSmileAudspec",$absPath,$name);
+            $this->csvToDB("csvToDBAudspec.sh","openSmileAudspec",$user_id,$absPath,$name,$pacienteEjercicio->id);
         }
 
         $prosody = 0;
         if($request->input('Prosody')== "1"){
             $prosody = 1;
-            $this->openSmile("openSmileProsodyAcf",$path,$name);        
-            $this->csvToDB("csvToDBProsodyAcf.sh","openSmileProsodyAcf",$user_id,$path,$name,$pacienteEjercicio->id);
+            $this->openSmile("openSmileProsodyAcf",$absPath,$name);        
+            $this->csvToDB("csvToDBProsodyAcf.sh","openSmileProsodyAcf",$user_id,$absPath,$name,$pacienteEjercicio->id);
         }
 
         
         if($request->input('output')== "html"){
-            $this->plotRmd('html_document', $path.$name.".html",$pacienteEjercicio->id,$energy,$eGemaps,$chroma,$audspec,$prosody);
+            $this->plotRmd('html_document', $absPath.$name.".html",$pacienteEjercicio->id,$energy,$eGemaps,$chroma,$audspec,$prosody);
             if($request->input('Download')== "1"){
-                return response()->download($path.$name.'.html');                
+                return response()->download($absPath.$name.'.html');                
             }
             if($request->input('View')== "1"){
-            //$path = '/storage/app/results/'.$user->usuario.'/'.$ejercicio->nombre.'/';
-            $response = Storage::disk('local')->get($name.".html");
+            $response = Storage::disk('local')->get($path.$name.".html");
             return View('audio.graphic')->with('data',$response);
             }
         }
