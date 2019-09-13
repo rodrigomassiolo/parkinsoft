@@ -181,7 +181,7 @@ class AudioController extends Controller
         $ejercicio = $pacienteEjercicio->ejercicio();
 
 
-        $user = $pacienteEjercicio->usuario();
+        $user = $pacienteEjercicio->user();
         $user_id = $user->id;
         $name = $pacienteEjercicio->audio_name;
         $extens = $pacienteEjercicio->audio_ext;
