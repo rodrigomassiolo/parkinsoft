@@ -23,6 +23,11 @@ $('#exampleModal').on('show.bs.modal', function (event) {
     },
 
     downloadGraphic: function(){
+
+      var pacienteEjercicio = $('#row').val();
+
+      $('#graphicForm').append('<input type="hidden" value="'+ pacienteEjercicio +'" name="pacienteEjercicio">');
+
       $("#graphicForm")
       .attr('action', '/audio/processAudio')
       .submit();
