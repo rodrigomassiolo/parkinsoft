@@ -87,7 +87,6 @@ class AudioController extends Controller
             $comando="/var/www/html/parkinsoft/scripts/clearTables.sh '".$ejercicio_id."' '".$path.$name."'";
             exec($comando);
         }
-        return no;
         $file->move($path, $filename);
         
         PacienteEjercicio::create([
