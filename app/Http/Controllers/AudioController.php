@@ -85,7 +85,7 @@ class AudioController extends Controller
         
         $pacEjer = PacienteEjercicio::where([
             ['user_id', '=', $user->id],
-            ['user_ejercicio_id', '=', $$ejercicio_id],
+            ['user_ejercicio_id', '=', $ejercicio_id],
         ])->get();
     
         if (count($pacEjer) != 0)
