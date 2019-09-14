@@ -96,7 +96,7 @@ datosprosody <- datosprosody[,6:ncol(datosprosody)]
 #paso los datos a un data frame
 resultado <- expand.grid(frame = seq(0,(nrow(datosprosody)-1)/100,0.01))
 resultado$F0_sma = unlist( datosprosody$F0_sma)
-resultado$voiceProb =unlist( datosprosody$voiceProb_sma/1000000)
+resultado$voiceProb =unlist( datosprosody$voiceProb_sma)
 resultado$loudness = log(unlist( datosprosody$pcm_loudness_sma))
 
 #copio para poder alterar los valores
