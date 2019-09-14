@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 use App\User;
 use App\Ejercicio;
 use App\PacienteEjercicio;
@@ -18,12 +19,29 @@ class AudioController extends Controller
      */
     public function index(Request $request)
     {
-        return view('audio.index');
+        //return view('audio.index');
+
+        $user = Auth::user()->usuario;
+
+        $params = array('usuario' => $user);
+        // $PacienteEjercicio = PacienteEjercicio::where('user_id','=',$user)->paginate(10);
+
+        $PacienteEjercicio = PacienteEjercicio::filter($params)->paginate(10);
+
+        $ejercicio = Ejercicio::all();
+
+        return view('audio.index',compact('PacienteEjercicio','ejercicio'))
+            ->with('i', (request()->input('page', 1) - 1) * 10);
+
     }
 
     public function indexLevodopa(Request $request)
     {
         return view('audio.indexLevodopa');
+    }
+
+    public function indexS(){
+        return view('audio.index')->with('success','Audio cargado correctamente');
     }
     
     /**
@@ -66,6 +84,7 @@ class AudioController extends Controller
         
         $ejercicio_id= 1;
         $ejercicio_nombre= 'a';
+        
         if($request->has('ejercicio')){
             $ejercicio = Ejercicio::findOrFail($request->input('ejercicio'));
             $ejercicio_id=$ejercicio->id;
@@ -107,6 +126,11 @@ class AudioController extends Controller
             'audio_name' => $name,
             'audio_ext' =>$extens 
         ]);
+
+        if($request->has('View')){
+            return redirect()->route('audio')->withSuccess('Message sent!');
+            //  return view('audio.index')->withSuccess('Message sent!');
+        }
         
         return "ok";
     }

@@ -50,7 +50,10 @@ class PacienteEjercicio extends Model
 
         if ( isset($params['usuario']) && trim($params['usuario']) !== '' )
         {
-            $query->where('usuario', '=', trim($params['usuario']));
+            $query->whereHas('user', function($query) use($params){
+                $query->where('usuario', 'LIKE', trim($params['usuario']) . '%');
+            });
+            // $query->where('usuario', '=', trim($params['usuario']));
         }
 
         return $query;
