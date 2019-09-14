@@ -82,10 +82,24 @@ class AudioController extends Controller
         $path = storage_path('app').'/resultados/'.$user->usuario.'/';
         $name = date("Ymd").$ejercicio_nombre;//hasta un ejercicio del mismo tipo por dia, si lo hace devuelta reemplaza
         $filename = $name.'.'.$extens;
-
-        if (PacienteEjercicio::where('user_id',$user->id)->where('ejercicio_id',$ejercicio_id)->exists()) {
+        
+        $pacEjer = PacienteEjercicio::where([
+            ['user_id', '=', $user->id],
+            ['user_ejercicio_id', '=', $$ejercicio_id],
+        ])->get();
+    
+        if (count($pacEjer) != 0)
+        {
+            foreach ($pacEjer as $key => $pe) {
+                $pe->delete();
+            }
             $comando="/var/www/html/parkinsoft/scripts/clearTables.sh ".$ejercicio_id." '".$path.$name."*'";
             exec($comando);
+        }
+
+        if (PacienteEjercicio::where('user_id',$user->id)->where('ejercicio_id',$ejercicio_id)->exists()) {
+            
+
         }
         $file->move($path, $filename);
         
