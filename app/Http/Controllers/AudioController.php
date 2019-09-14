@@ -92,6 +92,7 @@ class AudioController extends Controller
         {
             foreach ($pacEjer as $key => $pe) {
                 $comando="/var/www/html/parkinsoft/scripts/clearTables.sh ".$pe->id;
+                exec($comando);
                 $pe->delete();
             }
             $comando="/var/www/html/parkinsoft/scripts/clearFiles.sh '".$path.$name."*'";
