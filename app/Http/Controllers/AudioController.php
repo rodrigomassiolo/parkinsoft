@@ -92,6 +92,11 @@ class AudioController extends Controller
             'audio_ext' =>$extens 
         ]);
         
+        if($request->has('View'))
+        {
+            return View('audio.index')->with('success','Audio cargado correctamente');
+        }
+
         return "ok";
     }
     public function storeLevodopa(Request $request)
