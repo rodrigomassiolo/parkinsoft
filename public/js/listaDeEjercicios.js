@@ -10,13 +10,14 @@ $('#exampleModal').on('show.bs.modal', function (event) {
 
     generateGraphic: function(){
       $("#graphicForm")
-      .attr('action', '/listaDeEjercicios/show/' + $('#row').val())
+      // .attr('action', '/listaDeEjercicios/show/' + $('#row').val())
+      .attr('action', '/audio/processAudio/' + $('#row').val())
       .submit();
     },
 
     downloadGraphic: function(){
       $("#graphicForm")
-      .attr('action', '/audio/processAudio/' + $('#row').val())
+      .attr('action', '/audio/processAudio')
       .submit();
     }
   }
