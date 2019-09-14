@@ -66,8 +66,8 @@ if (parenergy == 1) {
 queryenergy <- paste0("SELECT * FROM ENERGY WHERE ejerciciopaciente_id = ", paej)
 datosenergy <- dbGetQuery(mydb,queryenergy)
 
-datos <- datosenergy[,5:ncol(datosenergy)]
-datos2 <- data.frame(tiempo=c(datos$frameTime),LogEnergy=c(datos$pcm_LOGenergy))
+datosenergy <- datosenergy[,5:ncol(datosenergy)]
+datos2 <- data.frame(tiempo=c(datosenergy$frameTime),LogEnergy=c(datosenergy$pcm_LOGenergy))
 datosEnergy <- datos2
 energygraph <- ggplot(datos2,aes(x=tiempo,y=LogEnergy))+geom_line()+ geom_hline(yintercept=max(datos2$LogEnergy), linetype="dashed", color = "red") + 
   geom_hline(yintercept=min(datos2$LogEnergy), linetype="dashed", color = "blue") + geom_hline(yintercept=mean(datos2$LogEnergy), linetype="dashed", color = "green") + labs(title='Energia de la voz')
@@ -78,9 +78,9 @@ energygraph <- ggplot(datos2,aes(x=tiempo,y=LogEnergy))+geom_line()+ geom_hline(
 if (paraudspec == 1) {
 queryaudspec <- paste0("SELECT * FROM AUDSPEC WHERE ejerciciopaciente_id = ", paej)
 datosaudspec <- dbGetQuery(mydb,queryaudspec)
-datos <- datosaudspec[,5:ncol(datosaudspec)]
-resultadoAudspect <- expand.grid(Tiempo_segundos = seq(0,(nrow(datos)-1)/100,0.01),Espectro = seq(0,25,1))
-resultadoAudspect$intensidad <- unlist(datos[,6:31],use.names=FALSE)
+datosaudspec <- datosaudspec[,5:ncol(datosaudspec)]
+resultadoAudspect <- expand.grid(Tiempo_segundos = seq(0,(nrow(datosaudspec)-1)/100,0.01),Espectro = seq(0,25,1))
+resultadoAudspect$intensidad <- unlist(datosaudspec[,6:31],use.names=FALSE)
 audspectgraph <- ggplot(resultadoAudspect, aes(Tiempo_segundos, Espectro, z= intensidad)) + geom_tile(aes(fill = intensidad)) + theme_bw() + labs(title='AudSpect')
 }
 #audspectgraph <- ggplot(resultadoAudspect, aes(Tiempo_segundos, Espectro, z= intensidad)) + geom_tile(aes(fill = intensidad)) + theme_bw() + labs(title='AudSpect') + scale_fill_gradient(low="black", high="blue") 
@@ -91,13 +91,13 @@ audspectgraph <- ggplot(resultadoAudspect, aes(Tiempo_segundos, Espectro, z= int
 if (parprosody == 1) {
 queryprosody <- paste0("SELECT * FROM PROSODY WHERE ejerciciopaciente_id = ", paej)
 datosprosody <- dbGetQuery(mydb,queryprosody)
-datos <- datosprosody[,6:ncol(datosprosody)]
+datosprosody <- datosprosody[,6:ncol(datosprosody)]
 
 #paso los datos a un data frame
-resultado <- expand.grid(frame = seq(0,(nrow(datos)-1)/100,0.01))
-resultado$F0_sma = unlist( datos$F0_sma)
-resultado$voiceProb =unlist( datos$voiceProb_sma/1000000)
-resultado$loudness = log(unlist( datos$pcm_loudness_sma))
+resultado <- expand.grid(frame = seq(0,(nrow(datosprosody)-1)/100,0.01))
+resultado$F0_sma = unlist( datosprosody$F0_sma)
+resultado$voiceProb =unlist( datosprosody$voiceProb_sma/1000000)
+resultado$loudness = log(unlist( datosprosody$pcm_loudness_sma))
 
 #copio para poder alterar los valores
 resultado2F0_Vol_Prob <- resultado
@@ -125,9 +125,9 @@ F0_Volumen = ggplot(resultado2F0_Vol_Prob, aes(frame))+
 if (pareGemaps == 1) {
 ##datos = dbReadTable(mydb,"EGEMAPS")
 queryegemaps <- paste0("SELECT * FROM EGEMAPS WHERE ejerciciopaciente_id = ", paej)
-datos <- dbGetQuery(mydb,queryegemaps)
+datosegemap <- dbGetQuery(mydb,queryegemaps)
 xs   <- seq(-2*pi,0,pi/100)
-wave <- 0.5*sin(datos$F1frequency_sma3nz_amean * xs) + 0.25*sin(datos$F2frequency_sma3nz_amean * xs) + 0.125 * sin(datos$F3frequency_sma3nz_amean * xs)
+wave <- 0.5*sin(datosegemap$F1frequency_sma3nz_amean * xs) + 0.25*sin(datosegemap$F2frequency_sma3nz_amean * xs) + 0.125 * sin(datosegemap$F3frequency_sma3nz_amean * xs)
 
 resultado <- expand.grid(xs = xs)
 resultado$wave <- wave
@@ -135,7 +135,7 @@ resultado$wave <- wave
 formanteGraph <- ggplot(resultado,aes(x=xs,y=wave)) + geom_line() + labs(title = "Transformada de fourier con las medias de F1, F2 y F3")
 
 resumeneGemaps <- expand.grid (NombreVariable = c ("Media F0","Media F1","Media F2","Media F3","Media de jitter Local","Desviación estándar de jitter Local en DB","Media de shimmer Local","Desviación estándar de shimmer Local en dB"))
-resumeneGemaps$Valor <- c(datos$F0semitoneFrom27_5Hz_sma3nz_amean,datos$F1frequency_sma3nz_amean,datos$F2frequency_sma3nz_amean,datos$F3frequency_sma3nz_amean,datos$jitterLocal_sma3nz_amean,datos$jitterLocal_sma3nz_stddevNorm,datos$shimmerLocaldB_sma3nz_amean,datos$shimmerLocaldB_sma3nz_stddevNorm)
+resumeneGemaps$Valor <- c(datosegemap$F0semitoneFrom27_5Hz_sma3nz_amean,datosegemap$F1frequency_sma3nz_amean,datosegemap$F2frequency_sma3nz_amean,datosegemap$F3frequency_sma3nz_amean,datosegemap$jitterLocal_sma3nz_amean,datosegemap$jitterLocal_sma3nz_stddevNorm,datosegemap$shimmerLocaldB_sma3nz_amean,datosegemap$shimmerLocaldB_sma3nz_stddevNorm)
 
 ## Vowel
 vowel <- data.frame(vocal = c('i','e','y','theta','epsilon','AE','omega','gamma','a','ce','lambda','mu','o','o abierta','alpha','alpha invertida'),
@@ -145,7 +145,7 @@ vowel <- data.frame(vocal = c('i','e','y','theta','epsilon','AE','omega','gamma'
                     "f2-f1" = c(2160,1910,1865,1530,1290,1125,1090,850,760,710,570,345,280,200,190,60))
 
 #Grafico de vowel
-vowelGraph <- ggplot(vowel,aes(x = f1)) + geom_point(aes(y = f2,color="vowel")) + geom_point(aes(x=datos$F1frequency_sma3nz_amean,y=datos$F2frequency_sma3nz_amean,color="paciente"))+
+vowelGraph <- ggplot(vowel,aes(x = f1)) + geom_point(aes(y = f2,color="vowel")) + geom_point(aes(x=datosegemap$F1frequency_sma3nz_amean,y=datosegemap$F2frequency_sma3nz_amean,color="paciente"))+
   labs(title = "Diagráma de vowel")
 }  
 #######################################################################################################################
