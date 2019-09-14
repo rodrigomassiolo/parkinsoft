@@ -78,10 +78,14 @@ class AudioController extends Controller
         else{
             $user = $request->user();
         }
-        $path = storage_path('app').'/resultados/'.$user->usuario.'/';
 
+        $path = storage_path('app').'/resultados/'.$user->usuario.'/';
         $name = date("Ymd").$ejercicio_nombre;//hasta un ejercicio del mismo tipo por dia, si lo hace devuelta reemplaza
         $filename = $name.'.'.$extens;
+
+        if (PacienteEjercicio::where('user_id',$user->id)->where('ejercicio_id',$ejercicio_id)->exists()) {
+            exec("/var/www/html/parkinsoft/scripts/clearTables.sh ".$ejercicio_id." ".$path.$name);
+        }
         $file->move($path, $filename);
         
         PacienteEjercicio::create([
@@ -193,8 +197,6 @@ class AudioController extends Controller
         }
 
         $energy = 0;
-
-        //exec("/var/www/html/parkinsoft/scripts/clearTables.sh"); //eliminar cuando parametricemos ejercicios
         if($request->input('Energy') == "1"){
             $energy = 1;
             $this->openSmile("openSmileEnergy",$absPath,$name);
