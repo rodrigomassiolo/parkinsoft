@@ -14,7 +14,7 @@ $('#exampleModal').on('show.bs.modal', function (event) {
       
       $('#graphicForm').append('<input type="hidden" value="'+ pacienteEjercicio +'" name="pacienteEjercicio">');
 
-      $('#graphicForm').append('<input type="hidden" id="output" name="html">');
+      $('#graphicForm').append('<input type="hidden" name="output" value="html">');
       
       $("#graphicForm")
       // .attr('action', '/listaDeEjercicios/show/' + $('#row').val())
