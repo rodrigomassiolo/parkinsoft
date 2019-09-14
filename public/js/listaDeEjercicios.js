@@ -9,9 +9,16 @@ $('#exampleModal').on('show.bs.modal', function (event) {
   var Lista = {
 
     generateGraphic: function(){
+
+      var pacienteEjercicio = $('#row').val();
+      
+      $('#graphicForm').append('<input type="hidden" value="'+ pacienteEjercicio +'" name="pacienteEjercicio">');
+
+      $('#graphicForm').append('<input type="hidden" id="output" name="html">');
+      
       $("#graphicForm")
       // .attr('action', '/listaDeEjercicios/show/' + $('#row').val())
-      .attr('action', '/audio/processAudio/' + $('#row').val())
+      .attr('action', '/audio/processAudio')
       .submit();
     },
 

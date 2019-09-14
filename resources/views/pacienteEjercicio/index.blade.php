@@ -121,10 +121,7 @@
             
            
             <label><input type="checkbox" name="Prosody" value="1"> Prosody</label><br>    
-
-            <input type="hidden" value="1" name="pacienteEjercicio">
-            
-            <input type="hidden" id="output" name="html">
+    
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
