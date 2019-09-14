@@ -85,7 +85,7 @@ class AudioController extends Controller
         
         $pacEjer = PacienteEjercicio::where([
             ['user_id', '=', $user->id],
-            ['user_ejercicio_id', '=', $ejercicio_id],
+            ['ejercicio_id', '=', $ejercicio_id],
         ])->get();
     
         if (count($pacEjer) != 0)
@@ -95,11 +95,6 @@ class AudioController extends Controller
             }
             $comando="/var/www/html/parkinsoft/scripts/clearTables.sh ".$ejercicio_id." '".$path.$name."*'";
             exec($comando);
-        }
-
-        if (PacienteEjercicio::where('user_id',$user->id)->where('ejercicio_id',$ejercicio_id)->exists()) {
-            
-
         }
         $file->move($path, $filename);
         
