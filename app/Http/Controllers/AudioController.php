@@ -85,6 +85,7 @@ class AudioController extends Controller
 
         if (PacienteEjercicio::where('user_id',$user->id)->where('ejercicio_id',$ejercicio_id)->exists()) {
             $comando="/var/www/html/parkinsoft/scripts/clearTables.sh '".$ejercicio_id."' '".$path.$name."'";
+            return $comando;
             exec($comando);
         }
         $file->move($path, $filename);
