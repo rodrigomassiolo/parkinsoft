@@ -221,6 +221,7 @@ class AudioController extends Controller
         if($extens != 'wav'){
             $this->ffmpeg($absPath,$name,$extens);
             $comando="/var/www/html/parkinsoft/scripts/clearFiles.sh '".$absPath.$name."*.".$extens."'";
+            exec($comando);
             if(Storage::disk('local')->exists($path.$name.".wav")){
                 $pacienteEjercicio->audio_ext = 'wav';
                 $pacienteEjercicio->save();
