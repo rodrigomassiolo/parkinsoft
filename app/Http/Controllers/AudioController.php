@@ -197,6 +197,27 @@ class AudioController extends Controller
         $extens = $pacienteEjercicio->audio_ext;
         $path = $pacienteEjercicio->audio_path;
         $absPath = storage_path('app').$path;
+
+
+        $pacEjer = PacienteEjercicio::where([
+            ['user_id', '=', $user->id],
+            ['audio_name', '=', $name],
+        ])->get();
+    
+        if (count($pacEjer) != 0)
+        {
+            foreach ($pacEjer as $key => $pe) {
+                $comando="/var/www/html/parkinsoft/scripts/clearTables.sh ".$pe->id;
+                exec($comando);
+            }
+            $comando="/var/www/html/parkinsoft/scripts/clearFiles.sh '".$absPath.$name."*.csv'";
+            exec($comando);
+            $comando="/var/www/html/parkinsoft/scripts/clearFiles.sh '".$absPath.$name."*.html'";
+            exec($comando);
+            $comando="/var/www/html/parkinsoft/scripts/clearFiles.sh '".$absPath.$name."*.wav'";
+            exec($comando);
+        }
+        
         if($extens != 'wav'){
             $this->ffmpeg($absPath,$name,$extens);
             if(Storage::disk('local')->exists($path.$name.".wav")){
