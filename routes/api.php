@@ -13,6 +13,11 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 
+Route::post('/admin', 'AbmAdminController@index')->middleware('auth:api');
+Route::post('/admin/register', 'AbmAdminController@store')->middleware('auth:api');
+Route::post('/admin/update/{id}', 'AbmAdminController@update')->middleware('auth:api');
+Route::post('/admin/destroy/{id}', 'AbmAdminController@destroy')->middleware('auth:api');
+
 /*Para Usuarios*/
 Route::get('apilogin/{email}/{password}','API\\UsuarioController@apilogin');
 Route::post('/resetPassword','API\\UsuarioController@resetPassword');
