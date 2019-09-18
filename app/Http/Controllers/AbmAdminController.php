@@ -11,19 +11,15 @@ class AbmAdminController extends Controller
     public function index(Request $request)
     {
         $api = substr ( $request->path(), 0,3 ) == 'api';
+        $params = $request->except('_token');
+        session()->flashInput($request->input());
         if($api){
-            $params = $request->except('_token');
-            session()->flashInput($request->input());
-  
             $user = User::filter($params)->whereHas('rol',function($q){
                 $q->where('type',0);
             })->get();
-            $response=array("qty"=>count($user),"users"=>$user);
-            return $response;
+           
+            return array("qty"=>count($user),"users"=>$user);
         }
-        $params = $request->except('_token');
-        session()->flashInput($request->input());
-
         $user = User::filter($params)->whereHas('rol',function($q){
             $q->where('type',0);
         })->paginate(10);
@@ -157,9 +153,8 @@ class AbmAdminController extends Controller
         $rol->update();
         $user->update();
         
-        if($api){
-           return 'ok';
-        }
+        if($api){ return 'ok'; }
+        
         return redirect()->route('abmAdmin.index')
                            ->with('success','Administrador eliminado correctamente');
     }

@@ -16,12 +16,13 @@ class MedicamentoController extends Controller
      */
     public function index(Request $request)
     {
-
+        $api = substr ( $request->path(), 0,3 ) == 'api';
         $params = $request->except('_token');
-
+        if($api){
+            $medicamento = Medicamento::filter($params)->get();
+            return array("qty"=>count($medicamento),"medicamentos"=>$medicamento);
+        }
         $medicamento = Medicamento::filter($params)->paginate(10);
-
-        //$medicamento = Medicamento::latest()->paginate(10);
 
         return view('medicamento.index',compact('medicamento'))
             ->with('i', (request()->input('page', 1) - 1) * 10);
@@ -46,6 +47,7 @@ class MedicamentoController extends Controller
      */
     public function store(Request $request)
     {
+        $api = substr ( $request->path(), 0,3 ) == 'api';
         $request->validate([
             'nombre' => 'required',
         ]);
@@ -61,6 +63,8 @@ class MedicamentoController extends Controller
        ));
 
        $medicamento->save();
+
+       if($api){ return $medicamento; }
 
         return redirect()->route('medicamento.index')
                         ->with('success','Medicamento creado correctamente.');
@@ -99,12 +103,13 @@ class MedicamentoController extends Controller
      */
     public function update(Request $request, Medicamento $medicamento)
     {
-        //
+        $api = substr ( $request->path(), 0,3 ) == 'api';
         $request->validate([
             'nombre' => 'required',
         ]);
   
         $medicamento->update($request->all());
+        if($api) { return $medicamento; }
   
         return redirect()->route('medicamento.index')
                         ->with('success','Medicamento modificado correctamente');
@@ -116,10 +121,14 @@ class MedicamentoController extends Controller
      * @param  \App\Medicamento  $medicamento
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Medicamento $medicamento)
+    public function destroy(Request $request,$id)
     {
-        //
+        $api = substr ( $request->path(), 0,3 ) == 'api';
+        $medicamento = Medicamento::where('id',$id)->first();
         $medicamento->delete();
+       
+        if($api){ return 'ok'; }
+
         return redirect()->route('medicamento.index')
                         ->with('success','Medicamento eliminado correctamente');
     }
