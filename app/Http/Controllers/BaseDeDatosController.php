@@ -22,7 +22,8 @@ class BaseDeDatosController extends Controller
       $tabla = $request->get('tabla');
       $comando="/var/www/html/parkinsoft/scripts/showColumnsFromTable.sh ".$tabla;
       exec($comando,$columns);
-      return $columns;
+      $result = str_getcsv ( $columns , $delimiter = "\t" ); 
+      return $result;
     }
 
     public function showIndexesFromTable(Request $request)
