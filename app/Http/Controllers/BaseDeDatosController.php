@@ -68,12 +68,12 @@ class BaseDeDatosController extends Controller
     public function deleteIndex(Request $request)
     {
       $request->validate([
-        'indexName' => 'required',
+        'nombre_index' => 'required',
         'tabla' => 'required'        
       ]);
-      $indexName = $request->get('indexName');
+      $nombre_index = $request->get('nombre_index');
       $tabla = $request->get('tabla');
-      $comando="/var/www/html/parkinsoft/scripts/deleteIndex.sh ".$indexName." ".$tabla;
+      $comando="/var/www/html/parkinsoft/scripts/deleteIndex.sh ".$nombre_index." ".$tabla;
       exec($comando,$response);
       return $response;
     }
