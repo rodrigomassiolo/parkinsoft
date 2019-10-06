@@ -8,6 +8,6 @@ class ApkController extends Controller
 {
     public function download()
     {
-        return response()->file(storage_path('app')."parkinsoft.apk");
+        return response()->file(storage_path('app')."/Parkinsoft.apk");
     }
 }
