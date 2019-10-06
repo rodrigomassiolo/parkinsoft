@@ -11,7 +11,7 @@ class BaseDeDatosController extends Controller
       $comando="/var/www/html/parkinsoft/scripts/showTables.sh";
       $tablas = null;
       exec($comando,$tablas);
-      return $tables;
+      return $tablas;
     }
 
     public function showColumnsFromTable(Request $request)
