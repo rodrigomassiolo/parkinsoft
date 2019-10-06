@@ -22,9 +22,8 @@ class BaseDeDatosController extends Controller
       $tabla = $request->get('tabla');
       $comando="/var/www/html/parkinsoft/scripts/showColumnsFromTable.sh ".$tabla;
       exec($comando,$response);
-
-      $result[] = $columnas;  
-      for ($j=1; $j < count($response) ; $j++) {//para cada row 
+      $result = array();
+      for ($j=1; $j < count($response) ; $j++) {
         $row = str_getcsv ( $response[$j] , $delimiter = "\t" );
         $result[] = $row[0]; 
       }
