@@ -15,6 +15,12 @@ return [
     'contactLink' => 'Contacto',
     'uploadAudio' => 'Cargar audio',
     'levodopaTest' => 'Test de Levodopa',
-    'languageTest' => 'ESTO ES EN ESPAÑOL'
-
+    'languageTest' => 'ESTO ES EN ESPAÑOL',
+    'levodopaFirstAudioText' => 'Ingresar Audio sin medicación',
+    'levodopaFirstAudioButton' => 'Cargar',
+    'levodopaSecondAudioText' => 'Ingresar Audio con medicación',
+    'levodopaSecondAudioButton' => 'Cargar',
+    'levodopaModalTitle' => '',
+    'levodopaModalBody' => '',
+    'levodopaModalButton' => '',
 ];

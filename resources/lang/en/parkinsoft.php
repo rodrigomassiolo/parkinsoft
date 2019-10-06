@@ -15,6 +15,13 @@ return [
     'contactLink' => 'Contact',
     'uploadAudio' => 'Upload audio',
     'levodopaTest' => 'Levodopa Test',
-    'languageTest' => 'THIS IS IN ENGLISH'
+    'languageTest' => 'THIS IS IN ENGLISH',
+    'levodopaFirstAudioText' => 'Upload audio without medication',
+    'levodopaFirstAudioButton' => 'Upload',
+    'levodopaSecondAudioText' => 'Upload audio with medication',
+    'levodopaSecondAudioButton' => 'Upload',
+    'levodopaModalTitle' => '',
+    'levodopaModalBody' => '',
+    'levodopaModalButton' => '',
 
 ];

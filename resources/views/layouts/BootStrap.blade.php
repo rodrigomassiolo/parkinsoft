@@ -4,7 +4,9 @@
   <!-- CSRF Token -->
   <meta name="csrf-token" content="{{ csrf_token() }}">
 
-  <link rel="stylesheet" href="/css/bootstrap.css">
+  <link rel="stylesheet" href="{{ asset('css/bootstrap.css') }}">
+  <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+
   <title> @yield('title') </title>
 </head>
 <body>
@@ -15,8 +17,8 @@
   <script src="{{ asset('js/jquery-slim.min.js') }}"></script>
   <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
   <script src="{{ asset('js/feather.min.js') }}"></script>
-  <script src="{{ asset('js/Chart.min.js') }}"></script>
-  <script src="{{ asset('js/dashboard.js') }}"></script>
+  <!-- <script src="{{ asset('js/Chart.min.js') }}"></script>
+  <script src="{{ asset('js/dashboard.js') }}"></script> -->
   <script type="text/javascript" src="{{ asset('js/listaDeEjercicios.js') }}"></script>
   <script type="text/javascript" src="{{ asset('js/audio.js') }}"></script>
 

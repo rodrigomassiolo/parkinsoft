@@ -37,7 +37,13 @@ class AudioController extends Controller
 
     public function indexLevodopa(Request $request)
     {
-        return view('audio.indexLevodopa');
+        //  $ejercicio = Ejercicio::where(function ($query){
+        //      $query->where('nombre', 'LIKE', '%' . 'levodopa'. '%');
+        // });  
+
+         $ejercicio = Ejercicio::all();
+
+        return view('audio.indexLevodopa',compact('ejercicio'));
     }
 
     public function indexS(){
@@ -131,11 +137,16 @@ class AudioController extends Controller
             return redirect()->route('audio')->withSuccess('Message sent!');
             //  return view('audio.index')->withSuccess('Message sent!');
         }
-        
-        if($request->has('View'))
-        {
-            return View('audio.index')->with('success','Audio cargado correctamente');
+
+        if($request->has('Levodopa')){
+            return redirect()->route('TestLevodopa')->withSuccess('Audio cargado correctamente');
+            //  return view('audio.index')->withSuccess('Message sent!');
         }
+        
+        // if($request->has('View'))
+        // {
+        //     return View('audio.index')->with('success','Audio cargado correctamente');
+        // }
 
         return "ok";
     }

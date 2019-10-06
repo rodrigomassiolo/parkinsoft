@@ -12,13 +12,21 @@
 
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" 
             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Idioma
+            Idioma
+        </a>
+
+        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink"> 
+          <a class="dropdown-item" href="{{ URL::to('en') }}">
+              English
+              <img class="img-fluid" style="width:20%" src="{{asset('/img/gb.svg')}}">
           </a>
 
-          <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink"> 
-                <a class="dropdown-item" href="{{ URL::to('en') }}">English</a>
-                <a class="dropdown-item" href="{{ URL::to('es') }}">Español</a>
-          </div>
+          <a class="dropdown-item" href="{{ URL::to('es') }}">
+              Español
+              <img class="img-fluid" style="width:20%" src="{{asset('/img/es.svg')}}">
+          </a>
+
+        </div>
       </li>
       <li><a  class="nav-link" href="{{ route('infosite') }}">Info. del sitio</a></li>
       <li><a  class="nav-link" href="{{ route('infoproj') }}">Info. del projecto</a></li>
@@ -38,12 +46,12 @@
           <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink"> 
             <a class="dropdown-item" href="{{ URL::to('en') }}">
                 English
-                <img class="img-fluid" style="width:20%" src="img/gb.svg">
+                <img class="img-fluid" style="width:20%" src="{{asset('/img/gb.svg')}}">
             </a>
 
             <a class="dropdown-item" href="{{ URL::to('es') }}">
                 Español
-                <img class="img-fluid" style="width:20%" src="img/es.svg">
+                <img class="img-fluid" style="width:20%" src="{{asset('/img/es.svg')}}">
             </a>
 
           </div>
