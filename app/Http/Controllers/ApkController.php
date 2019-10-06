@@ -16,7 +16,7 @@ class ApkController extends Controller
               'Content-Type: application/vnd.android.package-archive',
             );
 
-    return Response::download($file, 'Parkinsoft.apk', $headers);
+    return response()->download($file, 'Parkinsoft.apk', $headers);
 
     }
 }
