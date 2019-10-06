@@ -20,6 +20,7 @@ class PacienteController extends Controller
             'usuario' => ['usuario','='],
             'nacimiento' => ['nacimiento','='],
             'status' => ['status','='],
+            'idioma' => ['idioma','=']
                         );
 
         $filterRequest = array();
@@ -113,6 +114,12 @@ class PacienteController extends Controller
         $user->email = $jsonReq['email'];
         $user->password = bcrypt($jsonReq['password']);
         $user->rol_id = $rol['id'];
+        if($jsonReq['idioma']){
+            $user->idioma = $jsonReq['idioma'];
+        }
+        if($jsonReq['medicacion']){
+            $user->medicacion = $jsonReq['medicacion'];
+        }
         $user->save();
     
         $secret = str_random(40);
@@ -178,6 +185,14 @@ class PacienteController extends Controller
         }else{
             $user->email = $jsonReq['email'];
         }
+
+        if($jsonReq['idioma']){
+            $user->idioma = $jsonReq['idioma'];
+        }
+        if($jsonReq['medicacion']){
+            $user->medicacion = $jsonReq['medicacion'];
+        }
+        
         $user->save();
     
         return "ok";

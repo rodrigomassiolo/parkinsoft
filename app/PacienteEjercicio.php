@@ -15,7 +15,7 @@ class PacienteEjercicio extends Model
      * @var array
      */
     protected $fillable = [
-        'user_id', 'ejercicio_id','audio_path','audio_name','audio_ext'];
+        'user_id', 'ejercicio_id','audio_path','audio_name','audio_ext','ultimaMedicacion'];
     
     public function user()
     {
@@ -55,7 +55,6 @@ class PacienteEjercicio extends Model
             });
             // $query->where('usuario', '=', trim($params['usuario']));
         }
-
         return $query;
     }
 

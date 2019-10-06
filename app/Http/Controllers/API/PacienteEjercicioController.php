@@ -43,7 +43,9 @@ class PacienteEjercicioController extends Controller
                                         users.id AS user_id,
                                         users.usuario AS user_usuario,
                                         ejercicio.id AS ejercicio_id,
-                                        ejercicio.nombre AS ejercicio_nombre
+                                        ejercicio.nombre AS ejercicio_nombre,
+                                        pacienteEjercicio.ultimaMedicacion AS ultimaMedicacion,
+                                        users.medicacion AS medicacionPaciente
                                         FROM pacienteEjercicio
                                         INNER JOIN users on pacienteEjercicio.user_id = users.id
                                         INNER JOIN ejercicio on pacienteEjercicio.ejercicio_id = ejercicio.id
