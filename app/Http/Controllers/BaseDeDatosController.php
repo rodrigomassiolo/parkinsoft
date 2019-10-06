@@ -27,7 +27,7 @@ class BaseDeDatosController extends Controller
       $columnas = str_getcsv ( $response[0] , $delimiter = "\t" ); 
 
       for ($j=1; $j < count($response)-1 ; $j++) { 
-        $linea = str_getcsv ( $response[j] , $delimiter = "\t" );
+        $linea = str_getcsv ( $response[$j] , $delimiter = "\t" );
         for ($i=0; $i < count($columnas); $i++) { 
           $result[j][$columnas[i]] = $linea[i];
         }
