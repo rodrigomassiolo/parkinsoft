@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\User;
 use App\Rol;
+use App\Operacion;
 
 class PacienteController extends Controller
 {
@@ -19,6 +20,7 @@ class PacienteController extends Controller
             'usuario' => ['usuario','='],
             'nacimiento' => ['nacimiento','='],
             'status' => ['status','='],
+            'idioma' => ['idioma','=']
                         );
 
         $filterRequest = array();
@@ -43,7 +45,14 @@ class PacienteController extends Controller
         
         foreach ($users as $key => $value) {
             $rol = Rol::where([['id', '=', $value['rol_id']]])->take(1)->get();
+            if($rol[0]->type != 2){
+                unset($users[$key]);
+                continue;
+            }
             $value['rol'] = $rol;
+
+            $operaciones = Operacion::where([['user_id', '=', $value['id']]])->get();
+            $value['operaciones'] = $operaciones;
         }
        //$user = User::filter($request)->where('email','<>','')->paginate(10);
         $response=array("qty"=>count($users),"users"=>$users);
@@ -56,7 +65,9 @@ class PacienteController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store (Request $request) {
+        
         $jsonReq = json_decode($request->getContent(), true);
+
         if(!$jsonReq['usuario'] && !preg_match('/^[A-Z]{4}\d{3}$/', $jsonReq['usuario'])){
             return "Error: el usuario es requerido y debe tener el formato AAAA123";
         }
@@ -109,6 +120,12 @@ class PacienteController extends Controller
         $user->email = $jsonReq['email'];
         $user->password = bcrypt($jsonReq['password']);
         $user->rol_id = $rol['id'];
+        if($jsonReq['idioma']){
+            $user->idioma = $jsonReq['idioma'];
+        }
+        if($jsonReq['medicacion']){
+            $user->medicacion = $jsonReq['medicacion'];
+        }
         $user->save();
     
         $secret = str_random(40);
@@ -137,6 +154,9 @@ class PacienteController extends Controller
         $user = $request->user();
         $rol = Rol::where([['id', '=', $user->rol_id]])->take(1)->get();
         $user->Rol = $rol;
+
+        $operaciones = Operacion::where([['user_id', '=', $value['id']]])->get();
+        $user->Operaciones = $operaciones;
         return $user;
     }
 
@@ -171,6 +191,14 @@ class PacienteController extends Controller
         }else{
             $user->email = $jsonReq['email'];
         }
+
+        if($jsonReq['idioma']){
+            $user->idioma = $jsonReq['idioma'];
+        }
+        if($jsonReq['medicacion']){
+            $user->medicacion = $jsonReq['medicacion'];
+        }
+
         $user->save();
     
         return "ok";

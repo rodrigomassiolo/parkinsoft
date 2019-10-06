@@ -19,7 +19,7 @@ class User extends Authenticatable
      */
     protected $fillable = [
         //'name', 'email', 'password',
-        'usuario', 'genero', 'nacimiento', 'email', 'password','rol_id','status'
+        'usuario', 'genero', 'nacimiento', 'email', 'password','rol_id','status','medicacion', 'idioma'
     ];
 
     /**
@@ -35,6 +35,12 @@ class User extends Authenticatable
     {
         return $this->hasOne('App\Rol','id','rol_id');
     }
+
+    public function operaciones()
+    {
+        return $this->hasMany('App\Operacion', 'user_id', 'id');
+    }
+
 
     public function scopeFilter($query, $params)
     {
@@ -54,7 +60,10 @@ class User extends Authenticatable
        {
            $query->where('usuario', '=', trim($params['usuario']));
        }
-
+       if ( isset($params['idioma']) && trim($params['idioma']) !== '' )
+       {
+           $query->where('idioma', 'LIKE', trim($params['idioma']) . '%');
+       }
         return $query;
     }
 

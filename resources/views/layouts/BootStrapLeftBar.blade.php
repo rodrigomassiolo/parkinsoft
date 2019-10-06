@@ -67,7 +67,19 @@
       </a>
     </li>
      @endif  
-     
+     <li class="nav-item">
+      <a class="nav-link" href="{{ route('listaDeEjercicios') }}">
+        <span data-feather="activity"></span>
+        Lista de Audios
+      </a>
+    </li>
+     <form action="{{ route('donwloadApk') }}" method="GET">
+      @csrf
+        <a class="nav-link" href="{{ route('donwloadApk') }}" data-toggle="tooltip" title="Mostrar">
+          <span data-feather="download"></span>
+              Descargar App
+        </a>
+      </form>
   </ul>
 
 </div>

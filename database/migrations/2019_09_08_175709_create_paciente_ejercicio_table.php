@@ -21,6 +21,7 @@ class CreatePacienteEjercicioTable extends Migration
             $table->string('audio_path')->nullable();
             $table->string('audio_name')->nullable();
             $table->string('audio_ext')->nullable();
+            $table->string('ultimaMedicacion')->nullable();
             $table->timestamps();
         });
     }
