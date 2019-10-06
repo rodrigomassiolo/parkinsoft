@@ -73,7 +73,7 @@
         Lista de Audios
       </a>
     </li>
-     <form action="{{ route('ApkController.download') }}" method="GET">
+     <form action="{{ route('donwloadApk') }}" method="GET">
       @csrf
         <a class="nav-link" href="#" data-toggle="tooltip" title="Mostrar">
           <span data-feather="eye"></span>
