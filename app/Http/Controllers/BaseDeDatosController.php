@@ -21,13 +21,17 @@ class BaseDeDatosController extends Controller
       ]);
       $tabla = $request->get('tabla');
       $comando="/var/www/html/parkinsoft/scripts/showColumnsFromTable.sh ".$tabla;
-      exec($comando,$columns);
+      exec($comando,$response);
+
       $result = array();
-      
-      foreach ($columns as $linea) {
-        $result[] = str_getcsv ( $linea , $delimiter = "\t" ); 
+      $columnas = str_getcsv ( $response[0] , $delimiter = "\t" ); 
+
+      for ($j=1; $j < count($response)-1 ; $j++) { 
+        $linea = str_getcsv ( $response[j] , $delimiter = "\t" );
+        for ($i=0; $i < count($columnas); $i++) { 
+          $result[j][$columnas[i]] = $linea[i];
+        }
       }
-      
       return $result;
     }
 
