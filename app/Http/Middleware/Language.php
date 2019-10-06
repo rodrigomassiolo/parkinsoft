@@ -22,7 +22,9 @@ class Language {
      */
     public function handle($request, Closure $next)
     {
-          if(in_array($request->segment(1), config('app.available_locale'))){
+      //     if(in_array($request->segment(1), config('app.available_locale'))){
+          if(in_array($request->segment(1), ['en', 'es'])){
+            
                 $this->app->setLocale($request->segment(1));
           }else{
                 $this->app->setLocale(config('app.locale'));
