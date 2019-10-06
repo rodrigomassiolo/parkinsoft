@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\User;
 use App\Rol;
+use App\Operacion;
 
 class PacienteController extends Controller
 {
@@ -44,6 +45,9 @@ class PacienteController extends Controller
         foreach ($users as $key => $value) {
             $rol = Rol::where([['id', '=', $value['rol_id']]])->take(1)->get();
             $value['rol'] = $rol;
+
+            $operaciones = Operacion::where([['user_id', '=', $value['id']]])->get();
+            $value['operaciones'] = $operaciones;
         }
        //$user = User::filter($request)->where('email','<>','')->paginate(10);
         $response=array("qty"=>count($users),"users"=>$users);
@@ -137,6 +141,9 @@ class PacienteController extends Controller
         $user = $request->user();
         $rol = Rol::where([['id', '=', $user->rol_id]])->take(1)->get();
         $user->Rol = $rol;
+
+        $operaciones = Operacion::where([['user_id', '=', $value['id']]])->get();
+        $user->Operaciones = $operaciones;
         return $user;
     }
 

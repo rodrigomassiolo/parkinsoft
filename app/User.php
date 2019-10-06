@@ -36,6 +36,12 @@ class User extends Authenticatable
         return $this->hasOne('App\Rol','id','rol_id');
     }
 
+    public function operaciones()
+    {
+        return $this->hasMany('App\Operacion', 'user_id', 'id');
+    }
+
+
     public function scopeFilter($query, $params)
     {
         if ( isset($params['email']) && trim($params['email'] !== '') ) {

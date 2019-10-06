@@ -44,11 +44,15 @@ Route::post('/ejercicio/register', 'AbmEjercicioController@store')->middleware('
 Route::post('/ejercicio/update/{id}', 'AbmEjercicioController@update')->middleware('auth:api');
 Route::post('/ejercicio/destroy/{id}', 'AbmEjercicioController@destroy')->middleware('auth:api');
 
+/*ABM Operaciones*/
+Route::post('/operacion', 'OperacionController@index')->middleware('auth:api');
+Route::post('/operacion/register', 'OperacionController@store')->middleware('auth:api');
+Route::post('/operacion/update/{id}', 'OperacionController@update')->middleware('auth:api');
+Route::post('/operacion/destroy/{id}', 'OperacionController@destroy')->middleware('auth:api');
 
 
 /*Envio de Audios*/
 Route::post('/sendAudio', 'AudioController@store')->middleware('auth:api');
-Route::post('/sendLevodopa', 'AudioController@storeLevodopa')->middleware('auth:api');
 Route::post('/processAudio', 'AudioController@processAudio')->middleware('auth:api');
 
 /*PacienteEjercicio*/
