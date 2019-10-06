@@ -76,7 +76,7 @@
      <form action="{{ route('donwloadApk') }}" method="GET">
       @csrf
         <a class="nav-link" href="{{ route('donwloadApk') }}" data-toggle="tooltip" title="Mostrar">
-          <span data-feather="eye"></span>
+          <span data-feather="download"></span>
               Descargar App
         </a>
       </form>
