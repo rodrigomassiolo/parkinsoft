@@ -24,15 +24,18 @@ class BaseDeDatosController extends Controller
       exec($comando,$response);
 
       $result = array();
-      $columnas = str_getcsv ( $response[0] , $delimiter = "\t" ); 
-      
-      for ($j=1; $j < count($response) ; $j++) { 
-        $linea = str_getcsv ( $response[$j] , $delimiter = "\t" );
+      $columnas = str_getcsv ( $response[0] , $delimiter = "\t" ); //nombre de las columnas
+  $result[] = $columnas;      
+      for ($j=1; $j < count($response) ; $j++) {//para cada row 
+        $row = str_getcsv ( $response[$j] , $delimiter = "\t" );
+        $result[] = $row; 
+        /*
         $obj = array();
         for ($i=0; $i < count($columnas); $i++) { 
-          $obj[$columnas[$i]] = $linea[$i];
+          $obj[$columnas[$i]] = $row[$i];
         }
         $result[] = $obj;
+        */
       }
       return $result;
     }
