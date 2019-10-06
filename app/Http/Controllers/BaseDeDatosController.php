@@ -53,12 +53,14 @@ class BaseDeDatosController extends Controller
     public function setIndex(Request $request)
     {
       $request->validate([
+        'nombre_index' => 'required', 
         'tabla' => 'required',
         'columna' => 'required'        
       ]);
+      $nombre_index = $request->get('nombre_index');
       $tabla = $request->get('tabla');
       $columna = $request->get('columna');
-      $comando="/var/www/html/parkinsoft/scripts/setIndex.sh ".$tabla." ".$columna;
+      $comando="/var/www/html/parkinsoft/scripts/setIndex.sh ".$nombre_index." ".$tabla." ".$columna;
       exec($comando,$response);
       return $response;
     }
