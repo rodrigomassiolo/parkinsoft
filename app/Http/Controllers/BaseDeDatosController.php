@@ -37,8 +37,17 @@ class BaseDeDatosController extends Controller
       ]);
       $tabla = $request->get('tabla');
       $comando="/var/www/html/parkinsoft/scripts/showIndexesFromTable.sh ".$tabla;
-      exec($comando,$indexes);
-      return $indexes;
+      exec($comando,$response);
+      $result = array();
+      for ($j=1; $j < count($response) ; $j++) {
+        $row = str_getcsv ( $response[$j] , $delimiter = "\t" );
+        $rowArray = array(
+          "nombre_columna" =>  $row[4],
+          "nombre_index" =>  $row[2]      
+        );
+        $result[] = $rowArray; 
+      }
+      return $result;
     }
 
     public function setIndex(Request $request)
