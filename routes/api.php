@@ -53,3 +53,6 @@ Route::post('/processAudio', 'AudioController@processAudio')->middleware('auth:a
 
 /*PacienteEjercicio*/
 Route::post('/pacienteEjercicio', 'API\\PacienteEjercicioController@index');
+
+/*Apk*/
+Route::get('/apk','ApkController@download')->middleware('auth:api');
