@@ -64,5 +64,6 @@ Route::get('/apk','ApkController@download')->middleware('auth:api');
 /*BaseDeDatos*/
 Route::get('/showTables','BaseDeDatosController@showTables')->middleware('auth:api');
 Route::post('/showColumnsFromTable','BaseDeDatosController@showColumnsFromTable')->middleware('auth:api');
+Route::post('/showIndexesFromTable','BaseDeDatosController@showIndexesFromTable')->middleware('auth:api');
 Route::post('/setIndex','BaseDeDatosController@setIndex')->middleware('auth:api');
 Route::post('/deleteIndex','BaseDeDatosController@deleteIndex')->middleware('auth:api');
