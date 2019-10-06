@@ -22,7 +22,12 @@ class BaseDeDatosController extends Controller
       $tabla = $request->get('tabla');
       $comando="/var/www/html/parkinsoft/scripts/showColumnsFromTable.sh ".$tabla;
       exec($comando,$columns);
-      $result = str_getcsv ( $columns , $delimiter = "\t" ); 
+      $result = array();
+      
+      foreach ($columns as $linea) {
+        $result[] = str_getcsv ( $linea , $delimiter = "\t" ); 
+      }
+      
       return $result;
     }
 
