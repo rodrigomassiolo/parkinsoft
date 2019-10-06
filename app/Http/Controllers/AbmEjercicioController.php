@@ -14,12 +14,14 @@ class AbmEjercicioController extends Controller
      */
     public function index(Request $request)
     {
+        $api = substr ( $request->path(), 0,3 ) == 'api';
         $params = $request->except('_token');
-
         session()->flashInput($request->input());
-
-        $ejercicio = Ejercicio::filter($params)->paginate(10);
-
+        if($api){
+            $ejercicio = Ejercicio::filter($params)->get();
+            return array("qty"=>count($ejercicio),"ejercicios"=>$ejercicio);
+        }
+        $ejercicio = Ejercicio::filter($params)->paginate(10);        
          return view('abmEjercicio.index',compact('ejercicio'))
              ->with('i', (request()->input('page', 1) - 1) * 10);
     }
@@ -43,15 +45,18 @@ class AbmEjercicioController extends Controller
      */
     public function store(Request $request)
     {
+        $api = substr ( $request->path(), 0,3 ) == 'api';
         $request->validate([
             'nombre' => 'required',
             'descripcion' => 'required'
         ]);
 
-        Ejercicio::create([
+        $ejercicio = Ejercicio::create([
             'nombre' => $request['nombre'],
             'descripcion' => $request['descripcion']
         ]);
+
+        if($api){ return $ejercicio; }
 
         return redirect()->route('abmEjercicio.index')
                         ->with('success','Paciente creado correctamente.');
@@ -91,6 +96,7 @@ class AbmEjercicioController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $api = substr ( $request->path(), 0,3 ) == 'api';
         $request->validate([
             'nombre' => 'required',
             'descripcion' => 'required'
@@ -99,7 +105,8 @@ class AbmEjercicioController extends Controller
         $ejercicio = Ejercicio::findOrFail($id);
 
         $ejercicio->update($request->all());
-  
+        if($api) { return $ejercicio; }
+
         return redirect()->route('abmEjercicio.index')
                         ->with('success','Ejercicio modificado correctamente');
     }
@@ -110,11 +117,14 @@ class AbmEjercicioController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request,$id)
     {
+        $api = substr ( $request->path(), 0,3 ) == 'api';
         $ejercicio = Ejercicio::where('id',$id)->first();
         
         $ejercicio->delete();
+
+        if($api){ return 'ok'; }
 
         return redirect()->route('abmEjercicio.index')
                            ->with('success','Ejercicio eliminado correctamente');

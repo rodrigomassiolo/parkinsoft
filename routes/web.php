@@ -20,6 +20,13 @@ Route::get('welcome', function () {
     return view('welcome');
 })->name('welcome');
 
+Route::get('setlocale/{locale}', function ($locale) {
+	if (in_array($locale, \Config::get('app.locales'))) {
+	  session(['locale' => $locale]);
+	}
+	return redirect()->back();
+  });
+
 Auth::routes();
 
 Route::Get('infosite','InfoController@infosite')->name('infosite');
@@ -36,9 +43,9 @@ Route::get('texto', function () {
 });
 
 Route::get('/dash', function () {return view('dash');})->middleware('auth');
-Route::get('contact', 'TicketsController@create');
+Route::get('contact', 'TicketsController@create')->name('contact');
 Route::post('contact', 'TicketsController@store');
-Route::get('tickets', 'TicketsController@index')->middleware('auth');
+Route::get('tickets', 'TicketsController@index')->middleware('auth')->name('tickets');
 Route::get('tickets/{slug?}', 'TicketsController@show')->middleware('auth');
 Route::get('tickets/{slug?}/edit', 'TicketsController@edit')->middleware('auth');
 Route::post('tickets/{slug?}/edit', 'TicketsController@update')->middleware('auth');
@@ -72,11 +79,9 @@ Route::get('/user/delete','UserController@delete')->middleware('auth')->name('us
 Route::get('/deleteUser', function () {
 	//$user = App\User::find(Auth::user()->id);
 
-	Auth::logout();
+	$user = App\User::where('id',Auth::user()->id)->first();
 
-	$user = User::where('id',Auth::user()->id)->first();
-
-	$rol = Rol::where('id', $user['rol_id'])->first();;
+	$rol = App\Rol::where('id', $user['rol_id'])->first();;
 
 	$user->usuario = '';
 	$user->email = bcrypt($user->email);
@@ -87,6 +92,8 @@ Route::get('/deleteUser', function () {
 
 	$rol->update();
 	$user->update();
+
+	Auth::logout();
 	
 	return Redirect::route('home');
 

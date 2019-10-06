@@ -46,9 +46,9 @@ class User extends Authenticatable
            $query->where('genero', 'LIKE', trim($params['genero']) . '%');
        }
 
-       if ( isset($params['fechaDeNac']) && trim($params['fechaDeNac']) !== '' )
+       if ( isset($params['nacimiento']) && trim($params['nacimiento']) !== '' )
        {
-           $query->where('fechaDeNac', '=', trim($params['fechaDeNac']));
+           $query->where('nacimiento', '=', trim($params['nacimiento']));
        }
        if ( isset($params['usuario']) && trim($params['usuario']) !== '' )
        {

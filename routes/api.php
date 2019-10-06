@@ -12,36 +12,44 @@ use Illuminate\Support\Facades\Auth;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+/*ABM Admin*/
+Route::post('/admin', 'AbmAdminController@index')->middleware('auth:api');
+Route::post('/admin/register', 'AbmAdminController@store')->middleware('auth:api');
+Route::post('/admin/update/{id}', 'AbmAdminController@update')->middleware('auth:api');
+Route::post('/admin/destroy/{id}', 'AbmAdminController@destroy')->middleware('auth:api');
 
-/*Para Usuarios*/
+/*ABM Usuarios*/
 Route::get('apilogin/{email}/{password}','API\\UsuarioController@apilogin');
 Route::post('/resetPassword','API\\UsuarioController@resetPassword');
 Route::post('/updatePassword','API\\UsuarioController@updatePassword')->middleware('auth:api');
 Route::get('/userActual', 'API\\UsuarioController@show')->middleware('auth:api');
 
-/*Envio de Audios*/
-Route::post('/sendAudio', 'AudioController@store')->middleware('auth:api');
-Route::post('/sendLevodopa', 'AudioController@storeLevodopa')->middleware('auth:api');
-Route::post('/processAudio', 'AudioController@processAudio')->middleware('auth:api');
-
-
-Route::get('/ffmpeg','AudioController@ffmpeg');
-Route::get('/openSmile', 'AudioController@openSmile');
-Route::get('/csvToDB', 'AudioController@csvToDB');
-
-/*Para Pacientes*/
+/*ABM Pacientes*/
 Route::get('/pacienteActual', 'API\\PacienteController@show')->middleware('auth:api');
 Route::post('/paciente', 'API\\PacienteController@index')->middleware('auth:api');
 Route::post('/paciente/register', 'API\\PacienteController@store');
 Route::post('/paciente/update', 'API\\PacienteController@update')->middleware('auth:api');
 Route::post('/paciente/destroy/{id}', 'API\\PacienteController@destroy')->middleware('auth:api');
 
-/*Para Medicos*/
+/*ABM Medicos*/
 Route::get('/medicoActual', 'API\\MedicoController@show')->middleware('auth:api');
 Route::post('/medico', 'API\\MedicoController@index')->middleware('auth:api');
 Route::post('/medico/register', 'API\\MedicoController@store');
 Route::post('/medico/update', 'API\\MedicoController@update')->middleware('auth:api');
 Route::post('/medico/destroy/{id}', 'API\\MedicoController@destroy')->middleware('auth:api');
+
+/*ABM Ejercicios*/
+Route::post('/ejercicio', 'AbmEjercicioController@index')->middleware('auth:api');
+Route::post('/ejercicio/register', 'AbmEjercicioController@store')->middleware('auth:api');
+Route::post('/ejercicio/update/{id}', 'AbmEjercicioController@update')->middleware('auth:api');
+Route::post('/ejercicio/destroy/{id}', 'AbmEjercicioController@destroy')->middleware('auth:api');
+
+
+
+/*Envio de Audios*/
+Route::post('/sendAudio', 'AudioController@store')->middleware('auth:api');
+Route::post('/sendLevodopa', 'AudioController@storeLevodopa')->middleware('auth:api');
+Route::post('/processAudio', 'AudioController@processAudio')->middleware('auth:api');
 
 /*PacienteEjercicio*/
 Route::post('/pacienteEjercicio', 'API\\PacienteEjercicioController@index');

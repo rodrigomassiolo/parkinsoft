@@ -10,11 +10,16 @@ class AbmAdminController extends Controller
 {
     public function index(Request $request)
     {
-
+        $api = substr ( $request->path(), 0,3 ) == 'api';
         $params = $request->except('_token');
-
         session()->flashInput($request->input());
-
+        if($api){
+            $user = User::filter($params)->whereHas('rol',function($q){
+                $q->where('type',0);
+            })->get();
+           
+            return array("qty"=>count($user),"users"=>$user);
+        }
         $user = User::filter($params)->whereHas('rol',function($q){
             $q->where('type',0);
         })->paginate(10);
@@ -42,18 +47,19 @@ class AbmAdminController extends Controller
      */
     public function store(Request $request)
     {
+        $api = substr ( $request->path(), 0,3 ) == 'api';
         $make1 = \mb_substr($request['nombre'],0,2);
         $make2 = \mb_substr($request['apellido'],0,2);
         $make3 = substr($request['dni'],-3);
 
-        $fill = $make1 . $make2 . $make3;
+        $fill = strtoupper ($make1) . strtoupper ($make2) . $make3;
 
         $rol = Rol::create([
             'type' => 0,
             'medico_id' => null
         ]);
 
-        User::create([
+        $user = User::create([
             'usuario' => $fill,
             'genero' => $request['genero'],
             'nacimiento' => $request['nacimiento'],
@@ -62,7 +68,10 @@ class AbmAdminController extends Controller
             'rol_id' => $rol['id'],
             'status' => 'A'
         ]);
-
+        if($api) {
+            $user->rol = $rol;
+            return $user;
+        }
         return redirect()->route('abmAdmin.index')
                         ->with('success','Paciente creado correctamente.');
         
@@ -101,15 +110,21 @@ class AbmAdminController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $api = substr ( $request->path(), 0,3 ) == 'api';
+
         $request->validate([
             'genero' => 'required',
-            'fechaDeNac' => 'required'
+            'nacimiento' => 'required'
         ]);
 
         $user = User::findOrFail($id);
-
         $user->update($request->all());
   
+        if($api) {
+            $rol = Rol::findOrFail($user->rol_id);
+            $user->rol = $rol;
+            return $user;
+        }
         return redirect()->route('abmAdmin.index')
                         ->with('success','Administrador modificado correctamente');
     }
@@ -120,11 +135,13 @@ class AbmAdminController extends Controller
      * @param  \App\Paciente  $paciente
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
+        $api = substr ( $request->path(), 0,3 ) == 'api';
+
         $user = User::where('id',$id)->first();
 
-        $rol = Rol::where('id', $user['rol_id'])->first();;
+        $rol = Rol::where('id', $user['rol_id'])->first();
 
         $user->usuario = '';
         $user->email = bcrypt($user->email);
@@ -135,6 +152,8 @@ class AbmAdminController extends Controller
 
         $rol->update();
         $user->update();
+        
+        if($api){ return 'ok'; }
         
         return redirect()->route('abmAdmin.index')
                            ->with('success','Administrador eliminado correctamente');

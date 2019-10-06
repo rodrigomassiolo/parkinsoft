@@ -77,7 +77,8 @@ return [
     |
     */
 
-    'locale' => 'en',
+    // 'locale' => 'en',
+     'locale' => 'es',
 
     /*
     |--------------------------------------------------------------------------
@@ -90,7 +91,20 @@ return [
     |
     */
 
-    'fallback_locale' => 'en',
+     'fallback_locale' => 'es',
+    
+    /*
+    |--------------------------------------------------------------------------
+    | Application available Languages
+    |--------------------------------------------------------------------------
+    |
+    | A list of available languages defined from their ISO Language Codes codes
+    | If the code isn't in the list, fallback_locale (see above) will be used.
+    | To set new language, please create a folder in /resources/lang/{ISO-CODE}
+    | 
+    */
+
+    'available_locale' => ['en', 'es'],
 
     /*
     |--------------------------------------------------------------------------

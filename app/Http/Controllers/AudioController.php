@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 use App\User;
 use App\Ejercicio;
 use App\PacienteEjercicio;
@@ -18,12 +19,29 @@ class AudioController extends Controller
      */
     public function index(Request $request)
     {
-        return view('audio.index');
+        //return view('audio.index');
+
+        $user = Auth::user()->usuario;
+
+        $params = array('usuario' => $user);
+        // $PacienteEjercicio = PacienteEjercicio::where('user_id','=',$user)->paginate(10);
+
+        $PacienteEjercicio = PacienteEjercicio::filter($params)->paginate(10);
+
+        $ejercicio = Ejercicio::all();
+
+        return view('audio.index',compact('PacienteEjercicio','ejercicio'))
+            ->with('i', (request()->input('page', 1) - 1) * 10);
+
     }
 
     public function indexLevodopa(Request $request)
     {
         return view('audio.indexLevodopa');
+    }
+
+    public function indexS(){
+        return view('audio.index')->with('success','Audio cargado correctamente');
     }
     
     /**
@@ -66,6 +84,7 @@ class AudioController extends Controller
         
         $ejercicio_id= 1;
         $ejercicio_nombre= 'a';
+        
         if($request->has('ejercicio')){
             $ejercicio = Ejercicio::findOrFail($request->input('ejercicio'));
             $ejercicio_id=$ejercicio->id;
@@ -78,10 +97,26 @@ class AudioController extends Controller
         else{
             $user = $request->user();
         }
-        $path = storage_path('app').'/resultados/'.$user->usuario.'/';
 
+        $path = storage_path('app').'/resultados/'.$user->usuario.'/';
         $name = date("Ymd").$ejercicio_nombre;//hasta un ejercicio del mismo tipo por dia, si lo hace devuelta reemplaza
         $filename = $name.'.'.$extens;
+        
+        $pacEjer = PacienteEjercicio::where([
+            ['user_id', '=', $user->id],
+            ['audio_name', '=', $name],
+        ])->get();
+    
+        if (count($pacEjer) != 0)
+        {
+            foreach ($pacEjer as $key => $pe) {
+                $comando="/var/www/html/parkinsoft/scripts/clearTables.sh ".$pe->id;
+                exec($comando);
+                $pe->delete();
+            }
+            $comando="/var/www/html/parkinsoft/scripts/clearFiles.sh '".$path.$name."*'";
+            exec($comando);
+        }
         $file->move($path, $filename);
         
         PacienteEjercicio::create([
@@ -91,6 +126,11 @@ class AudioController extends Controller
             'audio_name' => $name,
             'audio_ext' =>$extens 
         ]);
+
+        if($request->has('View')){
+            return redirect()->route('audio')->withSuccess('Message sent!');
+            //  return view('audio.index')->withSuccess('Message sent!');
+        }
         
         if($request->has('View'))
         {
@@ -186,8 +226,31 @@ class AudioController extends Controller
         $extens = $pacienteEjercicio->audio_ext;
         $path = $pacienteEjercicio->audio_path;
         $absPath = storage_path('app').$path;
+
+
+        $pacEjer = PacienteEjercicio::where([
+            ['user_id', '=', $user->id],
+            ['audio_name', '=', $name],
+        ])->get();
+    
+        if (count($pacEjer) != 0)
+        {
+            foreach ($pacEjer as $key => $pe) {
+                $comando="/var/www/html/parkinsoft/scripts/clearTables.sh ".$pe->id;
+                exec($comando);
+            }
+            $comando="/var/www/html/parkinsoft/scripts/clearFiles.sh '".$absPath.$name."*.csv'";
+            exec($comando);
+            $comando="/var/www/html/parkinsoft/scripts/clearFiles.sh '".$absPath.$name."*.html'";
+            exec($comando);
+            $comando="/var/www/html/parkinsoft/scripts/clearFiles.sh '".$absPath.$name."*.pdf'";
+            exec($comando);
+        }
+
         if($extens != 'wav'){
             $this->ffmpeg($absPath,$name,$extens);
+            $comando="/var/www/html/parkinsoft/scripts/clearFiles.sh '".$absPath.$name."*.".$extens."'";
+            exec($comando);
             if(Storage::disk('local')->exists($path.$name.".wav")){
                 $pacienteEjercicio->audio_ext = 'wav';
                 $pacienteEjercicio->save();
@@ -198,8 +261,6 @@ class AudioController extends Controller
         }
 
         $energy = 0;
-
-        //exec("/var/www/html/parkinsoft/scripts/clearTables.sh"); //eliminar cuando parametricemos ejercicios
         if($request->input('Energy') == "1"){
             $energy = 1;
             $this->openSmile("openSmileEnergy",$absPath,$name);
