@@ -54,7 +54,8 @@ class RouteServiceProvider extends ServiceProvider
     protected function mapWebRoutes(Request $request)
     {
 
-        if(in_array($request->segment(1), config('app.available_locale'))){
+        // if(in_array($request->segment(1), config('app.available_locale'))){
+        if(in_array($request->segment(1), ['en', 'es'])){
             $locale = $request->segment(1);
         }else{
             $locale = null;
