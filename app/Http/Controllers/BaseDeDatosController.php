@@ -23,19 +23,10 @@ class BaseDeDatosController extends Controller
       $comando="/var/www/html/parkinsoft/scripts/showColumnsFromTable.sh ".$tabla;
       exec($comando,$response);
 
-      $result = array();
-      $columnas = str_getcsv ( $response[0] , $delimiter = "\t" ); //nombre de las columnas
-  $result[] = $columnas;      
+      $result[] = $columnas;  
       for ($j=1; $j < count($response) ; $j++) {//para cada row 
         $row = str_getcsv ( $response[$j] , $delimiter = "\t" );
-        $result[] = $row; 
-        /*
-        $obj = array();
-        for ($i=0; $i < count($columnas); $i++) { 
-          $obj[$columnas[$i]] = $row[$i];
-        }
-        $result[] = $obj;
-        */
+        $result[] = $row[0]; 
       }
       return $result;
     }
