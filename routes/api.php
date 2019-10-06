@@ -60,3 +60,9 @@ Route::post('/pacienteEjercicio', 'API\\PacienteEjercicioController@index');
 
 /*Apk*/
 Route::get('/apk','ApkController@download')->middleware('auth:api');
+
+/*BaseDeDatos*/
+Route::get('/showTables','BaseDeDatosController@showTables')->middleware('auth:api');
+Route::get('/apk','BaseDeDatosController@showColumnsFromTable')->middleware('auth:api');
+Route::get('/setIndex','BaseDeDatosController@setIndex')->middleware('auth:api');
+Route::get('/deleteIndex','BaseDeDatosController@deleteIndex')->middleware('auth:api');
