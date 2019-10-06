@@ -45,6 +45,10 @@ class PacienteController extends Controller
         
         foreach ($users as $key => $value) {
             $rol = Rol::where([['id', '=', $value['rol_id']]])->take(1)->get();
+            if($rol[0]->type != 2){
+                unset($users[$key]);
+                continue;
+            }
             $value['rol'] = $rol;
 
             $operaciones = Operacion::where([['user_id', '=', $value['id']]])->get();
@@ -61,7 +65,9 @@ class PacienteController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store (Request $request) {
+        
         $jsonReq = json_decode($request->getContent(), true);
+
         if(!$jsonReq['usuario'] && !preg_match('/^[A-Z]{4}\d{3}$/', $jsonReq['usuario'])){
             return "Error: el usuario es requerido y debe tener el formato AAAA123";
         }
@@ -192,7 +198,7 @@ class PacienteController extends Controller
         if($jsonReq['medicacion']){
             $user->medicacion = $jsonReq['medicacion'];
         }
-        
+
         $user->save();
     
         return "ok";
