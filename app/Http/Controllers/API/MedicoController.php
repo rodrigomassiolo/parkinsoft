@@ -44,34 +44,14 @@ class MedicoController extends Controller
         $filterRequest = $this->craftFilterRequest($jsonReq['filters']);
 
         $query = '';
-        $results = DB::select( DB::raw("SELECT * FROM users
+        
+        $results = DB::select( DB::raw("SELECT  * , users.id as user_id FROM users
                                         INNER JOIN rol ON users.rol_id = rol.id
                                         INNER JOIN medico on rol.medico_id = medico.id
                                         WHERE 1=1".$filterRequest
                                     )
                              );
-        return $results;
-
-
-        $queryusers = DB::table('users')
-            ->join('rol', 'users.rol_id', '=', 'rol.id')
-            ->join('medico', 'rol.medico_id', '=', 'medico.id')
-            ->select('users.id AS user_id','rol.id AS rol_id', 'medico.id AS medico_id')
-            ->whereColumn($filterRequest)
-            ->get();
-
-            $users = array();
-        foreach ($queryusers as $key => $queryuser) {
-            $user = User::where('id', $queryuser->user_id)->first();
-            $rol = rol::where('id',  $queryuser->rol_id)->first();
-            $medico = Medico::where('id',  $queryuser->medico_id)->first();
-            $user->Rol=$rol;
-            $user->Rol->Medico;
-            $users[]=$user;
-        }
-
-       //$user = User::filter($request)->where('email','<>','')->paginate(10);
-        $response=array("qty"=>count($users),"users"=>$users);
+        $response=array("qty"=>count($results),"medcicos"=>$results);
         return $response;
     }
     /**
