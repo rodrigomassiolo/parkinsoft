@@ -25,11 +25,13 @@ class BaseDeDatosController extends Controller
 
       $result = array();
       $columnas = str_getcsv ( $response[0] , $delimiter = "\t" ); 
-
+      
       for ($j=1; $j < count($response)-1 ; $j++) { 
+        $result[$j-1] = array();
         $linea = str_getcsv ( $response[$j] , $delimiter = "\t" );
+        $result[$j-1] = array();
         for ($i=0; $i < count($columnas); $i++) { 
-          $result[$j][$columnas[$i]] = $linea[$i];
+          $result[$j-1][$columnas[$i]] = $linea[$i];
         }
       }
       return $result;
