@@ -41,16 +41,18 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Carga de audio</h5>
+        <h5 class="modal-title" id="exampleModalLabel">@lang('parkinsoft.levodopaModalTitle') </h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-        !Su audio ha sido cargado correctamente!
+      @lang('parkinsoft.levodopaModalBody') 
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+          @lang('parkinsoft.levodopaModalButton') 
+        </button>
       </div>
     </div>
   </div>

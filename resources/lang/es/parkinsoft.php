@@ -7,7 +7,7 @@ return [
     | Parkinsoft Language Lines
     |--------------------------------------------------------------------------
     |
-    | The following language lines are used for the parkinsoft web app
+    | The following language lines are used for the parkinsoft web app Español
     |
     */
 
@@ -20,7 +20,8 @@ return [
     'levodopaFirstAudioButton' => 'Cargar',
     'levodopaSecondAudioText' => 'Ingresar Audio con medicación',
     'levodopaSecondAudioButton' => 'Cargar',
-    'levodopaModalTitle' => '',
-    'levodopaModalBody' => '',
-    'levodopaModalButton' => '',
+    'levodopaModalTitle' => 'Carga de audio',
+    'levodopaModalBody' => '!Su audio ha sido cargado correctamente!',
+    'levodopaModalButton' => 'Cerrar',
+    'pleaseSelect' => 'Seleccionar opción',
 ];
