@@ -84,6 +84,8 @@ maxmeanminGraph <- ggplot(resultado,aes( x=Tono,y=Energia, fill = Medicion)) + g
 
 #ENERGY###########################################################################################################################################
 if (parenergy == 1) {
+queryenergy <- paste0("SELECT * FROM ENERGY WHERE ejerciciopaciente_id IN ", paej)
+datosenergy <- dbGetQuery(mydb,queryenergy)
 ejerciciopaciente_id <- datosenergy$ejerciciopaciente_id
 datosenergy <- datosenergy[,5:ncol(datosenergy)]
 datos2 <- data.frame(tiempo=c(datosenergy$frameTime),LogEnergy=c(datosenergy$pcm_LOGenergy))
