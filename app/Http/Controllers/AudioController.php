@@ -188,7 +188,7 @@ class AudioController extends Controller
     }
 
     public function prepareAudios($audioName){
-        $pacienteEjercicio = PacienteEjercicio::findOrFail($request->input($audioName));
+        $pacienteEjercicio = PacienteEjercicio::findOrFail($audioName);
         $user = User::findOrFail($pacienteEjercicio->user_id);
         $user_id = $user->id;
         $name = $pacienteEjercicio->audio_name;
