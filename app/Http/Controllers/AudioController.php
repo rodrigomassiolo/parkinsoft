@@ -187,7 +187,7 @@ class AudioController extends Controller
         return $exec;
     }
 
-    public function prepareAudios($audioName){
+    public function prepareAudios(Request $request,$audioName){
         $pacienteEjercicio = PacienteEjercicio::findOrFail($audioName);
         $user = User::findOrFail($pacienteEjercicio->user_id);
         $user_id = $user->id;
@@ -269,7 +269,7 @@ class AudioController extends Controller
         $name = "";
         $pacienteEjercicio = "(";
         if($request->exists('pacienteEjercicio')){
-            $name = $this->prepareAudios($request->input('pacienteEjercicio'));
+            $name = $this->prepareAudios($request,$request->input('pacienteEjercicio'));
             $pacienteEjercicio = $pacienteEjercicio.$request->input('pacienteEjercicio');
         }else{
             return "Error falta pacienteEjercicio";
