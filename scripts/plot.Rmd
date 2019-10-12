@@ -3,7 +3,7 @@ title: "Análisis de la voz"
 author: "realizado por: Higia"
 params: 
   data: args
-  pacienteEjercicio: 1
+  pacienteEjercicio: "(1)"
   energy: 1
   eGemaps: 1
   chroma: 1
@@ -26,62 +26,86 @@ parprosody <- params$prosody
 pareGemaps <- params$eGemaps 
 #CHROMA###########################################################################################################################################
 if (parchroma == 1) {
-querychoma <- paste0("SELECT * FROM CHROMA WHERE ejerciciopaciente_id = ", paej)
+querychoma <- paste0("SELECT * FROM CHROMA WHERE ejerciciopaciente_id IN ", paej)
 datosChroma <- dbGetQuery(mydb,querychoma)
-datosChroma <- datosChroma[,6:17]
-resultado <- expand.grid(Tiempo_segundos = seq(0,(nrow(datosChroma)-1)/100,0.01),Tono = c('C', 'C#', 'D', 'D#', 'E' ,'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'))
-resultado$intensidad <- unlist(datosChroma,use.names=FALSE)
-chromagraph <- ggplot(resultado, aes(Tiempo_segundos, Tono, z= intensidad)) + geom_tile(aes(fill = intensidad)) + theme_bw() + labs(title='Chroma')
+auxTable <- table(datosChroma$ejerciciopaciente_id)
+
+resultado <- expand.grid(Frame = seq(1,nrow(datosChroma),1),Tono = c('DO', 'DO#', 'RE', 'RE#', 'MI' ,'FA', 'FA#', 'SOL', 'SOL#', 'LA', 'LA#', 'SI'))
+
+resultado$Tiempo_segundos <- rep(datosChroma$frame,times=12)
+resultado$ejerciciopaciente_id <- rep(datosChroma$ejerciciopaciente_id,times=12)
+resultado$intensidad <- unlist(datosChroma[,6:17],use.names=FALSE)
+
+chromagraph <- ggplot(resultado, aes(Tiempo_segundos, Tono, z= intensidad)) + geom_tile(aes(fill = intensidad)) + theme_bw() + labs(title='Chroma') + facet_grid(~ejerciciopaciente_id)
+#chromagraph <- ggplot(resultado, aes(Tiempo_segundos, Tono, z= intensidad)) + geom_tile(aes(fill = intensidad)) + theme_bw() + labs(title='Chroma')
 
 #Tono mas destacado en el tiempo
 
 aux <- vector(length=nrow(datosChroma))
 for(i in 1:nrow(datosChroma)){
   aux[i]= which.max(unlist(datosChroma[i,],use.names=FALSE)) }
-datosMaxChroma <- data.frame(tiempo=seq(0,(nrow(datosChroma)-1)/100,0.01), tono = aux)
-chromaLineMax <- ggplot(datosMaxChroma,aes(x=tiempo,y=tono))+geom_line()+ geom_hline(yintercept=max(datosMaxChroma$tono), linetype="dashed", color = "red") + 
-  geom_hline(yintercept=min(datosMaxChroma$tono), linetype="dashed", color = "blue") + geom_hline(yintercept=mean(datosMaxChroma$tono), linetype="dashed", color = "green") + labs(title='Tono con el maxima intensidad')
 
+datosMaxChroma <- data.frame(tiempo=datosChroma$frame, tono = aux)
+datosMaxChroma$ejerciciopaciente_id <- datosChroma$ejerciciopaciente_id
+
+chromaLineMax <- ggplot(datosMaxChroma,aes(x=tiempo,y=tono))+geom_line()+ geom_hline(yintercept=max(datosMaxChroma$tono), linetype="dashed", color = "red") + 
+  geom_hline(yintercept=min(datosMaxChroma$tono), linetype="dashed", color = "blue") + geom_hline(yintercept=mean(datosMaxChroma$tono), linetype="dashed", color = "green") + labs(title='Tono con el maxima intensidad')+ facet_grid(~ejerciciopaciente_id)
 
 
 #Maximos, minimos y media
-aux <- matrix(nrow=12,ncol=3)
 
-for(i in 1:12){
-  aux[i,1]=max(datosChroma[,i])
-  aux[i,2]=mean(datosChroma[,i])
-  aux[i,3]=min(datosChroma[,i])}
+auxTable <- as.data.frame(auxTable)
 
-resultadoMMM <- data.frame(Tono = c('C', 'C#', 'D', 'D#', 'E' ,'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'), Max = aux[,1] , Media = aux[,2], Min = aux[,3])
+ x <- data.frame(Medicion = c('minimo','medio','máximo'))
+ y <- data.frame(Tono = rep(c('DO', 'DO#', 'RE', 'RE#', 'MI' ,'FA', 'FA#', 'SOL', 'SOL#', 'LA', 'LA#', 'SI'),times = nrow(auxTable)))
+ resultado <- merge(x,y,by = NULL)
+ resultado$Energia <- 0
 
-chromaMax <- ggplot(data = resultadoMMM ,aes(x= Tono,y=Max,fill = Max)) + geom_bar(stat = "identity") + labs(title='Maximo')
-chromaMean <-ggplot(data = resultadoMMM ,aes(x= Tono,y=Media,fill = Media)) + geom_bar(stat = "identity") + labs(title='Media')
-chromaMin <- ggplot(data = resultadoMMM ,aes(x= Tono,y=Min,fill = Min)) + geom_bar(stat = "identity") + labs(title='Minimo')
+ejerciciopaciente_id <- as.character(rep(auxTable$Var1[1],times = 36))
+
+for(j in 2:nrow( auxTable)){
+	ejerciciopaciente_id <- c(ejerciciopaciente_id,as.character(rep(auxTable$Var1[j],times = 36)))}
+
+for(j in 1:nrow( auxTable)){
+	auxDatos <- datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[j],]
+	for(i in 0:11){
+	resultado[i * 3 + (j-1) * 36 + 1,3]=min(auxDatos[,i+6])
+	resultado[i * 3 + (j-1) * 36 + 2,3]=mean(auxDatos[,i+6])
+	resultado[i * 3 + (j-1) * 36 + 3,3]=max(auxDatos[,i+6])}}
+	
+resultado$ejerciciopaciente_id <- ejerciciopaciente_id
+
+resultadoMMM <- resultado
+
+maxmeanminGraph <- ggplot(resultado,aes( x=Tono,y=Energia, fill = Medicion)) + geom_bar(stat = 'identity',position=position_dodge()) + scale_fill_brewer(palette="Paired") + labs(title='Mínimo, Medio y Máximo') + facet_grid(~ejerciciopaciente_id)
 
 }
 ###################################################################################################################################################
 
 #ENERGY###########################################################################################################################################
 if (parenergy == 1) {
-queryenergy <- paste0("SELECT * FROM ENERGY WHERE ejerciciopaciente_id = ", paej)
-datosenergy <- dbGetQuery(mydb,queryenergy)
-
+ejerciciopaciente_id <- datosenergy$ejerciciopaciente_id
 datosenergy <- datosenergy[,5:ncol(datosenergy)]
 datos2 <- data.frame(tiempo=c(datosenergy$frameTime),LogEnergy=c(datosenergy$pcm_LOGenergy))
+datos2$ejerciciopaciente_id <- datosenergy$ejerciciopaciente_id 
 datosEnergy <- datos2
 energygraph <- ggplot(datos2,aes(x=tiempo,y=LogEnergy))+geom_line()+ geom_hline(yintercept=max(datos2$LogEnergy), linetype="dashed", color = "red") + 
-  geom_hline(yintercept=min(datos2$LogEnergy), linetype="dashed", color = "blue") + geom_hline(yintercept=mean(datos2$LogEnergy), linetype="dashed", color = "green") + labs(title='Energia de la voz')
+  geom_hline(yintercept=min(datos2$LogEnergy), linetype="dashed", color = "blue") + geom_hline(yintercept=mean(datos2$LogEnergy), linetype="dashed", color = "green") + labs(title='Energia de la voz') + facet_grid(~ejerciciopaciente_id)
 }
 ###################################################################################################################################################
 
 #AUDSPEC###########################################################################################################################################
 if (paraudspec == 1) {
-queryaudspec <- paste0("SELECT * FROM AUDSPEC WHERE ejerciciopaciente_id = ", paej)
+queryaudspec <- paste0("SELECT * FROM AUDSPEC WHERE ejerciciopaciente_id IN ", paej)
 datosaudspec <- dbGetQuery(mydb,queryaudspec)
-datosaudspec <- datosaudspec[,5:ncol(datosaudspec)]
-resultadoAudspect <- expand.grid(Tiempo_segundos = seq(0,(nrow(datosaudspec)-1)/100,0.01),Espectro = seq(0,25,1))
+
+ejerciciopaciente_id <- as.character(rep(datosaudspec$ejerciciopaciente_id,times = 26))
+
+resultadoAudspect <- expand.grid(Tiempo_segundos = datosaudspec$frameTime,Espectro = seq(0,25,1))
 resultadoAudspect$intensidad <- unlist(datosaudspec[,6:31],use.names=FALSE)
-audspectgraph <- ggplot(resultadoAudspect, aes(Tiempo_segundos, Espectro, z= intensidad)) + geom_tile(aes(fill = intensidad)) + theme_bw() + labs(title='AudSpect')
+resultadoAudspect$ejerciciopaciente_id <- ejerciciopaciente_id
+datosaudspec <- datosaudspec[,5:ncol(datosaudspec)]
+audspectgraph <- ggplot(resultadoAudspect, aes(Tiempo_segundos, Espectro, z= intensidad)) + geom_tile(aes(fill = intensidad)) + theme_bw() + labs(title='AudSpect')+ facet_grid(~ejerciciopaciente_id)
 }
 #audspectgraph <- ggplot(resultadoAudspect, aes(Tiempo_segundos, Espectro, z= intensidad)) + geom_tile(aes(fill = intensidad)) + theme_bw() + labs(title='AudSpect') + scale_fill_gradient(low="black", high="blue") 
 ####################################################################################################################################################
@@ -89,15 +113,15 @@ audspectgraph <- ggplot(resultadoAudspect, aes(Tiempo_segundos, Espectro, z= int
 ##PROSODY############################################################################################################################
 #F0 con probabilidad
 if (parprosody == 1) {
-queryprosody <- paste0("SELECT * FROM PROSODY WHERE ejerciciopaciente_id = ", paej)
+queryprosody <- paste0("SELECT * FROM PROSODY WHERE ejerciciopaciente_id IN ", paej)
 datosprosody <- dbGetQuery(mydb,queryprosody)
-datosprosody <- datosprosody[,6:ncol(datosprosody)]
 
 #paso los datos a un data frame
-resultado <- expand.grid(frame = seq(0,(nrow(datosprosody)-1)/100,0.01))
+resultado <- expand.grid(frame = datosprosody$frameTime)
 resultado$F0_sma = unlist( datosprosody$F0_sma)
 resultado$voiceProb =unlist( datosprosody$voiceProb_sma)
-resultado$loudness = log(unlist( datosprosody$pcm_loudness_sma))
+resultado$loudness = unlist( datosprosody$pcm_loudness_sma)
+resultado$ejerciciopaciente_id = datosprosody$ejerciciopaciente_id
 
 #copio para poder alterar los valores
 resultado2F0_Vol_Prob <- resultado
@@ -105,18 +129,20 @@ resultado2F0_Vol_Prob <- resultado
 #Busco el efecto de que tengan la misma proporción
 resultado2F0_Vol_Prob$voiceProb = resultado2F0_Vol_Prob$voiceProb * max(resultado$F0_sma)
 
+datosprosody <- datosprosody[,6:ncol(datosprosody)]
+
 #grafico probabilidad
 F0_Prob = ggplot(resultado2F0_Vol_Prob, aes(frame))+
   geom_line(aes(y=resultado2F0_Vol_Prob$F0_sma,col="F0")) +
   geom_line(aes(y=resultado2F0_Vol_Prob$voiceProb,col="Proba. de voz")) +
   geom_hline(yintercept=max(resultado2F0_Vol_Prob$F0_sma), linetype="dashed", color = "blue")+
-  labs(x="Frames",y="Hertz",col = "Leyenda",title = "F0 y probabilidad de voz")
+  labs(x="Frames",y="Hertz",col = "Leyenda",title = "F0 y probabilidad de voz") + facet_grid(~ejerciciopaciente_id)
 
 #Grafico Volumen y F0
 F0_Volumen = ggplot(resultado2F0_Vol_Prob, aes(frame))+
   geom_line(aes(y=resultado2F0_Vol_Prob$F0_sma,col="F0")) +
   geom_line(aes(y=resultado2F0_Vol_Prob$loudness,col="Volumen")) +
-  labs(x="Frames",y="Hertz",col = "Leyenda",title = "F0 y Volumen")
+  labs(x="Frames",y="Hertz",col = "Leyenda",title = "F0 y Volumen") + facet_grid(~ejerciciopaciente_id)
 }  
 ##############################################################################################################################################
 
@@ -124,29 +150,54 @@ F0_Volumen = ggplot(resultado2F0_Vol_Prob, aes(frame))+
 #Formantes
 if (pareGemaps == 1) {
 ##datos = dbReadTable(mydb,"EGEMAPS")
-queryegemaps <- paste0("SELECT * FROM EGEMAPS WHERE ejerciciopaciente_id = ", paej)
+queryegemaps <- paste0("SELECT * FROM EGEMAPS WHERE ejerciciopaciente_id IN ", paej)
 datosegemap <- dbGetQuery(mydb,queryegemaps)
-xs   <- seq(-2*pi,0,pi/100)
-wave <- 0.5*sin(datosegemap$F1frequency_sma3nz_amean * xs) + 0.25*sin(datosegemap$F2frequency_sma3nz_amean * xs) + 0.125 * sin(datosegemap$F3frequency_sma3nz_amean * xs)
 
-resultado <- expand.grid(xs = xs)
+xs   <- seq(-1/2*pi,1/2*pi,pi/200)
+wave <- 0.5*sin(datosegemap$F1frequency_sma3nz_amean[1] * xs) + 0.25*sin(datosegemap$F2frequency_sma3nz_amean[1] * xs) + 0.125 * sin(datosegemap$F3frequency_sma3nz_amean[1] * xs)
+ejerciciopaciente_id <- as.character(rep(auxTable$Var1[1], 201))
+
+for(i in 2:nrow(auxTable)){
+	wave <- c(wave, 0.5*sin(datosegemap$F1frequency_sma3nz_amean[i] * xs) + 0.25*sin(datosegemap$F2frequency_sma3nz_amean[i] * xs) + 0.125 * sin(datosegemap$F3frequency_sma3nz_amean[i] * xs))
+	ejerciciopaciente_id <- c(ejerciciopaciente_id,as.character(rep(auxTable$Var1[i], 201)))}
+
+resultado <- expand.grid(xs = rep(xs,nrow(auxTable)))
 resultado$wave <- wave
+resultado$ejerciciopaciente_id <- ejerciciopaciente_id
 
-formanteGraph <- ggplot(resultado,aes(x=xs,y=wave)) + geom_line() + labs(title = "Transformada de fourier con las medias de F1, F2 y F3")
+formanteGraph <- ggplot(resultado,aes(x=xs,y=wave)) + geom_line() + labs(title = "Transformada de fourier con las medias de F1, F2 y F3") + facet_grid(~ejerciciopaciente_id)
 
 resumeneGemaps <- expand.grid (NombreVariable = c ("Media F0","Media F1","Media F2","Media F3","Media de jitter Local","Desviación estándar de jitter Local en DB","Media de shimmer Local","Desviación estándar de shimmer Local en dB"))
-resumeneGemaps$Valor <- c(datosegemap$F0semitoneFrom27_5Hz_sma3nz_amean,datosegemap$F1frequency_sma3nz_amean,datosegemap$F2frequency_sma3nz_amean,datosegemap$F3frequency_sma3nz_amean,datosegemap$jitterLocal_sma3nz_amean,datosegemap$jitterLocal_sma3nz_stddevNorm,datosegemap$shimmerLocaldB_sma3nz_amean,datosegemap$shimmerLocaldB_sma3nz_stddevNorm)
 
 ## Vowel
-vowel <- data.frame(vocal = c('i','e','y','theta','epsilon','AE','omega','gamma','a','ce','lambda','mu','o','o abierta','alpha','alpha invertida'),
-                   #(vocal = c('i','e','y','ø','ɛ','œ','ɯ','ɤ','a','ɶ','ʌ','u','o','ɔ','ɑ','ɒ'),
-                    f1 = c(240,390,235,370,610,585,300,460,850,820,600,250,360,500,750,700),
-                    f2 = c(2400,2300,2100,1900,1900,1710,1390,1310,1610,1530,1170,595,640,700,940,760),
-                    "f2-f1" = c(2160,1910,1865,1530,1290,1125,1090,850,760,710,570,345,280,200,190,60))
+vowel <- data.frame(vocal = c('a','e','i','o','u'),
+                    f1 = c(600,390,310,460,260),
+                    f2 = c(1470,1800,2300,890,700))
 
 #Grafico de vowel
-vowelGraph <- ggplot(vowel,aes(x = f1)) + geom_point(aes(y = f2,color="vowel")) + geom_point(aes(x=datosegemap$F1frequency_sma3nz_amean,y=datosegemap$F2frequency_sma3nz_amean,color="paciente"))+
-  labs(title = "Diagráma de vowel")
+vowelGraph <- ggplot(vowel,aes(x = f1)) + geom_point(aes(y = f2,color="vowel")) +  labs(title = "Diagráma de vowel") +
+geom_point(aes(x=datosegemap$F1frequency_sma3nz_amean,y=datosegemap$F2frequency_sma3nz_amean,color= as.character(datosegemap$ejerciciopaciente_id)))
+
+
+vowelGraph <- ggplot(vowel,aes(x = f1,label=vocal)) + geom_point(aes(y = f2,color="vowel"),size = 3) +  labs(title = "Diagráma de vowel") +
+geom_point(aes(x=datosegemap$F1frequency_sma3nz_amean[1],y=datosegemap$F2frequency_sma3nz_amean[1],color= as.character(datosegemap$ejerciciopaciente_id[1])),size=3)+
+geom_text(aes(y=vowel$f2), hjust=0.3,vjust=1.5)
+
+resumeneGemaps$Primero_Audio <- c(datosegemap$F0semitoneFrom27_5Hz_sma3nz_amean[1],datosegemap$F1frequency_sma3nz_amean[1],datosegemap$F2frequency_sma3nz_amean[1],datosegemap$F3frequency_sma3nz_amean[1],datosegemap$jitterLocal_sma3nz_amean[1],datosegemap$jitterLocal_sma3nz_stddevNorm[1],datosegemap$shimmerLocaldB_sma3nz_amean[1],datosegemap$shimmerLocaldB_sma3nz_stddevNorm[1])
+
+if(nrow(auxTable) > 1){
+	if(nrow(auxTable) == 3){
+	vowelGraph <- vowelGraph +  geom_point(aes(x=datosegemap$F1frequency_sma3nz_amean[2],y=datosegemap$F2frequency_sma3nz_amean[2],color= as.character(datosegemap$ejerciciopaciente_id[2])),size = 3)
+	vowelGraph <- vowelGraph +  geom_point(aes(x=datosegemap$F1frequency_sma3nz_amean[3],y=datosegemap$F2frequency_sma3nz_amean[3],color= as.character(datosegemap$ejerciciopaciente_id[3])),size = 3)
+	
+	resumeneGemaps$Segundo_Audio <- c(datosegemap$F0semitoneFrom27_5Hz_sma3nz_amean[2],datosegemap$F1frequency_sma3nz_amean[2],datosegemap$F2frequency_sma3nz_amean[2],datosegemap$F3frequency_sma3nz_amean[2],datosegemap$jitterLocal_sma3nz_amean[2],datosegemap$jitterLocal_sma3nz_stddevNorm[2],datosegemap$shimmerLocaldB_sma3nz_amean[2],datosegemap$shimmerLocaldB_sma3nz_stddevNorm[2])
+	resumeneGemaps$Tercer_Audio <- c(datosegemap$F0semitoneFrom27_5Hz_sma3nz_amean[3],datosegemap$F1frequency_sma3nz_amean[3],datosegemap$F2frequency_sma3nz_amean[3],datosegemap$F3frequency_sma3nz_amean[3],datosegemap$jitterLocal_sma3nz_amean[3],datosegemap$jitterLocal_sma3nz_stddevNorm[3],datosegemap$shimmerLocaldB_sma3nz_amean[3],datosegemap$shimmerLocaldB_sma3nz_stddevNorm[3])
+	}else{
+	vowelGraph <- vowelGraph +  geom_point(aes(x=datosegemap$F1frequency_sma3nz_amean[2],y=datosegemap$F2frequency_sma3nz_amean[2],color= as.character(datosegemap$ejerciciopaciente_id[2])),size = 3)
+	
+	resumeneGemaps$Segundo_Audio <- c(datosegemap$F0semitoneFrom27_5Hz_sma3nz_amean[2],datosegemap$F1frequency_sma3nz_amean[2],datosegemap$F2frequency_sma3nz_amean[2],datosegemap$F3frequency_sma3nz_amean[2],datosegemap$jitterLocal_sma3nz_amean[2],datosegemap$jitterLocal_sma3nz_stddevNorm[2],datosegemap$shimmerLocaldB_sma3nz_amean[2],datosegemap$shimmerLocaldB_sma3nz_stddevNorm[2])
+	}
+}
 }  
 #######################################################################################################################
 dbDisconnect(mydb)
@@ -166,9 +217,7 @@ kable(datosChroma[1:70,],caption="Tabla de los valores del chroma")
 plot(chromaLineMax)
 kable(datosMaxChroma[1:70,],caption="Tabla de los valores del chroma")
 
-plot(chromaMax)
-plot(chromaMean)
-plot(chromaMin)
+plot(maxmeanminGraph)
 kable(resultadoMMM[1:12,],caption="Tabla de los valores del Altas, media y baja del Chroma")
 }
 #############################################################################################
@@ -201,10 +250,10 @@ kable(resultado2F0_Vol_Prob[1:70,],caption="Tabla de los valores del F0 y Volume
 if (pareGemaps == 1) {
 plot(formanteGraph)
 kable(resultado[1:70,],caption="Tabla de los valores del Formantes")
-kable(resumeneGemaps[1:8,],caption="Tabla de los valores del eGemaps")
+kable(resumeneGemaps,caption="Tabla de los valores del eGemaps")
 #VOWEL
 plot(vowelGraph)
-kable(vowel[1:16,],caption="Tabla de los valores del Vowel")
+kable(vowel[1:5,],caption="Tabla de los valores del Vowel")
 }
 #############################################################################################
 ```
