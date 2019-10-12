@@ -186,9 +186,9 @@ class AudioController extends Controller
         exec($exec);
         return $exec;
     }
-    public function processAudio(Request $request){
 
-        $pacienteEjercicio = PacienteEjercicio::findOrFail($request->input('pacienteEjercicio'));
+    public function prepareAudios($audioName,$energy,$eGemaps,$chroma,$audspec,$prosody){
+        $pacienteEjercicio = PacienteEjercicio::findOrFail($audioName);
         $user = User::findOrFail($pacienteEjercicio->user_id);
         $user_id = $user->id;
         $name = $pacienteEjercicio->audio_name;
@@ -229,44 +229,82 @@ class AudioController extends Controller
             }
         }
 
+        if($energy){
+            $this->openSmile("openSmileEnergy",$absPath,$name);
+            $this->csvToDB("csvToDBEnergy.sh","openSmileEnergy",$user_id,$absPath,$name,$pacienteEjercicio->id);
+        }
+
+        if($eGemaps){
+            $this->openSmile("openSmileEGMaps",$absPath,$name);
+            $this->csvToDB("csvToDBEGMaps.sh","openSmileEGMaps",$user_id,$absPath,$name,$pacienteEjercicio->id);
+        }
+
+        if($chroma){
+            $this->openSmile("openSmileChroma",$absPath,$name);
+            $this->csvToDB("csvToDBChroma.sh","openSmileChroma",$user_id,$absPath,$name,$pacienteEjercicio->id);
+        }
+
+        if($audspec){
+            $this->openSmile("openSmileAudspec",$absPath,$name);
+            $this->csvToDB("csvToDBAudspec.sh","openSmileAudspec",$user_id,$absPath,$name,$pacienteEjercicio->id);
+        }
+
+        if($prosody){
+            $this->openSmile("openSmileProsodyAcf",$absPath,$name);        
+            $this->csvToDB("csvToDBProsodyAcf.sh","openSmileProsodyAcf",$user_id,$absPath,$name,$pacienteEjercicio->id);
+        }
+        return $name;
+    }
+    public function processAudio(Request $request){
+        
         $energy = 0;
         if($request->input('Energy') == "1"){
             $energy = 1;
-            $this->openSmile("openSmileEnergy",$absPath,$name);
-            $this->csvToDB("csvToDBEnergy.sh","openSmileEnergy",$user_id,$absPath,$name,$pacienteEjercicio->id);
         }
         
         $eGemaps = 0;
         if($request->input('eGemaps')== "1"){
             $eGemaps = 1;
-            $this->openSmile("openSmileEGMaps",$absPath,$name);
-            $this->csvToDB("csvToDBEGMaps.sh","openSmileEGMaps",$user_id,$absPath,$name,$pacienteEjercicio->id);
         }
 
         $chroma = 0;
         if($request->input('Chroma')== "1"){
             $chroma = 1;
-            $this->openSmile("openSmileChroma",$absPath,$name);
-            $this->csvToDB("csvToDBChroma.sh","openSmileChroma",$user_id,$absPath,$name,$pacienteEjercicio->id);
         }
 
         $audspec= 0;
         if($request->input('Audspec')== "1"){
             $audspec = 1;
-            $this->openSmile("openSmileAudspec",$absPath,$name);
-            $this->csvToDB("csvToDBAudspec.sh","openSmileAudspec",$user_id,$absPath,$name,$pacienteEjercicio->id);
         }
 
         $prosody = 0;
         if($request->input('Prosody')== "1"){
             $prosody = 1;
-            $this->openSmile("openSmileProsodyAcf",$absPath,$name);        
-            $this->csvToDB("csvToDBProsodyAcf.sh","openSmileProsodyAcf",$user_id,$absPath,$name,$pacienteEjercicio->id);
         }
 
-        
+        $name = "";
+        $ejercicios = "(";
+        if($request->exists('pacienteEjercicio')){
+            $name = $this->prepareAudios($request->input('pacienteEjercicio'),$energy,$eGemaps,$chroma,$audspec,$prosody);
+            $ejercicios = $ejercicios.$request->input('pacienteEjercicio');
+        }else{
+            return "Error falta pacienteEjercicio";
+        }
+        if($request->exists('CompareAudio1')){
+            $name = $name.'_'.$this->prepareAudios($request->input('CompareAudio1'),$energy,$eGemaps,$chroma,$audspec,$prosody);
+            $ejercicios = $ejercicios.",".$request->input('CompareAudio1');
+        }
+        if($request->exists('CompareAudio2')){
+            $name = $name.'_'.$this->prepareAudios($request->input('CompareAudio2'),$energy,$eGemaps,$chroma,$audspec,$prosody);
+            $ejercicios = $ejercicios.",".$request->input('CompareAudio1');
+        }
+        $ejercicios = $ejercicios.")";
+                
+        $pacienteEjercicio = PacienteEjercicio::findOrFail($request->input('pacienteEjercicio'));
+        $path = $pacienteEjercicio->audio_path;
+        $absPath = storage_path('app').$path;
         if($request->input('output')== "html"){
-            $this->plotRmd('html_document', $absPath.$name.".html",$pacienteEjercicio->id,$energy,$eGemaps,$chroma,$audspec,$prosody);
+            $this->plotRmd('html_document', $absPath.$name.".html",$ejercicios,$energy,$eGemaps,$chroma,$audspec,$prosody);
             if($request->input('Download')== "1"){
                 return response()->download($absPath.$name.'.html');                
             }
@@ -276,16 +314,16 @@ class AudioController extends Controller
             }
         }
         if($request->input('output')== "pdf"){
-            $this->plotRmd('pdf_document', $absPath.$name.".pdf",$pacienteEjercicio->id,$energy,$eGemaps,$chroma,$audspec,$prosody);
+            $this->plotRmd('pdf_document', $absPath.$name.".pdf",$ejercicios,$energy,$eGemaps,$chroma,$audspec,$prosody);
             return response()->download($absPath.$name.'.pdf');
         }
         
     }
 
-    public function plotRmd($tipoSalida, $pathsalida,$pacienteEjercicio, $energy,$eGemaps,$chroma,$audspec,$prosody){
+    public function plotRmd($tipoSalida, $pathsalida,$ejercicios, $energy,$eGemaps,$chroma,$audspec,$prosody){
         $scriptR = "/var/www/html/parkinsoft/scripts/knit.R";
         $scriptRMD = "/var/www/html/parkinsoft/scripts/plot.Rmd";
-        $exec = "Rscript ".$scriptR." ".$scriptRMD." ".$tipoSalida ." ".$pathsalida." ".$pacienteEjercicio." ".$energy." ".$eGemaps." ".$chroma." ".$audspec." ".$prosody;
+        $exec = "Rscript ".$scriptR." ".$scriptRMD." ".$tipoSalida ." ".$pathsalida." '".$ejercicios."' ".$energy." ".$eGemaps." ".$chroma." ".$audspec." ".$prosody;
         exec($exec);
         return $exec;
     }
