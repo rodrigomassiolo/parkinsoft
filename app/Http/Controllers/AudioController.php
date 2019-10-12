@@ -300,7 +300,7 @@ class AudioController extends Controller
         }
         $pacienteEjercicio = $pacienteEjercicio.")";
                 
-        $pacienteEjercicio = PacienteEjercicio::findOrFail($request->input($audioName));
+        $pacienteEjercicio = PacienteEjercicio::findOrFail($request->input('pacienteEjercicio'));
         $path = $pacienteEjercicio->audio_path;
         $absPath = storage_path('app').$path;
         if($request->input('output')== "html"){
