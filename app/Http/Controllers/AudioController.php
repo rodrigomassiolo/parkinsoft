@@ -187,7 +187,7 @@ class AudioController extends Controller
         return $exec;
     }
 
-    public function prepareAudios(Request $request,$audioName){
+    public function prepareAudios($audioName,$energy,$eGemaps,$chroma,$audspec,$prosody){
         $pacienteEjercicio = PacienteEjercicio::findOrFail($audioName);
         $user = User::findOrFail($pacienteEjercicio->user_id);
         $user_id = $user->id;
@@ -229,60 +229,34 @@ class AudioController extends Controller
             }
         }
 
-        $energy = 0;
-        if($request->input('Energy') == "1"){
-            $energy = 1;
+        if($energy){
             $this->openSmile("openSmileEnergy",$absPath,$name);
             $this->csvToDB("csvToDBEnergy.sh","openSmileEnergy",$user_id,$absPath,$name,$pacienteEjercicio->id);
         }
-        
-        $eGemaps = 0;
-        if($request->input('eGemaps')== "1"){
-            $eGemaps = 1;
+
+        if($eGemaps){
             $this->openSmile("openSmileEGMaps",$absPath,$name);
             $this->csvToDB("csvToDBEGMaps.sh","openSmileEGMaps",$user_id,$absPath,$name,$pacienteEjercicio->id);
         }
 
-        $chroma = 0;
-        if($request->input('Chroma')== "1"){
-            $chroma = 1;
+        if($chroma){
             $this->openSmile("openSmileChroma",$absPath,$name);
             $this->csvToDB("csvToDBChroma.sh","openSmileChroma",$user_id,$absPath,$name,$pacienteEjercicio->id);
         }
 
-        $audspec= 0;
-        if($request->input('Audspec')== "1"){
-            $audspec = 1;
+        if($audspec){
             $this->openSmile("openSmileAudspec",$absPath,$name);
             $this->csvToDB("csvToDBAudspec.sh","openSmileAudspec",$user_id,$absPath,$name,$pacienteEjercicio->id);
         }
 
-        $prosody = 0;
-        if($request->input('Prosody')== "1"){
-            $prosody = 1;
+        if($prosody){
             $this->openSmile("openSmileProsodyAcf",$absPath,$name);        
             $this->csvToDB("csvToDBProsodyAcf.sh","openSmileProsodyAcf",$user_id,$absPath,$name,$pacienteEjercicio->id);
         }
         return $name;
     }
     public function processAudio(Request $request){
-        $name = "";
-        $pacienteEjercicio = "(";
-        if($request->exists('pacienteEjercicio')){
-            $name = $this->prepareAudios($request,$request->input('pacienteEjercicio'));
-            $pacienteEjercicio = $pacienteEjercicio.$request->input('pacienteEjercicio');
-        }else{
-            return "Error falta pacienteEjercicio";
-        }
-        if($request->exists('CompareAudio1')){
-            $name = $name.'_'.$this->prepareAudios($request->input('CompareAudio1'));
-            $pacienteEjercicio = $pacienteEjercicio.",".$request->input('CompareAudio1');
-        }
-        if($request->exists('CompareAudio2')){
-            $name = $name.'_'.$this->prepareAudios($request->input('CompareAudio2'));
-            $pacienteEjercicio = $pacienteEjercicio.",".$request->input('CompareAudio1');
-        }
-        $pacienteEjercicio = $pacienteEjercicio.")";
+        
         $energy = 0;
         if($request->input('Energy') == "1"){
             $energy = 1;
@@ -307,7 +281,25 @@ class AudioController extends Controller
         if($request->input('Prosody')== "1"){
             $prosody = 1;
         }
-        
+
+        $name = "";
+        $pacienteEjercicio = "(";
+        if($request->exists('pacienteEjercicio')){
+            $name = $this->prepareAudios($request->input('pacienteEjercicio'),$energy,$eGemaps,$chroma,$audspec,$prosody);
+            $pacienteEjercicio = $pacienteEjercicio.$request->input('pacienteEjercicio');
+        }else{
+            return "Error falta pacienteEjercicio";
+        }
+        if($request->exists('CompareAudio1')){
+            $name = $name.'_'.$this->prepareAudios($request->input('CompareAudio1'),$energy,$eGemaps,$chroma,$audspec,$prosody);
+            $pacienteEjercicio = $pacienteEjercicio.",".$request->input('CompareAudio1');
+        }
+        if($request->exists('CompareAudio2')){
+            $name = $name.'_'.$this->prepareAudios($request->input('CompareAudio2'),$energy,$eGemaps,$chroma,$audspec,$prosody);
+            $pacienteEjercicio = $pacienteEjercicio.",".$request->input('CompareAudio1');
+        }
+        $pacienteEjercicio = $pacienteEjercicio.")";
+                
         $pacienteEjercicio = PacienteEjercicio::findOrFail($request->input($audioName));
         $path = $pacienteEjercicio->audio_path;
         $absPath = storage_path('app').$path;
