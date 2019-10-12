@@ -186,9 +186,9 @@ class AudioController extends Controller
         exec($exec);
         return $exec;
     }
-    public function processAudio(Request $request){
 
-        $pacienteEjercicio = PacienteEjercicio::findOrFail($request->input('pacienteEjercicio'));
+    public function prepareAudios($audioName){
+        $pacienteEjercicio = PacienteEjercicio::findOrFail($request->input($audioName));
         $user = User::findOrFail($pacienteEjercicio->user_id);
         $user_id = $user->id;
         $name = $pacienteEjercicio->audio_name;
@@ -263,10 +263,56 @@ class AudioController extends Controller
             $this->openSmile("openSmileProsodyAcf",$absPath,$name);        
             $this->csvToDB("csvToDBProsodyAcf.sh","openSmileProsodyAcf",$user_id,$absPath,$name,$pacienteEjercicio->id);
         }
-
+        return $name;
+    }
+    public function processAudio(Request $request){
+        $name = "";
+        $pacienteEjercicio = "(";
+        if($request->exists('pacienteEjercicio')){
+            $name = $this->prepareAudios($request->input('pacienteEjercicio'));
+            $pacienteEjercicio = $pacienteEjercicio.$request->input('pacienteEjercicio');
+        }else{
+            return "Error falta pacienteEjercicio";
+        }
+        if($request->exists('CompareAudio1')){
+            $name = $name.'_'.$this->prepareAudios($request->input('CompareAudio1'));
+            $pacienteEjercicio = $pacienteEjercicio.",".$request->input('CompareAudio1');
+        }
+        if($request->exists('CompareAudio2')){
+            $name = $name.'_'.$this->prepareAudios($request->input('CompareAudio2'));
+            $pacienteEjercicio = $pacienteEjercicio.",".$request->input('CompareAudio1');
+        }
+        $pacienteEjercicio = $pacienteEjercicio.")";
+        $energy = 0;
+        if($request->input('Energy') == "1"){
+            $energy = 1;
+        }
         
+        $eGemaps = 0;
+        if($request->input('eGemaps')== "1"){
+            $eGemaps = 1;
+        }
+
+        $chroma = 0;
+        if($request->input('Chroma')== "1"){
+            $chroma = 1;
+        }
+
+        $audspec= 0;
+        if($request->input('Audspec')== "1"){
+            $audspec = 1;
+        }
+
+        $prosody = 0;
+        if($request->input('Prosody')== "1"){
+            $prosody = 1;
+        }
+        
+        $pacienteEjercicio = PacienteEjercicio::findOrFail($request->input($audioName));
+        $path = $pacienteEjercicio->audio_path;
+        $absPath = storage_path('app').$path;
         if($request->input('output')== "html"){
-            $this->plotRmd('html_document', $absPath.$name.".html",$pacienteEjercicio->id,$energy,$eGemaps,$chroma,$audspec,$prosody);
+            $this->plotRmd('html_document', $absPath.$name.".html",$pacienteEjercicio,$energy,$eGemaps,$chroma,$audspec,$prosody);
             if($request->input('Download')== "1"){
                 return response()->download($absPath.$name.'.html');                
             }
@@ -276,7 +322,7 @@ class AudioController extends Controller
             }
         }
         if($request->input('output')== "pdf"){
-            $this->plotRmd('pdf_document', $absPath.$name.".pdf",$pacienteEjercicio->id,$energy,$eGemaps,$chroma,$audspec,$prosody);
+            $this->plotRmd('pdf_document', $absPath.$name.".pdf",$pacienteEjercicio,$energy,$eGemaps,$chroma,$audspec,$prosody);
             return response()->download($absPath.$name.'.pdf');
         }
         
