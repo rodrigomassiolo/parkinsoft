@@ -323,7 +323,7 @@ class AudioController extends Controller
     public function plotRmd($tipoSalida, $pathsalida,$ejercicios, $energy,$eGemaps,$chroma,$audspec,$prosody){
         $scriptR = "/var/www/html/parkinsoft/scripts/knit.R";
         $scriptRMD = "/var/www/html/parkinsoft/scripts/plot.Rmd";
-        $exec = "Rscript ".$scriptR." ".$scriptRMD." ".$tipoSalida ." ".$pathsalida." ".$ejercicios." ".$energy." ".$eGemaps." ".$chroma." ".$audspec." ".$prosody;
+        $exec = "Rscript ".$scriptR." ".$scriptRMD." ".$tipoSalida ." ".$pathsalida." '".$ejercicios."' ".$energy." ".$eGemaps." ".$chroma." ".$audspec." ".$prosody;
         exec($exec);
         return $exec;
     }
