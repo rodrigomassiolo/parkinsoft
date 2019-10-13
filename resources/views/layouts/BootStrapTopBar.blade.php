@@ -18,12 +18,12 @@
         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink"> 
           <a class="dropdown-item" href="{{ URL::to('en') }}">
               English
-              <img class="img-fluid" style="width:20%" src="{{asset('/img/gb.svg')}}">
+              <img class="img-fluid flag" style="width:20%" src="{{asset('/img/gb.svg')}}">
           </a>
 
           <a class="dropdown-item" href="{{ URL::to('es') }}">
               Español
-              <img class="img-fluid" style="width:20%" src="{{asset('/img/es.svg')}}">
+              <img class="img-fluid flag" style="width:20%" src="{{asset('/img/es.svg')}}">
           </a>
 
         </div>
@@ -36,6 +36,8 @@
     @else
       <ul class="navbar-nav ml-auto">
         
+      @yield('LeftBarCollapsed',View::make('layouts.LeftBarCollapsed'))
+
         <li class="nav-item dropdown">
 
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" 
@@ -46,12 +48,12 @@
           <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink"> 
             <a class="dropdown-item" href="{{ URL::to('en') }}">
                 English
-                <img class="img-fluid" style="width:20%" src="{{asset('/img/gb.svg')}}">
+                <img class="img-fluid flag" style="width:20%" src="{{asset('/img/gb.svg')}}">
             </a>
 
             <a class="dropdown-item" href="{{ URL::to('es') }}">
                 Español
-                <img class="img-fluid" style="width:20%" src="{{asset('/img/es.svg')}}">
+                <img class="img-fluid flag" style="width:20%" src="{{asset('/img/es.svg')}}">
             </a>
 
           </div>
@@ -65,7 +67,7 @@
             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               {{ Auth::user()->usuario }}
           </a>
-          <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
 
             <a class="dropdown-item" href="{{ route('user') }}">Datos</a>
             <a class="dropdown-item" href="{{ route('user/delete') }}">Eliminar</a>
