@@ -296,7 +296,7 @@ class AudioController extends Controller
         }
         if($request->exists('CompareAudio2')){
             $name = $name.'_'.$this->prepareAudios($request->input('CompareAudio2'),$energy,$eGemaps,$chroma,$audspec,$prosody);
-            $ejercicios = $ejercicios.",".$request->input('CompareAudio1');
+            $ejercicios = $ejercicios.",".$request->input('CompareAudio2');
         }
         $ejercicios = $ejercicios.")";
                 
