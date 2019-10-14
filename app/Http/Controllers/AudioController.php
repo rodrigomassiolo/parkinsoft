@@ -187,7 +187,7 @@ class AudioController extends Controller
         exec($exec);
         return $exec;
     }
-
+/*
     public function prepareAudios($audioName,$energy,$eGemaps,$chroma,$audspec,$prosody){
         $pacienteEjercicio = PacienteEjercicio::findOrFail($audioName);
         $user = User::findOrFail($pacienteEjercicio->user_id);
@@ -256,6 +256,75 @@ class AudioController extends Controller
         }
         return $name;
     }
+*/
+public function prepareAudios($audioName,$energy,$eGemaps,$chroma,$audspec,$prosody){Log::error("pepe1");
+    $pacienteEjercicio = PacienteEjercicio::findOrFail($audioName);Log::error("pepe2");
+    $user = User::findOrFail($pacienteEjercicio->user_id);Log::error("pepe3");
+    $user_id = $user->id;Log::error("pepe4");
+    $name = $pacienteEjercicio->audio_name;Log::error("pepe5");
+    $extens = $pacienteEjercicio->audio_ext;Log::error("pepe6");
+    $path = $pacienteEjercicio->audio_path;Log::error("pepe7");
+    $absPath = storage_path('app').$path;Log::error("pepe8");
+Log::error("pepe9");
+Log::error("pepe10");
+    $pacEjer = PacienteEjercicio::where([Log::error("pepe11");
+        ['user_id', '=', $user->id],Log::error("pepe12");
+        ['audio_name', '=', $name],Log::error("pepe13");
+    ])->get();Log::error("pepe14");
+Log::error("pepe15");
+    if (count($pacEjer) != 0)Log::error("pepe16");
+    {Log::error("pepe17");
+        foreach ($pacEjer as $key => $pe) {Log::error("pepe18");
+            $comando="/var/www/html/parkinsoft/scripts/clearTables.sh ".$pe->id;Log::error("pepe19");
+            exec($comando);Log::error("pepe20");
+        }Log::error("pepe21");
+        $comando="/var/www/html/parkinsoft/scripts/clearFiles.sh '".$absPath.$name."*.csv'";Log::error("pepe22");
+        exec($comando);Log::error("pepe23");
+        $comando="/var/www/html/parkinsoft/scripts/clearFiles.sh '".$absPath.$name."*.html'";Log::error("pepe24");
+        exec($comando);Log::error("pepe25");
+        $comando="/var/www/html/parkinsoft/scripts/clearFiles.sh '".$absPath.$name."*.pdf'";Log::error("pepe26");
+        exec($comando);Log::error("pepe27");
+    }Log::error("pepe28");
+Log::error("pepe29");
+    if($extens != 'wav'){Log::error("pepe30");
+        $this->ffmpeg($absPath,$name,$extens);Log::error("pepe31");
+        $comando="/var/www/html/parkinsoft/scripts/clearFiles.sh '".$absPath.$name."*.".$extens."'";Log::error("pepe32");
+        exec($comando);Log::error("pepe33");
+        if(Storage::disk('local')->exists($path.$name.".wav")){Log::error("pepe34");
+            $pacienteEjercicio->audio_ext = 'wav';Log::error("pepe35");
+            $pacienteEjercicio->save();Log::error("pepe36");
+        }Log::error("pepe37");
+        else{Log::error("pepe38");
+            return "Error en ffmpeg";Log::error("pepe39");
+        }Log::error("pepe40");
+    }Log::error("pepe41");
+Log::error("pepe42");
+    if($energy){Log::error("pepe43");
+        $this->openSmile("openSmileEnergy",$absPath,$name);Log::error("pepe44");
+        $this->csvToDB("csvToDBEnergy.sh","openSmileEnergy",$user_id,$absPath,$name,$pacienteEjercicio->id);Log::error("pepe45");
+    }Log::error("pepe46");
+Log::error("pepe47");
+    if($eGemaps){Log::error("pepe48");
+        $this->openSmile("openSmileEGMaps",$absPath,$name);Log::error("pepe49");
+        $this->csvToDB("csvToDBEGMaps.sh","openSmileEGMaps",$user_id,$absPath,$name,$pacienteEjercicio->id);Log::error("pepe50");
+    }Log::error("pepe51");
+Log::error("pepe52");
+    if($chroma){Log::error("pepe53");
+        $this->openSmile("openSmileChroma",$absPath,$name);Log::error("pepe54");
+        $this->csvToDB("csvToDBChroma.sh","openSmileChroma",$user_id,$absPath,$name,$pacienteEjercicio->id);Log::error("pepe55");
+    }Log::error("pepe56");
+Log::error("pepe57");
+    if($audspec){Log::error("pepe58");
+        $this->openSmile("openSmileAudspec",$absPath,$name);Log::error("pepe59");
+        $this->csvToDB("csvToDBAudspec.sh","openSmileAudspec",$user_id,$absPath,$name,$pacienteEjercicio->id);Log::error("pepe60");
+    }Log::error("pepe61");
+Log::error("pepe62");
+    if($prosody){Log::error("pepe63");
+        $this->openSmile("openSmileProsodyAcf",$absPath,$name);        Log::error("pepe64");
+        $this->csvToDB("csvToDBProsodyAcf.sh","openSmileProsodyAcf",$user_id,$absPath,$name,$pacienteEjercicio->id);Log::error("pepe65");
+    }Log::error("pepe66");
+    return $name;Log::error("pepe67");
+}
     public function processAudio(Request $request){
         
         $energy = 0;
