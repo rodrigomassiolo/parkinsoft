@@ -267,9 +267,9 @@ public function prepareAudios($audioName,$energy,$eGemaps,$chroma,$audspec,$pros
     $absPath = storage_path('app').$path;Log::error("pepe8");
 Log::error("pepe9");
 Log::error("pepe10");
-    $pacEjer = PacienteEjercicio::where([Log::error("pepe11");
-        ['user_id', '=', $user->id],Log::error("pepe12");
-        ['audio_name', '=', $name],Log::error("pepe13");
+    $pacEjer = PacienteEjercicio::where([
+        ['user_id', '=', $user->id],
+        ['audio_name', '=', $name]
     ])->get();Log::error("pepe14");
 Log::error("pepe15");
     if (count($pacEjer) != 0)Log::error("pepe16");
@@ -293,7 +293,7 @@ Log::error("pepe29");
         if(Storage::disk('local')->exists($path.$name.".wav")){Log::error("pepe34");
             $pacienteEjercicio->audio_ext = 'wav';Log::error("pepe35");
             $pacienteEjercicio->save();Log::error("pepe36");
-        }Log::error("pepe37");
+        }
         else{Log::error("pepe38");
             return "Error en ffmpeg";Log::error("pepe39");
         }Log::error("pepe40");
