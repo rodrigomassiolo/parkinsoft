@@ -3,7 +3,7 @@ title: "Análisis de la voz"
 author: "realizado por: Higia"
 params: 
   data: args
-  pacienteEjercicio: "(1)"
+  pacienteEjercicio: 1
   energy: 1
   eGemaps: 1
   chroma: 1
@@ -26,9 +26,18 @@ parprosody <- params$prosody
 pareGemaps <- params$eGemaps 
 #CHROMA###########################################################################################################################################
 if (parchroma == 1) {
-querychoma <- paste0("SELECT * FROM CHROMA WHERE ejerciciopaciente_id IN ", paej)
+querychoma <- paste0("SELECT * FROM CHROMA WHERE ejerciciopaciente_id IN ", paej ," ORDER BY ejerciciopaciente_id, id")
 datosChroma <- dbGetQuery(mydb,querychoma)
 auxTable <- table(datosChroma$ejerciciopaciente_id)
+auxTable <- as.data.frame(auxTable)
+frame = seq(0,(auxTable$Freq[1]-1)*0.01,0.01)
+
+if(nrow(auxTable)>1){
+  for(i in 2:nrow( auxTable)){
+    frame <- c(frame,seq(0,(auxTable$Freq[i]-1)*0.01,0.01))}
+}
+
+datosChroma$frame <- frame
 
 resultado <- expand.grid(Frame = seq(1,nrow(datosChroma),1),Tono = c('DO', 'DO#', 'RE', 'RE#', 'MI' ,'FA', 'FA#', 'SOL', 'SOL#', 'LA', 'LA#', 'SI'))
 
@@ -43,7 +52,7 @@ chromagraph <- ggplot(resultado, aes(Tiempo_segundos, Tono, z= intensidad)) + ge
 
 aux <- vector(length=nrow(datosChroma))
 for(i in 1:nrow(datosChroma)){
-  aux[i]= which.max(unlist(datosChroma[i,],use.names=FALSE)) }
+  aux[i]= which.max(unlist(datosChroma[i,6:17],use.names=FALSE)) }
 
 datosMaxChroma <- data.frame(tiempo=datosChroma$frame, tono = aux)
 datosMaxChroma$ejerciciopaciente_id <- datosChroma$ejerciciopaciente_id
@@ -63,8 +72,10 @@ auxTable <- as.data.frame(auxTable)
 
 ejerciciopaciente_id <- as.character(rep(auxTable$Var1[1],times = 36))
 
-for(j in 2:nrow( auxTable)){
-	ejerciciopaciente_id <- c(ejerciciopaciente_id,as.character(rep(auxTable$Var1[j],times = 36)))}
+if(nrow(auxTable)>1){
+  for(j in 2:nrow( auxTable)){
+    ejerciciopaciente_id <- c(ejerciciopaciente_id,as.character(rep(auxTable$Var1[j],times = 36)))}
+}
 
 for(j in 1:nrow( auxTable)){
 	auxDatos <- datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[j],]
@@ -84,10 +95,10 @@ maxmeanminGraph <- ggplot(resultado,aes( x=Tono,y=Energia, fill = Medicion)) + g
 
 #ENERGY###########################################################################################################################################
 if (parenergy == 1) {
-queryenergy <- paste0("SELECT * FROM ENERGY WHERE ejerciciopaciente_id IN ", paej)
+queryenergy <- paste0("SELECT * FROM ENERGY WHERE ejerciciopaciente_id IN ", paej ," ORDER BY ejerciciopaciente_id, id")
 datosenergy <- dbGetQuery(mydb,queryenergy)
+
 ejerciciopaciente_id <- datosenergy$ejerciciopaciente_id
-datosenergy <- datosenergy[,5:ncol(datosenergy)]
 datos2 <- data.frame(tiempo=c(datosenergy$frameTime),LogEnergy=c(datosenergy$pcm_LOGenergy))
 datos2$ejerciciopaciente_id <- datosenergy$ejerciciopaciente_id 
 datosEnergy <- datos2
@@ -98,8 +109,20 @@ energygraph <- ggplot(datos2,aes(x=tiempo,y=LogEnergy))+geom_line()+ geom_hline(
 
 #AUDSPEC###########################################################################################################################################
 if (paraudspec == 1) {
-queryaudspec <- paste0("SELECT * FROM AUDSPEC WHERE ejerciciopaciente_id IN ", paej)
+queryaudspec <- paste0("SELECT * FROM AUDSPEC WHERE ejerciciopaciente_id IN ", paej ," ORDER BY ejerciciopaciente_id, id")
 datosaudspec <- dbGetQuery(mydb,queryaudspec)
+
+auxTable <- table(datosaudspec$ejerciciopaciente_id)
+auxTable <- as.data.frame(auxTable)
+
+frame = seq(0,(auxTable$Freq[1]-1)*0.01,0.01)
+
+if(nrow(auxTable)>1){
+  for(i in 2:nrow( auxTable)){
+    frame <- c(frame,seq(0,(auxTable$Freq[i]-1)*0.01,0.01))}
+}
+
+datosaudspec$frameTime <- frame
 
 ejerciciopaciente_id <- as.character(rep(datosaudspec$ejerciciopaciente_id,times = 26))
 
@@ -115,7 +138,7 @@ audspectgraph <- ggplot(resultadoAudspect, aes(Tiempo_segundos, Espectro, z= int
 ##PROSODY############################################################################################################################
 #F0 con probabilidad
 if (parprosody == 1) {
-queryprosody <- paste0("SELECT * FROM PROSODY WHERE ejerciciopaciente_id IN ", paej)
+queryprosody <- paste0("SELECT * FROM PROSODY WHERE ejerciciopaciente_id IN ", paej ," ORDER BY ejerciciopaciente_id, id")
 datosprosody <- dbGetQuery(mydb,queryprosody)
 
 #paso los datos a un data frame
@@ -152,16 +175,18 @@ F0_Volumen = ggplot(resultado2F0_Vol_Prob, aes(frame))+
 #Formantes
 if (pareGemaps == 1) {
 ##datos = dbReadTable(mydb,"EGEMAPS")
-queryegemaps <- paste0("SELECT * FROM EGEMAPS WHERE ejerciciopaciente_id IN ", paej)
+queryegemaps <- paste0("SELECT * FROM EGEMAPS WHERE ejerciciopaciente_id IN ", paej ," ORDER BY ejerciciopaciente_id, id")
 datosegemap <- dbGetQuery(mydb,queryegemaps)
 
 xs   <- seq(-1/2*pi,1/2*pi,pi/200)
 wave <- 0.5*sin(datosegemap$F1frequency_sma3nz_amean[1] * xs) + 0.25*sin(datosegemap$F2frequency_sma3nz_amean[1] * xs) + 0.125 * sin(datosegemap$F3frequency_sma3nz_amean[1] * xs)
 ejerciciopaciente_id <- as.character(rep(auxTable$Var1[1], 201))
 
+if(nrow(auxTable)>1){
 for(i in 2:nrow(auxTable)){
 	wave <- c(wave, 0.5*sin(datosegemap$F1frequency_sma3nz_amean[i] * xs) + 0.25*sin(datosegemap$F2frequency_sma3nz_amean[i] * xs) + 0.125 * sin(datosegemap$F3frequency_sma3nz_amean[i] * xs))
 	ejerciciopaciente_id <- c(ejerciciopaciente_id,as.character(rep(auxTable$Var1[i], 201)))}
+}
 
 resultado <- expand.grid(xs = rep(xs,nrow(auxTable)))
 resultado$wave <- wave
