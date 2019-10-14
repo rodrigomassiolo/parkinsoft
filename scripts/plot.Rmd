@@ -3,7 +3,7 @@ title: "Análisis de la voz"
 author: "realizado por: Higia"
 params: 
   data: args
-  pacienteEjercicio: 1
+  pacienteEjercicio: "(1,2)"
   energy: 1
   eGemaps: 1
   chroma: 1
