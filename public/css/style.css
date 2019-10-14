@@ -31,3 +31,26 @@
       width: 100%;
     }
   }
+
+
+  @media only screen and (max-width: 992px) {
+    .flag{
+      width: 2% !important;
+    }
+  }
+
+.leftBarHide{
+  display: none !important;
+}
+
+.leftBarShow{
+  display: block !important;
+}
+
+.hideAction{
+  display: none !important;
+}
+
+.showAction{
+  display: block !important;
+}

@@ -1,8 +1,11 @@
+$( document ).ready(function() {
+  Lista.addListener();
+});
+
+
 $('#exampleModal').on('show.bs.modal', function (event) {
-    var button = $(event.relatedTarget) // Button that triggered the modal
-    var recipient = button.data('whatever') // Extract info from data-* attributes
-    // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
-    // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+    var button = $(event.relatedTarget) 
+    var recipient = button.data('whatever') 
     $('#row').val(recipient)
   })
 
@@ -31,5 +34,72 @@ $('#exampleModal').on('show.bs.modal', function (event) {
       $("#graphicForm")
       .attr('action', '/audio/processAudio')
       .submit();
+    },
+
+    fillSelector: function(element){
+
+      var pacienteEjercicio = $('#row').val();
+
+      var obj = {id : pacienteEjercicio};
+
+      $.ajax({
+          url: "/AvailableAudio/" + pacienteEjercicio,
+        type: 'GET',
+        // data: {id : pacienteEjercicio},
+        success: function(data){
+          $('#se' + element).html(data.html);
+          $('#selector' + element).show();
+      }
+      })
+    },
+
+    addListener: function(){
+      $('#che1').change(function() {
+        if($('#che1')[0].checked == true){
+          Lista.fillSelector('1');
+        }else{
+          $('#compareDiv').html(
+           '<div id="compareDiv">'
+           +  '<label><input type="checkbox" name="Compare1" value="1" id="che1"> Comparar audio</label><br>'
+           +  '<div id="selector1" style="display:none">'
+           +    '<select id="se1" name="CompareAudio1">'
+           +      '<option value=""></option>'
+           +    '</select>'
+           + '</div>'
+
+           +' <div id="compareDiv2">'
+           +  ' <label><input type="checkbox" name="Compare2" value="1" id="che2"> Comparar audio</label><br>'
+           +  ' <div id="selector2" style="display:none">'
+           +'     <select id="se2" name="CompareAudio2">'
+           +'         <option value=""></option>'
+           +'     </select>'
+           +  ' </div>'
+           +' </div>'
+          +'</div>'
+          )
+          
+          Lista.addListener();
+          ;
+        }
+      });
+
+
+      $('#che2').change(function() {
+        if($('#che2')[0].checked == true){
+          Lista.fillSelector('2');
+        }else{
+          $('#compareDiv2').html(
+           +' <label><input type="checkbox" name="Compare2" value="1" id="che2"> Comparar audio</label><br>'
+           +' <div id="selector2" style="display:none">'
+           +'     <select id="se2" name="CompareAudio2">'
+           +'         <option value=""></option>'
+           +'     </select>'
+           +' </div>'
+          );
+          Lista.addListener();
+        }
+       
+      });
     }
+
   }

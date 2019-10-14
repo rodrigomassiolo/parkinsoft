@@ -12,6 +12,8 @@
 */
 use Illuminate\Http\Request;
 
+use App\PacienteEjercicio;
+
 Route::get('/', function () {
     return view('welcome');
 })->name('welcome');
@@ -172,3 +174,30 @@ Route::get('/listaDeEjercicios/show/{id}','PacienteEjercicioController@show')->m
 Route::get('/listaDeEjercicios/download/{id}','PacienteEjercicioController@download')->middleware('auth');
 
 Route::post('/audio/processAudio','AudioController@processAudio')->middleware('auth');
+
+
+
+
+
+Route::get('AvailableAudio/{id}', function($id){
+	$response = $id;
+
+	 $comparable = PacienteEjercicio::findOrFail($response);
+
+	if (!$id) {
+        $html = '<option value="">'.trans('parkinsoft.pleaseSelect').'</option>';
+    } else {
+        $html = '';
+		$result = 
+			PacienteEjercicio::where('user_id',"=", $comparable->user_id)->where("id","<>",$comparable->id)
+			->whereHas('ejercicio',function($q) use($comparable){
+			$q->where('nombre',"=",$comparable->ejercicio->nombre);
+		})->get();;
+
+        foreach ($result as $res) {
+				$html .= '<option value="'.$res->id.'">'.$res->created_at.'</option>';
+        }
+    }
+
+     return response()->json(['html' => $html]);
+});

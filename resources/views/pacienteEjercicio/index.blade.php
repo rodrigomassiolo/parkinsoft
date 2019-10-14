@@ -122,6 +122,30 @@
            
             <label><input type="checkbox" name="Prosody" value="1"> Prosody</label><br>    
     
+            <div id="compareDiv">
+                <label>
+                    <input type="checkbox" name="Compare1" value="1" id="che1">
+                Comparar audio
+                </label><br>
+
+                <div id="selector1" style="display:none">
+                    <select id="se1" name="CompareAudio1">
+                        <option value=""></option>
+                    </select>
+                </div>
+
+                <div id="compareDiv2">
+
+                    <label><input type="checkbox" name="Compare2" value="1" id="che2"> Comparar audio</label><br>
+
+                    <div id="selector2" style="display:none">
+                        <select id="se2" name="CompareAudio2">
+                            <option value=""></option>
+                        </select>
+                    </div>
+              </div>  
+            </div>
+
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>

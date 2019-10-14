@@ -14,7 +14,7 @@
     @yield('BootStrapBody')
   </div>
   <script src="{{ asset('js/app.js') }}"></script>
-  <script src="{{ asset('js/jquery-slim.min.js') }}"></script>
+  <script src="{{ asset('js/jquery-3.4.1.js') }}"></script>
   <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
   <script src="{{ asset('js/feather.min.js') }}"></script>
   <!-- <script src="{{ asset('js/Chart.min.js') }}"></script>
