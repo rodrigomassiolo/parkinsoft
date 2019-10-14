@@ -287,21 +287,26 @@ class AudioController extends Controller
         $ejercicios = "(";
         Log::error($ejercicios);
         if($request->exists('pacienteEjercicio')){
-            $name = $this->prepareAudios($request->input('pacienteEjercicio'),$energy,$eGemaps,$chroma,$audspec,$prosody);
-            $ejercicios = $ejercicios.$request->input('pacienteEjercicio');
+            $paej = $request->input('pacienteEjercicio');
+            $name = $this->prepareAudios($paej,$energy,$eGemaps,$chroma,$audspec,$prosody);
+            $ejercicios = $ejercicios.$paej;
             Log::error($ejercicios);
         }else{
             Log::error("Error falta pacienteEjercicio");
             return "Error falta pacienteEjercicio";
         }
         if($request->exists('CompareAudio1')){
-            $name = $name.'_'.$this->prepareAudios($request->input('CompareAudio1'),$energy,$eGemaps,$chroma,$audspec,$prosody);
-            $ejercicios = $ejercicios.",".$request->input('CompareAudio1');
+            $paej = $request->input('CompareAudio1');
+            $prep = $this->prepareAudios($paej,$energy,$eGemaps,$chroma,$audspec,$prosody);
+            $name = $name.'_'.$prep;
+            $ejercicios = $ejercicios.",".$paej;
             Log::error($ejercicios);
         }
         if($request->exists('CompareAudio2')){
-            $name = $name.'_'.$this->prepareAudios($request->input('CompareAudio2'),$energy,$eGemaps,$chroma,$audspec,$prosody);
-            $ejercicios = $ejercicios.",".$request->input('CompareAudio2');
+            $paej = $request->input('CompareAudio2');
+            $prep = $this->prepareAudios($paej,$energy,$eGemaps,$chroma,$audspec,$prosody);
+            $name = $name.'_'.$prep;
+            $ejercicios = $ejercicios.",".$paej;
             Log::error($ejercicios);
         }
         $ejercicios = $ejercicios.")";
