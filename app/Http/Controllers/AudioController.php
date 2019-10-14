@@ -281,26 +281,32 @@ class AudioController extends Controller
         if($request->input('Prosody')== "1"){
             $prosody = 1;
         }
-
+        Log::error("pepe1");
         $name = "";
         $ejercicios = "(";
+        Log::error($ejercicios);
         if($request->exists('pacienteEjercicio')){
             $name = $this->prepareAudios($request->input('pacienteEjercicio'),$energy,$eGemaps,$chroma,$audspec,$prosody);
             $ejercicios = $ejercicios.$request->input('pacienteEjercicio');
+            Log::error($ejercicios);
         }else{
+            Log::error("Error falta pacienteEjercicio");
             return "Error falta pacienteEjercicio";
         }
         if($request->exists('CompareAudio1')){
             $name = $name.'_'.$this->prepareAudios($request->input('CompareAudio1'),$energy,$eGemaps,$chroma,$audspec,$prosody);
             $ejercicios = $ejercicios.",".$request->input('CompareAudio1');
+            Log::error($ejercicios);
         }
         if($request->exists('CompareAudio2')){
             $name = $name.'_'.$this->prepareAudios($request->input('CompareAudio2'),$energy,$eGemaps,$chroma,$audspec,$prosody);
             $ejercicios = $ejercicios.",".$request->input('CompareAudio2');
+            Log::error($ejercicios);
         }
         $ejercicios = $ejercicios.")";
-                
+        Log::error($ejercicios);    
         $pacienteEjercicio = PacienteEjercicio::findOrFail($request->input('pacienteEjercicio'));
+        Log::error('pacienteEjercicio');
         $path = $pacienteEjercicio->audio_path;
         $absPath = storage_path('app').$path;
         if($request->input('output')== "html"){
@@ -321,10 +327,13 @@ class AudioController extends Controller
     }
 
     public function plotRmd($tipoSalida, $pathsalida,$ejercicios, $energy,$eGemaps,$chroma,$audspec,$prosody){
+        Log::error('plotrmd');
         $scriptR = "/var/www/html/parkinsoft/scripts/knit.R";
         $scriptRMD = "/var/www/html/parkinsoft/scripts/plot.Rmd";
         $exec = "Rscript ".$scriptR." ".$scriptRMD." ".$tipoSalida ." ".$pathsalida." '".$ejercicios."' ".$energy." ".$eGemaps." ".$chroma." ".$audspec." ".$prosody;
+        Log::error($exec);
         exec($exec);
+        Log::error("excec");
         return $exec;
     }
 }
