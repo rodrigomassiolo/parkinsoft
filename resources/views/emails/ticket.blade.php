@@ -4,7 +4,7 @@
     <meta charset="utf-8">
 </head>
 <body>
-<h2>¡Curso de Laravel!</h2>
+<h2>¡Ticket!</h2>
 
 <div>
     Tienes un nuevo Ticket. La id del ticket es {!! $ticket !!}!

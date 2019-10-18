@@ -7,8 +7,10 @@
         <div class="well well bs-component">
             <div class="content">
                 <h2 class="header">{!! $ticket->title !!}</h2>
-                <p> <strong>Status</strong>: {!! $ticket->status ? 'Pendiente' : 'Respondido' !!}</p>
-                <p> {!! $ticket->content !!} </p>
+                <p> <strong>Status:</strong>: {!! $ticket->status ? 'Pendiente' : 'Respondido' !!}</p>
+                <p> 
+                <strong>Consulta:</strong> {!! $ticket->content !!} 
+                </p>
             </div>
             <a href="{!! action('TicketsController@edit', $ticket->slug) !!}" class="btn btn-info float-left">Edit</a>
 
@@ -22,13 +24,35 @@
             <div class="clearfix"></div>
         </div>
 
-             @foreach($comments as $comment)
+             <!-- @foreach($comments as $comment)
                 <div class="well well bs-component">
                   <div class="content">
                      {!! $comment->content !!}
                   </div>
                 </div>
-             @endforeach
+             @endforeach -->
+<hr>
+
+            <table class="table table-bordered table-sm table-hover">
+                <thead>
+                    <tr>
+                        <th>Usuario</th>
+                        <th>Comentario</th>
+                        <th>Fecha de Creación</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($comments as $comment)
+                    <tr>
+                        <td>{{ $comment->user_id }}</td>  
+                        <td>{{ $comment->content }}</td>
+                        <td>{{ $comment->created_at }} </td> 
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
+
+
 
 
               <div class="well well bs-component">

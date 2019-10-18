@@ -58,4 +58,10 @@ class PacienteEjercicio extends Model
         return $query;
     }
 
+    // public static function getMyDateFormat($value)
+    // {
+    //     return \Carbon\Carbon::createFromFormat($value, 'Y/m/d')->toDateTimeString();
+    // }
+
 }
+

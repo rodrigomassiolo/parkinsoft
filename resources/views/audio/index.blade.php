@@ -3,12 +3,14 @@
 
 @section('MainContent')
 
-<h4>Ingresar Audio</h4>
+<h4 class="titleInfo">
+  Ingresar Audio
+</h4>
 <br>
 <form action="{{ route('sendAudio') }}" method="POST" enctype="multipart/form-data">
     @csrf
-  <div class="form-group row">
-    <div class="col-md-2">
+  <div class="form-group row inputs">
+    <div class="col-md-12 col-sm-12 col-lg-6">
       <input type="hidden" name="View" value="1">
       <select name="ejercicio">
         @foreach ($ejercicio as $ej)
@@ -16,17 +18,22 @@
         @endforeach
       </select>
     </div>
-    <div class="col-md-6">
+    <div class="col-md-12 col-sm-12 col-lg-6">
       <input type="file" class="form-control-file" id="audio" name="audio">
     </div>
   </div>
 
-  <button type="submit"> Enviar </button>
+  <div class="centerButton">
+      <button type="submit"> Enviar </button>
+  </div>
+  
 </form>
 
 <br><br>
 
-<h6>Historico de audios subidos</h6>
+<h6 class="tableInfo"
+  >Historial de audios subidos
+</h6>
 
 <table class="table table-bordered table-sm table-hover">
     <thead>
@@ -41,7 +48,8 @@
         <tr>
             <td>{{ $row->id }}</td>  
             <td>{{ $row->ejercicio->descripcion }}</td>
-            <td>{{ $row->created_at }}</td>
+            <td>{{ $row->created_at }} </td> 
+      
         </tr>
         @endforeach
         </tbody>

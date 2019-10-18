@@ -27,3 +27,16 @@ $( document ).ready(function() {
 
 
 });
+
+// var Contact = {
+
+//     cancel: function(){
+//         $.ajax({
+//             url: "/welcome",
+//           type: 'GET',
+//           success: function(data){}
+        
+//         })
+//     }
+
+// }

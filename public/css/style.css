@@ -25,32 +25,94 @@
   .col-11 {width: 91.66%;}
   .col-12 {width: 100%;}
   
-  @media only screen and (max-width: 768px) {
-    /* For mobile phones: */
+  /* @media only screen and (max-width: 768px) {
+  
     [class*="col-"] {
       width: 100%;
     }
-  }
+  } */
 
+
+  /* @media only screen and (min-width: 767px) {
+    div.inputs select{
+      width: 100%;
+    }
+    div.inputs input{
+      width: 100%;
+      
+    } 
+
+    .tableInfo{
+      text-align: center;
+      font-size: 23vw;
+    }
+
+    .titleInfo{
+      text-align: center;
+      font-size: 5vw;
+    }
+  } */
 
   @media only screen and (max-width: 992px) {
     .flag{
       width: 2% !important;
     }
+
+    div{
+      font-size: 2vw;
+    }
+
+    .titleInfo{
+      text-align: center;
+      font-size: 3vw;
+    }
+
+    .tableInfo{
+      text-align: center;
+      font-size: 2.5vw;
+    }
+
+    .centerButton {
+      text-align: center;
+    }
+    .centerButton button{
+      width: 25%;
+    }
+
+    div.inputs select{
+      width: 100%;
+    }
+    div.inputs input{
+      width: 100%;
+    } 
+
+    a{
+      font-size: 3vw !important;
+    }
+
+    td, th{
+      font-size: 3vw !important;
+    }
+
   }
+
+
+  div.inputs select{
+    width: 100%;
+  }
+  div.inputs input{
+    width: 100%;
+  } 
 
 .leftBarHide{
   display: none !important;
 }
-
 .leftBarShow{
   display: block !important;
 }
-
 .hideAction{
   display: none !important;
 }
-
 .showAction{
   display: block !important;
 }

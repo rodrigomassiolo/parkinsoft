@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Http\Requests\CommentsFormRequest;
+use Illuminate\Support\Facades\Auth;
 use App\Comment;
+
 
 class CommentsController extends Controller
 {
@@ -13,7 +15,8 @@ class CommentsController extends Controller
     {
         $comment = new Comment(array(
             'post_id' => $request->get('post_id'),
-            'content' => $request->get('content')
+            'content' => $request->get('content'),
+            'user_id' => Auth::user()->id
         ));
 
         $comment->save();

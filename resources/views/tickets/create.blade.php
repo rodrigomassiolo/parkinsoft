@@ -12,7 +12,6 @@
                     <div class="alert alert-success">
                         {{ session('status') }}
                     </div>
-                    
                 @endif
                 <input type="hidden" name="_token" value="{!! csrf_token() !!}">
                 <fieldset>
@@ -30,11 +29,17 @@
                             <span class="help-block">Envia un ticket para dudas y consultas.</span>
                         </div>
                     </div>
-
+                    <!-- deberia estar al revez -->
+                    @if (Auth::user()) 
+                    <label for="email" class="col-lg-2 control-label">Email</label>
+                        <div class="col-lg-10">
+                            <input required type="text" class="form-control" id="email" placeholder="Ingrese email" name="email">
+                        </div>
+                    @endif 
                     <div class="form-group">
                         <div class="col-lg-10 col-lg-offset-2">
-                            <button class="btn btn-default">Cancelar</button>
-                            <button type="submit" class="btn btn-primary">Enviar</button>
+                            <!-- <button type="button" onclick="Contact.cancel();" value="0" name="response" class="btn btn-default">Cancelar</button> -->
+                            <button type="submit" value="1" name="response" class="btn btn-primary">Enviar</button>
                         </div>
                     </div>
                 </fieldset>

@@ -39,13 +39,26 @@ class TicketsController extends Controller
     public function store(TicketsFormRequest $request)
     {
        // return $request->all();
+
+        // if($request->get('response')==0){
+        //     return redirect('welcome');
+        // }
+
+        $email;
+        
+        if($request->get('email')){
+            $email = $request->get('email');
+        }else{
+            Auth::user()->email;
+        }
+
        $slug = uniqid();
        $ticket = new Ticket(array(
             'title' => $request->get('title'),
             'content' => $request->get('content'),
             'slug' => $slug,
-            'user_id' => Auth::user()->id
-
+            'user_id' => Auth::user()->id,
+            'email' => $email
        ));
        $ticket->save();
 
@@ -54,12 +67,14 @@ class TicketsController extends Controller
          );
 
          Mail::send('emails.ticket', $data, function ($message) {
-            $message->from('tutia@gmail.com', 'porque no lees los tickets');
-
+            $message->from('admin@higia.com', 'Nuevo ticket');
+            //Hay que poner el mail de admin higia
+            
+            //Hay que poner el usuario
             $message->to('martinnviqueira@gmail.com')->subject('¡Hay un nuevo ticket, leelo!');
          });
 
-       return redirect('/contact')->with('status', 'Su ticket ha sido creado. Su id es: '.$slug);//devuelve a la vista status
+       return redirect()->back()->with('status', 'Su ticket ha sido creado.');//devuelve a la vista status
     }
 
     /**
@@ -97,14 +112,38 @@ class TicketsController extends Controller
     public function update($slug, TicketsFormRequest $request)
     {
       $ticket = Ticket::whereSlug($slug)->firstOrFail();
-      $ticket->title = $request->get('title');
-      $ticket->content = $request->get('content');
       if($request->get('status') != null) {
         $ticket->status = 0;
     } else {
         $ticket->status = 1;
      }
-     $ticket->save();
+
+     $comment = new Comment(array(
+        'post_id' => $ticket->id,
+        'content' => $request->get('content'),
+        'user_id' => Auth::user()->id
+    ));
+
+    $comment->save();
+
+    $ticket->save();
+
+
+     if($ticket->status == 1){
+        $data = array(
+            'response' => $comment->content,
+             );
+        Mail::send('emails.ticketResponse', $data, function ($message) {
+            $message->from('admin@higia.com', 'Nuevo ticket');
+            //Hay que poner el mail de admin higia
+
+            //Hay que poner el usuario
+            $message->to('martinnviqueira@gmail.com')->subject('Consulta Parkinsoft');
+         });
+
+         return redirect(action('TicketsController@edit', $ticket->slug))->with('status', 'Se ha enviado un email al usuario con la respuesta');
+     }
+   
      return redirect(action('TicketsController@edit', $ticket->slug))->with('status', '¡El ticket '.$slug.' ha sido actualizado!');
 
      }
@@ -119,7 +158,7 @@ class TicketsController extends Controller
     {
      $ticket = Ticket::whereSlug($slug)->firstOrFail();
      $ticket->delete();
-     return redirect('/tickets')->with('status', 'El ticket '.$slug.' ha sido borrado');
+     return redirect()->back()->with('status', 'El ticket '.$slug.' ha sido borrado');
 
      }
 }

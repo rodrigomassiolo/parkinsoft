@@ -21,7 +21,7 @@
                         <th>ID</th>
                         <th>Título</th>
                         <th>Detalle</th>
-                        <th>Status</th>
+                        <th>Usuario</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -32,6 +32,9 @@
                                     <a href="{!! action('TicketsController@show', $ticket->slug) !!}">{!! $ticket->title !!} </a>
                                 </td>
                             <td>{!! $ticket->status ? 'Pendiente' : 'Respondido' !!}</td>
+                            <td>
+                                {!!  $ticket->user->usuario !!}
+                            </td>
                         </tr>
                     @endforeach
                 </tbody>
