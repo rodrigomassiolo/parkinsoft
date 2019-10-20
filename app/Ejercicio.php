@@ -28,6 +28,15 @@ class Ejercicio extends Model
 
     public function scopeFilter($query, $params)
     {
+        if ( isset($params['id']) && trim($params['id']) !== '' )
+        {
+            $query->where('id', '=', trim($params['id']));
+        }
+
+        if ( isset($params['nombre']) && trim($params['nombre'] !== '') ) {
+            $query->where('nombre', 'LIKE', '%' . trim($params['nombre']) . '%');
+        }
+
         if ( isset($params['nombre']) && trim($params['nombre'] !== '') ) {
             $query->where('nombre', 'LIKE', '%' . trim($params['nombre']) . '%');
         }

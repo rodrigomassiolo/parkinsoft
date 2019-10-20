@@ -15,7 +15,7 @@ class PacienteEjercicio extends Model
      * @var array
      */
     protected $fillable = [
-        'user_id', 'ejercicio_id','audio_path','audio_name','audio_ext','ultimaMedicacion'];
+        'user_id', 'ejercicio_id','audio_path','audio_name','audio_ext','ultimaMedicacion','status'];
     
     public function user()
     {
@@ -54,6 +54,11 @@ class PacienteEjercicio extends Model
                 $query->where('usuario', 'LIKE', trim($params['usuario']) . '%');
             });
             // $query->where('usuario', '=', trim($params['usuario']));
+        }
+
+        if ( isset($params['status']) && trim($params['status']) !== '' )
+        {
+            $query->where('status', '=', trim($params['status']));
         }
         return $query;
     }

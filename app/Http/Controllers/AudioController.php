@@ -91,13 +91,17 @@ class AudioController extends Controller
         
         $ejercicio_id= 1;
         $ejercicio_nombre= 'a';
-        
+
         if($request->has('ejercicio')){
-            $ejercicio = Ejercicio::findOrFail($request->input('ejercicio'));
+            $id_ejercicio= $request->input('ejercicio');
+            $ejercicio = Ejercicio::where('id',$id_ejercicio)->first();
+            if(!$ejercicio){
+                return response()->json(['invalid_ejercicio'], 400);
+            }
             $ejercicio_id=$ejercicio->id;
             $ejercicio_nombre=$ejercicio->nombre;
         }
-
+        
         if($request->has('user')){
             $user = User::findOrFail($request->input('user'));
         }
@@ -133,14 +137,28 @@ class AudioController extends Controller
         }
         $file->move($path, $filename);
         
-        PacienteEjercicio::create([
-            'user_id' => $user->id,
-            'ejercicio_id' => $ejercicio_id,
-            'audio_path' => '/resultados/'.$user->usuario.'/',
-            'audio_name' => $name,
-            'audio_ext' =>$extens,
-            'ultimaMedicacion' => $ultimaMedicacion
-        ]);
+        if(!$request->has('paciente_ejercicio')) {
+            PacienteEjercicio::create([
+                'user_id' => $user->id,
+                'ejercicio_id' => $ejercicio_id,
+                'audio_path' => '/resultados/'.$user->usuario.'/',
+                'audio_name' => $name,
+                'audio_ext' =>$extens,
+                'ultimaMedicacion' => $ultimaMedicacion,
+                'status'=>"realizado"
+            ]);
+        }
+        else{
+            $ejercicioAsignado = PacienteEjercicio::findOrFail($request->input('paciente_ejercicio'));
+            $ejercicioAsignado->audio_path = '/resultados/'.$user->usuario.'/';
+            $ejercicioAsignado->audio_name = $name;
+            $ejercicioAsignado->audio_ext = $extens;
+            $ejercicioAsignado->ultimaMedicacion = $ultimaMedicacion;
+            $ejercicioAsignado->status = "realizado";
+            $ejercicioAsignado->save();
+        }
+
+
 
         if($request->has('View')){
             return redirect()->route('audio')->withSuccess('Message sent!');
