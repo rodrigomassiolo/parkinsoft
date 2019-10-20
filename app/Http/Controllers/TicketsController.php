@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests\TicketsFormRequest;
 use App\Ticket;
+use App\Comment;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Auth;
 class TicketsController extends Controller
@@ -14,9 +15,16 @@ class TicketsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $tickets = Ticket::all();//getAll tickets
+        $api = substr ( $request->path(), 0,3 ) == 'api';
+        $params = $request->except('_token');
+        session()->flashInput($request->input());
+        $tickets = Ticket::filter($params)->get();
+        if($api){
+           return array("qty"=>count($tickets),"ejercicios"=>$tickets);
+        }
+
         return view('tickets.index', compact('tickets'));//envio todos los tickets en un array a la vista
     }
 
@@ -38,12 +46,7 @@ class TicketsController extends Controller
      */
     public function store(TicketsFormRequest $request)
     {
-       // return $request->all();
-
-        // if($request->get('response')==0){
-        //     return redirect('welcome');
-        // }
-
+        $api = substr ( $request->path(), 0,3 ) == 'api';
         $email;
         
         if($request->get('email')){
@@ -62,6 +65,7 @@ class TicketsController extends Controller
        ));
        $ticket->save();
 
+       if($api){ return $ticket; }
        $data = array(
         'ticket' => $slug,
          );
@@ -109,41 +113,58 @@ class TicketsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update($slug, TicketsFormRequest $request)
+    public function update($slug,Request $request)
     {
-      $ticket = Ticket::whereSlug($slug)->firstOrFail();
-      if($request->get('status') != null) {
+        $api = substr ( $request->path(), 0,3 ) == 'api';
+        if($api) {     
+            $request->validate([
+                'content' => 'required'
+            ]); 
+            $ticket = Ticket::whereSlug($slug)->firstOrFail();
+        }
+        else{
+            $ticket = Ticket::whereSlug($slug)->firstOrFail();
+        }
+        if($request->get('status') != null) {
         $ticket->status = 0;
-    } else {
+        } 
+        else {
         $ticket->status = 1;
-     }
+        }  
 
-     $comment = new Comment(array(
-        'post_id' => $ticket->id,
-        'content' => $request->get('content'),
-        'user_id' => Auth::user()->id
-    ));
+        $comment = new Comment(array(
+            'post_id' => $ticket->id,
+            'content' => $request->get('content'),
+            'user_id' => Auth::user()->id
+        ));
 
-    $comment->save();
+        $comment->save();
+        $ticket->save();
+        if($api) {
+            $params = array(
+                "post_id"=>$ticket->id
+            );
+            $comments = Comment::filter($params)->get();
+            $ticket->comments = $comments;
+        }
+        
+        if($ticket->status == 1){
+            $data = array(
+               'response' => $comment->content,
+                );
+            Mail::send('emails.ticketResponse', $data, function ($message) {
+                $message->from('admin@higia.com', 'Nuevo ticket');
+                //Hay que poner el mail de admin higia
 
-    $ticket->save();
-
-
-     if($ticket->status == 1){
-        $data = array(
-            'response' => $comment->content,
-             );
-        Mail::send('emails.ticketResponse', $data, function ($message) {
-            $message->from('admin@higia.com', 'Nuevo ticket');
-            //Hay que poner el mail de admin higia
-
-            //Hay que poner el usuario
-            $message->to('martinnviqueira@gmail.com')->subject('Consulta Parkinsoft');
-         });
-
-         return redirect(action('TicketsController@edit', $ticket->slug))->with('status', 'Se ha enviado un email al usuario con la respuesta');
-     }
-   
+                //Hay que poner el usuario
+                $message->to('martinnviqueira@gmail.com')->subject('Consulta Parkinsoft');
+            });
+            if($api) { return "cerrado"; }
+            return redirect(action('TicketsController@edit', $ticket->slug))->with('status', 'Se ha enviado un email al usuario con la respuesta');
+        }
+        if($api) {
+            return $ticket;
+        }
      return redirect(action('TicketsController@edit', $ticket->slug))->with('status', '¡El ticket '.$slug.' ha sido actualizado!');
 
      }

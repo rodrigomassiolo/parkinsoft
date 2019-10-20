@@ -67,3 +67,8 @@ Route::post('/showColumnsFromTable','BaseDeDatosController@showColumnsFromTable'
 Route::post('/showIndexesFromTable','BaseDeDatosController@showIndexesFromTable')->middleware('auth:api');
 Route::post('/setIndex','BaseDeDatosController@setIndex')->middleware('auth:api');
 Route::post('/deleteIndex','BaseDeDatosController@deleteIndex')->middleware('auth:api');
+
+/*ABM Tickets*/
+Route::post('/ticket', 'TicketsController@index')->middleware('auth:api');
+Route::post('/ticket/register', 'TicketsController@store')->middleware('auth:api');
+Route::post('/ticket/update/{slug}', 'TicketsController@update')->middleware('auth:api');
