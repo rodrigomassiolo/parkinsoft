@@ -5,7 +5,7 @@
     <div class="row">
         <div class="col-lg-12 margin-tb">
             <div class="pull-left">
-                <h2>ABM Ejercicios</h2>
+                <h2>@lang('parkinsoft.audioListLink')</h2>
             </div>
             <div class="float-right">
                 <a href="{{ route('abmEjercicio.create') }}" class="btn btn-success" >
@@ -16,7 +16,7 @@
 
     <p>
     <button class="btn btn-primary btn-sm" type="button" data-toggle="collapse" data-target="#filterPanel" aria-expanded="false" aria-controls="collapseExample">
-    Habilitar filtros
+     @lang('parkinsoft.enableFilters')
     </button>
     </p>
         <div class="collapse show" id="filterPanel">

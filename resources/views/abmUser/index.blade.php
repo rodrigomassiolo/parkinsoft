@@ -1,5 +1,5 @@
 @extends('layouts.BootStrapBody')
-@section('title','Abm Usuarios')
+@section('title',trans("parkinsoft.abmUserLink"))
 
 @section('MainContent')
 
@@ -7,7 +7,7 @@
     <div class="row">
         <div class="col-lg-12 margin-tb">
             <div class="pull-center">
-                <h2>ABM Usuarios</h2>
+                <h2>@lang("parkinsoft.abmUserLink")</h2>
             </div>
             <div class="float-right">
                 <a href="{{ route('abmUser.create') }}" class="btn btn-success" >
@@ -18,7 +18,7 @@
 
     <p>
     <button class="btn btn-primary btn-sm" type="button" data-toggle="collapse" data-target="#filterPanel" aria-expanded="false" aria-controls="collapseExample">
-    Habilitar filtros
+     @lang('parkinsoft.enableFilters')
     </button>
     </p>
         <div class="collapse show" id="filterPanel">

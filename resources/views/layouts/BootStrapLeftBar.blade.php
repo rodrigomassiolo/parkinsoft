@@ -31,7 +31,7 @@
     <li class="nav-item">
       <a class="nav-link" href="{{ route('medico.index') }}">
         <span data-feather="activity"></span>
-        ABM Medicos
+        @lang('parkinsoft.abmMedicLink')
       </a>
     </li>  
      @endif 
@@ -39,7 +39,7 @@
     <li class="nav-item">
       <a class="nav-link" href="{{ route('abmUser.index') }}">
         <span data-feather="heart"></span>
-        ABM Usuarios
+        @lang('parkinsoft.abmUserLink')
       </a>
     </li>
      @endif 
@@ -47,7 +47,7 @@
     <li class="nav-item">
       <a class="nav-link" href="{{ route('abmAdmin.index') }}">
         <span data-feather="activity"></span>
-        ABM Administradores
+        @lang('parkinsoft.abmAdminLink')
       </a>
     </li>
      @endif  
@@ -55,29 +55,21 @@
     <li class="nav-item">
       <a class="nav-link" href="{{ route('abmEjercicio.index') }}">
         <span data-feather="activity"></span>
-        ABM Ejercicios
-      </a>
-    </li>
-     @endif  
-     @if (Auth::user()->rol->type == 0) 
-    <li class="nav-item">
-      <a class="nav-link" href="{{ route('listaDeEjercicios') }}">
-        <span data-feather="activity"></span>
-        Lista de Audios
+        @lang('parkinsoft.abmExerciseLink')
       </a>
     </li>
      @endif  
      <li class="nav-item">
       <a class="nav-link" href="{{ route('listaDeEjercicios') }}">
         <span data-feather="activity"></span>
-        Lista de Audios
+        @lang('parkinsoft.audioListLink')
       </a>
     </li>
      <form action="{{ route('donwloadApk') }}" method="GET">
       @csrf
         <a class="nav-link" href="{{ route('donwloadApk') }}" data-toggle="tooltip" title="Mostrar">
           <span data-feather="download"></span>
-              Descargar App
+          @lang('parkinsoft.downloadAppLink')
         </a>
       </form>
   </ul>

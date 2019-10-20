@@ -45,11 +45,11 @@
             </a>
         @endif
 
-        @if (Auth::user()->rol->type == 0) 
+        <!-- @if (Auth::user()->rol->type == 0) 
             <a class="dropdown-item" href="{{ route('listaDeEjercicios') }}">
                 @lang('parkinsoft.audioListLink')
             </a>
-        @endif
+        @endif -->
 
         <a class="dropdown-item" href="{{ route('listaDeEjercicios') }}">
             @lang('parkinsoft.audioListLink')

@@ -19,15 +19,18 @@ return [
 
     'accionDropdown' => 'Acciones',
     'ticketsLink' => 'Tickets',
-    'contactLink' => 'Contacto',
+    'contactLink' => 'Contactenos',
     'uploadAudio' => 'Cargar audio',
-    'abmMedicLink' => 'ABM Medicos',
-    'abmUserLink' => 'Abm Usuarios',
-    'abmAdminLink' => 'ABM Admins',
-    'abmExerciseLink' => 'ABM Ejercicios',
-    'audioListLink' => 'Lista de Audios',
+    'abmMedicLink' => 'Medicos',
+    'abmUserLink' => 'Pacientes',
+    'abmAdminLink' => 'Admin',
+    'abmExerciseLink' => 'Ejercicios',
+    'audioListLink' => 'Ejercicios realizados',
     'downloadAppLink' => 'Descargar App',
     'pleaseSelect' => 'Seleccionar opción',
+
+    'errorDescription' => 'There were some problems with your input',
+    'enableFilters' => 'Habilitar filtros',
 
     /*
     |--------------------------------------------------------------------------
@@ -45,4 +48,12 @@ return [
     'levodopaModalBody' => '!Su audio ha sido cargado correctamente!',
     'levodopaModalButton' => 'Cerrar',
     
+    /*
+    |--------------------------------------------------------------------------
+    | Abm Users
+    |--------------------------------------------------------------------------
+    */
+
+    'abmUserCreateTitle' => 'Crear nuevo paciente'
+
 ];

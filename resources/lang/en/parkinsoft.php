@@ -21,13 +21,16 @@ return [
     'ticketsLink' => 'Tickets',
     'contactLink' => 'Contact',
     'uploadAudio' => 'Upload audio',
-    'abmMedicLink' => 'ABM Medic',
-    'abmUserLink' => 'ABM User',
-    'abmAdminLink' => 'ABM Admin',
-    'abmExerciseLink' => 'ABM Exercise',
-    'audioListLink' => 'Audio List',
+    'abmMedicLink' => 'Medic',
+    'abmUserLink' => 'Patients',
+    'abmAdminLink' => 'Admin',
+    'abmExerciseLink' => 'Exercise',
+    'audioListLink' => 'Exercises performed',
     'downloadAppLink' => 'Download App',
     'pleaseSelect' => 'Select an option',
+
+    'errorDescription' => 'Hubo errores en los datos ingresados',
+    'enableFilters' => 'Enable filters',
     
     /*
     |--------------------------------------------------------------------------
@@ -44,4 +47,13 @@ return [
     'levodopaModalTitle' => 'Upload audio',
     'levodopaModalBody' => 'Your audio has been successfully uploaded!',
     'levodopaModalButton' => 'Close',
+
+    /*
+    |--------------------------------------------------------------------------
+    | Abm Users
+    |--------------------------------------------------------------------------
+    */
+
+    'abmUserCreateTitle' => 'Create new patient'
+
 ];

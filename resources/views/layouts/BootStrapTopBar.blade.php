@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand" href="home">Higia</a>
+    <a class="navbar-brand" href="{{ route('welcome') }}">Higia</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -70,7 +70,11 @@
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
 
             <a class="dropdown-item" href="{{ route('user') }}">Datos</a>
-            <a class="dropdown-item" href="{{ route('user/delete') }}">Eliminar</a>
+
+            @if (Auth::user()->rol->type == 2){
+              <a class="dropdown-item" href="{{ route('user/delete') }}">Eliminar</a>
+            }
+            @endif  
             <a class="dropdown-item" href="{{ route('logout') }}"
             onclick="event.preventDefault();
                      document.getElementById('logout-form').submit();">

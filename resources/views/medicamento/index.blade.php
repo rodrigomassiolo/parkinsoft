@@ -5,7 +5,7 @@
     <div class="row">
         <div class="col-lg-12 margin-tb">
             <div class="pull-left">
-                <h2>ABM Medicamentos</h2>
+                <h2>@lang('parkinsoft.abmMedicLink')</h2>
             </div>
             <div class="float-right">
                 <a class="btn btn-success btn-sm" href="{{ route('medicamento.create') }}"> Crear Medicamento</a>
@@ -15,7 +15,7 @@
 
     <p>
     <button class="btn btn-primary btn-sm" type="button" data-toggle="collapse" data-target="#filterPanel" aria-expanded="false" aria-controls="collapseExample">
-    Habilitar filtros
+     @lang('parkinsoft.enableFilters')
     </button>
     </p>
         <div class="collapse" id="filterPanel">
