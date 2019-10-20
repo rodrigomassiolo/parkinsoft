@@ -23,6 +23,12 @@
         <div class="row">
             <div class="col-xs-3 col-sm-3 col-md-3">
                 <div class="form-group">
+                    <strong>Estado: </strong>
+                   <select id="status" name="status" class="form-control"><option value="realizado">Realizado</option><option value="asignado">Asignado</option></select>
+                </div>
+            </div>
+            <div class="col-xs-3 col-sm-3 col-md-3">
+                <div class="form-group">
                     <strong>Usuario: </strong>
                     <input type="text" name="usuario" class="form-control"
                      placeholder="Usuario a filtrar" value= "{{Request::old('user_id')}}">
@@ -73,6 +79,7 @@
             <th>No</th>
             <th>Usuario</th>
             <th>Ejercicio</th>
+            <th>Estado</th>
             <th>Fecha de Creación</th>
             <th width="320px">Acciones</th>
         </tr>
@@ -83,6 +90,7 @@
             <td>{{ $row->id }}</td>  
             <td>{{ $row->user->usuario }}</td>
             <td>{{ $row->ejercicio->nombre }}</td>
+            <td>{{ $row->status }}</td>
             <td>{{ $row->created_at }}</td>
             <td>
                 <button type="button" class="btn btn-primary" id="{{$row->id}}"
@@ -93,7 +101,7 @@
         </tbody>
     </table>
   
-       {!! $PacienteEjercicio->render() !!}
+       {{-- {!! $PacienteEjercicio->render() !!} --}}
 
 
        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
