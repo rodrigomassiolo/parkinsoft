@@ -18,6 +18,7 @@ class CreateEjercicioTable extends Migration
             $table->string('nombre')->unique();
             $table->string('descripcion');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
