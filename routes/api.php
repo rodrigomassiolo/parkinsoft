@@ -11,6 +11,10 @@ use Illuminate\Support\Facades\Auth;
 | routes are loaded by the RouteServiceProvider within a group which
 | is assigned the "api" middleware group. Enjoy building your API!
 |
+|Middlewares
+|   ->middleware('admin');
+|   ->middleware('medico');
+|   ->middleware('paciente');
 */
 /*ABM Admin*/
 Route::post('/admin', 'AbmAdminController@index')->middleware('auth:api');

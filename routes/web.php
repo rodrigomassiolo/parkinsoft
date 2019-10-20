@@ -9,9 +9,13 @@
 | routes are loaded by the RouteServiceProvider within a group which
 | contains the "web" middleware group. Now create something great!
 |
+|Middlewares
+|   ->middleware('admin');
+|   ->middleware('medico');
+|   ->middleware('paciente');
 */
 use Illuminate\Http\Request;
-
+use App\Rol;
 use App\PacienteEjercicio;
 
 Route::get('/', function () {
@@ -39,12 +43,8 @@ Route::get('/', 'HomeController@index')->name('home');
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/client', 'ClientController@index')->middleware('auth');
-
-Route::get('texto', function () {
-    return 'Un texto!';
-});
-
-Route::get('/dash', function () {return view('dash');})->middleware('auth');
+	
+Route::get('/dash', function () {return view('dash');})->middleware('admin');
 Route::get('contact', 'TicketsController@create')->name('contact');
 Route::post('contact', 'TicketsController@store');
 Route::get('tickets', 'TicketsController@index')->middleware('auth')->name('tickets');
