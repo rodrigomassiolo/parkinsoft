@@ -24,7 +24,16 @@ class Ejercicio extends Model
     /**
      * @var array
      */
-    protected $fillable = ['nombre','descripcion'];
+    protected $fillable = ['nombre','descripcion','audio_example_path'];
+
+    /**
+     * The attributes that should be hidden for arrays.
+     *
+     * @var array
+     */
+    protected $hidden = [
+        'audio_example_path',
+    ];
 
     public function scopeFilter($query, $params)
     {

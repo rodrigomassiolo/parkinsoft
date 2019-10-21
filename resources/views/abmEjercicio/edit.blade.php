@@ -23,7 +23,7 @@
         </div>
     @endif
   
-    <form action="{{ route('abmEjercicio.update',$ejercicio->id) }}" method="POST">
+    <form action="{{ route('abmEjercicio.update',$ejercicio->id) }}" method="POST" enctype="multipart/form-data">
         @csrf
         @method('PUT')
    
@@ -42,6 +42,12 @@
                      class="form-control" placeholder="Descripcion a editar">
                 </div>
             </div>
+            <div class="col-xs-12 col-sm-12 col-md-12">
+                    <div class="form-group{{ $errors->has('audio_example') ? ' has-error' : '' }}">
+                       <strong>Audio de Ejemplo: </strong>
+                       <input type="file" class="form-control-file" id="audio_example" name="audio_example">
+                    </div>
+                </div>        
             <div class="col-xs-12 col-sm-12 col-md-12 text-center">
               <button type="submit" class="btn btn-primary">Editar</button>
             </div>

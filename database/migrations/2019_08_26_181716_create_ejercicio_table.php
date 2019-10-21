@@ -17,6 +17,7 @@ class CreateEjercicioTable extends Migration
             $table->bigIncrements('id');
             $table->string('nombre')->unique();
             $table->string('descripcion');
+            $table->string('audio_example_path')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

@@ -55,6 +55,27 @@ class AbmEjercicioController extends Controller
             'nombre' => $request['nombre'],
             'descripcion' => $request['descripcion']
         ]);
+        if($request->hasFile('audio_example')) {
+
+            $file = $request->file('audio_example');
+            
+            if(!$file->isValid()) {
+                return response()->json(['invalid_file_upload'], 400);
+            }
+            if($file->getClientSize() > $file->getMaxFilesize()){
+                return response()->json(['File_Too_Big'], 400);
+            }
+            $mime = $file->getClientMimeType();
+            if(explode('/',$mime)[0] != 'audio'){
+                return response()->json(['File_is_not_Audio'], 400);
+            }
+            $ejercicio = Ejercicio::findOrFail($ejercicio->id);
+            $name = $ejercicio->nombre.'.'.$file->getClientOriginalExtension();
+            $path = storage_path('app').'/audio_example_ejercicios/';
+            $file->move($path,$name);
+            $ejercicio->audio_example_path = $path.$name;
+            $ejercicio->save();
+        }
 
         if($api){ return $ejercicio; }
 
@@ -105,6 +126,29 @@ class AbmEjercicioController extends Controller
         $ejercicio = Ejercicio::findOrFail($id);
 
         $ejercicio->update($request->all());
+
+        if($request->hasFile('audio_example')) {
+
+            $file = $request->file('audio_example');
+            
+            if(!$file->isValid()) {
+                return response()->json(['invalid_file_upload'], 400);
+            }
+            if($file->getClientSize() > $file->getMaxFilesize()){
+                return response()->json(['File_Too_Big'], 400);
+            }
+            $mime = $file->getClientMimeType();
+            if(explode('/',$mime)[0] != 'audio'){
+                return response()->json(['File_is_not_Audio'], 400);
+            }
+            $ejercicio = Ejercicio::findOrFail($ejercicio->id);
+            $name = $ejercicio->nombre.'.'.$file->getClientOriginalExtension();
+            $path = storage_path('app').'/audio_example_ejercicios/';
+            $file->move($path,$name);
+            $ejercicio->audio_example_path = $path.$name;
+            $ejercicio->save();
+        }
+        
         if($api) { return $ejercicio; }
 
         return redirect()->route('abmEjercicio.index')

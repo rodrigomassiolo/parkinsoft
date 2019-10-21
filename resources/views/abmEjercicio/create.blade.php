@@ -24,7 +24,7 @@
     </div>
 @endif
    
-<form action="{{ route('abmEjercicio.store') }}" method="POST">
+<form action="{{ route('abmEjercicio.store') }}" method="POST" enctype="multipart/form-data">
     @csrf
   
      <div class="row">
@@ -58,7 +58,14 @@
                       
                 </div>
         </div>
- 
+
+        <div class="col-xs-12 col-sm-12 col-md-12">
+            <div class="form-group{{ $errors->has('audio_example') ? ' has-error' : '' }}">
+               <strong>Audio de Ejemplo: </strong>
+               <input type="file" class="form-control-file" id="audio_example" name="audio_example">
+            </div>
+        </div>        
+
         <div class="col-xs-12 col-sm-12 col-md-12 text-center">
                 <button type="submit" class="btn btn-primary">Crear</button>
         </div>
