@@ -72,10 +72,11 @@ class AbmEjercicioController extends Controller
             $ejercicio = Ejercicio::findOrFail($ejercicio->id);
             $path = '/audio_example_ejercicios/';
             $name = $ejercicio->nombre;
-            $file->move(storage_path('app').'/'.$path,$name);
+            $file->move(storage_path('app').$path,$name);
             $extens= $file->getClientOriginalExtension();
             if($file->getClientOriginalExtension()!= 'mp3'){
-                $this->ffmpeg($path.'/'.$name);
+                $this->ffmpeg($path.$name,$extens);
+                Storage::disk('local')->delete($path.$name.'.'.$extens);
             }
             $ejercicio->audio_example_path = $path.$name.'.mp3';
             $ejercicio->save();
@@ -148,10 +149,14 @@ class AbmEjercicioController extends Controller
             $ejercicio = Ejercicio::findOrFail($ejercicio->id);
             $path = '/audio_example_ejercicios/';
             $name = $ejercicio->nombre;
-            $file->move(storage_path('app').'/'.$path,$name);
+
             $extens= $file->getClientOriginalExtension();
+            $file->move(storage_path('app').$path,$name.'.'.$extens);
+
             if($file->getClientOriginalExtension()!= 'mp3'){
-                $this->ffmpeg($path.'/'.$name);
+                $this->ffmpeg($path.$name,$extens);
+
+                Storage::disk('local')->delete($path.$name.'.'.$extens);
             }
             $ejercicio->audio_example_path = $path.$name.'.mp3';
             $ejercicio->save();
@@ -197,9 +202,9 @@ class AbmEjercicioController extends Controller
         return response()->download($file, $ejercicio->nombre.'mp3', $headers);
     }
 
-    public function ffmpeg($name){
+    public function ffmpeg($name,$extens){
 
-        $audioPath = storage_path('app').'/'.$name;
+        $audioPath = storage_path('app').'/'.$name.'.'.$extens;
         $mp3Path = storage_path('app').'/'.$name.'.mp3';
         $exec = "/var/www/html/parkinsoft/scripts/ffmpeg.sh ".$audioPath ." ".$mp3Path;
         exec($exec);
