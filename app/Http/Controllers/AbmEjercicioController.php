@@ -184,7 +184,7 @@ class AbmEjercicioController extends Controller
 
     public function download_example($ejercicio_id)
     {
-        $ejercicio = Ejercicio::findOrFail($id);
+        $ejercicio = Ejercicio::findOrFail($ejercicio_id);
         if(!$ejercicio){
             return response()->json(['invalid_ejercicio'], 400);
         }
