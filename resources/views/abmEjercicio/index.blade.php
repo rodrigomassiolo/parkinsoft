@@ -5,7 +5,7 @@
     <div class="row">
         <div class="col-lg-12 margin-tb">
             <div class="pull-left">
-                <h2>@lang('parkinsoft.audioListLink')</h2>
+                <h2>@lang('parkinsoft.abmExerciseLink')</h2>
             </div>
             <div class="float-right">
                 <a href="{{ route('abmEjercicio.create') }}" class="btn btn-success" >
