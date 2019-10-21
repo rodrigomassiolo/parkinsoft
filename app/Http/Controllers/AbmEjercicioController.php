@@ -75,9 +75,9 @@ class AbmEjercicioController extends Controller
             $file->move(storage_path('app').'/'.$path,$name);
             $extens= $file->getClientOriginalExtension();
             if($file->getClientOriginalExtension()!= 'mp3'){
-                $this->ffmpeg(storage_path('app').'/'.$path.'/'.$name,$extens);
+                $this->ffmpeg($path.'/'.$name);
             }
-            $ejercicio->audio_example_path = $path.$name.'mp3';
+            $ejercicio->audio_example_path = $path.$name.'.mp3';
             $ejercicio->save();
         }
 
@@ -151,9 +151,9 @@ class AbmEjercicioController extends Controller
             $file->move(storage_path('app').'/'.$path,$name);
             $extens= $file->getClientOriginalExtension();
             if($file->getClientOriginalExtension()!= 'mp3'){
-                $this->ffmpeg(storage_path('app').'/'.$path.'/'.$name,$extens);
+                $this->ffmpeg($path.'/'.$name);
             }
-            $ejercicio->audio_example_path = $path.$name.'mp3';
+            $ejercicio->audio_example_path = $path.$name.'.mp3';
             $ejercicio->save();
         }
 
@@ -197,11 +197,11 @@ class AbmEjercicioController extends Controller
         return response()->download($file, $ejercicio->nombre.'mp3', $headers);
     }
 
-    public function ffmpeg($name,$extens){
+    public function ffmpeg($name){
 
-        $audioPath = storage_path('app').'/'.$name.'.'.$extens;
-        $wavPath = storage_path('app').'/'.$name.'.mp3';
-        $exec = "/var/www/html/parkinsoft/scripts/ffmpeg.sh ".$audioPath ." ".$wavPath;
+        $audioPath = storage_path('app').'/'.$name;
+        $mp3Path = storage_path('app').'/'.$name.'.mp3';
+        $exec = "/var/www/html/parkinsoft/scripts/ffmpeg.sh ".$audioPath ." ".$mp3Path;
         exec($exec);
         return $exec;
     }
