@@ -72,7 +72,7 @@ class AbmEjercicioController extends Controller
             $ejercicio = Ejercicio::findOrFail($ejercicio->id);
             $path = '/audio_example_ejercicios/';
             $name = $ejercicio->nombre;
-            $file->move($path,$name);
+            $file->move(storage_path('app').'/'.$path,$name);
             $extens= $file->getClientOriginalExtension();
             if($file->getClientOriginalExtension()!= 'mp3'){
                 $this->ffmpeg(storage_path('app').'/'.$path,$name,$extens);
@@ -148,7 +148,7 @@ class AbmEjercicioController extends Controller
             $ejercicio = Ejercicio::findOrFail($ejercicio->id);
             $path = '/audio_example_ejercicios/';
             $name = $ejercicio->nombre;
-            $file->move($path,$name);
+            $file->move(storage_path('app').'/'.$path,$name);
             $extens= $file->getClientOriginalExtension();
             if($file->getClientOriginalExtension()!= 'mp3'){
                 $this->ffmpeg(storage_path('app').'/'.$path,$name,$extens);
