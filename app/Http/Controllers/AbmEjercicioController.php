@@ -199,7 +199,7 @@ class AbmEjercicioController extends Controller
                 'Content-Type: audio/mpeg',
                 );
 
-        return response()->download($file, $ejercicio->nombre.'mp3', $headers);
+        return response()->download($file, $ejercicio->nombre.'.mp3', $headers);
     }
 
     public function ffmpeg($name,$extens){

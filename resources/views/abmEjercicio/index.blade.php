@@ -79,18 +79,23 @@
             <td>{{ $row->descripcion }}</td>
             <td>
                 <form action="{{ route('abmEjercicio.destroy',$row->id) }}" method="POST">
-   
+                @if ($row->audio_example_path)
+                        <a class="btn btn-success btn-sm" href="{{ route('donwloadAudioExample',[$row->id]) }}" data-toggle="tooltip" title="Descargar Audio de Ejemplo">
+                        <span data-feather="download"></span>
+                        Ejemplo
+                        </a>
+                @endif
                 <a class="btn btn-info btn-sm" href="{{ route('abmEjercicio.show',[$row->id]) }}"
                     data-toggle="tooltip" title="Mostrar">
                     <span data-feather="eye"></span>
                         Mostrar
-                    </a>
+                </a>
     
-                    <a class="btn btn-primary btn-sm" href="{{ route('abmEjercicio.edit',$row->id) }}" 
+                <a class="btn btn-primary btn-sm" href="{{ route('abmEjercicio.edit',$row->id) }}" 
                     data-toggle="tooltip" title="Editar">
                     <span data-feather="edit"></span>
                     Editar
-                    </a>
+                </a>
 
                     @csrf
                     @method('DELETE')

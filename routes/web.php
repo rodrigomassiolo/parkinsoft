@@ -54,6 +54,7 @@ Route::post('tickets/{slug?}/edit', 'TicketsController@update')->middleware('aut
 Route::post('tickets/{slug?}/delete', 'TicketsController@destroy')->middleware('auth');
 Route::post('/comment', 'CommentsController@newComment')->middleware('auth');
 Route::get('/apk', 'ApkController@download')->middleware('auth')->name('donwloadApk');
+Route::get('/ejercicio/download_example/{ejercicio_id}', 'AbmEjercicioController@download_example')->middleware('auth')->name('donwloadAudioExample');
 Route::get('sendemail', function () {
 
     $data = array(
