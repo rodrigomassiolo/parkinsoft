@@ -19,6 +19,8 @@ class PacienteEjercicioController extends Controller
             'user_id'  => ['user_id','='],
             'ejercicio_id' => ['ejercicio_id','='],
             'status' => ['pacienteEjercicio.status','='],
+            'es_levodopa' => ['pacienteEjercicio.es_levodopa','='],
+            'modo_levodopa' => ['pacienteEjercicio.modo_levodopa','='],
             'created_at_from' => ['pacienteEjercicio.created_at','>='],
             'created_at_to' => ['pacienteEjercicio.created_at','<=']
                         );
@@ -47,6 +49,8 @@ class PacienteEjercicioController extends Controller
                                         ejercicio.nombre AS ejercicio_nombre,
                                         pacienteEjercicio.ultimaMedicacion AS ultimaMedicacion,
                                         users.medicacion AS medicacionPaciente,
+                                        es_levodopa AS es_levodopa,
+                                        modo_levodopa AS modo_levodopa,
                                         pacienteEjercicio.status AS status
                                         FROM pacienteEjercicio
                                         INNER JOIN users on pacienteEjercicio.user_id = users.id

@@ -91,7 +91,7 @@ class PacienteEjercicioController extends Controller
 
     public function store(Request $request){
         $api = substr ( $request->path(), 0,3 ) == 'api';
-
+        $ejercicioPaciente = array('status'=>"asignado");
         $id_ejercicio= 1;
         if($request->has('ejercicio')){
             $id_ejercicio= $request->input('ejercicio');
@@ -100,19 +100,23 @@ class PacienteEjercicioController extends Controller
                 return response()->json(['invalid_ejercicio'], 400);
             }
         }
-        
+        $ejercicioPaciente['ejercicio_id'] = $id_ejercicio;
+
         if($request->has('user')){
             $user = User::findOrFail($request->input('user'));
             if(!$user){
                 return response()->json(['invalid_usuario'], 400);
             }
         }
+        $ejercicioPaciente['user_id'] = $user->id;
 
-        $ejercicioPaciente = PacienteEjercicio::create([
-            'user_id' => $user->id,
-            'ejercicio_id' => $id_ejercicio,
-            'status'=>"asignado"
-        ]);
+        if($request->has('es_levodopa')){
+            $ejercicioPaciente['es_levodopa'] = $request->input('es_levodopa');
+        }
+        if($request->has('modo_levodopa')){
+            $ejercicioPaciente['modo_levodopa'] = $request->input('modo_levodopa');
+        }
+        $ejercicioPaciente = PacienteEjercicio::create($ejercicioPaciente);
 
         if($api){ return $ejercicioPaciente; }
 

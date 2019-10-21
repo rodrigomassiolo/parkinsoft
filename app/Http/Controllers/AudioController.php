@@ -137,6 +137,18 @@ class AudioController extends Controller
         }
         $file->move($path, $filename);
         
+        if($request->has('es_levodopa')){
+            $es_levodopa = $request->input('es_levodopa');
+        }
+        else{
+            $es_levodopa = null;
+        }
+        if($request->has('modo_levodopa')){
+            $modo_levodopa = $request->input('modo_levodopa');
+        }
+        else{
+            $modo_levodopa = null;
+        }
         if(!$request->has('paciente_ejercicio')) {
             PacienteEjercicio::create([
                 'user_id' => $user->id,
@@ -145,6 +157,8 @@ class AudioController extends Controller
                 'audio_name' => $name,
                 'audio_ext' =>$extens,
                 'ultimaMedicacion' => $ultimaMedicacion,
+                'es_levodopa' => $es_levodopa,
+                'modo_levodopa' => $modo_levodopa,
                 'status'=>"realizado"
             ]);
         }

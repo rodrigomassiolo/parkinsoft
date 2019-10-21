@@ -14,8 +14,9 @@ class PacienteEjercicio extends Model
      *
      * @var array
      */
+    
     protected $fillable = [
-        'user_id', 'ejercicio_id','audio_path','audio_name','audio_ext','ultimaMedicacion','status'];
+        'user_id', 'ejercicio_id','audio_path','audio_name','audio_ext','ultimaMedicacion','es_levodopa','modo_levodopa','status'];
     
     public function user()
     {
@@ -55,10 +56,19 @@ class PacienteEjercicio extends Model
             });
             // $query->where('usuario', '=', trim($params['usuario']));
         }
-
+        if ( isset($params['es_levodopa']) && trim($params['es_levodopa']) !== '' )
+        {
+            $query->where('es_levodopa', '=', trim($params['es_levodopa']));
+        }
+        
         if ( isset($params['status']) && trim($params['status']) !== '' )
         {
             $query->where('status', '=', trim($params['status']));
+        }
+
+        if ( isset($params['modo_levodopa']) && trim($params['modo_levodopa']) !== '' )
+        {
+            $query->where('modo_levodopa', '=', trim($params['modo_levodopa']));
         }
         return $query;
     }

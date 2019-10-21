@@ -12,6 +12,7 @@
   <div class="form-group row inputs">
     <div class="col-md-12 col-sm-12 col-lg-6">
       <input type="hidden" name="View" value="1">
+      <label for="ejercicio">Tipo de Ejercicio</label>
       <select name="ejercicio">
         @foreach ($ejercicio as $ej)
           <option value="{{ $ej->id }}" > {{ $ej->descripcion }} </option>
@@ -19,10 +20,20 @@
       </select>
     </div>
     <div class="col-md-12 col-sm-12 col-lg-6">
+      <label for="audio">Cargue un Audio</label>
       <input type="file" class="form-control-file" id="audio" name="audio">
     </div>
   </div>
-
+  <div class="form-group row inputs">
+      <div class="col-md-3 col-sm-3 col-lg-3">
+        <label for="es_levodopa">¿Es Levodopa?</label>
+        <select id="es_levodopa" name="es_levodopa" class="form-control"><option value="null"></option><option value=1>Si</option><option value=0>No</option></select>
+      </div>
+      <div class="col-md-3 col-sm-3 col-lg-3">
+        <label for="modo_levodopa">ON/OFF</label>
+        <select id="modo_levodopa" name="modo_levodopa" class="form-control"><option value=""></option><option value="ON">ON</option><option value="asignado">OFF</option></select>
+      </div>
+    </div>
   <div class="centerButton">
       <button type="submit"> Enviar </button>
   </div>
