@@ -47,6 +47,7 @@ Route::post('/ejercicio', 'AbmEjercicioController@index')->middleware('auth:api'
 Route::post('/ejercicio/register', 'AbmEjercicioController@store')->middleware('auth:api');
 Route::post('/ejercicio/update/{id}', 'AbmEjercicioController@update')->middleware('auth:api');
 Route::post('/ejercicio/destroy/{id}', 'AbmEjercicioController@destroy')->middleware('auth:api');
+Route::post('/ejercicio/download_example/{ejercicio_id}', 'AbmEjercicioController@download_example')->middleware('auth:api');
 
 /*ABM Operaciones*/
 Route::post('/operacion', 'OperacionController@index')->middleware('auth:api');

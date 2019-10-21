@@ -70,10 +70,14 @@ class AbmEjercicioController extends Controller
                 return response()->json(['File_is_not_Audio'], 400);
             }
             $ejercicio = Ejercicio::findOrFail($ejercicio->id);
-            $name = $ejercicio->nombre.'.'.$file->getClientOriginalExtension();
-            $path = storage_path('app').'/audio_example_ejercicios/';
+            $path = '/audio_example_ejercicios/';
+            $name = $ejercicio->nombre;
             $file->move($path,$name);
-            $ejercicio->audio_example_path = $path.$name;
+            $extens= $file->getClientOriginalExtension();
+            if($file->getClientOriginalExtension()!= 'mp3'){
+                $this->ffmpeg(storage_path('app').'/'.$path,$name,$extens);
+            }
+            $ejercicio->audio_example_path = $path.$name.'mp3';
             $ejercicio->save();
         }
 
@@ -142,13 +146,17 @@ class AbmEjercicioController extends Controller
                 return response()->json(['File_is_not_Audio'], 400);
             }
             $ejercicio = Ejercicio::findOrFail($ejercicio->id);
-            $name = $ejercicio->nombre.'.'.$file->getClientOriginalExtension();
-            $path = storage_path('app').'/audio_example_ejercicios/';
+            $path = '/audio_example_ejercicios/';
+            $name = $ejercicio->nombre;
             $file->move($path,$name);
-            $ejercicio->audio_example_path = $path.$name;
+            $extens= $file->getClientOriginalExtension();
+            if($file->getClientOriginalExtension()!= 'mp3'){
+                $this->ffmpeg(storage_path('app').'/'.$path,$name,$extens);
+            }
+            $ejercicio->audio_example_path = $path.$name.'mp3';
             $ejercicio->save();
         }
-        
+
         if($api) { return $ejercicio; }
 
         return redirect()->route('abmEjercicio.index')
@@ -172,5 +180,29 @@ class AbmEjercicioController extends Controller
 
         return redirect()->route('abmEjercicio.index')
                            ->with('success','Ejercicio eliminado correctamente');
+    }
+
+    public function download_example($ejercicio_id)
+    {
+        $ejercicio = Ejercicio::findOrFail($id);
+        if(!$ejercicio){
+            return response()->json(['invalid_ejercicio'], 400);
+        }
+        $file= storage_path('app').'/'. $ejercicio->audio_example_path;
+
+        $headers = array(
+                'Content-Type: audio/mpeg',
+                );
+
+        return response()->download($file, $ejercicio->nombre.'mp3', $headers);
+    }
+
+    public function ffmpeg($name,$extens){
+
+        $audioPath = storage_path('app').'/'.$name.'.'.$extens;
+        $wavPath = storage_path('app').'/'.$name.'.mp3';
+        $exec = "/var/www/html/parkinsoft/scripts/ffmpeg.sh ".$audioPath ." ".$wavPath;
+        exec($exec);
+        return $exec;
     }
 }
