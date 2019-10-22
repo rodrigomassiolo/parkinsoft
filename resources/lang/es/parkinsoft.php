@@ -54,6 +54,18 @@ return [
     |--------------------------------------------------------------------------
     */
 
-    'abmUserCreateTitle' => 'Crear nuevo paciente'
+    'abmUserCreateTitle' => 'Crear nuevo paciente',
+    
+    /*
+    |--------------------------------------------------------------------------
+    | Audio
+    |--------------------------------------------------------------------------
+    */
 
+    'audioUploadFileNotFound' => 'Debe ingresar un archivo',
+    'audioInvalidExercise' => 'El ejercicio solicitado es invalido',
+    'audioNoMp3' => 'Debe ingresar un archivo que no sea formato mp3',
+    'audioFileIsNotAudio' => 'Debe ingresar un archivo de audio',
+    'audioInvalidFileUpload' => 'El archivo ingresado es invalido',
+    'audioFileTooBig' => 'El archivo ingresado es demasiado grande',
 ];

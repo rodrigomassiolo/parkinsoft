@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Log;
 use App\User;
 use App\Ejercicio;
 use App\PacienteEjercicio;
+use Lang;
 
 class AudioController extends Controller
 {
@@ -70,22 +71,42 @@ class AudioController extends Controller
     {
 
         if(!$request->hasFile('audio')) {
+            if($request->has('View')){
+                $var = \Lang::get('parkinsoft.audioUploadFileNotFound');
+                return redirect()->route('audio')->withSuccess($var);
+            }
             return response()->json(['upload_file_not_found'], 400);
         }
         $file = $request->file('audio');
         
         if(!$file->isValid()) {
+            if($request->has('View')){
+                $var = \Lang::get('parkinsoft.audioInvalidFileUpload');
+                return redirect()->route('audio')->withSuccess($var);
+            }
             return response()->json(['invalid_file_upload'], 400);
         }
         if($file->getClientSize() > $file->getMaxFilesize()){
+            if($request->has('View')){
+                $var = \Lang::get('parkinsoft.audioFileTooBig');
+                return redirect()->route('audio')->withSuccess($var);
+            }
             return response()->json(['File_Too_Big'], 400);
         }
         $mime = $file->getClientMimeType();
         if(explode('/',$mime)[0] != 'audio'){
+            if($request->has('View')){
+                $var = \Lang::get('parkinsoft.audioFileIsNotAudio');
+                return redirect()->route('audio')->withSuccess($var);
+            }
             return response()->json(['File_is_not_Audio'], 400);
         }
         $extens= $file->getClientOriginalExtension();
         if($file->getClientOriginalExtension()== 'mp3'){
+            if($request->has('View')){
+                $var = \Lang::get('parkinsoft.audioNoMp3');
+                return redirect()->route('audio')->withSuccess($var);
+            }
             return response()->json(['NO_mp3'], 400);
         }
         
@@ -96,6 +117,10 @@ class AudioController extends Controller
             $id_ejercicio= $request->input('ejercicio');
             $ejercicio = Ejercicio::where('id',$id_ejercicio)->first();
             if(!$ejercicio){
+                if($request->has('View')){
+                    $var = \Lang::get('parkinsoft.audioInvalidExercise');
+                    return redirect()->route('audio')->withSuccess($var);
+                }
                 return response()->json(['invalid_ejercicio'], 400);
             }
             $ejercicio_id=$ejercicio->id;
@@ -176,12 +201,10 @@ class AudioController extends Controller
 
         if($request->has('View')){
             return redirect()->route('audio')->withSuccess('Message sent!');
-            //  return view('audio.index')->withSuccess('Message sent!');
         }
 
         if($request->has('Levodopa')){
             return redirect()->route('TestLevodopa')->withSuccess('Audio cargado correctamente');
-            //  return view('audio.index')->withSuccess('Message sent!');
         }
         
         // if($request->has('View'))

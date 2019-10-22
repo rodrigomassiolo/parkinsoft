@@ -85,7 +85,7 @@ class AbmEjercicioController extends Controller
         if($api){ return $ejercicio; }
 
         return redirect()->route('abmEjercicio.index')
-                        ->with('success','Paciente creado correctamente.');
+                        ->with('success','Ejercicio creado correctamente.');
         
     }
 
