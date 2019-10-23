@@ -29,8 +29,14 @@ return [
     'downloadAppLink' => 'Descargar App',
     'pleaseSelect' => 'Seleccionar opción',
 
-    'errorDescription' => 'There were some problems with your input',
+    'errorDescription' => 'Hubo errores en los datos ingresados',
     'enableFilters' => 'Habilitar filtros',
+    'closeButton' => 'Cerrar',
+    'acceptButton' => 'Aceptar',
+    'cancelButton' => 'Cancelar',
+    'deleteModalTitle' => 'Eliminar',
+    
+    
 
     /*
     |--------------------------------------------------------------------------
@@ -68,4 +74,28 @@ return [
     'audioFileIsNotAudio' => 'Debe ingresar un archivo de audio',
     'audioInvalidFileUpload' => 'El archivo ingresado es invalido',
     'audioFileTooBig' => 'El archivo ingresado es demasiado grande',
+    'audioUploadCorrectly' => 'Audio cargado correctamente',
+
+    /*
+    |--------------------------------------------------------------------------
+    | Email
+    |--------------------------------------------------------------------------
+    */
+
+    'emailResetPasswordButton' => 'Solicitar nueva contraseña',
+
+    /*
+    |--------------------------------------------------------------------------
+    | Exercise
+    |--------------------------------------------------------------------------
+    */
+
+    'exerciseModalTitle' => 'Ejercicio',
+
+    'exerciseNewMessageSuccessful' => 'Ejercicio creado correctamente',
+    'exerciseUpdateMessageSuccessful' => 'Ejercicio modificado correctamente',
+    'exerciseDeleteMessageSuccessful' => 'Ejercicio eliminado correctamente',
+
+    'exerciseConfirmDelete' => '¿Desea realmente eliminar el ejercicio?',
+
 ];

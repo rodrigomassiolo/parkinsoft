@@ -193,11 +193,15 @@ class AudioController extends Controller
 
 
         if($request->has('View')){
-            return redirect()->route('audio')->withSuccess('Audio cargado correctamente');
+            $var = \Lang::get('parkinsoft.audioUploadCorrectly');
+                    return redirect()->route('audio')->withSuccess($var);
+           // return redirect()->route('audio')->withSuccess('Audio cargado correctamente');
         }
 
         if($request->has('Levodopa')){
-            return redirect()->route('TestLevodopa')->withSuccess('Audio cargado correctamente');
+            $var = \Lang::get('parkinsoft.audioUploadCorrectly');
+                    return redirect()->route('audio')->withSuccess($var);
+           // return redirect()->route('TestLevodopa')->withSuccess('Audio cargado correctamente');
         }
         
         // if($request->has('View'))

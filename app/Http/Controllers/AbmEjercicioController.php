@@ -84,8 +84,10 @@ class AbmEjercicioController extends Controller
 
         if($api){ return $ejercicio; }
 
+        $var = \Lang::get('parkinsoft.exerciseNewMessageSuccessful');
         return redirect()->route('abmEjercicio.index')
-                        ->with('success','Ejercicio creado correctamente.');
+                        ->withSuccess($var);
+
         
     }
 
@@ -164,8 +166,10 @@ class AbmEjercicioController extends Controller
 
         if($api) { return $ejercicio; }
 
+
+        $var = \Lang::get('parkinsoft.exerciseUpdateMessageSuccessful');
         return redirect()->route('abmEjercicio.index')
-                        ->with('success','Ejercicio modificado correctamente');
+                        ->withSuccess($var);
     }
 
     /**
@@ -183,8 +187,9 @@ class AbmEjercicioController extends Controller
 
         if($api){ return 'ok'; }
 
+        $var = \Lang::get('parkinsoft.exerciseDeleteMessageSuccessful');
         return redirect()->route('abmEjercicio.index')
-                           ->with('success','Ejercicio eliminado correctamente');
+                        ->withSuccess($var);
     }
 
     public function download_example($ejercicio_id)

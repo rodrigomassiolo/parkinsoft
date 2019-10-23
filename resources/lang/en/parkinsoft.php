@@ -29,8 +29,10 @@ return [
     'downloadAppLink' => 'Download App',
     'pleaseSelect' => 'Select an option',
 
-    'errorDescription' => 'Hubo errores en los datos ingresados',
+    'errorDescription' => 'There were some problems with your input',
     'enableFilters' => 'Enable filters',
+    'closeButton' => 'Close',
+    'deleteModalTitle' => 'Delete',
     
     /*
     |--------------------------------------------------------------------------
@@ -68,4 +70,26 @@ return [
     'audioFileIsNotAudio' => 'You must upload a file that is an audio',
     'audioInvalidFileUpload' => 'The file is invalid',
     'audioFileTooBig' => 'The file is too big',
+    'audioUploadCorrectly' => 'File upload successfully',
+
+    /*
+    |--------------------------------------------------------------------------
+    | Email
+    |--------------------------------------------------------------------------
+    */
+
+    'emailResetPasswordButton' => 'Request new password',
+
+
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Exercise
+    |--------------------------------------------------------------------------
+    */
+
+    'exerciseNewMessageSuccessful' => 'Ejercicio creado correctamente',
+    'exerciseUpdateMessageSuccessful' => 'Ejercicio modificado correctamente',
+
 ];

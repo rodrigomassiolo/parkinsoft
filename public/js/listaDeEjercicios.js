@@ -1,4 +1,5 @@
 $( document ).ready(function() {
+
   Lista.addListener();
   $("#modo_levodopa").parent().hide();
   $("#modo_levodopa").val(null);
@@ -114,3 +115,4 @@ $('#exampleModal').on('show.bs.modal', function (event) {
     }
 
   }
+
