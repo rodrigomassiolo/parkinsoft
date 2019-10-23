@@ -143,6 +143,20 @@ class AudioController extends Controller
 
         $path = storage_path('app').'/resultados/'.$user->usuario.'/';
         $name = date("Ymd").$ejercicio_nombre;//hasta un ejercicio del mismo tipo por dia, si lo hace devuelta reemplaza
+
+        if($request->has('es_levodopa') 
+            &&  $request->input('es_levodopa') == 1
+            && $request->has('modo_levodopa')
+            &&  $request->input('modo_levodopa')!= null 
+            ){
+            $name = $name.'_'. $request->input('modo_levodopa');
+            $es_levodopa = $request->input('es_levodopa');
+            $modo_levodopa = $request->input('modo_levodopa');
+        }else {
+            $es_levodopa = null;
+            $modo_levodopa = null;
+        }
+
         $filename = $name.'.'.$extens;
         
         $pacEjer = PacienteEjercicio::where([
@@ -162,18 +176,6 @@ class AudioController extends Controller
         }
         $file->move($path, $filename);
         
-        if($request->has('es_levodopa')){
-            $es_levodopa = $request->input('es_levodopa');
-        }
-        else{
-            $es_levodopa = null;
-        }
-        if($request->has('modo_levodopa')){
-            $modo_levodopa = $request->input('modo_levodopa');
-        }
-        else{
-            $modo_levodopa = null;
-        }
         if(!$request->has('paciente_ejercicio')) {
             PacienteEjercicio::create([
                 'user_id' => $user->id,
@@ -200,7 +202,7 @@ class AudioController extends Controller
 
 
         if($request->has('View')){
-            return redirect()->route('audio')->withSuccess('Message sent!');
+            return redirect()->route('audio')->withSuccess('Audio cargado correctamente');
         }
 
         if($request->has('Levodopa')){

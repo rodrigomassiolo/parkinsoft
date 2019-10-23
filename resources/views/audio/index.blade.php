@@ -27,11 +27,11 @@
   <div class="form-group row inputs">
       <div class="col-md-3 col-sm-3 col-lg-3">
         <label for="es_levodopa">¿Es Levodopa?</label>
-        <select id="es_levodopa" name="es_levodopa" class="form-control"><option value="null"></option><option value=1>Si</option><option value=0>No</option></select>
+        <select id="es_levodopa" name="es_levodopa" class="form-control"><option value=0>NO</option><option value=1>Si</option></select>
       </div>
-      <div class="col-md-3 col-sm-3 col-lg-3">
+      <div class="col-md-3 col-sm-3 col-lg-3"  style="display: none;">
         <label for="modo_levodopa">ON/OFF</label>
-        <select id="modo_levodopa" name="modo_levodopa" class="form-control"><option value=""></option><option value="ON">ON</option><option value="asignado">OFF</option></select>
+        <select id="modo_levodopa" name="modo_levodopa" class="form-control"><option value="ON">ON</option><option value="OFF">OFF</option></select>
       </div>
     </div>
   <div class="centerButton">

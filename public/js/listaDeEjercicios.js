@@ -1,5 +1,16 @@
 $( document ).ready(function() {
   Lista.addListener();
+  $("#modo_levodopa").parent().hide();
+  $("#modo_levodopa").val(null);
+
+  $("#es_levodopa").on('change',function(e){if(e.target.value == 1){
+    $("#modo_levodopa").val('ON');
+    $("#modo_levodopa").parent().show();
+  }else{
+    $("#modo_levodopa").val(null);
+    $("#modo_levodopa").parent().hide();
+  }
+});
 });
 
 
