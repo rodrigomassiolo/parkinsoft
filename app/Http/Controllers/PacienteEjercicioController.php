@@ -35,10 +35,10 @@ class PacienteEjercicioController extends Controller
     private function craftFilterRequest($filters)
     {
         $pacienteEjercicioFilters=array(
-            'user_id'  => ['user_id','='],
-            'ejercicio_id' => ['ejercicio_id','='],
-            'created_at_from' => ['pacienteEjercicio.updated_at','>='],
-            'created_at_to' => ['pacienteEjercicio.updated_at','<=']
+            'user_id'  => ['l1.user_id','='],
+            'ejercicio_id' => ['l1.ejercicio_id','='],
+            'created_at_from' => ['l1.updated_at','>='],
+            'created_at_to' => ['l1.updated_at','<=']
                         );
         $filterRequest = "";
 
