@@ -21,8 +21,8 @@ class PacienteEjercicioController extends Controller
             'status' => ['pacienteEjercicio.status','='],
             'es_levodopa' => ['pacienteEjercicio.es_levodopa','='],
             'modo_levodopa' => ['pacienteEjercicio.modo_levodopa','='],
-            'created_at_from' => ['pacienteEjercicio.created_at','>='],
-            'created_at_to' => ['pacienteEjercicio.created_at','<=']
+            'created_at_from' => ['pacienteEjercicio.updated_at','>='],
+            'created_at_to' => ['pacienteEjercicio.updated_at','<=']
                         );
         $filterRequest = "";
 
@@ -57,7 +57,7 @@ class PacienteEjercicioController extends Controller
                                         INNER JOIN ejercicio on pacienteEjercicio.ejercicio_id = ejercicio.id AND ejercicio.deleted_at IS NULL
                                         WHERE 1=1".$filterRequest
                                         )
-                                        );
+                            );
                                         return $results;                     
     }
 }

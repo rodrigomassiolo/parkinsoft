@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\PacienteEjercicio;
 use App\User;
 use App\Ejercicio;
+use Illuminate\Support\Facades\DB;
 
 class PacienteEjercicioController extends Controller
 {
@@ -29,6 +30,59 @@ class PacienteEjercicioController extends Controller
         }
          return view('pacienteEjercicio.index',compact('PacienteEjercicio'))
              ->with('i', (request()->input('page', 1) - 1) * 10);
+    }
+    /*arma los filtros para la busqueda de users*/
+    private function craftFilterRequest($filters)
+    {
+        $pacienteEjercicioFilters=array(
+            'user_id'  => ['user_id','='],
+            'ejercicio_id' => ['ejercicio_id','='],
+            'created_at_from' => ['pacienteEjercicio.updated_at','>='],
+            'created_at_to' => ['pacienteEjercicio.updated_at','<=']
+                        );
+        $filterRequest = "";
+
+        foreach ($pacienteEjercicioFilters as $name => $filter) {
+            if(isset($filters[$name]))
+            {
+                $filterRequest = $filterRequest." AND ".$filter[0].$filter[1]."'".$filters[$name]."'";
+            }
+        }
+        return $filterRequest;
+    }
+
+    /*Devuelve cantidad y usuarios filtrados*/
+    public function indexLevodopa(Request $request)
+    {
+        $api = substr ( $request->path(), 0,3 ) == 'api';
+        $jsonReq = json_decode($request->getContent(), true);
+        $filterRequest = $this->craftFilterRequest($jsonReq['filters']);
+
+        $query = '';
+        $results = DB::select( DB::raw("SELECT
+                                        l1.user_id AS user_id,
+                                        l1.ejercicio_id AS ejercicio_id,
+                                        l1.id AS pacienteejercicio_OFF_id,
+                                        l2.id AS pacienteejercicio_OFF_id,
+                                        DATE(l1.updated_at) AS fecha
+                                        FROM pacienteejercicio l1
+                                        JOIN pacienteejercicio l2 
+                                        ON l1.user_id = l2.user_id
+                                        AND l1.ejercicio_id = l2.ejercicio_id
+                                        AND DATE(l1.updated_at) =  DATE(l2.updated_at)
+                                        AND l1.es_levodopa = 1
+                                        AND l2.es_levodopa = 1
+                                        AND l1.status = 'realizado'
+                                        AND l2.status = 'realizado'
+                                        AND l1.modo_levodopa = 'OFF'
+                                        AND l2.modo_levodopa = 'ON'
+                                        WHERE 1=1".$filterRequest
+                                        )
+                            );
+        if($api){
+            return $results;  
+        }   
+        return view('audio.indexLevodopa',compact('ejercicio'));                
     }
 
     public function show($id, Request $request)

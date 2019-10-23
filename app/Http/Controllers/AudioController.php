@@ -37,16 +37,7 @@ class AudioController extends Controller
 
     }
 
-    public function indexLevodopa(Request $request)
-    {
-        //  $ejercicio = Ejercicio::where(function ($query){
-        //      $query->where('nombre', 'LIKE', '%' . 'levodopa'. '%');
-        // });  
-
-         $ejercicio = Ejercicio::all();
-
-        return view('audio.indexLevodopa',compact('ejercicio'));
-    }
+        
 
     public function indexS(){
         return view('audio.index')->with('success','Audio cargado correctamente');

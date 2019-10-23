@@ -65,6 +65,7 @@ Route::post('/pacienteEjercicio', 'API\\PacienteEjercicioController@index');
 Route::post('/pacienteEjercicio/asignar', 'PacienteEjercicioController@store');
 Route::post('/pacienteEjercicio/update/{id}', 'PacienteEjercicioController@update')->middleware('auth:api');
 Route::post('/pacienteEjercicio/destroy/{id}', 'PacienteEjercicioController@destroy')->middleware('auth:api');
+Route::post('/levodopaRealizado', 'PacienteEjercicioController@indexLevodopa')->middleware('auth:api');
 
 /*Apk*/
 Route::get('/apk','ApkController@download')->middleware('auth:api');

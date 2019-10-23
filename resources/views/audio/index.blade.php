@@ -27,7 +27,7 @@
   <div class="form-group row inputs">
       <div class="col-md-3 col-sm-3 col-lg-3">
         <label for="es_levodopa">¿Es Levodopa?</label>
-        <select id="es_levodopa" name="es_levodopa" class="form-control"><option value=0>NO</option><option value=1>Si</option></select>
+        <select id="es_levodopa" name="es_levodopa" class="form-control"><option value=0>NO</option><option value=1>SI</option></select>
       </div>
       <div class="col-md-3 col-sm-3 col-lg-3"  style="display: none;">
         <label for="modo_levodopa">ON/OFF</label>
