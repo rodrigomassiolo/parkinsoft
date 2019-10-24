@@ -1,5 +1,10 @@
 
 $( document ).ready(function() {
+/*******Audio Index ****/
+    $('#audio_select_ejercicio').on('change',function(e){
+        $('#ejercicioDesc').html(e.target[e.target.value].attributes[1].value);
+      });
+/***********************/
     $('#audioModal').modal('show');
 
     var $window = $(window);
@@ -24,7 +29,6 @@ $( document ).ready(function() {
     checkWidth();
   
     $(window).resize(checkWidth);
-
 
 });
 
