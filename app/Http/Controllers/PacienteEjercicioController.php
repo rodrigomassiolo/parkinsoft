@@ -67,8 +67,8 @@ class PacienteEjercicioController extends Controller
                                         l1.id AS pacienteejercicio_OFF_id,
                                         l2.id AS pacienteejercicio_ON_id,
                                         DATE(l1.updated_at) AS fecha
-                                        FROM pacienteejercicio l1
-                                        JOIN pacienteejercicio l2 
+                                        FROM pacienteEjercicio l1
+                                        JOIN pacienteEjercicio l2 
                                         ON l1.user_id = l2.user_id
                                         AND l1.ejercicio_id = l2.ejercicio_id
                                         AND DATE(l1.updated_at) =  DATE(l2.updated_at)
