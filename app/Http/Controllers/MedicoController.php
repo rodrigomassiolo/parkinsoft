@@ -94,8 +94,10 @@ class MedicoController extends Controller
         'status' => 'A'
         ]);
 
+        $var = \Lang::get('parkinsoft.medicNewMessageSuccessful');
         return redirect()->route('medico.index')
-                        ->with('success','Medico creado correctamente.');
+                        ->withSuccess($var);
+
     }
 
     /**
@@ -147,9 +149,11 @@ class MedicoController extends Controller
         ]);
   
         $medico->update($request->all());
-  
+
+
+        $var = \Lang::get('parkinsoft.medicUpdateMessageSuccessful');
         return redirect()->route('medico.index')
-                        ->with('success','Medico modificado correctamente');
+                        ->withSuccess($var);
     }
 
     /**
@@ -183,6 +187,8 @@ class MedicoController extends Controller
         $rol->update();
         $user->update();
 
-        return redirect()->route('medico.index')->with('success','Medico eliminado correctamente');
+        $var = \Lang::get('parkinsoft.medicDeleteMessageSuccessful');
+        return redirect()->route('medico.index')
+                        ->withSuccess($var);
     }
 }

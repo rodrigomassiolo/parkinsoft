@@ -63,7 +63,7 @@
     @endif -->
 
     <div style="display:none">
-        <input type="hidden" id="deleteRowHidden">
+        <input type="hidden" id="ExerciseDeleteRowHidden">
     </div>
 
 

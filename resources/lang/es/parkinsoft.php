@@ -98,4 +98,47 @@ return [
 
     'exerciseConfirmDelete' => '¿Desea realmente eliminar el ejercicio?',
 
+    /*
+    |--------------------------------------------------------------------------
+    | Admin
+    |--------------------------------------------------------------------------
+    */
+
+    'adminModalTitle' => 'Admin',
+
+    'adminNewMessageSuccessful'    => 'Admin creado correctamente',
+    'adminUpdateMessageSuccessful' => 'Admin modificado correctamente',
+    'adminDeleteMessageSuccessful' => 'Admin eliminado correctamente',
+
+    'adminConfirmDelete' => '¿Desea realmente eliminar el Admin?',
+
+    /*
+    |--------------------------------------------------------------------------
+    | User
+    |--------------------------------------------------------------------------
+    */
+
+    'userModalTitle' => 'Paciente',
+
+    'userNewMessageSuccessful'    => 'Paciente creado correctamente',
+    'userUpdateMessageSuccessful' => 'Paciente modificado correctamente',
+    'userDeleteMessageSuccessful' => 'Paciente eliminado correctamente',
+
+    'userConfirmDelete' => '¿Desea realmente eliminar el paciente?',
+
+    /*
+    |--------------------------------------------------------------------------
+    | Medic
+    |--------------------------------------------------------------------------
+    */
+
+    'medicModalTitle' => 'Medico',
+
+    'medicNewMessageSuccessful'    => 'Medico creado correctamente',
+    'medicUpdateMessageSuccessful' => 'Medico modificado correctamente',
+    'medicDeleteMessageSuccessful' => 'Medico eliminado correctamente',
+
+    'medicConfirmDelete' => '¿Desea realmente eliminar el medico?',
+
+
 ];

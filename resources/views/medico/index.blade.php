@@ -66,14 +66,9 @@
 
     </div>
    
-    @if ($message = Session::get('success'))
-        <div class="alert alert-success">
-            <p>{{ $message }}</p>
-        </div>
-        <!-- <script>
-        alert("{{ $message }}");
-    </script> -->
-    @endif
+    <div style="display:none">
+        <input type="hidden" id="MedicDeleteRowHidden">
+    </div>
    
     <table class="table table-bordered table-sm table-hover">
     <thead>
@@ -112,9 +107,14 @@
                     @csrf
                     @method('DELETE')
       
-                    <button type="submit" class="btn btn-danger btn-sm" data-toggle="tooltip" title="eliminar">
-                    <span data-feather="trash-2"></span>
-                    Eliminar</button>
+                    <button type="submit" style="display:none" id="deleteButton{{$row->id}}" ></button>
+
+                    <button type="button" class="btn btn-danger btn-sm" data-whatever="{{$row->id}}"
+                        data-toggle="modal"  data-target="#deleteMedicModal" title="Eliminar">
+                        <span data-feather="trash-2"></span>
+                        Eliminar
+                    </button>
+
                 </form>
 
 
@@ -125,5 +125,51 @@
     </table>
   
        {!! $medico->render() !!}
+
+
+       
+       @if ($message = Session::get('success'))
+        <!-- Modal -->
+        <div class="modal fade" id="medicMessageModal" tabindex="-1" role="dialog" aria-labelledby="medicMessageModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="medicMessageModalLabel">@lang('parkinsoft.medicModalTitle')</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                            </button>
+                    </div>
+                  
+                        <div class="modal-body">
+                            {{ $message }}
+                        </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">@lang('parkinsoft.closeButton')</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @endif
+
+
+        <div class="modal fade" id="deleteMedicModal" tabindex="-1" role="dialog" aria-labelledby="deleteMedicModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="deleteMedicModalLabel">@lang('parkinsoft.deleteModalTitle')</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                            </button>
+                    </div>
+                        <div class="modal-body">
+                            @lang('parkinsoft.medicConfirmDelete')
+                        </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">@lang('parkinsoft.cancelButton')</button>
+                        <button type="button" onclick="Medic.deleteMedic();" class="btn btn-secondary">@lang('parkinsoft.acceptButton')</button>
+                    </div>
+                </div>
+            </div>
+        </div>
       
 @endsection

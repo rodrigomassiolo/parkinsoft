@@ -72,8 +72,10 @@ class AbmAdminController extends Controller
             $user->rol = $rol;
             return $user;
         }
+
+        $var = \Lang::get('parkinsoft.adminNewMessageSuccessful');                
         return redirect()->route('abmAdmin.index')
-                        ->with('success','Paciente creado correctamente.');
+                        ->withSuccess($var);
         
     }
 
@@ -125,8 +127,11 @@ class AbmAdminController extends Controller
             $user->rol = $rol;
             return $user;
         }
+
+        $var = \Lang::get('parkinsoft.exerciseUpdateMessageSuccessful');                
         return redirect()->route('abmAdmin.index')
-                        ->with('success','Administrador modificado correctamente');
+                        ->withSuccess($var);
+
     }
 
     /**
@@ -154,8 +159,10 @@ class AbmAdminController extends Controller
         $user->update();
         
         if($api){ return 'ok'; }
-        
-        return redirect()->route('abmAdmin.index')
-                           ->with('success','Administrador eliminado correctamente');
+
+        $var = \Lang::get('parkinsoft.adminDeleteMessageSuccessful');
+        return redirect()->route('abmEjercicio.index')
+                        ->withSuccess($var);
+
     }
 }

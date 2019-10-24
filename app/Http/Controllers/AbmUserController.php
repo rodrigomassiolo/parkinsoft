@@ -18,7 +18,7 @@ class AbmUserController extends Controller
         session()->flashInput($request->input());
 
         $user = User::filter($params)->whereHas('rol',function($q){
-            $q->where('type','<>',3);
+            $q->where('type','=',2);
         })->paginate(10);
 
          return view('abmUser.index',compact('user'))
@@ -80,9 +80,10 @@ class AbmUserController extends Controller
             'status' => 'A'
         ]);
 
+        $var = \Lang::get('parkinsoft.userNewMessageSuccessful');
         return redirect()->route('abmUser.index')
-                        ->with('success','Paciente creado correctamente.');
-        
+                        ->withSuccess($var);
+
     }
 
     /**
@@ -127,8 +128,10 @@ class AbmUserController extends Controller
 
         $user->update($request->all());
   
+        $var = \Lang::get('parkinsoft.userUpdateMessageSuccessful');
         return redirect()->route('abmUser.index')
-                        ->with('success','Usuario actualizado');
+                        ->withSuccess($var);
+    
     }
 
     /**
@@ -152,8 +155,9 @@ class AbmUserController extends Controller
 
         $rol->update();
         $user->update();
-        
+
+        $var = \Lang::get('parkinsoft.userDeleteMessageSuccessful');
         return redirect()->route('abmUser.index')
-                           ->with('success','Usuario eliminado correctamente');
+                       ->withSuccess($var);
     }
 }
