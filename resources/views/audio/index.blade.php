@@ -33,7 +33,16 @@
       <input type="file" class="form-control-file" id="audio" name="audio">
     </div>
   </div>
-  <div class="form-group row inputs">
+  <div class="col-xs-12 col-sm-12 col-md-12">
+      <div class="form-group"><div class="form-group">
+        <strong>Medicacion</strong> 
+        <input type="text" name="ultimaMedicacion" placeholder="Ingrese la última medicación tomada y la hora" class="form-control">
+      </div>
+    </div>
+  </div>
+<br>
+
+  <div class="form-group row">
     <h6 class="ejercicioInfo" id ="ejercicioInfo"> 
      Descripción del ejercicio:
     </h6>
