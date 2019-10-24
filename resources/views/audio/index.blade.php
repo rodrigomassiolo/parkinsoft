@@ -11,6 +11,16 @@
 <form action="{{ route('sendAudio') }}" method="POST" enctype="multipart/form-data">
     @csrf
   <div class="form-group row inputs">
+    @if($pacientes != null)
+    <div class="col-md-2 col-sm-2 col-lg-2">
+        <label for="user">Tipo de Ejercicio</label>
+        <select name="user" id="user" class="form-control">
+          @foreach ($pacientes as $paciente)
+            <option value="{{ $paciente->id }}"> {{ $paciente->usuario }} </option>
+          @endforeach
+        </select>
+      </div>
+    @endif  
     <div class="col-md-2 col-sm-2 col-lg-2">
       <input type="hidden" name="View" value="1">
       <label for="ejercicio">Tipo de Ejercicio</label>

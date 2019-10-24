@@ -7,9 +7,11 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
+use App\Http\Controllers\Auth\RegisterController;
 use App\User;
 use App\Ejercicio;
 use App\PacienteEjercicio;
+use App\Rol;
 use Lang;
 
 class AudioController extends Controller
@@ -21,9 +23,19 @@ class AudioController extends Controller
      */
     public function index(Request $request)
     {
-        //return view('audio.index');
-
         $user = Auth::user()->usuario;
+        $rol_id = Auth::user()->rol_id;
+        $rol = Rol::where('id', $rol_id)->get();
+
+        if($rol[0]->type == 0 || $rol[0]->type == 1){
+
+            $pacientes = User::whereHas('rol',function($q){
+                $q->where('type','=',2);
+            })->get();
+        }
+        else{
+            $pacientes = null;
+        }
 
         $params = array('usuario' => $user);
         // $PacienteEjercicio = PacienteEjercicio::where('user_id','=',$user)->paginate(10);
@@ -32,7 +44,7 @@ class AudioController extends Controller
 
         $ejercicio = Ejercicio::all();
 
-        return view('audio.index',compact('PacienteEjercicio','ejercicio'))
+        return view('audio.index',compact('PacienteEjercicio','ejercicio','pacientes'))
             ->with('i', (request()->input('page', 1) - 1) * 10);
 
     }
