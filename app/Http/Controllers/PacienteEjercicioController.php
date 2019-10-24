@@ -62,11 +62,13 @@ class PacienteEjercicioController extends Controller
         $results = DB::select( DB::raw("SELECT
                                         l1.user_id AS user_id,
                                         l1.ejercicio_id AS ejercicio_id,
+                                        ej.nombre AS ejercicio_nombre,
+                                        ej.descripcion AS ejercicio_descripcion,
                                         l1.id AS pacienteejercicio_OFF_id,
                                         l2.id AS pacienteejercicio_ON_id,
                                         DATE(l1.updated_at) AS fecha
-                                        FROM pacienteejercicio l1
-                                        JOIN pacienteejercicio l2 
+                                        FROM pacienteEjercicio l1
+                                        JOIN pacienteEjercicio l2 
                                         ON l1.user_id = l2.user_id
                                         AND l1.ejercicio_id = l2.ejercicio_id
                                         AND DATE(l1.updated_at) =  DATE(l2.updated_at)
@@ -76,6 +78,7 @@ class PacienteEjercicioController extends Controller
                                         AND l2.status = 'realizado'
                                         AND l1.modo_levodopa = 'OFF'
                                         AND l2.modo_levodopa = 'ON'
+                                        JOIN ejercicio ej ON ej.id = l1.ejercicio_id
                                         WHERE 1=1".$filterRequest
                                         )
                             );
