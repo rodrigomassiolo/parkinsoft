@@ -12,25 +12,21 @@
                 <strong>Consulta:</strong> {!! $ticket->content !!} 
                 </p>
             </div>
-            <a href="{!! action('TicketsController@edit', $ticket->slug) !!}" class="btn btn-info float-left">Edit</a>
+            <a href="{!! action('TicketsController@edit', $ticket->slug) !!}" 
+                class="btn btn-info float-left">
+                @lang('parkinsoft.ticketCloseButton')
+            </a>
 
-           <form method="post" action="{!! action('TicketsController@destroy', $ticket->slug) !!}" class="float-left">
+           <!-- <form method="post" action="{!! action('TicketsController@destroy', $ticket->slug) !!}" class="float-left">
                <input type="hidden" name="_token" value="{!! csrf_token() !!}">
                   <div>
                     <button type="submit" class="btn btn-danger">Borrar</button>
                   </div>
-            </form>
+            </form> -->
 
             <div class="clearfix"></div>
         </div>
 
-             <!-- @foreach($comments as $comment)
-                <div class="well well bs-component">
-                  <div class="content">
-                     {!! $comment->content !!}
-                  </div>
-                </div>
-             @endforeach -->
 <hr>
 
             <table class="table table-bordered table-sm table-hover">
@@ -53,7 +49,7 @@
             </table>
 
 
-
+            <hr>
 
               <div class="well well bs-component">
         <form class="form-horizontal" method="post" action="/comment">
@@ -72,7 +68,7 @@
             <input type="hidden" name="post_id" value="{!! $ticket->id !!}">
 
             <fieldset>
-                <legend>Contestar</legend>
+                <legend>@lang('parkinsoft.ticketInsertComment')</legend>
                 <div class="form-group">
                     <div class="col-lg-12">
                         <textarea class="form-control" rows="3" id="content" name="content"></textarea>
@@ -81,8 +77,8 @@
 
                 <div class="form-group">
                     <div class="col-lg-10 col-lg-offset-2">
-                        <button type="reset" class="btn btn-default">Cancelar</button>
-                        <button type="submit" class="btn btn-primary">Publicar</button>
+                        <!-- <button type="reset" class="btn btn-default">Cancelar</button> -->
+                        <button type="submit" class="btn btn-primary">@lang('parkinsoft.ticketResponse')</button>
                     </div>
                 </div>
             </fieldset>

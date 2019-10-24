@@ -15,18 +15,18 @@
                 @endif
                 <input type="hidden" name="_token" value="{!! csrf_token() !!}">
                 <fieldset>
-                    <legend>Enviar un nuevo ticket</legend>
+                    <legend>@lang('parkinsoft.ticketNewPageTitle')</legend>
                     <div class="form-group">
-                        <label for="title" class="col-lg-2 control-label">Título</label>
+                        <label for="title" class="col-lg-2 control-label">@lang('parkinsoft.ticketNewTitle')</label>
                         <div class="col-lg-10">
-                            <input type="text" class="form-control" id="title" placeholder="Título" name="title">
+                            <input type="text" class="form-control" id="title" name="title">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="content" class="col-lg-2 control-label">Contenido</label>
+                        <label for="content" class="col-lg-2 control-label">@lang('parkinsoft.ticketNewContent')</label>
                         <div class="col-lg-10">
                             <textarea class="form-control" rows="3" id="content" name="content"></textarea>
-                            <span class="help-block">Envia un ticket para dudas y consultas.</span>
+                            <span class="help-block">@lang('parkinsoft.ticketNewHelp')</span>
                         </div>
                     </div>
                     <!-- deberia estar al revez -->
@@ -38,7 +38,7 @@
                     @endif 
                     <div class="form-group">
                         <div class="col-lg-10 col-lg-offset-2">
-                            <!-- <button type="button" onclick="Contact.cancel();" value="0" name="response" class="btn btn-default">Cancelar</button> -->
+                            
                             <button type="submit" value="1" name="response" class="btn btn-primary">Enviar</button>
                         </div>
                     </div>

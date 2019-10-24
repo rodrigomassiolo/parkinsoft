@@ -140,5 +140,25 @@ return [
 
     'medicConfirmDelete' => '¿Desea realmente eliminar el medico?',
 
+    /*
+    |--------------------------------------------------------------------------
+    | Ticket
+    |--------------------------------------------------------------------------
+    */
+
+    'ticketInsertComment' => 'Ingresar comentario',
+    'ticketResponse'    => 'Contestar',
+    'ticketCloseButton' => 'Cerrar',
+    'ticketNewHelp' => 'Envia una ticket para dudas y consultas.',
+    'ticketNewContent' => 'Contenido',
+    'ticketNewTitle' => 'Titulo',
+    'ticketNewPageTitle' => 'Crear ticket',
+    'ticketNewMessageSuccessful' => 'Su ticket ha sido creado.',
+
+
+    
+
+
+
 
 ];

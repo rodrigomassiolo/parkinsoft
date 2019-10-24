@@ -78,7 +78,9 @@ class TicketsController extends Controller
             $message->to('martinnviqueira@gmail.com')->subject('¡Hay un nuevo ticket, leelo!');
          });
 
-       return redirect()->back()->with('status', 'Su ticket ha sido creado.');//devuelve a la vista status
+         $var = \Lang::get('parkinsoft.ticketNewMessageSuccessful');
+         return redirect()->back()->withSuccess($var);        
+
     }
 
     /**
