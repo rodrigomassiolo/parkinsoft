@@ -37,6 +37,7 @@ return [
     'deleteModalTitle' => 'Eliminar',
     'backButton' => 'Atras',
     'editButton' => 'Editar',
+    'createButton' => 'Crear',
 
     
     /*
@@ -193,6 +194,7 @@ return [
 
     'operacionEdit' => 'Editar Operación',
 
+    'operacionShowTitle' => 'Operación',
 
 
 
