@@ -28,6 +28,7 @@
         @method('PUT')
    
          <div class="row">
+             <input type="hidden" value="{{$operacion->user_id}}" name="user_id">
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
                     <strong>@lang('parkinsoft.description')</strong>

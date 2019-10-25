@@ -200,7 +200,29 @@ Route::get('AvailableAudio/{id}', function($id){
     }
 
      return response()->json(['html' => $html]);
-});
+})->middleware('auth');;
+
+
+Route::get('/GetUser', function(Request $request){
+	
+	$search = $request->get('search');
+
+	$response = \App\User::where('email', 'like', '%' . $search . '%')
+    			->orWhere('usuario', 'like', '%' . $search . '%')->get();
+
+	$item=[];
+	foreach($response as $r){
+
+		$added = ['id' => $r["id"],'text' =>  $r["usuario"].'-'.$r["email"]];
+
+		array_push($item,$added);
+	}
+
+	$response = ['items' => $item];
+
+
+     return response()->json($response);
+})->middleware('auth');
 
 
 Route::resource('operacion','OperacionController')->middleware('auth');

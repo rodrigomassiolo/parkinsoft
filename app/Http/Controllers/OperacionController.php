@@ -73,8 +73,8 @@ class OperacionController extends Controller
      */
     public function show($id)
     {
-        $ejercicio = Operacion::findOrFail($id);
-        return view('operacion.show',compact('ejercicio'));
+        $operacion = Operacion::findOrFail($id);
+        return view('operacion.show',compact('operacion'));
     }
 
     /**
@@ -85,7 +85,7 @@ class OperacionController extends Controller
      */
     public function edit($id)
     {
-        $ejercicio = Operacion::findOrFail($id);
+        $operacion = Operacion::findOrFail($id);
         return view('operacion.edit',compact('operacion'));
     }
 

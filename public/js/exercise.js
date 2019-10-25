@@ -4,7 +4,30 @@ $( document ).ready(function() {
     $('#adminMessageModal').modal('show');
     $('#userMessageModal').modal('show');
     $('#medicMessageModal').modal('show');
+    $('#operacionMessageModal').modal('show');
   
+    $('#Operacion_user_id').select2(
+        {
+          language:'es',
+          width:'100%',
+          minimumInputLength: 2,
+          ajax: {
+            url: '/GetUser',
+            data: function (params) {
+              var query = {
+                search: params.term,
+                type: 'public'
+              }
+              return query;
+            },
+            processResults: function (data) {
+              return {
+                results: data.items
+              };
+            }
+          }
+        });
+
   });
 
   $('#deleteExerciseModal').on('show.bs.modal', function (event) {

@@ -4,7 +4,7 @@
     <div class="row">
         <div class="col-lg-12 margin-tb">
             <div class="pull-left">
-                @lang('parkinsoft.operacionShowTitle')
+               <h2> @lang('parkinsoft.operacionShowTitle')</h2>
             </div>
             <div class="pull-right">
                 <a class="btn btn-primary" href="{{ route('operacion.index') }}"> @lang('parkinsoft.backButton')</a>
@@ -17,13 +17,13 @@
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
                 <strong>@lang('parkinsoft.user')</strong>
-                {{ $operacion->user_id }}
+                {{ $operacion->user->usuario }}
             </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
-            <strong>@lang('parkinsoft.date')</strong>   
-            {{ $operacion->date }}
+                <strong>@lang('parkinsoft.date')</strong>   
+                {{ $operacion->fecha }}
             </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12">

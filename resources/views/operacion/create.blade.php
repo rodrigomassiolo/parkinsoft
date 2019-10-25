@@ -29,9 +29,11 @@
   
      <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-12">
-            <div class="form-group{{ $errors->has('nombre') ? ' has-error' : '' }}">
-                <strong>Nombre:</strong>
-            <select id="nombre"></select>
+            <div class="form-group{{ $errors->has('user_id') ? ' has-error' : '' }}">
+                <strong>@lang('parkinsoft.user')</strong>
+            <select id="Operacion_user_id" name="user_id">
+            
+            </select>
             </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12">
