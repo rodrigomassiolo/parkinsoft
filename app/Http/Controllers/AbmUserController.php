@@ -10,19 +10,26 @@ use App\Rol;
 
 class AbmUserController extends Controller
 {
-    public function index(Request $request)
+    public function index(Request $request=null,$paciente_id=null)
     {
 
-        $params = $request->except('_token');
+        if(!is_null($paciente_id)){
+            return "pepe";
+        }         
 
-        session()->flashInput($request->input());
+        else {
+            $params = $request->except('_token');
 
-        $user = User::filter($params)->whereHas('rol',function($q){
+            session()->flashInput($request->input());
+
+            $user = User::filter($params)->whereHas('rol',function($q){
             $q->where('type','=',2);
-        })->paginate(10);
+            })->paginate(10);
 
-         return view('abmUser.index',compact('user'))
-             ->with('i', (request()->input('page', 1) - 1) * 10);
+            return view('abmUser.index',compact('user'))
+            ->with('i', (request()->input('page', 1) - 1) * 10);        
+        }
+
     }
 
     /**

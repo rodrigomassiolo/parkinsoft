@@ -120,8 +120,12 @@
                         <span data-feather="trash-2"></span>
                         Eliminar
                     </button>
-
-
+{{-- 
+                    <a class="btn btn-info btn-sm" href="{{ route('pepepe',"paciente_id" => $row->id) }}"
+                        data-toggle="tooltip" title="Cargar">
+                        <span data-feather="eye"></span>
+                            Cargar Audio
+                    </a> --}}
                 </form>
             </td>
         </tr>
