@@ -55,7 +55,8 @@ class AbmEjercicioController extends Controller
 
         if($exist){
             if($api){ 
-                return "Duplicate";
+                //return "Duplicate";
+                return response()->json("Duplicate", 400);
             }else{
                 $var = \Lang::get('parkinsoft.exerciseDuplicateMessageSuccessful');
                     return redirect()->route('abmEjercicio.index')

@@ -23,4 +23,9 @@ class Operacion extends Model
         }
         return $query;
     }
+    
+    public function User(){
+        return $this->belongsTo('App\User');//lo relaciona con el modelo de user
+    }
+
 }

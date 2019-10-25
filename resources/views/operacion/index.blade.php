@@ -49,16 +49,16 @@
     </div>
    
     <div style="display:none">
-        <input type="hidden" id="operacionDeleteRowHidden">
+        <input type="hidden" id="OperacionDeleteRowHidden">
     </div>
 
     <table class="table table-bordered table-sm table-hover">
     <thead>
         <tr>
             <th>No</th>
-            <th>Usuario</th>
-            <th>Fecha</th>
-            <th>Descripcion</th>
+            <th>@lang('parkinsoft.user')</th>
+            <th>@lang('parkinsoft.date')</th>
+            <th>@lang('parkinsoft.description')</th>
             <th width="280px">Acciones</th>
         </tr>
     </thead>
@@ -66,8 +66,8 @@
         @foreach ($operacion as $row)
         <tr>
             <td>{{ $row->id }}</td>  
+            <td>{{ $row->user->usuario }}</td>
             <td>{{ $row->fecha }}</td>
-            <td>{{ $row->user_id }}</td>
             <td>{{ $row->descripcion}}</td>
             <td>
                 <form action="{{ route('operacion.destroy',$row->id) }}" method="POST">
