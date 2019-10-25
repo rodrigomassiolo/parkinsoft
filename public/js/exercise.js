@@ -62,3 +62,17 @@ $( document ).ready(function() {
       $("#deleteButton" + row).click();
     }
   }
+
+  $('#deleteOperacionModal').on('show.bs.modal', function (event) {
+    var button = $(event.relatedTarget) 
+    var recipient = button.data('whatever') 
+    $('#OperacionDeleteRowHidden').val(recipient)
+  })
+
+  var Operacion = {
+    deleteOperacion: function(){
+      var row = $('#OperacionDeleteRowHidden').val();
+
+      $("#deleteButton" + row).click();
+    }
+  }

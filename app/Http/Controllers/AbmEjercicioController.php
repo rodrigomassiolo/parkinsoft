@@ -51,6 +51,18 @@ class AbmEjercicioController extends Controller
             'descripcion' => 'required'
         ]);
 
+        $exist = Ejercicio::where('nombre',$request['nombre'])->first();
+
+        if($exist){
+            if($api){ 
+                return "Duplicate";
+            }else{
+                $var = \Lang::get('parkinsoft.exerciseDuplicateMessageSuccessful');
+                    return redirect()->route('abmEjercicio.index')
+                        ->withSuccess($var);
+            }
+        }
+
         $ejercicio = Ejercicio::create([
             'nombre' => $request['nombre'],
             'descripcion' => $request['descripcion']

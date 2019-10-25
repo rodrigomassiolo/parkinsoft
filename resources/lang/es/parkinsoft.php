@@ -28,15 +28,30 @@ return [
     'audioListLink' => 'Ejercicios realizados',
     'downloadAppLink' => 'Descargar App',
     'pleaseSelect' => 'Seleccionar opción',
+    'operacionLink' => 'Operaciones',
 
     'errorDescription' => 'Hubo errores en los datos ingresados',
-    'enableFilters' => 'Habilitar filtros',
     'closeButton' => 'Cerrar',
     'acceptButton' => 'Aceptar',
     'cancelButton' => 'Cancelar',
     'deleteModalTitle' => 'Eliminar',
+    'backButton' => 'Atras',
+    'editButton' => 'Editar',
+
     
-    
+    /*
+    |--------------------------------------------------------------------------
+    | Filters
+    |--------------------------------------------------------------------------
+    */
+    'enableFilters' => 'Habilitar filtros',
+    'clearFilters' => 'Borrar filtros',
+
+    'user' => 'Usuario',
+    'description' => 'Descripción',
+    'date' => 'Fecha',
+
+
 
     /*
     |--------------------------------------------------------------------------
@@ -98,6 +113,8 @@ return [
 
     'exerciseConfirmDelete' => '¿Desea realmente eliminar el ejercicio?',
 
+    'exerciseDuplicateMessageSuccessful' => 'El ejercicio que intenta cargar ya existe',
+
     /*
     |--------------------------------------------------------------------------
     | Admin
@@ -156,7 +173,25 @@ return [
     'ticketNewMessageSuccessful' => 'Su ticket ha sido creado.',
 
 
-    
+    /*
+    |--------------------------------------------------------------------------
+    | Operation
+    |--------------------------------------------------------------------------
+    */
+
+    'operacionModalTitle' => 'Operación',
+
+    'operacionNewMessageSuccessful' => 'Operación creado correctamente',
+    'operacionUpdateMessageSuccessful' => 'Operación modificado correctamente',
+    'operacionDeleteMessageSuccessful' => 'Operación eliminado correctamente',
+
+    'operacionConfirmDelete' => '¿Desea realmente eliminar la operación?',
+
+    'operacionDuplicateMessageSuccessful' => 'El operación que intenta cargar ya existe',
+
+    'operacionCreateNew' => 'Crear Operación',
+
+    'operacionEdit' => 'Editar Operación',
 
 
 

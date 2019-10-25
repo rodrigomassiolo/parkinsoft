@@ -58,7 +58,15 @@
         @lang('parkinsoft.abmExerciseLink')
       </a>
     </li>
-     @endif  
+     @endif 
+     @if (Auth::user()->rol->type == 0 || Auth::user()->rol->type == 1 ) 
+      <li class="nav-item">
+        <a class="nav-link" href="{{ route('operacion.index') }}">
+          <span data-feather="activity"></span>
+          @lang('parkinsoft.operacionLink')
+        </a>
+    </li>
+     @endif   
      <li class="nav-item">
       <a class="nav-link" href="{{ route('listaDeEjercicios') }}">
         <span data-feather="activity"></span>

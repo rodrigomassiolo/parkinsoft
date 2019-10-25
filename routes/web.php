@@ -126,6 +126,9 @@ Route::post('/resetPassword', function (Request $request) {
 		return view('emails.process');
 	}
 	else{
+		if($request->get('View') == 1){
+			return view('emails.process');
+		}
 		return "error";
 	}
 })->name('resetPassword');
@@ -176,10 +179,6 @@ Route::get('/listaDeEjercicios/download/{id}','PacienteEjercicioController@downl
 
 Route::post('/audio/processAudio','AudioController@processAudio')->middleware('auth');
 
-
-
-
-
 Route::get('AvailableAudio/{id}', function($id){
 	$response = $id;
 
@@ -202,3 +201,6 @@ Route::get('AvailableAudio/{id}', function($id){
 
      return response()->json(['html' => $html]);
 });
+
+
+Route::resource('operacion','OperacionController')->middleware('auth');

@@ -29,13 +29,13 @@
                             <span class="help-block">@lang('parkinsoft.ticketNewHelp')</span>
                         </div>
                     </div>
-                    <!-- deberia estar al revez -->
-                    @if (Auth::user()) 
+                    
+                    <!-- @if (Auth::user()) 
                     <label for="email" class="col-lg-2 control-label">Email</label>
                         <div class="col-lg-10">
                             <input required type="text" class="form-control" id="email" placeholder="Ingrese email" name="email">
                         </div>
-                    @endif 
+                    @endif  -->
                     <div class="form-group">
                         <div class="col-lg-10 col-lg-offset-2">
                             
