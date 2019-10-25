@@ -96,7 +96,7 @@
             <td>{{ $row->genero}}</td>
             <td>{{ $row->nacimiento}}</td>
             <td>
-                <form action="{{ route('abmUser.destroy',$row->id) }}" method="POST">
+       
    
                     <a class="btn btn-info btn-sm" href="{{ route('abmUser.show',[$row->id]) }}"
                     data-toggle="tooltip" title="Mostrar">
@@ -109,24 +109,25 @@
                     <span data-feather="edit"></span>
                     Editar
                     </a>
+                    <form action="{{ route('abmUser.destroy',$row->id) }}" method="POST">
+                        @csrf
+                        @method('DELETE')
 
-                    @csrf
-                    @method('DELETE')
+                        <button type="submit" style="display:none" id="deleteButton{{$row->id}}" ></button>
 
-                    <button type="submit" style="display:none" id="deleteButton{{$row->id}}" ></button>
+                        <button type="button" class="btn btn-danger btn-sm" data-whatever="{{$row->id}}"
+                            data-toggle="modal"  data-target="#deleteUserModal" title="Eliminar">
+                            <span data-feather="trash-2"></span>
+                            Eliminar
+                        </button>
+                    </form>
+                    <form action="{{ route('audio')}}" method="GET">
+                        <input type="hidden" name="paciente_id" value="{{$row->id}}">
 
-                    <button type="button" class="btn btn-danger btn-sm" data-whatever="{{$row->id}}"
-                        data-toggle="modal"  data-target="#deleteUserModal" title="Eliminar">
-                        <span data-feather="trash-2"></span>
-                        Eliminar
-                    </button>
-{{-- 
-                    <a class="btn btn-info btn-sm" href="{{ route('pepepe',"paciente_id" => $row->id) }}"
-                        data-toggle="tooltip" title="Cargar">
-                        <span data-feather="eye"></span>
-                            Cargar Audio
-                    </a> --}}
-                </form>
+                        <button class="btn btn-info btn-sm" type="submit">Cargar Audio</button>
+
+           
+                    </form>
             </td>
         </tr>
         @endforeach

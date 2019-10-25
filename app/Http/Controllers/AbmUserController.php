@@ -6,18 +6,14 @@ use Illuminate\Http\Request;
 use App\User;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Rol;
+use Route;
 
 
 class AbmUserController extends Controller
 {
-    public function index(Request $request=null,$paciente_id=null)
+    public function index(Request $request)
     {
 
-        if(!is_null($paciente_id)){
-            return "pepe";
-        }         
-
-        else {
             $params = $request->except('_token');
 
             session()->flashInput($request->input());
@@ -28,7 +24,6 @@ class AbmUserController extends Controller
 
             return view('abmUser.index',compact('user'))
             ->with('i', (request()->input('page', 1) - 1) * 10);        
-        }
 
     }
 

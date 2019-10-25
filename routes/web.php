@@ -158,6 +158,8 @@ Route::post('/sendLevodopa', 'AudioController@storeLevodopa')->middleware('auth'
 
 Route::get('/audio','AudioController@index')->middleware('auth')->name('audio');
 
+// Route::get('/audio/{paciente_id}','AudioController@index')->middleware('auth')->name('pepepe');
+
 Route::get('/TestLevodopa','AudioController@indexLevodopa')->middleware('auth')->name('TestLevodopa');
 
 Route::resource('medico','MedicoController')->middleware('auth');

@@ -23,6 +23,11 @@ class AudioController extends Controller
      */
     public function index( Request $request)
     {
+        if($request->get('paciente_id') != null){
+            //TO_DO manejo del paciente ya cargado y demas
+            return "ahora cambiar a la view de Audio";
+        }         
+
         $user = Auth::user()->usuario;
         $rol_id = Auth::user()->rol_id;
         $rol = Rol::where('id', $rol_id)->get();
