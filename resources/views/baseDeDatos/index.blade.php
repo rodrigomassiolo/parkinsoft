@@ -133,7 +133,9 @@
                             </button>
                     </div>
                         <div class="modal-body">
+                            <label>@lang('parkinsoft.BDColumnName')</label>
                             <select id="getColumn"></select>
+                            <label>@lang('parkinsoft.BDIndexName')</label>
                             <input type="text" name="nombre_index" id="newnombre_index">
                         </div>
                     <div class="modal-footer">
