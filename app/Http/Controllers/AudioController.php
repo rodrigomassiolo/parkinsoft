@@ -54,8 +54,6 @@ class AudioController extends Controller
 
     }
 
-        
-
     public function indexS(){
         return view('audio.index')->with('success','Audio cargado correctamente');
     }

@@ -176,8 +176,8 @@ Route::get('/listaDeEjercicios','PacienteEjercicioController@index')->middleware
 
 Route::get('/listaDeEjercicios/show/{id}','PacienteEjercicioController@show')->middleware('auth');
 Route::get('/listaDeEjercicios/download/{id}','PacienteEjercicioController@download')->middleware('auth');
-Route::post('/ejercicioPacienteAsignar','PacienteEjercicioController@index')->middleware('auth')->name('ejercicioPacienteAsignar');
-
+Route::get('/ejercicioPacienteAsignar','PacienteEjercicioController@asignar')->middleware('auth')->name('ejercicioPacienteAsignar');
+Route::post('/ejercicioPacienteGuardar','PacienteEjercicioController@store')->middleware('auth')->name('ejercicioPacienteGuardar');
 
 
 

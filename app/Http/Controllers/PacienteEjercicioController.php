@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\PacienteEjercicio;
 use App\User;
+use App\Rol;
 use App\Ejercicio;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class PacienteEjercicioController extends Controller
 {
@@ -145,25 +147,58 @@ class PacienteEjercicioController extends Controller
         );
 
     }
+    public function asignar( Request $request)
+    {
+        $preset = null;
+        if($request->get('paciente_id') != null){
+            $preset = $request->get('paciente_id');
+        }   
+  
+        $user = Auth::user()->usuario;
+        $rol_id = Auth::user()->rol_id;
+        $rol = Rol::where('id', $rol_id)->get();
+
+        if($rol[0]->type == 0 || $rol[0]->type == 1){
+
+            $pacientes = User::whereHas('rol',function($q){
+                $q->where('type','=',2);
+            })->get();
+        }
+        else{
+            $pacientes = null;
+        }
+        $ejercicio = Ejercicio::all();
+
+        return view('pacienteEjercicio.asignar',compact('PacienteEjercicio','ejercicio','pacientes','preset'));
+
+    }
 
     public function store(Request $request){
+
         $api = substr ( $request->path(), 0,3 ) == 'api';
         $ejercicioPaciente = array('status'=>"asignado");
         $id_ejercicio= 1;
-        if($request->has('ejercicio')){
+
+        if($request->get('ejercicio') != null){
             $id_ejercicio= $request->input('ejercicio');
-            $ejercicio = Ejercicio::where('id',$id_ejercicio)->first();
-            if(!$ejercicio){
-                return response()->json(['invalid_ejercicio'], 400);
-            }
+        }  
+        else if($request->has('ejercicio')){
+            $id_ejercicio= $request->get('ejercicio');
+        }
+        $ejercicio = Ejercicio::where('id',$id_ejercicio)->first();
+        if(!$ejercicio){
+            return response()->json(['invalid_ejercicio'], 400);
         }
         $ejercicioPaciente['ejercicio_id'] = $id_ejercicio;
 
-        if($request->has('user')){
+        if($request->get('audio_preset_paciente') != null){
+            $user = User::findOrFail($request->get('audio_preset_paciente'));
+        }  
+        else if($request->has('user')){
             $user = User::findOrFail($request->input('user'));
-            if(!$user){
-                return response()->json(['invalid_usuario'], 400);
-            }
+        }
+        if(!$user){
+            return response()->json(['invalid_usuario'], 400);
         }
         $ejercicioPaciente['user_id'] = $user->id;
 
@@ -177,8 +212,8 @@ class PacienteEjercicioController extends Controller
 
         if($api){ return $ejercicioPaciente; }
 
-        return redirect()->route('abmEjercicioPaciente.index')
-        ->with('success','Paciente creado correctamente.');
+        return redirect()->route('ejercicioPacienteAsignar')
+        ->with('success','Asignación creada correctamente.');
 
     }
 
