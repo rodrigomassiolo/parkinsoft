@@ -113,11 +113,7 @@
                             </tbody>
                         </table>
 
-                        <button type="button" class="btn btn-danger btn-sm"
-                                data-toggle="modal"  data-target="#indexModal" 
-                                onclick="BD.showIndex('{!! $row['tabla'] !!}');" >
-                                @lang('parkinsoft.BDShowIndexButton')
-                            </button>
+                        
                         </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">@lang('parkinsoft.cancelButton')</button>

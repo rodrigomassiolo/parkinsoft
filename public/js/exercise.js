@@ -135,15 +135,15 @@ $( document ).ready(function() {
 
           var table = $("#columnTableBody");
 
-          for(i=0;i <= data.length; i++){
+          for(i=0;i < data.length; i++){
 
             $("#columnTable").find('tr').find('td').each(function(){
               if($(this)[0].innerText == data[i].nombre_columna){
 
                 var deleteRow = {tabla : element , nombre_columna: data[i].nombre_columna, nombre_index : data[i].nombre_index}
-                var row = $(this).parent[0];
-                row.innerHTML = '';
-                row.innerHTML = '<td>' + data[i].nombre_columna + '<td>'
+                var row = $(this).parent();
+                row[0].innerHTML = '';
+                row[0].innerHTML = '<td>' + data[i].nombre_columna + '<td>'
                               + '<td>' + data[i].nombre_index + '<td>'
                               + '<td><button type="button" onclick="BD.deleteColumnIndex('+ deleteRow +');">Eliminar Indice</button></td>';
               }else{
