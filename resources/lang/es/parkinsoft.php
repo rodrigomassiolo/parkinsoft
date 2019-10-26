@@ -49,6 +49,8 @@ return [
      'BDShowColumnsButton' => 'Mostrar Columnas',
      'BDConfirmDelete' => '¿Desea realmente eliminar el indice?',
      'BDColumnModalTitle' => 'Columnas',
+     'BDColumnName' => 'Nombre de columna',
+     'BDIndexName' => 'Nombre de indice',
 
     /*
     |--------------------------------------------------------------------------

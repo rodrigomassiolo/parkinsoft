@@ -85,7 +85,7 @@
         </div>
 
         <div class="modal fade" id="columnBDModal" tabindex="-1" role="dialog" aria-labelledby="columnBDModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
+            <div class="modal-dialog" role="document" style="min-width:50%;">
                 <div class="modal-content modal-lg">
                     <div class="modal-header">
                         <h5 class="modal-title" id="columnBDModalLabel">@lang('parkinsoft.BDColumnModalTitle')</h5>
@@ -93,16 +93,31 @@
                             <span aria-hidden="true">&times;</span>
                             </button>
                     </div>
-                        <div class="modal-body" style="min-height:200px" id="columnModalBody">
+                        <div class="modal-body" style="min-height:200px;" id="columnModalBody">
                         
                         <table class="table table-bordered table-sm table-hover" id="columnTable">
                             <thead>
-                                <tr></tr>
+                                <tr>
+                                    <td>
+                                    @lang('parkinsoft.BDColumnName')
+                                    </td>
+                                    <td>
+                                    @lang('parkinsoft.BDIndexName')
+                                    </td>
+                                    <td>
+                                    @lang('parkinsoft.actions')
+                                    </td>
+                                </tr>
                             </thead>
-                            <tbody> 
-                                <tr></tr>
+                            <tbody id="columnTableBody"> 
                             </tbody>
                         </table>
+
+                        <button type="button" class="btn btn-danger btn-sm"
+                                data-toggle="modal"  data-target="#indexModal" 
+                                onclick="BD.showIndex('{!! $row['tabla'] !!}');" >
+                                @lang('parkinsoft.BDShowIndexButton')
+                            </button>
                         </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">@lang('parkinsoft.cancelButton')</button>
@@ -111,6 +126,30 @@
                 </div>
             </div>
         </div>
+
+        <div class="modal fade" id="indexModal" tabindex="-1" role="dialog" aria-labelledby="deleteBDModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="deleteBDModalLabel">@lang('parkinsoft.deleteModalTitle')</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                            </button>
+                    </div>
+                        <div class="modal-body">
+                            @lang('parkinsoft.BDConfirmDelete')
+                        </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">@lang('parkinsoft.cancelButton')</button>
+                        <button type="button" onclick="BD.deleteBD();" class="btn btn-secondary">@lang('parkinsoft.acceptButton')</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
 
 
 
