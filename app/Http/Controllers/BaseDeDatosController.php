@@ -61,7 +61,7 @@ class BaseDeDatosController extends Controller
       return $result;
     }
 
-    public function getColumnSelect(Request $result){
+    public function getColumnSelect(Request $request){
       $request->validate([
         'tabla' => 'required'
       ]);
