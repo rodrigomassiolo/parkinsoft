@@ -4,6 +4,11 @@ $( document ).ready(function() {
     $('#audio_select_ejercicio').on('change',function(e){
         $('#ejercicioDesc').html(e.target[e.target.value].attributes[1].value);
       });
+    var preset = $("#audio_preset_paciente").val();
+    if(preset){
+    $("#user").val(preset); 
+    $("#user").prop('disabled', true);
+    }  
 /***********************/
     $('#audioModal').modal('show');
 

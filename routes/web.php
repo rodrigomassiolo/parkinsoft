@@ -158,8 +158,6 @@ Route::post('/sendLevodopa', 'AudioController@storeLevodopa')->middleware('auth'
 
 Route::get('/audio','AudioController@index')->middleware('auth')->name('audio');
 
-// Route::get('/audio/{paciente_id}','AudioController@index')->middleware('auth')->name('pepepe');
-
 Route::get('/TestLevodopa','AudioController@indexLevodopa')->middleware('auth')->name('TestLevodopa');
 
 Route::resource('medico','MedicoController')->middleware('auth');
@@ -178,6 +176,10 @@ Route::get('/listaDeEjercicios','PacienteEjercicioController@index')->middleware
 
 Route::get('/listaDeEjercicios/show/{id}','PacienteEjercicioController@show')->middleware('auth');
 Route::get('/listaDeEjercicios/download/{id}','PacienteEjercicioController@download')->middleware('auth');
+Route::post('/ejercicioPacienteAsignar','PacienteEjercicioController@index')->middleware('auth')->name('ejercicioPacienteAsignar');
+
+
+
 
 Route::post('/audio/processAudio','AudioController@processAudio')->middleware('auth');
 
