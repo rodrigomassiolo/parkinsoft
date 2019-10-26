@@ -124,10 +124,14 @@
                     <form action="{{ route('audio')}}" method="GET">
                         <input type="hidden" name="paciente_id" value="{{$row->id}}">
 
-                        <button class="btn btn-info btn-sm" type="submit">Cargar Audio</button>
-
-           
+                        <button class="btn btn-info btn-sm" type="submit">Cargar Audio</button>           
                     </form>
+                    <form action="{{ route('ejercicioPacienteAsignar')}}" method="POST">
+                            @csrf
+                            <input type="hidden" name="paciente_id" value="{{$row->id}}">
+                            <button class="btn btn-info btn-sm" type="submit">Asignar Ejercicio</button>           
+                    </form>
+                    
             </td>
         </tr>
         @endforeach

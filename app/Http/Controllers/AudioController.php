@@ -23,9 +23,9 @@ class AudioController extends Controller
      */
     public function index( Request $request)
     {
+        $preset = null;
         if($request->get('paciente_id') != null){
-            //TO_DO manejo del paciente ya cargado y demas
-            return "ahora cambiar a la view de Audio";
+            $preset = $request->get('paciente_id');
         }         
 
         $user = Auth::user()->usuario;
@@ -49,7 +49,7 @@ class AudioController extends Controller
 
         $ejercicio = Ejercicio::all();
 
-        return view('audio.index',compact('PacienteEjercicio','ejercicio','pacientes'))
+        return view('audio.index',compact('PacienteEjercicio','ejercicio','pacientes','preset'))
             ->with('i', (request()->input('page', 1) - 1) * 10);
 
     }

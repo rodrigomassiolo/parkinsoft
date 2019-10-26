@@ -21,6 +21,7 @@
         </select>
       </div>
     @endif  
+    <input type="hidden" id="audio_preset_paciente" value="{{ $preset }}">
     <div class="col-md-2 col-sm-2 col-lg-2">
       <input type="hidden" name="View" value="1">
       <label for="ejercicio">Tipo de Ejercicio</label>
