@@ -97,7 +97,7 @@
             <td>
                 <form action="{{ route('abmAdmin.destroy',$row->id) }}" method="POST">
    
-                    <a type="button" class="btn btn-info btn-sm" href="{{ route('abmAdmin.show',[$row->id]) }}">
+                    <a class="btn btn-info btn-sm"  href="{{ route('abmAdmin.show',[$row->id]) }}">
                     <span data-feather="trash"></span>
                         @lang('parkinsoft.showButton')
                     </a>

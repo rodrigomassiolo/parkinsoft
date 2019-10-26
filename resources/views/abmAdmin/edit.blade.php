@@ -1,5 +1,5 @@
 @extends('layouts.BootStrapBody')
-@section('title','abmAdmin')
+@section('title','Admin')
 @section('MainContent')
     <div class="row">
         <div class="col-lg-12 margin-tb">
@@ -57,9 +57,8 @@
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12 text-center">
-              <button type="submit" class="btn btn-primary">Editar</button>
+              <button type="submit" class="btn btn-primary">@lang('parkinsoft.editButton')</button>
             </div>
         </div>
-   
     </form>
 @endsection

@@ -90,6 +90,13 @@
       font-size: 3vw !important;
     }
 
+    button.btn{
+      font-size: 3vw !important;
+    }
+    /* a.btn{
+      font-size: initial !important;
+    } */
+
     td, th{
       font-size: 3vw !important;
     }
