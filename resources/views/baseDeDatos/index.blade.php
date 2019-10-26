@@ -25,10 +25,10 @@
     <tbody>
         @foreach ($tablas as $row)
         <tr>
-            <td>{{ $row['id'] }}</td>  
+            <td></td>  
             <td>{{ $row['tabla'] }}</td>
             <td>
-                <button type="button" class="btn btn-danger btn-sm" data-whatever="{{$row['id']}}"
+                <button type="button" class="btn btn-danger btn-sm" data-whatever="{{ $row['tabla']}}"
                     data-toggle="modal"  data-target="#columnBDModal" 
                     onclick="BD.showColumns('{!! $row['tabla'] !!}');" 
                 >
