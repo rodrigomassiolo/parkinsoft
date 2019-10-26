@@ -51,6 +51,8 @@ return [
      'BDColumnModalTitle' => 'Columnas',
      'BDColumnName' => 'Nombre de columna',
      'BDIndexName' => 'Nombre de indice',
+     'BDDeleteIndexMessage' => 'El indice fue eliminado correctamente.',
+     'BDCreateNewButton' => 'Crear Indice',
 
     /*
     |--------------------------------------------------------------------------

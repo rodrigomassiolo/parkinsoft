@@ -238,8 +238,11 @@ Route::get('/BaseDeDatos/showColumnsFromTable','BaseDeDatosController@showColumn
 Route::get('/BaseDeDatos/showIndexesFromTable','BaseDeDatosController@showIndexesFromTable')
 ->middleware('auth');
 
-Route::get('/BaseDeDatos/setIndex','BaseDeDatosController@setIndex')
+Route::post('/BaseDeDatos/setIndex','BaseDeDatosController@setIndex')
 ->middleware('auth');
 
-Route::get('/BaseDeDatos/deleteIndex','BaseDeDatosController@deleteIndex')
+Route::post('/BaseDeDatos/deleteIndex','BaseDeDatosController@deleteIndex')
+->middleware('auth');
+
+Route::post('/BaseDeDatos/getColumnSelect','BaseDeDatosController@getColumnSelect')
 ->middleware('auth');

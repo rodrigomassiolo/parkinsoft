@@ -9,19 +9,19 @@ class BaseDeDatosController extends Controller
 
   public function index(Request $request)
   {       
-    // $comando="/var/www/html/parkinsoft/scripts/showTables.sh";
-    // $tablas = null;
-    // exec($comando,$tablas);
+    $comando="/var/www/html/parkinsoft/scripts/showTables.sh";
+    $tablas = null;
+    exec($comando,$tablas);
 
     //TO-DO no tengo el showTables.sh 
 
-    $tablas=[];
+    // $tablas=[];
 
-    $item1 = ['tabla' => 'users','id' => '1'];
-    $item2 = ['tabla' => 'operacion','id' => '2'];
+    // $item1 = ['tabla' => 'users','id' => '1'];
+    // $item2 = ['tabla' => 'operacion','id' => '2'];
 
-    array_push($tablas,$item1);
-    array_push($tablas,$item2);
+    // array_push($tablas,$item1);
+    // array_push($tablas,$item2);
 
     return view('baseDeDatos.index',compact('tablas'));
        // ->with('i', (request()->input('page', 1) - 1) * 10);
@@ -49,16 +49,32 @@ class BaseDeDatosController extends Controller
         $result[] = $row[0]; 
       }
       if($request->get('View')){
-        $test1 = 'nombreTest1';
-        $test2 = 'nombreTest2';
-        $html = '<tr><td>'. $test1 .'</td><td></td><td></td></tr>';
-        $html .= '<tr><td>'. $test2 .'</td><td></td><td></td></tr>';
+        // $test1 = 'nombreTest1';
+        // $test2 = 'nombreTest2';
+         $html = '';
+        // $html .= '<tr><td>'. $test2 .'</td><td></td><td></td></tr>';
         foreach($result as $line){
           $html .= '<tr><td>'. $line .'</td><td></td><td></td></tr>';
         }
         return $html;
       }
       return $result;
+    }
+
+    public function getColumnSelect(Request $result){
+      $request->validate([
+        'tabla' => 'required'
+      ]);
+      $tabla = $request->get('tabla');
+      $comando="/var/www/html/parkinsoft/scripts/showColumnsFromTable.sh ".$tabla;
+      exec($comando,$response);
+      $result = array();
+      for ($j=1; $j < count($response) ; $j++) {
+        $row = str_getcsv ( $response[$j] , $delimiter = "\t" );
+        $result[] = ['id' => 0,'text' =>  $row[0]] ; 
+      }
+      $response = ['items' => $result];
+      return $response;
     }
 
     public function showIndexesFromTable(Request $request)
