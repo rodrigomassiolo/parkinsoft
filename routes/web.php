@@ -244,5 +244,5 @@ Route::post('/BaseDeDatos/setIndex','BaseDeDatosController@setIndex')
 Route::post('/BaseDeDatos/deleteIndex','BaseDeDatosController@deleteIndex')
 ->middleware('auth');
 
-Route::post('/BaseDeDatos/getColumnSelect','BaseDeDatosController@getColumnSelect')
+Route::get('/BaseDeDatos/getColumnSelect','BaseDeDatosController@getColumnSelect')
 ->middleware('auth');

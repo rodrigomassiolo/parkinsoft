@@ -14,6 +14,8 @@
         <input type="hidden" id="tableRowHidden">
     </div>
 
+    @csrf
+
     <table class="table table-bordered table-sm table-hover">
     <thead>
         <tr>
@@ -117,7 +119,7 @@
                         </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">@lang('parkinsoft.backButton')</button>
-                        <button type="button" onclick="BD.createIndex();" class="btn btn-secondary">@lang('parkinsoft.BDCreateNewButton')</button> -->
+                        <button type="button" onclick="BD.createIndex();" class="btn btn-secondary" data-dismiss="modal">@lang('parkinsoft.BDCreateNewButton')</button>
                     </div>
                 </div>
             </div>
@@ -133,7 +135,10 @@
                             </button>
                     </div>
                         <div class="modal-body">
+                            <label>@lang('parkinsoft.BDColumnName')</label>
                             <select id="getColumn"></select>
+                            <br><br>
+                            <label>@lang('parkinsoft.BDIndexName')</label>
                             <input type="text" name="nombre_index" id="newnombre_index">
                         </div>
                     <div class="modal-footer">
