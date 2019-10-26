@@ -11,7 +11,7 @@
     </div>
    
     <div style="display:none">
-        <input type="hidden" id="BDDeleteRowHidden">
+        <input type="hidden" id="tableRowHidden">
     </div>
 
     <table class="table table-bordered table-sm table-hover">
@@ -116,8 +116,8 @@
                         
                         </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">@lang('parkinsoft.cancelButton')</button>
-                        <button type="button" onclick="BD.deleteBD();" class="btn btn-secondary">@lang('parkinsoft.acceptButton')</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">@lang('parkinsoft.backButton')</button>
+                        <button type="button" onclick="BD.createIndex();" class="btn btn-secondary">@lang('parkinsoft.BDCreateNewButton')</button> -->
                     </div>
                 </div>
             </div>
@@ -133,17 +133,37 @@
                             </button>
                     </div>
                         <div class="modal-body">
-                            @lang('parkinsoft.BDConfirmDelete')
+                            <select id="getColumn"></select>
+                            <input type="text" name="nombre_index" id="newnombre_index">
                         </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">@lang('parkinsoft.cancelButton')</button>
-                        <button type="button" onclick="BD.deleteBD();" class="btn btn-secondary">@lang('parkinsoft.acceptButton')</button>
+                        <button type="button" onclick="BD.CreateIndexPut();" class="btn btn-secondary">@lang('parkinsoft.acceptButton')</button>
                     </div>
                 </div>
             </div>
         </div>
 
-
+        <!-- Message -->
+        <div class="modal fade" id="okModal" tabindex="-1" role="dialog" aria-labelledby="okModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="okModalLabel">@lang('parkinsoft.BDModalTitle')</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                            </button>
+                    </div>
+                  
+                        <div class="modal-body" id="okModalBody">
+                            @lang('parkinsoft.BDDeleteIndexMessage')          
+                        </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">@lang('parkinsoft.closeButton')</button>
+                    </div>
+                </div>
+            </div>
+        </div>
 
 
 

@@ -61,6 +61,22 @@ class BaseDeDatosController extends Controller
       return $result;
     }
 
+    public function getColumnSelect(Request $result){
+      $request->validate([
+        'tabla' => 'required'
+      ]);
+      $tabla = $request->get('tabla');
+      $comando="/var/www/html/parkinsoft/scripts/showColumnsFromTable.sh ".$tabla;
+      exec($comando,$response);
+      $result = array();
+      for ($j=1; $j < count($response) ; $j++) {
+        $row = str_getcsv ( $response[$j] , $delimiter = "\t" );
+        $result[] = ['id' => 0,'text' =>  $row[0]] ; 
+      }
+      $response = ['items' => $result];
+      return $response;
+    }
+
     public function showIndexesFromTable(Request $request)
     {
       $request->validate([
