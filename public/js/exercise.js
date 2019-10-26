@@ -103,12 +103,19 @@ $( document ).ready(function() {
 
 
   var BD = {
-    deleteColumnIndex: function(deleteRow){
+    deleteColumnIndex: function(table,col,index,){
+
+      var del = table.split(',');
+
       $.ajax({
         type:'POST',
         url:'/BaseDeDatos/deleteIndex',
-        data:{nombre_index:deleteRow.nombre_index, tabla: deleteRow.tabla,View:1},
+        headers: {
+          'X-CSRF-TOKEN': $('input[name="_token"]').attr('value')
+        },
+        data:{nombre_index:del[2], tabla: table[0],View:1},
         success:function(data){
+          $('.modal').modal('hide');
           $('#okModalLabel').modal('show');
         }
      });
@@ -154,7 +161,7 @@ $( document ).ready(function() {
                 row[0].innerHTML = '';
                 row[0].innerHTML = '<td>' + data[i].nombre_columna + '</td>'
                               + '<td>' + data[i].nombre_index + '</td>'
-                              + '<td><button type="button" onclick="BD.deleteColumnIndex('+ deleteRow +');">Eliminar Indice</button></td>';
+                              + '<td><button type="button" onclick="BD.deleteColumnIndex(\''+deleteRow.tabla+','+deleteRow.nombre_columna+','+deleteRow.nombre_index+'\');">Eliminar Indice</button></td>';
               }
             })
           }
@@ -193,10 +200,14 @@ $( document ).ready(function() {
     },
 
     CreateIndexPut: function(){
+
       $.ajax({
         type:'POST',
         url:'/BaseDeDatos/setIndex',
         data:{tabla:$('#tableRowHidden').val(), View:1,columna: $('#getColumn :selected').text(),nombre_index: $('#newnombre_index').val()},
+        headers: {
+          'X-CSRF-TOKEN': $('input[name="_token"]').attr('value')
+          },
         success:function(data){
           alert('creado');
         }

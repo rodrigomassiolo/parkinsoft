@@ -14,6 +14,8 @@
         <input type="hidden" id="tableRowHidden">
     </div>
 
+    @csrf
+
     <table class="table table-bordered table-sm table-hover">
     <thead>
         <tr>
@@ -135,6 +137,7 @@
                         <div class="modal-body">
                             <label>@lang('parkinsoft.BDColumnName')</label>
                             <select id="getColumn"></select>
+                            <br><br>
                             <label>@lang('parkinsoft.BDIndexName')</label>
                             <input type="text" name="nombre_index" id="newnombre_index">
                         </div>
