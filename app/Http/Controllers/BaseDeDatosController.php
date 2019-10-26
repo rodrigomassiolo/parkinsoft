@@ -51,7 +51,7 @@ class BaseDeDatosController extends Controller
       if($request->get('View')){
         // $test1 = 'nombreTest1';
         // $test2 = 'nombreTest2';
-        // $html = '<tr><td>'. $test1 .'</td><td></td><td></td></tr>';
+         $html = '';
         // $html .= '<tr><td>'. $test2 .'</td><td></td><td></td></tr>';
         foreach($result as $line){
           $html .= '<tr><td>'. $line .'</td><td></td><td></td></tr>';
