@@ -212,7 +212,7 @@ class PacienteEjercicioController extends Controller
 
         if($api){ return $ejercicioPaciente; }
 
-        return redirect()->route('ejercicioPacienteAsignar')
+        return redirect()->route('abmUser.index')
         ->with('success','Asignación creada correctamente.');
 
     }

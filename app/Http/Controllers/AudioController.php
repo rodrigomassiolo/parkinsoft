@@ -147,6 +147,13 @@ class AudioController extends Controller
             $ultimaMedicacion = "";
         }
 
+        if($request->has('origen_audio')){
+            $origen_audio = $request->input('origen_audio');
+        }
+        else{
+            $origen_audio = "";
+        }
+
         $path = storage_path('app').'/resultados/'.$user->usuario.'/';
         $name = date("Ymd").$ejercicio_nombre;//hasta un ejercicio del mismo tipo por dia, si lo hace devuelta reemplaza
 
@@ -192,6 +199,7 @@ class AudioController extends Controller
                 'ultimaMedicacion' => $ultimaMedicacion,
                 'es_levodopa' => $es_levodopa,
                 'modo_levodopa' => $modo_levodopa,
+                'origen_audio' => $origen_audio,
                 'status'=>"realizado"
             ]);
         }
@@ -201,6 +209,7 @@ class AudioController extends Controller
             $ejercicioAsignado->audio_name = $name;
             $ejercicioAsignado->audio_ext = $extens;
             $ejercicioAsignado->ultimaMedicacion = $ultimaMedicacion;
+            $ejercicioAsignado->origen_audio = $origen_audio;
             $ejercicioAsignado->status = "realizado";
             $ejercicioAsignado->save();
         }
