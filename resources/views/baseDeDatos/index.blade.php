@@ -17,7 +17,6 @@
     <table class="table table-bordered table-sm table-hover">
     <thead>
         <tr>
-            <th>No</th>
             <th>@lang('parkinsoft.name')</th>
             <th width="280px">@lang('parkinsoft.actions')</th>
         </tr>
@@ -26,7 +25,6 @@
         @foreach ($tablas as $row)
         @if($row != "Tables_in_parkinsoft")
         <tr>
-            <td></td>  
             <td>{{ $row}}</td>
             <td>
                 <button type="button" class="btn btn-danger btn-sm" data-whatever="{{ $row}}"
