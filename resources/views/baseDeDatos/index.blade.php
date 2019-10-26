@@ -24,18 +24,20 @@
     </thead>
     <tbody>
         @foreach ($tablas as $row)
+        @if($row != "Tables_in_parkinsoft")
         <tr>
             <td></td>  
-            <td>{{ $row['tabla'] }}</td>
+            <td>{{ $row}}</td>
             <td>
-                <button type="button" class="btn btn-danger btn-sm" data-whatever="{{ $row['tabla']}}"
+                <button type="button" class="btn btn-danger btn-sm" data-whatever="{{ $row}}"
                     data-toggle="modal"  data-target="#columnBDModal" 
-                    onclick="BD.showColumns('{!! $row['tabla'] !!}');" 
+                    onclick="BD.showColumns('{!! $row !!}');" 
                 >
                     @lang('parkinsoft.BDShowColumnsButton')
                 </button>
             </td>
         </tr>
+        @endif
         @endforeach
         </tbody>
     </table>
