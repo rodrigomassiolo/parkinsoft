@@ -56,14 +56,11 @@
             </a>
         @endif
 
-        <!-- @if (Auth::user()->rol->type == 0) 
-            <a class="dropdown-item" href="{{ route('listaDeEjercicios') }}">
-                @lang('parkinsoft.audioListLink')
-            </a>
-        @endif -->
-
-        <a class="dropdown-item" href="{{ route('listaDeEjercicios') }}">
+        <a class="dropdown-item" href="{{ route('listaDeEjerciciosRealizados') }}">
             @lang('parkinsoft.audioListLink')
+        </a>
+        <a class="dropdown-item" href="{{ route('listaDeEjerciciosAsignados') }}">
+            @lang('parkinsoft.audioListLinkAssigned')
         </a>
 
         <form action="{{ route('donwloadApk') }}" method="GET">

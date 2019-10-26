@@ -12,12 +12,23 @@ use Illuminate\Support\Facades\Auth;
 
 class PacienteEjercicioController extends Controller
 {
-    public function index(Request $request)
+    public function indexRealizados(Request $request)
     {
+        return $this->index($request,"realizado");
+    }
+    public function indexAsignados(Request $request)
+    {
+        return $this->index($request,"asignado");
+    }
+    public function index(Request $request, $estado = null)
+    {
+
         $api = substr ( $request->path(), 0,3 ) == 'api';
         $params = $request->except('_token');
         session()->flashInput($request->input());
-        
+        if(!is_null($estado)){
+            $params['status'] = $estado;
+        }
         $PacienteEjercicio_ = PacienteEjercicio::filter($params)->get();
         $PacienteEjercicio = array();
         foreach ($PacienteEjercicio_ as $key => $value) {
@@ -30,8 +41,13 @@ class PacienteEjercicioController extends Controller
         if($api){
             return array("qty"=>count($PacienteEjercicio),"PacienteEjercicio"=>$PacienteEjercicio);
         }
-         return view('pacienteEjercicio.index',compact('PacienteEjercicio'))
-             ->with('i', (request()->input('page', 1) - 1) * 10);
+        if($estado == "asignado"){
+            return view('pacienteEjercicio.indexAsignados',compact('PacienteEjercicio','estado'))
+            ->with('i', (request()->input('page', 1) - 1) * 10);
+        }else{
+            return view('pacienteEjercicio.index',compact('PacienteEjercicio','estado'))
+            ->with('i', (request()->input('page', 1) - 1) * 10);
+        }
     }
     /*arma los filtros para la busqueda de users*/
     private function craftFilterRequest($filters)

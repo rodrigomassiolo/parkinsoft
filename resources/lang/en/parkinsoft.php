@@ -26,6 +26,7 @@ return [
     'abmAdminLink' => 'Admin',
     'abmExerciseLink' => 'Exercise',
     'audioListLink' => 'Exercises performed',
+    'audioListLinkAssigned' => 'Exercises assigned',
     'downloadAppLink' => 'Download App',
     'pleaseSelect' => 'Select an option',
 

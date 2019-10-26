@@ -17,7 +17,7 @@
     </button>
     </p>
         <div class="collapse show" id="filterPanel">
-        <form action="{{ route('listaDeEjerciciosRealizados') }}" method="GET">
+        <form action="{{ route('listaDeEjerciciosAsignados') }}" method="GET">
         @csrf
   
         <div class="row">
@@ -50,7 +50,7 @@
                         <button type="submit" class="btn btn-primary">Filtrar</button>
                 </div>             
                 </form>
-                    <form action="{{ route('listaDeEjerciciosRealizados') }}" method="GET">
+                    <form action="{{ route('listaDeEjerciciosAsignados') }}" method="GET">
                     @csrf
                     <div class="col-xs-6 col-sm-6 col-md-6" style="margin-bottom: 1%;">
                         <button type="submit" class="btn btn-primary">Borrar filtros</button>
@@ -88,78 +88,13 @@
             <td>{{ $row->created_at }}</td>
             <td>
                 <button type="button" class="btn btn-primary" id="{{$row->id}}"
-                 data-toggle="modal" data-target="#exampleModal" data-whatever="{{$row->id}}">Mostrar acciones</button>
+                 data-toggle="modal" data-target="#exampleModal" data-whatever="{{$row->id}}">Realizar</button>
             </td>
         </tr>
         @endforeach
         </tbody>
     </table>
   
-       {{-- {!! $PacienteEjercicio->render() !!} --}}
-
-
-       <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-      <h4 class="modal-title" id="exampleModalLabel">Seleccionar tipo de grafico</h4>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-      </div>
-      <div class="modal-body">
-        <input type="hidden" id="row" name="row">
-        <form method = "POST" id="graphicForm">
-          <div class="form-group">
-          @csrf
-            <label><input type="checkbox" name="Energy" value="1"> Energy</label><br>
-
-           
-            <label><input type="checkbox" name="eGemaps" value="1"> eGemaps</label><br>
-
-            
-            <label><input type="checkbox" name="Chroma" value="1"> Chroma</label><br>
-
-            
-            <label><input type="checkbox" name="Audspec" value="1"> Audspec</label><br>
-            
-           
-            <label><input type="checkbox" name="Prosody" value="1"> Prosody</label><br>    
-    
-            <div id="compareDiv">
-                <label>
-                    <input type="checkbox" name="Compare1" value="1" id="che1">
-                Comparar audio
-                </label><br>
-
-                <div id="selector1" style="display:none">
-                    <select id="se1" name="CompareAudio1">
-                        <option value=""></option>
-                    </select>
-                </div>
-
-                <div id="compareDiv2">
-
-                    <label><input type="checkbox" name="Compare2" value="1" id="che2"> Comparar audio</label><br>
-
-                    <div id="selector2" style="display:none">
-                        <select id="se2" name="CompareAudio2">
-                            <option value=""></option>
-                        </select>
-                    </div>
-              </div>  
-            </div>
-
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-            <button type="submit" name="View" value="1" class="btn btn-primary" onClick="Lista.generateGraphic();">Ver grafico</button>
-            <button type="submit" name="output" value="pdf" class="btn btn-primary" onClick="Lista.downloadGraphic();">Descargar como PDF</button>
-          </div>   
-        </form>
-      </div>
-    
-    </div>
-  </div>
-</div>
-    
+       {{-- {!! $PacienteEjercicio->render() !!} --}}    
       
 @endsection
