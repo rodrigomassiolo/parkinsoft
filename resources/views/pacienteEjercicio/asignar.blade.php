@@ -1,14 +1,14 @@
 @extends('layouts.BootStrapBody')
-@section('title','Carga de Audio')
+@section('title','Asignar Ejercicio')
 
 @section('MainContent')
 
 <h4 class="titleInfo">
-  Ingresar Audio
+  Asignar Ejercicio
 </h4>
 <br>
 
-<form action="{{ route('sendAudio') }}" method="POST" enctype="multipart/form-data">
+<form action="{{ route('ejercicioPacienteGuardar') }}" method="POST" enctype="multipart/form-data">
     @csrf
   <div class="form-group row inputs">
     @if($pacientes != null)
@@ -19,9 +19,10 @@
             <option value="{{ $paciente->id }}"> {{ $paciente->usuario }} </option>
           @endforeach
         </select>
+        <input type="hidden" id="audio_preset_paciente" name="audio_preset_paciente" value="{{ $preset }}">  
       </div>
     @endif  
-    <input type="hidden" id="audio_preset_paciente" value="{{ $preset }}">
+
     <div class="col-md-2 col-sm-2 col-lg-2">
       <input type="hidden" name="View" value="1">
       <label for="ejercicio">Tipo de Ejercicio</label>
@@ -39,20 +40,8 @@
       <label for="modo_levodopa">ON/OFF</label>
       <select id="modo_levodopa" name="modo_levodopa" class="form-control"><option value="ON">ON</option><option value="OFF">OFF</option></select>
     </div>
-    <div class="col-md-6 col-sm-6 col-lg-6">
-      <label for="audio">Cargue un Audio</label>
-      <input type="file" class="form-control-file" id="audio" name="audio">
-    </div>
-  </div>
-  <div class="col-xs-12 col-sm-12 col-md-12">
-      <div class="form-group"><div class="form-group">
-        <strong>Medicacion</strong> 
-        <input type="text" name="ultimaMedicacion" placeholder="Ingrese la última medicación tomada y la hora" class="form-control">
-      </div>
-    </div>
   </div>
 <br>
-
   <div class="form-group row">
     <h6 class="ejercicioInfo" id ="ejercicioInfo"> 
      Descripción del ejercicio:
@@ -64,39 +53,11 @@
   </div>
   <br>
   <div class="centerButton">
-      <button type="submit"> Enviar </button>
+      <button type="submit"> Asignar </button>
   </div>
   
 </form>
-
-<br><br>
-<h6 class="tableInfo"
-  >Historial de audios subidos
-</h6>
-
-<table class="table table-bordered table-sm table-hover">
-    <thead>
-        <tr>
-            <th>No</th>
-            <th>Ejercicio</th>
-            <th>Fecha de Creación</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach ($PacienteEjercicio as $row)
-        <tr>
-            <td>{{ $row->id }}</td>  
-            <td>{{ $row->ejercicio->descripcion }}</td>
-            <td>{{ $row->created_at }} </td> 
-      
-        </tr>
-        @endforeach
-        </tbody>
-    </table>
-
-       {!! $PacienteEjercicio->render() !!}
-
-
+ 
 
 @if ($message = Session::get('success'))
         <!-- Modal -->
@@ -104,7 +65,7 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Carga de audio</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Asignacion de Ejercicio</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
