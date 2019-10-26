@@ -232,3 +232,12 @@ Route::resource('operacion','OperacionController')->middleware('auth');
 Route::get('/BaseDeDatos','BaseDeDatosController@index')->middleware('auth')->name('BaseDeDatos');
 Route::get('/BaseDeDatos/showColumnsFromTable','BaseDeDatosController@showColumnsFromTable')
 ->middleware('auth');
+
+Route::get('/BaseDeDatos/showIndexesFromTable','BaseDeDatosController@showIndexesFromTable')
+->middleware('auth');
+
+Route::get('/BaseDeDatos/setIndex','BaseDeDatosController@setIndex')
+->middleware('auth');
+
+Route::get('/BaseDeDatos/deleteIndex','BaseDeDatosController@deleteIndex')
+->middleware('auth');

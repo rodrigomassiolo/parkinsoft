@@ -103,31 +103,57 @@ $( document ).ready(function() {
 
 
   var BD = {
-    // deleteColumnIndex: function(){
-    //   var row = $('#BDDeleteRowHidden').val();
-    //   $("#deleteButton" + row).click();
-    // }
+    deleteColumnIndex: function(deleteRow){
+      alert(deleteRow);
+    },
     showColumns: function(element){
 
       $.ajax({
         type:'GET',
         url:'/BaseDeDatos/showColumnsFromTable',
-        data:{tabla:element},
+        data:{tabla:element, View:1},
         success:function(data){
-          for(i=0; i <= data.length; i++){
-            var column = data[i];
 
-            var table = $("#columnTable");
-            var row = table.insertRow();
-            var col1 = row.insertCell(0);
-            var col2 = row.insertCell(1);
-            col1.innerHTML = column;
-            col2.html = '<button type="button" onclick="BD.addIndex('+ column +')">Agregar indice</button>' 
-          }
-           
+          var table = $("#columnTableBody");
+          
+          table.html('');
+
+          table.append(data);
+
+          BD.showIndex(element);
         }
      });
+    },
 
+    showIndex: function(element){
 
+      $.ajax({
+        type:'GET',
+        url:'/BaseDeDatos/showIndexesFromTable',
+        data:{tabla:element, View:1},
+        success:function(data){
+
+          var table = $("#columnTableBody");
+
+          for(i=0;i <= data.length; i++){
+
+            $("#columnTable").find('tr').find('td').each(function(){
+              if($(this)[0].innerText == data[i].nombre_columna){
+
+                var deleteRow = {tabla : element , nombre_columna: data[i].nombre_columna, nombre_index : data[i].nombre_index}
+                var row = $(this).parent[0];
+                row.innerHTML = '';
+                row.innerHTML = '<td>' + data[i].nombre_columna + '<td>'
+                              + '<td>' + data[i].nombre_index + '<td>'
+                              + '<td><button type="button" onclick="BD.deleteColumnIndex('+ deleteRow +');">Eliminar Indice</button></td>';
+              }else{
+                
+              }
+            })
+          }
+          
+
+        }
+     });
     }
   }
