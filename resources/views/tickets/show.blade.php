@@ -17,13 +17,6 @@
                 @lang('parkinsoft.ticketCloseButton')
             </a>
 
-           <!-- <form method="post" action="{!! action('TicketsController@destroy', $ticket->slug) !!}" class="float-left">
-               <input type="hidden" name="_token" value="{!! csrf_token() !!}">
-                  <div>
-                    <button type="submit" class="btn btn-danger">Borrar</button>
-                  </div>
-            </form> -->
-
             <div class="clearfix"></div>
         </div>
 

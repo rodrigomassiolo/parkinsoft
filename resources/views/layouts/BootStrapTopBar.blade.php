@@ -28,8 +28,8 @@
 
         </div>
       </li>
-      <li><a  class="nav-link" href="{{ route('infosite') }}">Info. del sitio</a></li>
-      <li><a  class="nav-link" href="{{ route('infoproj') }}">Info. del projecto</a></li>
+      <li><a  class="nav-link" href="{{ route('infosite') }}">@lang('parkinsoft.infoSiteTag')</a></li>
+      <li><a  class="nav-link" href="{{ route('infoproj') }}">@lang('parkinsoft.infoProjTag')</a></li>
       <li><a  class="nav-link" href="{{ route('login') }}">Login</a></li>
       <li><a  class="nav-link" href="{{ route('register') }}">Registrar</a></li>
     </ul>
@@ -59,8 +59,8 @@
           </div>
         </li>
 
-        <li><a  class="nav-link" href="{{ route('infosite') }}">Info. del sitio</a></li>
-        <li><a  class="nav-link" href="{{ route('infoproj') }}">Info. del projecto</a></li>
+        <li><a  class="nav-link" href="{{ route('infosite') }}">@lang('parkinsoft.infoSiteTag')</a></li>
+        <li><a  class="nav-link" href="{{ route('infoproj') }}">@lang('parkinsoft.infoProjTag')</a></li>
 
         <li class="nav-item dropdown">  
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" 

@@ -117,6 +117,7 @@ class TicketsController extends Controller
      */
     public function update($slug,Request $request)
     {
+
         $api = substr ( $request->path(), 0,3 ) == 'api';
         if($api) {     
             $request->validate([
@@ -128,10 +129,16 @@ class TicketsController extends Controller
             $ticket = Ticket::whereSlug($slug)->firstOrFail();
         }
         if($request->get('status') != null) {
-        $ticket->status = 0;
+            $ticket->status = 0;
         } 
         else {
-        $ticket->status = 1;
+            if($request->get('status') == 1){
+                $ticket->status = 1;
+            }else if($request->get('status')== 0){
+                $ticket->status = 0;
+            }else{
+                $ticket->status = 1;
+            }
         }  
 
         $comment = new Comment(array(
@@ -162,13 +169,18 @@ class TicketsController extends Controller
                 $message->to('martinnviqueira@gmail.com')->subject('Consulta Parkinsoft');
             });
             if($api) { return "cerrado"; }
-            return redirect(action('TicketsController@edit', $ticket->slug))->with('status', 'Se ha enviado un email al usuario con la respuesta');
+            
+            $var = \Lang::get('parkinsoft.ticketUpdateWithMailMessageSuccessful');
+            return redirect(action('TicketsController@show', $ticket->slug))
+                ->with('status', $var);
         }
         if($api) {
             return $ticket;
         }
-     return redirect(action('TicketsController@edit', $ticket->slug))->with('status', '¡El ticket '.$slug.' ha sido actualizado!');
 
+        $var = \Lang::get('parkinsoft.ticketUpdateMessageSuccessful');
+        return redirect(action('TicketsController@show', $ticket->slug))
+            ->with('status', $var);
      }
 
     /**
@@ -181,7 +193,7 @@ class TicketsController extends Controller
     {
      $ticket = Ticket::whereSlug($slug)->firstOrFail();
      $ticket->delete();
-     return redirect()->back()->with('status', 'El ticket '.$slug.' ha sido borrado');
-
+     $var = \Lang::get('parkinsoft.deleteMessageSuccessful');
+     return redirect()->back()->with('status', $var);
      }
 }
