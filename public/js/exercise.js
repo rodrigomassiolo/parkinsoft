@@ -165,11 +165,14 @@ $( document ).ready(function() {
     },
 
     createIndex: function(){
+     $('.modal').modal('hide');
+
+     $("#indexModal").modal('show');
      $("#getColumn").select2(
       {
         language:'es',
         width:'100%',
-        minimumInputLength: 2,
+        minimumInputLength: 0,
         ajax: {
           url: '/BaseDeDatos/getColumnSelect',
           data: function (params) {

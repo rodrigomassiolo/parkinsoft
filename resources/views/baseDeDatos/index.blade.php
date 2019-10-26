@@ -117,7 +117,7 @@
                         </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">@lang('parkinsoft.backButton')</button>
-                        <button type="button" onclick="BD.createIndex();" class="btn btn-secondary">@lang('parkinsoft.BDCreateNewButton')</button> -->
+                        <button type="button" onclick="BD.createIndex();" class="btn btn-secondary" data-dismiss="modal">@lang('parkinsoft.BDCreateNewButton')</button>
                     </div>
                 </div>
             </div>
