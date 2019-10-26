@@ -9,19 +9,19 @@ class BaseDeDatosController extends Controller
 
   public function index(Request $request)
   {       
-    // $comando="/var/www/html/parkinsoft/scripts/showTables.sh";
-    // $tablas = null;
-    // exec($comando,$tablas);
+    $comando="/var/www/html/parkinsoft/scripts/showTables.sh";
+    $tablas = null;
+    exec($comando,$tablas);
 
     //TO-DO no tengo el showTables.sh 
 
-    $tablas=[];
+    // $tablas=[];
 
-    $item1 = ['tabla' => 'users','id' => '1'];
-    $item2 = ['tabla' => 'operacion','id' => '2'];
+    // $item1 = ['tabla' => 'users','id' => '1'];
+    // $item2 = ['tabla' => 'operacion','id' => '2'];
 
-    array_push($tablas,$item1);
-    array_push($tablas,$item2);
+    // array_push($tablas,$item1);
+    // array_push($tablas,$item2);
 
     return view('baseDeDatos.index',compact('tablas'));
        // ->with('i', (request()->input('page', 1) - 1) * 10);
