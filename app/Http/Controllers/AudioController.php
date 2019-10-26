@@ -75,7 +75,7 @@ class AudioController extends Controller
      */
     public function store(Request $request)
     {
-
+        $api = substr ( $request->path(), 0,3 ) == 'api';
         if(!$request->hasFile('audio')) {
             if($request->has('View')){
                 $var = \Lang::get('parkinsoft.audioUploadFileNotFound');
@@ -147,6 +147,16 @@ class AudioController extends Controller
             $ultimaMedicacion = "";
         }
 
+        if($api){
+            $origen_audio = "celular";
+        }
+        if($request->has('origen_audio')){
+            $origen_audio = $request->input('origen_audio');
+        }
+        else{
+            $origen_audio = "";
+        }
+
         $path = storage_path('app').'/resultados/'.$user->usuario.'/';
         $name = date("Ymd").$ejercicio_nombre;//hasta un ejercicio del mismo tipo por dia, si lo hace devuelta reemplaza
 
@@ -192,6 +202,7 @@ class AudioController extends Controller
                 'ultimaMedicacion' => $ultimaMedicacion,
                 'es_levodopa' => $es_levodopa,
                 'modo_levodopa' => $modo_levodopa,
+                'origen_audio' => $origen_audio,
                 'status'=>"realizado"
             ]);
         }
@@ -201,6 +212,7 @@ class AudioController extends Controller
             $ejercicioAsignado->audio_name = $name;
             $ejercicioAsignado->audio_ext = $extens;
             $ejercicioAsignado->ultimaMedicacion = $ultimaMedicacion;
+            $ejercicioAsignado->origen_audio = $origen_audio;
             $ejercicioAsignado->status = "realizado";
             $ejercicioAsignado->save();
         }

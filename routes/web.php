@@ -172,7 +172,8 @@ Route::resource('abmAdmin','AbmAdminController')->middleware('auth');
 
 Route::resource('abmEjercicio','AbmEjercicioController')->middleware('auth');
 
-Route::get('/listaDeEjercicios','PacienteEjercicioController@index')->middleware('auth')->name('listaDeEjercicios');
+Route::get('/listaDeEjerciciosRealizados','PacienteEjercicioController@indexRealizados')->middleware('auth')->name('listaDeEjerciciosRealizados');
+Route::get('/listaDeEjerciciosAsignados','PacienteEjercicioController@indexAsignados')->middleware('auth')->name('listaDeEjerciciosAsignados');
 
 Route::get('/listaDeEjercicios/show/{id}','PacienteEjercicioController@show')->middleware('auth');
 Route::get('/listaDeEjercicios/download/{id}','PacienteEjercicioController@download')->middleware('auth');

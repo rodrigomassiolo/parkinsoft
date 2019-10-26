@@ -22,7 +22,8 @@ class PacienteEjercicioController extends Controller
             'es_levodopa' => ['pacienteEjercicio.es_levodopa','='],
             'modo_levodopa' => ['pacienteEjercicio.modo_levodopa','='],
             'created_at_from' => ['pacienteEjercicio.updated_at','>='],
-            'created_at_to' => ['pacienteEjercicio.updated_at','<=']
+            'created_at_to' => ['pacienteEjercicio.updated_at','<='],
+            'origen_audio' => ['pacienteEjercicio.origen_audio','=']
                         );
         $filterRequest = "";
 
@@ -51,6 +52,7 @@ class PacienteEjercicioController extends Controller
                                         users.medicacion AS medicacionPaciente,
                                         es_levodopa AS es_levodopa,
                                         modo_levodopa AS modo_levodopa,
+                                        origen_audio AS origen_audio,
                                         pacienteEjercicio.status AS status
                                         FROM pacienteEjercicio
                                         INNER JOIN users on pacienteEjercicio.user_id = users.id

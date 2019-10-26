@@ -75,13 +75,19 @@
         </a>
     </li>
      @endif  
-
+     
      <li class="nav-item">
-      <a class="nav-link" href="{{ route('listaDeEjercicios') }}">
+      <a class="nav-link" href="{{ route('listaDeEjerciciosRealizados') }}">
         <span data-feather="activity"></span>
         @lang('parkinsoft.audioListLink')
       </a>
     </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{{ route('listaDeEjerciciosAsignados') }}">
+          <span data-feather="activity"></span>
+          @lang('parkinsoft.audioListLinkAssigned')
+        </a>
+      </li>
      <form action="{{ route('donwloadApk') }}" method="GET">
       @csrf
         <a class="nav-link" href="{{ route('donwloadApk') }}" data-toggle="tooltip" title="Mostrar">
