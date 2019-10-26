@@ -24,6 +24,7 @@ class CreatePacienteEjercicioTable extends Migration
             $table->string('ultimaMedicacion')->nullable();
             $table->boolean('es_levodopa')->nullable();
             $table->string('modo_levodopa')->nullable();
+            $table->string('origen_audio')->nullable();
             $table->string('status')->nullable();
             $table->timestamps();
         });
