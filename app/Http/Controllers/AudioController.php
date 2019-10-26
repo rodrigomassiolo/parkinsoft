@@ -75,7 +75,7 @@ class AudioController extends Controller
      */
     public function store(Request $request)
     {
-
+        $api = substr ( $request->path(), 0,3 ) == 'api';
         if(!$request->hasFile('audio')) {
             if($request->has('View')){
                 $var = \Lang::get('parkinsoft.audioUploadFileNotFound');
@@ -147,6 +147,9 @@ class AudioController extends Controller
             $ultimaMedicacion = "";
         }
 
+        if($api){
+            $origen_audio = "celular";
+        }
         if($request->has('origen_audio')){
             $origen_audio = $request->input('origen_audio');
         }
