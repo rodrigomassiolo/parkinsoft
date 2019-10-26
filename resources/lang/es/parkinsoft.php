@@ -38,6 +38,8 @@ return [
     'backButton' => 'Atras',
     'editButton' => 'Editar',
     'createButton' => 'Crear',
+    'deleteButton' => 'Eliminar',
+    'showButton' => 'Mostrar',
 
     /*
     |--------------------------------------------------------------------------
@@ -95,12 +97,19 @@ return [
     */
     'enableFilters' => 'Habilitar filtros',
     'clearFilters' => 'Borrar filtros',
+    'filterFilters' => 'Filtrar',
 
     'user' => 'Usuario',
     'description' => 'Descripción',
     'date' => 'Fecha',
     'name' => 'Nombre',
     'actions' => 'Acciones',
+    'gender' => 'Genero',
+    'createDate' => 'Fecha de creación',
+    'email' => 'Email',
+    'nacDate' => 'Fecha de nacimiento',
+
+    
 
 
 
@@ -175,6 +184,7 @@ return [
     'adminDeleteMessageSuccessful' => 'Admin eliminado correctamente',
     'adminConfirmDelete' => '¿Desea realmente eliminar el Admin?',
     'adminCreateNew' => 'Crear Admin',
+    'adminEdit' => 'Editar Admin',
 
     /*
     |--------------------------------------------------------------------------

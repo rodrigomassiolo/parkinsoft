@@ -1,10 +1,10 @@
 @extends('layouts.BootStrapBody')
-@section('title','Abm Admin')
+@section('title','Admin')
 
 @section('MainContent')
     <div class="row">
         <div class="col-lg-12 margin-tb">
-            <div class="pull-left">
+            <div class="pull-left titleInfo">
                 <h2>@lang('parkinsoft.abmAdminLink')</h2>
             </div>
             <div class="float-right">
@@ -15,7 +15,7 @@
 
     <p>
     <button class="btn btn-primary btn-sm" type="button" data-toggle="collapse" data-target="#filterPanel" aria-expanded="false" aria-controls="collapseExample">
-     @lang('parkinsoft.enableFilters') 
+        @lang('parkinsoft.enableFilters') 
     </button>
     </p>
         <div class="collapse show" id="filterPanel">
@@ -25,45 +25,47 @@
         <div class="row">
             <div class="col-xs-3 col-sm-3 col-md-3">
                 <div class="form-group">
-                    <strong>Email: </strong>
+                    <strong>@lang('parkinsoft.email'):</strong>
                     <input type="text" name="email" class="form-control"
-                     placeholder="Email a filtrar" value= "{{Request::old('email')}}">
+                        value= "{{Request::old('email')}}">
                 </div>
             </div>
             <div class="col-xs-3 col-sm-3 col-md-3">
                 <div class="form-group">
-                    <strong>Usuario:</strong>
+                    <strong>@lang('parkinsoft.user'):</strong>
                     <input type="text" name="usuario" class="form-control" 
-                    placeholder="Usuario a filtrar" value= "{{Request::old('usuario')}}">
+                     value= "{{Request::old('usuario')}}">
                 </div>
             </div>
             <div class="col-xs-3 col-sm-3 col-md-3">
                 <div class="form-group">
-                    <strong>Sexo:</strong>
-                    <input type="text" name="sexo" class="form-control" maxlength="1" 
-                    placeholder="Sexo a filtrar" value= "{{Request::old('sexo')}}">
+                    <strong>@lang('parkinsoft.gender'):</strong>
+                    <input type="text" name="genero" class="form-control" maxlength="1" 
+                    value= "{{Request::old('genero')}}">
                 </div>
             </div>
             <div class="col-xs-3 col-sm-3 col-md-3">
                 <div class="form-group">
-                    <strong>Fecha de Nacimiento:</strong>
-                    <input type="date" name="fechaDeNac" class="form-control" 
-                    placeholder="Fecha de nacimiento a filtrar" value= "{{Request::old('FechaDeNac')}}">
+                    <strong>@lang('parkinsoft.nacDate'):</strong>
+                    <input type="date" name="nacimiento" class="form-control" 
+                    value= "{{Request::old('nacimiento')}}">
                 </div>
             </div>
         </div>
         <div>
             <div class="row">
                 <div class="col-xs-6 col-sm-6 col-md-6" style="margin-bottom: 1%;">
-                        <button type="submit" class="btn btn-primary">Filtrar</button>
+                        <button type="submit" class="btn btn-primary">
+                            @lang('parkinsoft.filterFilters')
+                        </button>
                 </div>             
-                </form>
+        </form>
+                <div class="col-xs-6 col-sm-6 col-md-6" style="margin-bottom: 1%;">
                     <form action="{{ route('abmAdmin.index') }}" method="GET">
-                    @csrf
-                    <div class="col-xs-6 col-sm-6 col-md-6" style="margin-bottom: 1%;">
-                        <button type="submit" class="btn btn-primary">Borrar filtros</button>
-                    </div>
-                </form>
+                        @csrf
+                        <button type="submit" class="btn btn-primary">@lang('parkinsoft.clearFilters')</button>
+                    </form>
+                </div>
             </div>
     </div>
 
@@ -77,11 +79,11 @@
     <thead>
         <tr>
             <th>No</th>
-            <th>Email</th>
-            <th>Usuario</th>
-            <th>Genero</th>
-            <th>Fecha de Nacimiento</th>
-            <th width="280px">Acciones</th>
+            <th>@lang('parkinsoft.email')</th>
+            <th>@lang('parkinsoft.user')</th>
+            <th>@lang('parkinsoft.gender')</th>
+            <th>@lang('parkinsoft.nacDate')</th>
+            <th width="280px">@lang('parkinsoft.actions')</th>
         </tr>
     </thead>
     <tbody>
@@ -95,12 +97,15 @@
             <td>
                 <form action="{{ route('abmAdmin.destroy',$row->id) }}" method="POST">
    
-                    <a class="btn btn-info btn-sm" href="{{ route('abmAdmin.show',[$row->id]) }}">
+                    <a type="button" class="btn btn-info btn-sm" href="{{ route('abmAdmin.show',[$row->id]) }}">
                     <span data-feather="trash"></span>
-                        Mostrar
+                        @lang('parkinsoft.showButton')
                     </a>
     
-                    <a class="btn btn-primary btn-sm" href="{{ route('abmAdmin.edit',$row->id) }}"><span class=""></span>Editar</a>
+                    <a class="btn btn-primary btn-sm" href="{{ route('abmAdmin.edit',$row->id) }}">
+                        <span class=""></span>
+                        @lang('parkinsoft.editButton')
+                    </a>
    
                     @csrf
                     @method('DELETE')
@@ -108,9 +113,9 @@
                     <button type="submit" style="display:none" id="deleteButton{{$row->id}}" ></button>
 
                     <button type="button" class="btn btn-danger btn-sm" data-whatever="{{$row->id}}"
-                        data-toggle="modal"  data-target="#deleteAdminModal" title="Eliminar">
+                        data-toggle="modal"  data-target="#deleteAdminModal">
                         <span data-feather="trash-2"></span>
-                        Eliminar
+                        @lang('parkinsoft.deleteButton')
                     </button>
 
                 </form>
