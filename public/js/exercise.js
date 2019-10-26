@@ -143,8 +143,8 @@ $( document ).ready(function() {
                 var deleteRow = {tabla : element , nombre_columna: data[i].nombre_columna, nombre_index : data[i].nombre_index}
                 var row = $(this).parent();
                 row[0].innerHTML = '';
-                row[0].innerHTML = '<td>' + data[i].nombre_columna + '<td>'
-                              + '<td>' + data[i].nombre_index + '<td>'
+                row[0].innerHTML = '<td>' + data[i].nombre_columna + '</td>'
+                              + '<td>' + data[i].nombre_index + '</td>'
                               + '<td><button type="button" onclick="BD.deleteColumnIndex('+ deleteRow +');">Eliminar Indice</button></td>';
               }else{
                 
