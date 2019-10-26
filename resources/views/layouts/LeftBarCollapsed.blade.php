@@ -43,7 +43,12 @@
         <a class="dropdown-item" href="{{ route('operacion.index') }}">
             @lang('parkinsoft.operacionLink')
         </a>
-        @endif   
+        @endif  
+        @if (Auth::user()->rol->type == 0 || Auth::user()->rol->type == 1 ) 
+        <a class="dropdown-item" href="{{ route('BaseDeDatos') }}">
+            @lang('parkinsoft.BDLink')
+        </a>
+        @endif    
 
         @if (Auth::user()->rol->type == 0) 
             <a class="dropdown-item" href="{{ route('abmEjercicio.index') }}">

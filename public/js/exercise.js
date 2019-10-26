@@ -5,6 +5,7 @@ $( document ).ready(function() {
     $('#userMessageModal').modal('show');
     $('#medicMessageModal').modal('show');
     $('#operacionMessageModal').modal('show');
+    $('#BDMessageModal').modal('show');
   
     $('#Operacion_user_id').select2(
         {
@@ -97,5 +98,36 @@ $( document ).ready(function() {
       var row = $('#OperacionDeleteRowHidden').val();
 
       $("#deleteButton" + row).click();
+    }
+  }
+
+
+  var BD = {
+    // deleteColumnIndex: function(){
+    //   var row = $('#BDDeleteRowHidden').val();
+    //   $("#deleteButton" + row).click();
+    // }
+    showColumns: function(element){
+
+      $.ajax({
+        type:'GET',
+        url:'/BaseDeDatos/showColumnsFromTable',
+        data:{tabla:element},
+        success:function(data){
+          for(i=0; i <= data.length; i++){
+            var column = data[i];
+
+            var table = $("#columnTable");
+            var row = table.insertRow();
+            var col1 = row.insertCell(0);
+            var col2 = row.insertCell(1);
+            col1.innerHTML = column;
+            col2.html = '<button type="button" onclick="BD.addIndex('+ column +')">Agregar indice</button>' 
+          }
+           
+        }
+     });
+
+
     }
   }

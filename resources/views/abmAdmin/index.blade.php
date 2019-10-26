@@ -8,7 +8,7 @@
                 <h2>@lang('parkinsoft.abmAdminLink')</h2>
             </div>
             <div class="float-right">
-                <a class="btn btn-success btn-sm" href="{{ route('abmAdmin.create') }}"> Crear usuario</a>
+                <a class="btn btn-success btn-sm" href="{{ route('abmAdmin.create') }}"> @lang('parkinsoft.adminCreateNew')</a>
             </div>
         </div>
     </div>

@@ -39,6 +39,23 @@ return [
     'editButton' => 'Editar',
     'createButton' => 'Crear',
 
+    /*
+    |--------------------------------------------------------------------------
+    | DataBase
+    |--------------------------------------------------------------------------
+    */
+
+     'BDLink' => 'Base de Datos',
+     'BDShowColumnsButton' => 'Mostrar Columnas',
+     'BDConfirmDelete' => '¿Desea realmente eliminar el indice?',
+     'BDColumnModalTitle' => 'Columnas',
+
+    /*
+    |--------------------------------------------------------------------------
+    | Info
+    |--------------------------------------------------------------------------
+    */
+
     'infoSiteTag' => 'Quienes Somos',
     'infoSiteBody1' => 'Nosotros somos HigIA, conformados cinco compañeros de la carrera ingeniería en informática de la Universidad de La Matanza.',
     'infoSiteBody2' => 'Como objetivo, nos abocamos a realizar desarrollos informáticos orientadas al área de salud. Por esta razón, nos interesa poder brindar soluciones a diversos problemas e innovar en nuevas tecnologías.',
@@ -78,6 +95,8 @@ return [
     'user' => 'Usuario',
     'description' => 'Descripción',
     'date' => 'Fecha',
+    'name' => 'Nombre',
+    'actions' => 'Acciones',
 
 
 
@@ -134,13 +153,10 @@ return [
     */
 
     'exerciseModalTitle' => 'Ejercicio',
-
     'exerciseNewMessageSuccessful' => 'Ejercicio creado correctamente',
     'exerciseUpdateMessageSuccessful' => 'Ejercicio modificado correctamente',
     'exerciseDeleteMessageSuccessful' => 'Ejercicio eliminado correctamente',
-
     'exerciseConfirmDelete' => '¿Desea realmente eliminar el ejercicio?',
-
     'exerciseDuplicateMessageSuccessful' => 'El ejercicio que intenta cargar ya existe',
 
     /*
@@ -150,12 +166,11 @@ return [
     */
 
     'adminModalTitle' => 'Admin',
-
     'adminNewMessageSuccessful'    => 'Admin creado correctamente',
     'adminUpdateMessageSuccessful' => 'Admin modificado correctamente',
     'adminDeleteMessageSuccessful' => 'Admin eliminado correctamente',
-
     'adminConfirmDelete' => '¿Desea realmente eliminar el Admin?',
+    'adminCreateNew' => 'Crear Admin',
 
     /*
     |--------------------------------------------------------------------------
@@ -164,11 +179,9 @@ return [
     */
 
     'userModalTitle' => 'Paciente',
-
     'userNewMessageSuccessful'    => 'Paciente creado correctamente',
     'userUpdateMessageSuccessful' => 'Paciente modificado correctamente',
     'userDeleteMessageSuccessful' => 'Paciente eliminado correctamente',
-
     'userConfirmDelete' => '¿Desea realmente eliminar el paciente?',
 
     /*
@@ -178,11 +191,9 @@ return [
     */
 
     'medicModalTitle' => 'Medico',
-
     'medicNewMessageSuccessful'    => 'Medico creado correctamente',
     'medicUpdateMessageSuccessful' => 'Medico modificado correctamente',
     'medicDeleteMessageSuccessful' => 'Medico eliminado correctamente',
-
     'medicConfirmDelete' => '¿Desea realmente eliminar el medico?',
 
     /*
@@ -199,7 +210,6 @@ return [
     'ticketNewTitle' => 'Titulo',
     'ticketNewPageTitle' => 'Crear ticket',
     'ticketNewMessageSuccessful' => 'Su ticket ha sido creado.',
-
     'ticketUpdateMessageSuccessful' => '¡El ticket ha sido actualizado!',
     'ticketUpdateWithMailMessageSuccessful' => 'Se ha enviado un email al usuario con la respuesta',
     'deleteMessageSuccessful' => 'El ticket ha sido borrado',
@@ -215,15 +225,10 @@ return [
     'operacionNewMessageSuccessful' => 'Operación creado correctamente',
     'operacionUpdateMessageSuccessful' => 'Operación modificado correctamente',
     'operacionDeleteMessageSuccessful' => 'Operación eliminado correctamente',
-
     'operacionConfirmDelete' => '¿Desea realmente eliminar la operación?',
-
     'operacionDuplicateMessageSuccessful' => 'El operación que intenta cargar ya existe',
-
     'operacionCreateNew' => 'Crear Operación',
-
     'operacionEdit' => 'Editar Operación',
-
     'operacionShowTitle' => 'Operación',
 
 
