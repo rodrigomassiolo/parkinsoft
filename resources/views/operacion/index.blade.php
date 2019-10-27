@@ -22,15 +22,26 @@
         <form action="{{ route('operacion.index') }}" method="GET">
         @csrf
   
+        
         <div class="row">
-            <div class="col-xs-3 col-sm-3 col-md-3">
+            <div class="col-md-3 col-sm-3 col-lg-3">
+                <div class="form-group">
+                    <strong>@lang('parkinsoft.user')</strong>
+                    <select name="user_id" id="user_id" class="form-control">
+                        @foreach ($pacientes as $paciente)
+                        <option value="{{ $paciente->id }}"> {{ $paciente->usuario }} </option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
+            {{-- <div class="col-xs-3 col-sm-3 col-md-3">
                 <div class="form-group">
                     <strong>@lang('parkinsoft.user')</strong>
                     <input type="text" name="usuario" class="form-control" 
                     value= "{{Request::old('usuario')}}">
                 </div>
             </div>
-        </div>
+        </div> --}}
         <div>
             <div class="row">
                 <div class="col-xs-6 col-sm-6 col-md-6" style="margin-bottom: 1%;">

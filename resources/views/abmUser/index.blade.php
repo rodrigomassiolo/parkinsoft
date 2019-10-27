@@ -138,6 +138,10 @@
                         <input type="hidden" name="paciente_id" value="{{$row->id}}">
                         <button class="btn btn-info btn-sm" type="submit">@lang('parkinsoft.audioListLinkAssigned')</button>           
                     </form>
+                    <form action="{{ route('operacion.index') }}" method="GET">
+                        <input type="hidden" name="user_id" value="{{$row->id}}">
+                        <button class="btn btn-info btn-sm" type="submit">@lang('parkinsoft.operacionLink')</button>           
+                    </form>
             </td>
         </tr>
         @endforeach
