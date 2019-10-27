@@ -13,7 +13,7 @@
   <div class="form-group row inputs">
     @if($pacientes != null)
     <div class="col-md-3 col-sm-3 col-lg-3">
-        <label for="user">Paciente</label>
+        @lang('parkinsoft.patient')
         <select name="user" id="user" class="form-control">
           @foreach ($pacientes as $paciente)
             <option value="{{ $paciente->id }}"> {{ $paciente->usuario }} </option>
