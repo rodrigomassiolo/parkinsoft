@@ -3,7 +3,7 @@
 @section('MainContent')
     <div class="row">
         <div class="col-lg-12 margin-tb">
-            <div class="pull-left">
+            <div class="pull-left titleInfo">
                <h2> @lang('parkinsoft.operacionShowTitle')</h2>
             </div>
             <div class="pull-right">

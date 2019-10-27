@@ -4,7 +4,7 @@
 @section('MainContent')
     <div class="row">
         <div class="col-lg-12 margin-tb">
-            <div class="pull-left">
+            <div class="pull-left titleInfo">
                 <h2>@lang('parkinsoft.operacionLink')</h2>
             </div>
             <div class="float-right">
@@ -27,22 +27,22 @@
                 <div class="form-group">
                     <strong>@lang('parkinsoft.user')</strong>
                     <input type="text" name="usuario" class="form-control" 
-                    placeholder="Usuario a filtrar" value= "{{Request::old('usuario')}}">
+                    value= "{{Request::old('usuario')}}">
                 </div>
             </div>
         </div>
         <div>
             <div class="row">
                 <div class="col-xs-6 col-sm-6 col-md-6" style="margin-bottom: 1%;">
-                        <button type="submit" class="btn btn-primary">Filtrar</button>
+                        <button type="submit" class="btn btn-primary">@lang('parkinsoft.filterFilters')</button>
                 </div>             
-                </form>
-                    <form action="{{ route('operacion.index') }}" method="GET">
-                    @csrf
-                    <div class="col-xs-6 col-sm-6 col-md-6" style="margin-bottom: 1%;">
-                        <button type="submit" class="btn btn-primary">@lang('parkinsoft.clearFilters')</button>
-                    </div>
-                </form>
+        </form>
+        <div class="col-xs-6 col-sm-6 col-md-6" style="margin-bottom: 1%;">
+            <form action="{{ route('operacion.index') }}" method="GET">
+                @csrf
+                <button type="submit" class="btn btn-primary">@lang('parkinsoft.clearFilters')</button>
+            </form>
+        </div>
             </div>
     </div>
 
@@ -74,10 +74,11 @@
    
                     <a class="btn btn-info btn-sm" href="{{ route('operacion.show',[$row->id]) }}">
                     <span data-feather="trash"></span>
-                        Mostrar
+                        @lang('parkinsoft.showButton')
                     </a>
     
-                    <a class="btn btn-primary btn-sm" href="{{ route('operacion.edit',$row->id) }}"><span class=""></span>Editar</a>
+                    <a class="btn btn-primary btn-sm" href="{{ route('operacion.edit',$row->id) }}">
+                        <span class=""></span> @lang('parkinsoft.editButton')</a>
    
                     @csrf
                     @method('DELETE')
@@ -87,9 +88,8 @@
                     <button type="button" class="btn btn-danger btn-sm" data-whatever="{{$row->id}}"
                         data-toggle="modal"  data-target="#deleteOperacionModal" title="Eliminar">
                         <span data-feather="trash-2"></span>
-                        Eliminar
+                        @lang('parkinsoft.deleteButton')
                     </button>
-
                 </form>
             </td>
         </tr>

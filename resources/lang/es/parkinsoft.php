@@ -36,11 +36,15 @@ return [
     'acceptButton' => 'Aceptar',
     'cancelButton' => 'Cancelar',
     'deleteModalTitle' => 'Eliminar',
+    'modifyModalTitle' => 'Modificar datos',
     'backButton' => 'Atras',
     'editButton' => 'Editar',
     'createButton' => 'Crear',
     'deleteButton' => 'Eliminar',
     'showButton' => 'Mostrar',
+    'exampleButton' => 'Ejemplo',
+    'deleteAccount' => 'Eliminar Cuenta',
+    'deleteAccountWarning' => '¿Realmente desea eliminar su cuenta? Esta acción no puede ser revertida',
 
     /*
     |--------------------------------------------------------------------------
@@ -112,10 +116,15 @@ return [
     'nacDate' => 'Fecha de nacimiento',
     'dni' => 'Dni',
     'password' => 'Password',
-
-    
-
-
+    'passwordConfirm' => 'Confirmar password',
+    'language' => 'Idioma',
+    'medication' => 'Medicación',
+    'matricula' => 'Matricula',
+    'register' => 'Registrar',
+    'uploadAudio' => 'Cargar audio',
+    'assingExercise' => 'Asignar ejercicio',
+    'userDate' => 'Mis datos',
+    'modifyData' => 'Modificar datos',
 
     /*
     |--------------------------------------------------------------------------
@@ -140,7 +149,10 @@ return [
     */
 
     'abmUserCreateTitle' => 'Crear nuevo paciente',
-    
+    'abmUserCreateNew' => 'Crear paciente',
+    'abmUserShowTitle' => 'Paciente',
+    'abmUserEditTitle' => 'Editar paciente',
+
     /*
     |--------------------------------------------------------------------------
     | Audio
@@ -176,6 +188,11 @@ return [
     'exerciseDeleteMessageSuccessful' => 'Ejercicio eliminado correctamente',
     'exerciseConfirmDelete' => '¿Desea realmente eliminar el ejercicio?',
     'exerciseDuplicateMessageSuccessful' => 'El ejercicio que intenta cargar ya existe',
+    'exerciseCreateNew' => 'Crear Ejercicio',
+    'exerciseDownloadExample' => 'Descargar audio de ejemplo',
+    'exerciseAudio' => 'Audio de ejemplo',
+    'exerciseEdit' => 'Editar ejercicio',
+
 
     /*
     |--------------------------------------------------------------------------
@@ -215,6 +232,9 @@ return [
     'medicUpdateMessageSuccessful' => 'Medico modificado correctamente',
     'medicDeleteMessageSuccessful' => 'Medico eliminado correctamente',
     'medicConfirmDelete' => '¿Desea realmente eliminar el medico?',
+    'medicCreateNew' => 'Crear medico',
+    'abmMedicEditTitle' => 'Editar medico',
+    'medicShowTitle' => 'Medico',
 
     /*
     |--------------------------------------------------------------------------

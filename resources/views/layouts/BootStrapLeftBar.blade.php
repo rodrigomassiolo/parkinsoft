@@ -1,12 +1,14 @@
 <div class="sidebar-sticky">
   <ul class="nav flex-column">
 
+  @if (Auth::user()->rol->type == 0) 
     <li class="nav-item">
       <a class="nav-link" href="{{ route('tickets') }}">
         <span data-feather="file"></span>
         @lang('parkinsoft.ticketsLink')
       </a>
     </li>
+  @endif
     <li class="nav-item">
       <a class="nav-link" href="{{ route('contact') }}">
         <span data-feather="users"></span>
@@ -19,14 +21,12 @@
         @lang('parkinsoft.uploadAudio')
       </a>
     </li>
-    <!-- <h5>Deberia ser medico para ver esto</h5> -->
     <li class="nav-item">
       <a class="nav-link" href="{{ route('TestLevodopa') }}">
         <span data-feather="activity"></span> 
         @lang('parkinsoft.levodopaTest')
       </a>
     </li>  
-    <!-- <h5>Deberia ser admin para ver esto</h5> -->
     @if (Auth::user()->rol->type == 0) 
     <li class="nav-item">
       <a class="nav-link" href="{{ route('medico.index') }}">
@@ -67,7 +67,7 @@
         </a>
     </li>
      @endif
-     @if (Auth::user()->rol->type == 0 || Auth::user()->rol->type == 1 ) 
+     @if (Auth::user()->rol->type == 0) 
       <li class="nav-item">
         <a class="nav-link" href="{{ route('BaseDeDatos') }}">
           <span data-feather="activity"></span>

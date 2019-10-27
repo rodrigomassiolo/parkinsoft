@@ -3,11 +3,11 @@
 @section('MainContent')
     <div class="row">
         <div class="col-lg-12 margin-tb">
-            <div class="pull-left">
-                <h2>Editar Ejercicios</h2>
+            <div class="pull-left titleInfo">
+                <h2>@lang('parkinsoft.exerciseEdit')</h2>
             </div>
             <div class="pull-right">
-                <a class="btn btn-primary" href="{{ route('abmEjercicio.index') }}"> Atras</a>
+                <a class="btn btn-primary" href="{{ route('abmEjercicio.index') }}"> @lang('parkinsoft.backButton')</a>
             </div>
         </div>
     </div>
@@ -30,26 +30,26 @@
          <div class="row">
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
-                    <strong>Nombre: </strong>
+                    <strong>@lang('parkinsoft.name'): </strong>
                     <input type="text" name="nombre" value="{{ $ejercicio->nombre }}"
-                     class="form-control" placeholder="Nombre a editar">
+                     class="form-control">
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
-                    <strong>Descripción: </strong>
+                    <strong>@lang('parkinsoft.description'): </strong>
                     <input type="text" name="descripcion" value="{{ $ejercicio->descripcion }}"
-                     class="form-control" placeholder="Descripcion a editar">
+                     class="form-control">
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12">
                     <div class="form-group{{ $errors->has('audio_example') ? ' has-error' : '' }}">
-                       <strong>Audio de Ejemplo: </strong>
+                    <strong>@lang('parkinsoft.exerciseAudio'): </strong>
                        <input type="file" class="form-control-file" id="audio_example" name="audio_example">
                     </div>
                 </div>        
             <div class="col-xs-12 col-sm-12 col-md-12 text-center">
-              <button type="submit" class="btn btn-primary">Editar</button>
+              <button type="submit" class="btn btn-primary">@lang('parkinsoft.editButton')</button>
             </div>
         </div>
    

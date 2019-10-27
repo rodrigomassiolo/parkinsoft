@@ -30,7 +30,6 @@ class UserController extends Controller
 
         return redirect()->route('user')
                         ->with('success','¡Se han actualizado sus datos!');
-     //  return view('users.index')->with('success', '¡Se han actualizado sus datos!');
     }
 
     public function delete()
@@ -38,10 +37,5 @@ class UserController extends Controller
         return view('users.delete');
     }
 
-    // public function deleted(Request $request)
-    // {
-
-    //     return view('users.delete');
-    // }
 
 }

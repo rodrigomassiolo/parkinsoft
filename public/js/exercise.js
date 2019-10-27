@@ -6,6 +6,7 @@ $( document ).ready(function() {
     $('#medicMessageModal').modal('show');
     $('#operacionMessageModal').modal('show');
     $('#BDMessageModal').modal('show');
+    $('#myDataModal').modal('show');
   
     $('#Operacion_user_id').select2(
         {

@@ -62,13 +62,13 @@
                 </select>
             </div>
         </div>
+
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
             <strong>@lang('parkinsoft.nacDate'):</strong>
               <input class="form-control" type="date" id="nacimiento" name="nacimiento" required>
             </div>
         </div>
-            
 
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">

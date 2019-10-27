@@ -4,11 +4,11 @@
 
 <div class="row">
     <div class="col-lg-12 margin-tb">
-        <div class="pull-left">
-            <h2>Crear nuevo medico</h2>
+    <div class="pull-center titleInfo">
+        <h2>@lang("parkinsoft.medicCreateNew")</h2>
         </div>
         <div class="pull-right">
-            <a class="btn btn-primary" href="{{ route('medico.index') }}"> Atras</a>
+            <a class="btn btn-primary" href="{{ route('medico.index') }}"> @lang("parkinsoft.backButton")</a>
         </div>
     </div>
 </div>
@@ -29,18 +29,26 @@
   
      <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-12">
-                <div class="form-group{{ $errors->has('nombre') ? ' has-error' : '' }}">
-                    <div class="form-group">
-                        <strong>Nombre:</strong>
-                        <input type="text" name="nombre" class="form-control" placeholder="Nombre">
-                    </div>
-                </div>
+            <div class="form-group{{ $errors->has('nombre') ? ' has-error' : '' }}">
+                <strong>@lang('parkinsoft.name'):</strong>
+                    <input id="nombre" type="text" class="form-control" name="nombre" 
+                    value="{{ old('nombre') }}" required autofocus>
+            </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12">
-            <div class="form-group">
-                <strong>Apellido:</strong>
-                <input type="text" name="apellido" class="form-control" placeholder="Apellido">
-            </div>
+                <div class="form-group{{ $errors->has('apellido') ? ' has-error' : '' }}">
+                <strong>@lang('parkinsoft.surname'):</strong>
+                        <input id="apellido" type="text" class="form-control" name="apellido" 
+                        value="{{ old('apellido') }}" required autofocus>
+                </div>
+        </div>
+
+        <div class="col-xs-12 col-sm-12 col-md-12">
+                <div class="form-group{{ $errors->has('dni') ? ' has-error' : '' }}">
+                <strong>@lang('parkinsoft.dni'):</strong>
+                    <input id="dni" pattern=".{6,}" title="Debe ingresar como minimo 6 caracteres" 
+                     class="form-control" name="dni" value="{{ old('dni') }}" required autofocus>
+                </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
@@ -48,78 +56,39 @@
                 <input type="number" name="matricula" class="form-control" placeholder="Matricula">
             </div>
         </div>
+       
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
-                <strong>Dni:</strong>
-                <input type="number" name="dni" class="form-control" placeholder="Dni">
+            <strong>@lang('parkinsoft.gender'):</strong>
+                <select id="genero" type="text" class="custom-select" name="genero" required>
+                    <option value="F">F</option>
+                    <option value="M">M</option>
+                </select>
             </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12">
-            <div class="form-group{{ $errors->has('genero') ? ' has-error' : '' }}">
-                <label for="genero" class="control-label">Género</label>
-                               
-                                    <select id="genero" type="text" class="custom-select" name="genero" required>
-                                        <option selected></option>
-                                        <option value="F">F</option>
-                                        <option value="M">M</option>
-                                    </select>
-                                    @if ($errors->has('genero'))
-                                        <span class="help-block">
-                                            <strong>{{ $errors->first('genero') }}</strong>
-                                        </span>
-                                    @endif
-                               
-            </div>
-        </div>
-        <div class="col-xs-12 col-sm-12 col-md-12">
-            <div class="form-group{{ $errors->has('nacimiento') ? ' has-error' : '' }}">
-                                <label for="nacimiento" class="control-label">Nacimiento</label>
-                           
-                                    <input class="form-control" type="date" value="1990-01-01" id="nacimiento" name="nacimiento" required>
-                                    @if ($errors->has('nacimiento'))
-                                        <span class="help-block">
-                                            <strong>{{ $errors->first('nacimiento') }}</strong>
-                                        </span>
-                                    @endif
-                            
+            <div class="form-group">
+            <strong>@lang('parkinsoft.nacDate'):</strong>
+              <input class="form-control" type="date" id="nacimiento" name="nacimiento" required>
             </div>
         </div>
 
         <div class="col-xs-12 col-sm-12 col-md-12">
-            <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                            <label for="email" class="control-label">Direccion de email</label>
-
-                            
-                                <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required>
-
-                                @if ($errors->has('email'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('email') }}</strong>
-                                    </span>
-                                @endif
-                            
+            <div class="form-group">
+                <strong>@lang('parkinsoft.email'):</strong>
+                <input type="text" name="email" class="form-control">
             </div>
         </div>
 
         <div class="col-xs-12 col-sm-12 col-md-12">
-                        <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                            <label for="password" class="control-label">Password</label>
-
-
-                                <input id="password" type="password" class="form-control" name="password" required>
-
-                                @if ($errors->has('password'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('password') }}</strong>
-                                    </span>
-                                @endif
-     
-                        </div>
+            <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
+                <strong>@lang('parkinsoft.password'):</strong>
+                <input id="password" type="password" class="form-control" name="password" required>
+            </div>
         </div>
 
-        
         <div class="col-xs-12 col-sm-12 col-md-12 text-center">
-                <button type="submit" class="btn btn-primary">Crear</button>
+                <button type="submit" class="btn btn-primary">@lang('parkinsoft.createButton')</button>
         </div>
     </div>
    

@@ -33,14 +33,14 @@
                 <div class="form-group">
                     <strong>@lang('parkinsoft.description')</strong>
                     <input type="text" name="descripcion" value="{{ $operacion->descripcion }}"
-                     class="form-control" placeholder="Descripción">
+                     class="form-control">
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
                     <strong>@lang('parkinsoft.date')</strong>
                     <input type="date" name="fecha" value="{{ $operacion->fecha }}" 
-                    class="form-control" placeholder="Fecha">
+                    class="form-control">
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12 text-center">

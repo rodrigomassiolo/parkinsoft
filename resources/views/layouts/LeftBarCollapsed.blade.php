@@ -5,10 +5,11 @@
     </a>
     
     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink"> 
+    @if (Auth::user()->rol->type == 0) 
         <a class="dropdown-item" href="{{ route('tickets') }}">
             @lang('parkinsoft.ticketsLink')
         </a>
-
+    @endif
         <a class="dropdown-item" href="{{ route('contact') }}">
             @lang('parkinsoft.contactLink')
         </a>
@@ -44,13 +45,13 @@
             @lang('parkinsoft.operacionLink')
         </a>
         @endif  
-        @if (Auth::user()->rol->type == 0 || Auth::user()->rol->type == 1 ) 
+        @if (Auth::user()->rol->type == 0) 
         <a class="dropdown-item" href="{{ route('BaseDeDatos') }}">
             @lang('parkinsoft.BDLink')
         </a>
         @endif    
 
-        @if (Auth::user()->rol->type == 0) 
+        @if (Auth::user()->rol->type == 0 || Auth::user()->rol->type == 1) 
             <a class="dropdown-item" href="{{ route('abmEjercicio.index') }}">
                 @lang('parkinsoft.abmExerciseLink')
             </a>

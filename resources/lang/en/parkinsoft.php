@@ -35,6 +35,8 @@ return [
     'closeButton' => 'Close',
     'deleteModalTitle' => 'Delete',
     
+
+    'language' => 'Language',
     /*
     |--------------------------------------------------------------------------
     | Levodopa View
