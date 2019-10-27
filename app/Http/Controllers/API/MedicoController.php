@@ -180,7 +180,10 @@ class MedicoController extends Controller
         
         $user->genero = $jsonReq['genero'];
         $user->nacimiento = $jsonReq['nacimiento'];
-        $user->email = $jsonReq['email'];
+        if($user->email != $jsonReq['email']){
+            $user->email = $jsonReq['email'];
+        }
+        
         $medico->matricula=$jsonReq['matricula'];
         $medico->dni=$jsonReq['dni'];
         $medico->nombre=$jsonReq['nombre'];
