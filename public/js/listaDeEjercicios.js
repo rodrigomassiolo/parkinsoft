@@ -128,3 +128,22 @@ $('#exampleModal').on('show.bs.modal', function (event) {
     $('#levo2').val(comp);
 })
 
+var Levo = {
+  generateGraphicLevo: function(){
+
+    $('#levoForm').append('<input type="hidden" name="output" value="html">');
+    
+    $("#levoForm")
+    .attr('action', '/audio/processAudio')
+    .submit();
+  },
+
+  downloadGraphicLevo: function(){
+
+    $("#graphicForm")
+    .attr('action', '/audio/processAudio')
+    .submit();
+  },
+
+}
+

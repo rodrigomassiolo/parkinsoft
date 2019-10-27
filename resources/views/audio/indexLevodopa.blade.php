@@ -110,7 +110,7 @@
         <form method = "POST" id="levoForm" action="/audio/processAudio">
           <input type="hidden" id="useriD" name="user_id">
           <input type="hidden" id="levo1" name="pacienteEjercicio">
-          <input type="hidden" id="levo2" name="compare1">
+          <input type="hidden" id="levo2" name="CompareAudio1">
           <div class="form-group">
           @csrf
             <label><input type="checkbox" name="Energy" value="1"> Energy</label><br>
@@ -120,9 +120,9 @@
             <label><input type="checkbox" name="Prosody" value="1"> Prosody</label><br>    
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
-            <button type="submit" name="View" value="1" class="btn btn-primary">Ver grafico</button>
-            <button type="submit" name="output" value="pdf" class="btn btn-primary">Descargar como PDF</button>
+            <button type="button" class="btn btn-danger" data-dismiss="modal">@lang('parkinsoft.CloseButton')</button>
+            <button type="submit" name="View" value="1" class="btn btn-primary" onclick="Levo.generateGraphicLevo();">Ver grafico</button>
+            <button type="submit" name="output" value="pdf" class="btn btn-primary" onclick="Levo.downloadGraphicLevo();">Descargar como PDF</button>
           </div>   
         </form>
       </div>
