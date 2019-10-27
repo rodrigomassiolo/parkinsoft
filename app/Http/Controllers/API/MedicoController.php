@@ -175,19 +175,22 @@ class MedicoController extends Controller
             'apellido' => 'required|string|max:255',
             'genero' => 'required|string|max:1',
             'nacimiento' => 'required|date',
-            'email' => 'required|string|email|max:255|unique:users'
+            'email' => 'required|string|email|max:255|unique:users,email,'.$user->id
         ]);
         
         $user->genero = $jsonReq['genero'];
         $user->nacimiento = $jsonReq['nacimiento'];
-        $user->email = $jsonReq['email'];
+        if($user->email != $jsonReq['email']){
+            $user->email = $jsonReq['email'];
+        }
+        
         $medico->matricula=$jsonReq['matricula'];
         $medico->dni=$jsonReq['dni'];
         $medico->nombre=$jsonReq['nombre'];
         $medico->apellido=$jsonReq['apellido'];
        
-        $user->save();
-        $medico->save();
+        $user->update();
+        $medico->update();
         return "ok";
     
     }
