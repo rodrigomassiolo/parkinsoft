@@ -21,6 +21,7 @@
         @csrf
   
         <div class="row">
+                <input type="hidden" id="paciente_id" name="paciente_id" value="{{ $paciente_id }}">
                 <div class="col-md-3 col-sm-3 col-lg-3">
                         <strong>Paciente:</strong>
                             <select name="user_id" id="user_id" class="form-control">

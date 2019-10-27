@@ -18,7 +18,7 @@ class PacienteEjercicioController extends Controller
     }
     public function indexAsignados(Request $request)
     {
-        return $this->index($request,"asignado");
+        return $this->index($request,"asignado"); 
     }
     public function index(Request $request, $estado = null)
     {
@@ -34,12 +34,19 @@ class PacienteEjercicioController extends Controller
         $user = Auth::user()->usuario;
         $rol_id = Auth::user()->rol_id;
         $rol = Rol::where('id', $rol_id)->get();
+        $paciente_id = null;
         $pacientes = array();
-        if($rol[0]->type == 2){
+        if($rol[0]->type == 2){ //paciente
             $pacientes[] = Auth::user();
             $params['usuario'] = $user;
-        }else{
-            $pacientes = User::all();
+        }else if($rol[0]->type == 0 || $rol[0]->type == 1){//admin o medico
+            if($request->get('paciente_id') != null){//está filtrado
+                $paciente_id = $request->get('paciente_id');//para mantener el filtro
+                $pacientes[0] = User::findOrFail($paciente_id);
+                $params['usuario'] = $pacientes[0]->usuario;
+            } else{//todos
+                $pacientes = User::all();
+            }
         }
         $PacienteEjercicio_ = PacienteEjercicio::filter($params)->get();
         $PacienteEjercicio = array();
@@ -54,11 +61,11 @@ class PacienteEjercicioController extends Controller
             return array("qty"=>count($PacienteEjercicio),"PacienteEjercicio"=>$PacienteEjercicio);
         }
         $ejercicio = Ejercicio::all();
-        if($estado == "asignado"){
-            return view('pacienteEjercicio.indexAsignados',compact('PacienteEjercicio','estado','ejercicio','pacientes'))
+        if($estado == "asignado"){//asignados
+            return view('pacienteEjercicio.indexAsignados',compact('PacienteEjercicio','estado','ejercicio','pacientes','paciente_id'))
             ->with('i', (request()->input('page', 1) - 1) * 10);
-        }else{
-            return view('pacienteEjercicio.index',compact('PacienteEjercicio','estado','ejercicio','pacientes'))
+        }else{//realizados
+            return view('pacienteEjercicio.index',compact('PacienteEjercicio','estado','ejercicio','pacientes','paciente_id'))
             ->with('i', (request()->input('page', 1) - 1) * 10);
         }
     }

@@ -130,15 +130,20 @@
                             <input type="hidden" name="paciente_id" value="{{$row->id}}">
                             <button class="btn btn-info btn-sm" type="submit">@lang('parkinsoft.assingExercise')</button>           
                     </form>
-                    
+                    <form action="{{ route('listaDeEjerciciosRealizados')}}" method="GET">
+                        <input type="hidden" name="paciente_id" value="{{$row->id}}">
+                        <button class="btn btn-info btn-sm" type="submit">@lang('parkinsoft.audioListLink')</button>           
+                    </form>
+                    <form action="{{ route('listaDeEjerciciosAsignados')}}" method="GET">
+                        <input type="hidden" name="paciente_id" value="{{$row->id}}">
+                        <button class="btn btn-info btn-sm" type="submit">@lang('parkinsoft.audioListLinkAssigned')</button>           
+                    </form>
             </td>
         </tr>
         @endforeach
         </tbody>
     </table>
-  
        {!! $user->render() !!}
-
 
        @if ($message = Session::get('success'))
         <!-- Modal -->
