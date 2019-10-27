@@ -71,6 +71,14 @@ class AbmUserController extends Controller
             'type' => 2,
             'medico_id' => null
         ]);
+        $medicacion = "";
+        if($request['medicacion'] != ""){
+            $medicacion = $request['medicacion'] ;
+        }
+        $idioma = "";
+        if($request['idioma'] != ""){
+            $idioma = $request['idioma'] ;
+        }
 
         User::create([
             'usuario' => $fill,
@@ -79,6 +87,8 @@ class AbmUserController extends Controller
             'email' => $request['email'],
             'password' => bcrypt($request['password']),
             'rol_id' => $rol['id'],
+            'medicacion'=>$medicacion,
+            'idioma'=>$idioma,
             'status' => 'A'
         ]);
 
@@ -122,10 +132,13 @@ class AbmUserController extends Controller
     {
         $request->validate([
             'genero' => 'required|string|max:1',
-            'nacimiento' => 'required|date',
-            'password' => 'required|string|min:6|confirmed',
+            'nacimiento' => 'required|date'
         ]);
 
+        if(is_null($request["password"])){
+            unset($request["password"]);
+            unset($request["password_confirmation"]);           
+        }
         $user = User::findOrFail($id);
 
         $user->update($request->all());

@@ -29,29 +29,6 @@
    
          <div class="row">
             <div class="col-xs-12 col-sm-12 col-md-12">
-            <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                            <label for="password" class="control-label">Password</label>
-
-                          
-                                <input id="password" type="password" class="form-control" name="password" required>
-
-                                @if ($errors->has('password'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('password') }}</strong>
-                                    </span>
-                                @endif
-                          
-                        </div>
-
-                        <div class="form-group">
-                            <label for="password-confirm" class="control-label">Confirmar Password</label>
-
-                   
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
-                     
-                        </div>
-            </div>
-            <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group{{ $errors->has('genero') ? ' has-error' : '' }}">
                                 <label for="genero" class="control-label">Género</label>
                             
@@ -75,6 +52,30 @@
                     class="form-control" placeholder="Fecha de nacimiento a editar">
                 </div>
             </div>
+            <div class="col-xs-12 col-sm-12 col-md-12">
+                    <div class="form-group">
+                        <strong>Idioma:</strong>
+                            <input id="idioma" type="text" class="form-control" name="idioma" 
+                            value="{{ old('idioma') }}" required autofocus>
+                    </div>
+                </div>            
+                <div class="col-xs-12 col-sm-12 col-md-12">
+                        <div class="form-group">
+                            <strong>Medicacion:</strong>
+                                <input id="medicacion" type="text" class="form-control" name="medicacion" 
+                                value="{{ old('medicacion') }}" required autofocus>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-12">
+                        <div class="form-group">
+                            <label for="password" class="control-label">Password</label>
+                            <input id="password" type="password" class="form-control" name="password">
+                        </div>        
+                        <div class="form-group">
+                            <label for="password-confirm" class="control-label">Confirmar Password</label>
+                            <input id="password-confirm" type="password" class="form-control" name="password_confirmation">
+                        </div>
+                    </div>
             <div class="col-xs-12 col-sm-12 col-md-12 text-center">
               <button type="submit" class="btn btn-primary">Editar</button>
             </div>

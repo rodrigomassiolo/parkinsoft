@@ -31,7 +31,7 @@
       <li><a  class="nav-link" href="{{ route('infosite') }}">@lang('parkinsoft.infoSiteTag')</a></li>
       <li><a  class="nav-link" href="{{ route('infoproj') }}">@lang('parkinsoft.infoProjTag')</a></li>
       <li><a  class="nav-link" href="{{ route('login') }}">Login</a></li>
-      <li><a  class="nav-link" href="{{ route('register') }}">Registrar</a></li>
+      {{-- <li><a  class="nav-link" href="{{ route('register') }}">Registrar</a></li> --}}
     </ul>
     @else
       <ul class="navbar-nav ml-auto">

@@ -93,8 +93,21 @@
               <input class="form-control" type="date" value="1990-01-01" id="nacimiento" name="nacimiento" required>
             </div>
         </div>
-            
 
+        <div class="col-xs-12 col-sm-12 col-md-12">
+                <div class="form-group">
+                    <strong>Idioma:</strong>
+                        <input id="idioma" type="text" class="form-control" name="idioma" 
+                        value="{{ old('idioma') }}" required autofocus>
+                </div>
+            </div>            
+            <div class="col-xs-12 col-sm-12 col-md-12">
+                    <div class="form-group">
+                        <strong>Medicacion:</strong>
+                            <input id="medicacion" type="text" class="form-control" name="medicacion" 
+                            value="{{ old('medicacion') }}" required autofocus>
+                    </div>
+                </div>      
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
                 <strong>Email:</strong>
