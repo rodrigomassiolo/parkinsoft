@@ -44,11 +44,19 @@ class PacienteEjercicio extends Model
             });
         } 
         
+        if ( isset($params['ejercicio_id']) && trim($params['ejercicio_id']) !== '' )
+        {
+            $query->where('ejercicio_id', '=', trim($params['ejercicio_id']));
+        }
+
         if ( isset($params['created_at']) && trim($params['created_at']) !== '' )
         {
             $query->where('created_at', '>=', trim($params['created_at']));
         }
-
+        if ( isset($params['user_id']) && trim($params['user_id']) !== '' )
+        {
+            $query->where('user_id', '=', trim($params['user_id']));
+        }
         if ( isset($params['usuario']) && trim($params['usuario']) !== '' )
         {
             $query->whereHas('user', function($query) use($params){

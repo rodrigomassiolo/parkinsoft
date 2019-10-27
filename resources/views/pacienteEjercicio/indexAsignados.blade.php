@@ -1,11 +1,11 @@
 @extends('layouts.BootStrapBody')
-@section('title',trans('parkinsoft.audioListLink'))
+@section('title',trans('parkinsoft.audioListLinkAssigned'))
 
 @section('MainContent')
     <div class="row">
         <div class="col-lg-12 margin-tb">
             <div class="pull-left">
-                <h2>@lang('parkinsoft.audioListLink')</h2>
+                <h2>@lang('parkinsoft.audioListLinkAssigned')</h2>
             </div>
 
         </div>
@@ -21,20 +21,26 @@
         @csrf
   
         <div class="row">
-            <div class="col-xs-3 col-sm-3 col-md-3">
-                <div class="form-group">
-                    <strong>Usuario: </strong>
-                    <input type="text" name="usuario" class="form-control"
-                     placeholder="Usuario a filtrar" value= "{{Request::old('user_id')}}">
-                </div>
-            </div>
-            <div class="col-xs-3 col-sm-3 col-md-3">
-                <div class="form-group">
-                    <strong>Tipo de ejercicio:</strong>
-                    <input type="text" name="tipoDeEjercicio" class="form-control" 
-                    placeholder="Tipo de ejercicio a filtrar" value= "{{Request::old('tipoDeEjercicio')}}">
-                </div>
-            </div>
+                <div class="col-md-3 col-sm-3 col-lg-3">
+                        <strong>Paciente:</strong>
+                            <select name="user_id" id="user_id" class="form-control">
+                                @if(count($pacientes)>1)
+                                <option value=""></option>
+                                @endif
+                                  @foreach ($pacientes as $paciente)
+                                    <option value="{{ $paciente->id }}"> {{ $paciente->usuario }} </option>
+                                  @endforeach
+                            </select>
+                        </div>  
+                        <div class="col-md-3 col-sm-3 col-lg-3">
+                                <strong>Tipo de Ejercicio</strong>
+                                <select name="ejercicio_id" id="ejercicio_id" class="form-control">
+                                  <option value=""></option>
+                                  @foreach ($ejercicio as $ej)
+                                    <option value="{{ $ej->id }}" desc="{{ $ej->descripcion }}"> {{ $ej->nombre }} </option>
+                                  @endforeach
+                                </select>
+                        </div>
 
             <div class="col-xs-3 col-sm-3 col-md-3">
                 <div class="form-group">
@@ -87,8 +93,10 @@
             <td>{{ $row->status }}</td>
             <td>{{ $row->created_at }}</td>
             <td>
-                <button type="button" class="btn btn-primary" id="{{$row->id}}"
-                 data-toggle="modal" data-target="#exampleModal" data-whatever="{{$row->id}}">Realizar</button>
+                <form action="{{ route('realizarEjercicio')}}" method="GET">
+                        <input type="hidden" name="pacienteEjercicio" value="{{$row->id}}">
+                        <button class="btn btn-info btn-sm" type="submit">Realizar Ejercicio</button>           
+                </form>
             </td>
         </tr>
         @endforeach

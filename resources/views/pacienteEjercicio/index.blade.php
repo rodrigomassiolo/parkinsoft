@@ -21,19 +21,26 @@
         @csrf
   
         <div class="row">
-            <div class="col-xs-3 col-sm-3 col-md-3">
-                <div class="form-group">
-                    <strong>Usuario: </strong>
-                    <input type="text" name="usuario" class="form-control"
-                     placeholder="Usuario a filtrar" value= "{{Request::old('user_id')}}">
-                </div>
-            </div>
-            <div class="col-xs-3 col-sm-3 col-md-3">
-                <div class="form-group">
-                    <strong>Tipo de ejercicio:</strong>
-                    <input type="text" name="tipoDeEjercicio" class="form-control" 
-                    placeholder="Tipo de ejercicio a filtrar" value= "{{Request::old('tipoDeEjercicio')}}">
-                </div>
+
+            <div class="col-md-3 col-sm-3 col-lg-3">
+            <strong>Paciente:</strong>
+                <select name="user_id" id="user_id" class="form-control">
+                    @if(count($pacientes)>1)
+                    <option value=""></option>
+                    @endif
+                      @foreach ($pacientes as $paciente)
+                        <option value="{{ $paciente->id }}"> {{ $paciente->usuario }} </option>
+                      @endforeach
+                </select>
+            </div>  
+            <div class="col-md-3 col-sm-3 col-lg-3">
+                    <strong>Tipo de Ejercicio</strong>
+                    <select name="ejercicio_id" id="ejercicio_id" class="form-control">
+                      <option value=""></option>
+                      @foreach ($ejercicio as $ej)
+                        <option value="{{ $ej->id }}" desc="{{ $ej->descripcion }}"> {{ $ej->nombre }} </option>
+                      @endforeach
+                    </select>
             </div>
 
             <div class="col-xs-3 col-sm-3 col-md-3">

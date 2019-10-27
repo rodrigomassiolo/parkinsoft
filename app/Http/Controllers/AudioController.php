@@ -115,7 +115,7 @@ class AudioController extends Controller
             }
             return response()->json(['NO_mp3'], 400);
         }
-        
+
         $ejercicio_id= 1;
         $ejercicio_nombre= 'a';
 
@@ -179,7 +179,7 @@ class AudioController extends Controller
             ['user_id', '=', $user->id],
             ['audio_name', '=', $name],
         ])->get();
-    
+
         if (count($pacEjer) != 0)
         {
             foreach ($pacEjer as $key => $pe) {
@@ -190,8 +190,9 @@ class AudioController extends Controller
             $comando="/var/www/html/parkinsoft/scripts/clearFiles.sh '".$path.$name."*'";
             exec($comando);
         }
+
         $file->move($path, $filename);
-        
+
         if(!$request->has('paciente_ejercicio')) {
             PacienteEjercicio::create([
                 'user_id' => $user->id,
@@ -217,14 +218,16 @@ class AudioController extends Controller
             $ejercicioAsignado->save();
         }
 
-
-
         if($request->has('View')){
             $var = \Lang::get('parkinsoft.audioUploadCorrectly');
                     return redirect()->route('audio')->withSuccess($var);
            // return redirect()->route('audio')->withSuccess('Audio cargado correctamente');
         }
-
+        if($request->has('Realizado')){
+            $var = \Lang::get('parkinsoft.exerciseCompletedCorrectly');
+                    return redirect()->route('listaDeEjerciciosAsignados')->withSuccess($var);
+           // return redirect()->route('audio')->withSuccess('Audio cargado correctamente');
+        }
         if($request->has('Levodopa')){
             $var = \Lang::get('parkinsoft.audioUploadCorrectly');
                     return redirect()->route('audio')->withSuccess($var);

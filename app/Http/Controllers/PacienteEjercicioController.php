@@ -25,9 +25,21 @@ class PacienteEjercicioController extends Controller
 
         $api = substr ( $request->path(), 0,3 ) == 'api';
         $params = $request->except('_token');
+        
         session()->flashInput($request->input());
         if(!is_null($estado)){
             $params['status'] = $estado;
+        }
+
+        $user = Auth::user()->usuario;
+        $rol_id = Auth::user()->rol_id;
+        $rol = Rol::where('id', $rol_id)->get();
+        $pacientes = array();
+        if($rol[0]->type == 2){
+            $pacientes[] = Auth::user();
+            $params['usuario'] = $user;
+        }else{
+            $pacientes = User::all();
         }
         $PacienteEjercicio_ = PacienteEjercicio::filter($params)->get();
         $PacienteEjercicio = array();
@@ -41,11 +53,12 @@ class PacienteEjercicioController extends Controller
         if($api){
             return array("qty"=>count($PacienteEjercicio),"PacienteEjercicio"=>$PacienteEjercicio);
         }
+        $ejercicio = Ejercicio::all();
         if($estado == "asignado"){
-            return view('pacienteEjercicio.indexAsignados',compact('PacienteEjercicio','estado'))
+            return view('pacienteEjercicio.indexAsignados',compact('PacienteEjercicio','estado','ejercicio','pacientes'))
             ->with('i', (request()->input('page', 1) - 1) * 10);
         }else{
-            return view('pacienteEjercicio.index',compact('PacienteEjercicio','estado'))
+            return view('pacienteEjercicio.index',compact('PacienteEjercicio','estado','ejercicio','pacientes'))
             ->with('i', (request()->input('page', 1) - 1) * 10);
         }
     }
@@ -231,6 +244,20 @@ class PacienteEjercicioController extends Controller
         return redirect()->route('abmUser.index')
         ->with('success','Asignación creada correctamente.');
 
+    }
+    public function realizarEjercicio(Request $request)
+    {
+        $preset = null;
+        if($request->get('pacienteEjercicio') != null){
+            $pacienteEjercicio_id= $request->get('pacienteEjercicio');
+            $PacienteEjercicio = PacienteEjercicio::findOrFail($pacienteEjercicio_id);
+            $ejercicio = Ejercicio::findOrFail($PacienteEjercicio->ejercicio_id);
+            $pacientes = User::findOrFail($PacienteEjercicio->user_id);
+        }
+        else{    
+            return redirect()->route('listaDeEjerciciosAsignados');
+        }
+        return view('pacienteEjercicio.realizarEjercicio',compact('pacienteEjercicio_id','ejercicio','pacientes'));
     }
 
     public function update(Request $request, $id)

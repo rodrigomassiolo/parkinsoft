@@ -142,6 +142,7 @@ return [
     'audioInvalidFileUpload' => 'El archivo ingresado es invalido',
     'audioFileTooBig' => 'El archivo ingresado es demasiado grande',
     'audioUploadCorrectly' => 'Audio cargado correctamente',
+    'exerciseCompletedCorrectly' => 'Ejercicio realizado correctamente',
 
     /*
     |--------------------------------------------------------------------------

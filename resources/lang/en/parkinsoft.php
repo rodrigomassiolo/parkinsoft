@@ -72,6 +72,8 @@ return [
     'audioInvalidFileUpload' => 'The file is invalid',
     'audioFileTooBig' => 'The file is too big',
     'audioUploadCorrectly' => 'File upload successfully',
+    'exerciseCompletedCorrectly' => 'Exercise Completed successfully',
+    
 
     /*
     |--------------------------------------------------------------------------
