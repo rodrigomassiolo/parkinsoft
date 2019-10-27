@@ -160,6 +160,8 @@ Route::get('/audio','AudioController@index')->middleware('auth')->name('audio');
 
 Route::get('/TestLevodopa','AudioController@indexLevodopa')->middleware('auth')->name('TestLevodopa');
 
+Route::get('/TestLevodopaFilter','PacienteEjercicioController@indexLevodopa')->middleware('auth')->name('TestLevodopaFilter');
+
 Route::resource('medico','MedicoController')->middleware('auth');
 
 Route::resource('abmUser','AbmUserController')->middleware('auth');

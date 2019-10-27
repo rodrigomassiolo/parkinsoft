@@ -93,8 +93,18 @@ class PacienteEjercicioController extends Controller
     public function indexLevodopa(Request $request)
     {
         $api = substr ( $request->path(), 0,3 ) == 'api';
-        $jsonReq = json_decode($request->getContent(), true);
-        $filterRequest = $this->craftFilterRequest($jsonReq['filters']);
+        $pacientes;
+        if(!$api){
+            $pacientes = User::whereHas('rol',function($q){
+                $q->where('type','=',2);
+            })->get();
+            $preset = ['id' => $request->get('user_id')];
+            $filters = ['id' => $request->get('user_id')];
+            $filterRequest = $this->craftFilterRequest($filters);
+        }else{
+            $jsonReq = json_decode($request->getContent(), true);
+            $filterRequest = $this->craftFilterRequest($jsonReq['filters']);
+        }
 
         $query = '';
         $results = DB::select( DB::raw("SELECT
@@ -123,7 +133,9 @@ class PacienteEjercicioController extends Controller
         if($api){
             return $results;  
         }   
-        return view('audio.indexLevodopa',compact('ejercicio'));                
+        $mode = 1;
+
+        return view('audio.indexLevodopa',compact('results','mode','pacientes','preset'));                
     }
 
     public function show($id, Request $request)

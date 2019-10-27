@@ -43,6 +43,7 @@ return [
     'deleteButton' => 'Eliminar',
     'showButton' => 'Mostrar',
     'exampleButton' => 'Ejemplo',
+    'showActionsButton' => 'Mostar acciones',
     'deleteAccount' => 'Eliminar Cuenta',
     'deleteAccountWarning' => '¿Realmente desea eliminar su cuenta? Esta acción no puede ser revertida',
 
@@ -104,6 +105,7 @@ return [
     'clearFilters' => 'Borrar filtros',
     'filterFilters' => 'Filtrar',
 
+    'patient' => 'Paciente',
     'user' => 'Usuario',
     'description' => 'Descripción',
     'date' => 'Fecha',
@@ -125,6 +127,8 @@ return [
     'assingExercise' => 'Asignar ejercicio',
     'userDate' => 'Mis datos',
     'modifyData' => 'Modificar datos',
+    'selectGraphic' => 'Seleccionar tipo de grafico',
+  
 
     /*
     |--------------------------------------------------------------------------

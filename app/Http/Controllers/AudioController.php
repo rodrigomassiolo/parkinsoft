@@ -24,9 +24,11 @@ class AudioController extends Controller
     public function index( Request $request)
     {
         $preset = null;
-        if($request->get('paciente_id') != null){
-            $preset = $request->get('paciente_id');
-        }         
+        if($request->get('user_id') != null){
+            $preset = $request->get('user_id');
+        }else{
+            $preset = -1;
+        }
 
         $user = Auth::user()->usuario;
         $rol_id = Auth::user()->rol_id;
@@ -58,6 +60,30 @@ class AudioController extends Controller
         return view('audio.index')->with('success','Audio cargado correctamente');
     }
     
+    public function indexLevodopa(){
+
+        $user = Auth::user()->usuario;
+        $rol_id = Auth::user()->rol_id;
+        $rol = Rol::where('id', $rol_id)->get();
+
+        if($rol[0]->type == 0 || $rol[0]->type == 1){
+
+            $pacientes = User::whereHas('rol',function($q){
+                $q->where('type','=',2);
+            })->get();
+        }
+
+        $params = array('usuario' => $user);
+
+        $PacienteEjercicio = PacienteEjercicio::filter($params)->paginate(10);
+
+        $mode = 0;
+
+        $results = collect([]);
+        return view('audio.indexLevodopa',compact('PacienteEjercicio','pacientes','mode','results'))
+            ->with('i', (request()->input('page', 1) - 1) * 10);
+    }
+
     /**
      * Show the form for creating a new resource.
      *

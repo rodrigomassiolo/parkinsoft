@@ -19,7 +19,7 @@ $('#exampleModal').on('show.bs.modal', function (event) {
     var button = $(event.relatedTarget) 
     var recipient = button.data('whatever') 
     $('#row').val(recipient)
-  })
+})
 
   var Lista = {
 
@@ -115,4 +115,35 @@ $('#exampleModal').on('show.bs.modal', function (event) {
     }
 
   }
+
+
+  $('#levoModal').on('show.bs.modal', function (event) {
+    var button = $(event.relatedTarget) 
+    var recipient = button.data('whatever').split(',');
+    var useriD = recipient[0];
+    var pacej = recipient[1];
+    var comp = recipient[2];
+    $('#useriD').val(useriD);
+    $('#levo1').val(pacej);
+    $('#levo2').val(comp);
+})
+
+var Levo = {
+  generateGraphicLevo: function(){
+
+    $('#levoForm').append('<input type="hidden" name="output" value="html">');
+    
+    $("#levoForm")
+    .attr('action', '/audio/processAudio')
+    .submit();
+  },
+
+  downloadGraphicLevo: function(){
+
+    $("#graphicForm")
+    .attr('action', '/audio/processAudio')
+    .submit();
+  },
+
+}
 
