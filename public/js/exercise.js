@@ -165,8 +165,6 @@ $( document ).ready(function() {
               }
             })
           }
-          
-
         }
      });
     },

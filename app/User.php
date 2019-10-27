@@ -58,7 +58,7 @@ class User extends Authenticatable
        }
        if ( isset($params['usuario']) && trim($params['usuario']) !== '' )
        {
-           $query->where('usuario', '=', trim($params['usuario']));
+           $query->where('usuario', 'LIKE', trim($params['usuario']. '%'));
        }
        if ( isset($params['idioma']) && trim($params['idioma']) !== '' )
        {

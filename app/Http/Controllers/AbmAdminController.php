@@ -54,6 +54,17 @@ class AbmAdminController extends Controller
 
         $fill = strtoupper ($make1) . strtoupper ($make2) . $make3;
 
+        $check = User::where('email',$request['email'])->first();
+
+        if($check){
+            if($request->get('View')){
+                $var = \Lang::get('parkinsoft.adminDuplicateMessageSuccessful');                
+                return redirect()->route('abmAdmin.index')
+                                ->withSuccess($var);
+            }
+           
+        }
+        
         $rol = Rol::create([
             'type' => 0,
             'medico_id' => null
