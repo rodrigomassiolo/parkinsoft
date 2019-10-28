@@ -139,6 +139,9 @@ class AbmUserController extends Controller
             unset($request["password"]);
             unset($request["password_confirmation"]);           
         }
+        else{
+            $request["password"] = bcrypt($request['password']);
+        }
         $user = User::findOrFail($id);
 
         $user->update($request->all());
