@@ -120,7 +120,7 @@
             <label><input type="checkbox" name="Prosody" value="1"> Prosody</label><br>    
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-danger" data-dismiss="modal">@lang('parkinsoft.CloseButton')</button>
+            <button type="button" class="btn btn-danger" data-dismiss="modal">@lang('parkinsoft.closeButton')</button>
             <button type="submit" name="View" value="1" class="btn btn-primary" onclick="Levo.generateGraphicLevo();">Ver grafico</button>
             <button type="submit" name="output" value="pdf" class="btn btn-primary" onclick="Levo.downloadGraphicLevo();">Descargar como PDF</button>
           </div>   
