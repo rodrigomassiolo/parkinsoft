@@ -4,7 +4,7 @@
 @section('MainContent')
     <div class="row">
         <div class="col-lg-12 margin-tb">
-            <div class="pull-left">
+            <div class="pull-left titleInfo">
                 <h2>@lang('parkinsoft.audioListLink')</h2>
             </div>
 
@@ -23,7 +23,7 @@
         <div class="row">
             <input type="hidden" id="paciente_id" name="paciente_id" value="{{ $paciente_id }}">
             <div class="col-md-3 col-sm-3 col-lg-3">
-            <strong>Paciente:</strong>
+            <strong>@lang('parkinsoft.patient'):</strong>
                 <select name="user_id" id="user_id" class="form-control">
                     @if(count($pacientes)>1)
                     <option value=""></option>
@@ -34,7 +34,7 @@
                 </select>
             </div>  
             <div class="col-md-3 col-sm-3 col-lg-3">
-                    <strong>Tipo de Ejercicio</strong>
+                    <strong>@lang('parkinsoft.exerciseType'):</strong>
                     <select name="ejercicio_id" id="ejercicio_id" class="form-control">
                       <option value=""></option>
                       @foreach ($ejercicio as $ej)
@@ -45,24 +45,26 @@
 
             <div class="col-xs-3 col-sm-3 col-md-3">
                 <div class="form-group">
-                    <strong>Fecha:</strong>
+                    <strong>@lang('parkinsoft.date'):</strong>
                     <input type="date" name="created_at" class="form-control" 
-                    placeholder="Fecha de subida" value= "{{Request::old('created_at')}}">
+                     value= "{{Request::old('created_at')}}">
                 </div>
             </div>
         </div>
         <div>
             <div class="row">
                 <div class="col-xs-6 col-sm-6 col-md-6" style="margin-bottom: 1%;">
-                        <button type="submit" class="btn btn-primary">Filtrar</button>
+                        <button type="submit" class="btn btn-primary">@lang('parkinsoft.filterFilters')</button>
                 </div>             
                 </form>
-                    <form action="{{ route('listaDeEjerciciosRealizados') }}" method="GET">
-                    @csrf
+                    
                     <div class="col-xs-6 col-sm-6 col-md-6" style="margin-bottom: 1%;">
-                        <button type="submit" class="btn btn-primary">Borrar filtros</button>
+                        <form action="{{ route('listaDeEjerciciosRealizados') }}" method="GET">
+                        @csrf
+                        <button type="submit" class="btn btn-primary">@lang('parkinsoft.clearFilters')</button>
+                        </form>
                     </div>
-                </form>
+                
             </div>
     </div>
 
@@ -78,11 +80,13 @@
     <thead>
         <tr>
             <th>No</th>
-            <th>Usuario</th>
-            <th>Ejercicio</th>
-            <th>Estado</th>
-            <th>Fecha de Creación</th>
-            <th width="320px">Acciones</th>
+            <th>@lang('parkinsoft.user')</th>
+            <th>@lang('parkinsoft.exercise')</th>
+            <th>@lang('parkinsoft.status')</th>
+            <th>@lang('parkinsoft.isLevodopa')</th>
+            <th>@lang('parkinsoft.onOff')</th>
+            <th>@lang('parkinsoft.createDate')</th>
+            <th width="320px">@lang('parkinsoft.actions')</th>
         </tr>
     </thead>
     <tbody>
@@ -92,10 +96,20 @@
             <td>{{ $row->user->usuario }}</td>
             <td>{{ $row->ejercicio->nombre }}</td>
             <td>{{ $row->status }}</td>
+            @if($row->es_levodopa == 1 )
+                <td>@lang('parkinsoft.yes')</td>
+            @else
+                <td>No</td>
+            @endif
+            @if($row->es_levodopa == 1)
+                <td>{{ $row->modo_levodopa }}</td>
+            @else
+                <td>-</td>
+            @endif
             <td>{{ $row->created_at }}</td>
             <td>
                 <button type="button" class="btn btn-primary" id="{{$row->id}}"
-                 data-toggle="modal" data-target="#exampleModal" data-whatever="{{$row->id}}">Mostrar acciones</button>
+                 data-toggle="modal" data-target="#exampleModal" data-whatever="{{$row->id}}">@lang('parkinsoft.showActionsButton')</button>
             </td>
         </tr>
         @endforeach
@@ -108,7 +122,7 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-      <h4 class="modal-title" id="exampleModalLabel">Seleccionar tipo de grafico</h4>
+      <h4 class="modal-title" id="exampleModalLabel">@lang('parkinsoft.selectGraphic')</h4>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
       </div>
       <div class="modal-body">
@@ -117,23 +131,15 @@
           <div class="form-group">
           @csrf
             <label><input type="checkbox" name="Energy" value="1"> Energy</label><br>
-
-           
             <label><input type="checkbox" name="eGemaps" value="1"> eGemaps</label><br>
-
-            
             <label><input type="checkbox" name="Chroma" value="1"> Chroma</label><br>
-
-            
             <label><input type="checkbox" name="Audspec" value="1"> Audspec</label><br>
-            
-           
             <label><input type="checkbox" name="Prosody" value="1"> Prosody</label><br>    
     
             <div id="compareDiv">
                 <label>
                     <input type="checkbox" name="Compare1" value="1" id="che1">
-                Comparar audio
+                    @lang('parkinsoft.compareAudio')
                 </label><br>
 
                 <div id="selector1" style="display:none">
@@ -144,7 +150,7 @@
 
                 <div id="compareDiv2">
 
-                    <label><input type="checkbox" name="Compare2" value="1" id="che2"> Comparar audio</label><br>
+                    <label><input type="checkbox" name="Compare2" value="1" id="che2">@lang('parkinsoft.compareAudio')</label><br>
 
                     <div id="selector2" style="display:none">
                         <select id="se2" name="CompareAudio2">
@@ -156,9 +162,9 @@
 
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-            <button type="submit" name="View" value="1" class="btn btn-primary" onClick="Lista.generateGraphic();">Ver grafico</button>
-            <button type="submit" name="output" value="pdf" class="btn btn-primary" onClick="Lista.downloadGraphic();">Descargar como PDF</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">@lang('parkinsoft.closeButton')</button>
+            <button type="submit" name="View" value="1" class="btn btn-primary" onClick="Lista.generateGraphic();">@lang('parkinsoft.showHtmlGraphicButton')</button>
+            <button type="submit" name="output" value="pdf" class="btn btn-primary" onClick="Lista.downloadGraphic();">@lang('parkinsoft.downloadPdfGraphicButton')</button>
           </div>   
         </form>
       </div>

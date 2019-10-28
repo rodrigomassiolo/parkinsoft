@@ -44,7 +44,10 @@ return [
     'showButton' => 'Mostrar',
     'exampleButton' => 'Ejemplo',
     'showActionsButton' => 'Mostar acciones',
+    'showHtmlGraphicButton' => 'Ver grafico',
+    'downloadPdfGraphicButton' => 'Descargar como PDF',
     'deleteAccount' => 'Eliminar Cuenta',
+    'compareAudio' => 'Comparar audio',
     'deleteAccountWarning' => '¿Realmente desea eliminar su cuenta? Esta acción no puede ser revertida',
 
     /*
@@ -128,6 +131,16 @@ return [
     'userDate' => 'Mis datos',
     'modifyData' => 'Modificar datos',
     'selectGraphic' => 'Seleccionar tipo de grafico',
+    'status' => 'Estado',
+    'isLevodopa' => 'Levodopa',
+    'onOff' => 'On/Off',
+    'yes' => 'Si',
+    'exercise' => 'Ejercicio',
+    'exerciseType' => 'Tipo de Ejercicio',
+    'emailDireccion' => 'Direccion de email',
+    'forgetPassword' => '¿Olvidó su contraseña?',
+    'noAccount' => '¿No tenés cuenta?',
+    'registerHere' => 'Registrate aqui proximamente.',
   
 
     /*

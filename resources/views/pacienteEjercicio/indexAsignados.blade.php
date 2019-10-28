@@ -7,7 +7,6 @@
             <div class="pull-left">
                 <h2>@lang('parkinsoft.audioListLinkAssigned')</h2>
             </div>
-
         </div>
     </div>
 
@@ -23,7 +22,7 @@
         <div class="row">
                 <input type="hidden" id="paciente_id" name="paciente_id" value="{{ $paciente_id }}">
                 <div class="col-md-3 col-sm-3 col-lg-3">
-                        <strong>Paciente:</strong>
+                        <strong>@lang('parkinsoft.patient'):</strong>
                             <select name="user_id" id="user_id" class="form-control">
                                 @if(count($pacientes)>1)
                                 <option value=""></option>
@@ -34,7 +33,7 @@
                             </select>
                         </div>  
                         <div class="col-md-3 col-sm-3 col-lg-3">
-                                <strong>Tipo de Ejercicio</strong>
+                                <strong>@lang('parkinsoft.exerciseType'):</strong>
                                 <select name="ejercicio_id" id="ejercicio_id" class="form-control">
                                   <option value=""></option>
                                   @foreach ($ejercicio as $ej)
@@ -45,44 +44,42 @@
 
             <div class="col-xs-3 col-sm-3 col-md-3">
                 <div class="form-group">
-                    <strong>Fecha:</strong>
+                    <strong>@lang('parkinsoft.date'):</strong>
                     <input type="date" name="created_at" class="form-control" 
-                    placeholder="Fecha de subida" value= "{{Request::old('created_at')}}">
+                     value= "{{Request::old('created_at')}}">
                 </div>
             </div>
         </div>
         <div>
             <div class="row">
                 <div class="col-xs-6 col-sm-6 col-md-6" style="margin-bottom: 1%;">
-                        <button type="submit" class="btn btn-primary">Filtrar</button>
+                        <button type="submit" class="btn btn-primary">@lang('parkinsoft.filterFilters')</button>
                 </div>             
                 </form>
+                 <div class="col-xs-6 col-sm-6 col-md-6" style="margin-bottom: 1%;">
                     <form action="{{ route('listaDeEjerciciosAsignados') }}" method="GET">
                     @csrf
-                    <div class="col-xs-6 col-sm-6 col-md-6" style="margin-bottom: 1%;">
-                        <button type="submit" class="btn btn-primary">Borrar filtros</button>
+                   
+                        <button type="submit" class="btn btn-primary">@lang('parkinsoft.clearFilters')</button>
+                        </form>
                     </div>
-                </form>
+                
             </div>
     </div>
 
     </div>
-   
-    @if ($message = Session::get('success'))
-        <div class="alert alert-success">
-            <p>{{ $message }}</p>
-        </div>
-    @endif
 
     <table class="table table-bordered table-sm table-hover">
     <thead>
         <tr>
             <th>No</th>
-            <th>Usuario</th>
-            <th>Ejercicio</th>
-            <th>Estado</th>
-            <th>Fecha de Creación</th>
-            <th width="320px">Acciones</th>
+            <th>@lang('parkinsoft.user')</th>
+            <th>@lang('parkinsoft.exercise')</th>
+            <th>@lang('parkinsoft.status')</th>
+            <th>@lang('parkinsoft.isLevodopa')</th>
+            <th>@lang('parkinsoft.onOff')</th>
+            <th>@lang('parkinsoft.createDate')</th>
+            <th width="320px">@lang('parkinsoft.actions')</th>
         </tr>
     </thead>
     <tbody>
@@ -92,6 +89,16 @@
             <td>{{ $row->user->usuario }}</td>
             <td>{{ $row->ejercicio->nombre }}</td>
             <td>{{ $row->status }}</td>
+            @if($row->es_levodopa == 1 )
+                <td>@lang('parkinsoft.yes')</td>
+            @else
+                <td>No</td>
+            @endif
+            @if($row->es_levodopa == 1)
+                <td>{{ $row->modo_levodopa }}</td>
+            @else
+                <td>-</td>
+            @endif
             <td>{{ $row->created_at }}</td>
             <td>
                 <form action="{{ route('realizarEjercicio')}}" method="GET">
