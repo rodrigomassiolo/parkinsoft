@@ -233,7 +233,7 @@ Route::get('/GetUser', function(Request $request){
 })->middleware('auth');
 
 
-Route::resource('operacion','OperacionController')->middleware('auth');
+Route::resource('/operacion','OperacionController')->middleware('auth');
 
 Route::get('/BaseDeDatos','BaseDeDatosController@index')->middleware('auth')->name('BaseDeDatos');
 Route::get('/BaseDeDatos/showColumnsFromTable','BaseDeDatosController@showColumnsFromTable')

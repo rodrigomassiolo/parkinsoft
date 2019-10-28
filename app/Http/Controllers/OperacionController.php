@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Operacion;
+use App\User;
 use Illuminate\Http\Request;
 
 class OperacionController extends Controller
@@ -15,13 +16,25 @@ class OperacionController extends Controller
     {
         $api = substr ( $request->path(), 0,3 ) == 'api';
         $params = $request->except('_token');
+        session()->flashInput($request->input());
+
         if($api){
             $operacion = Operacion::filter($params)->get();
             return array("qty"=>count($operacion),"operaciones"=>$operacion);
         }
+
+        if(!is_null($request->get('user_id'))){
+            $paciente_id = $request->get('user_id');
+            $paciente = User::FindOrFail($paciente_id);
+            $pacientes[0] = $paciente;
+            $params['user_id'] = $paciente_id;
+        }
+        else{
+            $pacientes = User::all();
+        }
         $operacion = Operacion::filter($params)->paginate(10);
 
-        return view('operacion.index',compact('operacion'))
+        return view('operacion.index',compact('operacion','pacientes'))
             ->with('i', (request()->input('page', 1) - 1) * 10);
     }
 
