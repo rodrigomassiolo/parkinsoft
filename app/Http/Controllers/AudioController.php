@@ -191,7 +191,7 @@ class AudioController extends Controller
             && $request->has('modo_levodopa')
             &&  $request->input('modo_levodopa')!= null 
             ){
-            $name = $name.'_'. $request->input('modo_levodopa');
+            $name = $request->input('modo_levodopa').'_'.$name;
             $es_levodopa = $request->input('es_levodopa');
             $modo_levodopa = $request->input('modo_levodopa');
         }else {
