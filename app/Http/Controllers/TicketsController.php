@@ -47,12 +47,12 @@ class TicketsController extends Controller
     public function store(TicketsFormRequest $request)
     {
         $api = substr ( $request->path(), 0,3 ) == 'api';
-        $email;
+
         
         if($request->get('email')){
             $email = $request->get('email');
         }else{
-            Auth::user()->email;
+            $email=Auth::user()->email;
         }
 
        $slug = uniqid();
