@@ -12,7 +12,7 @@ BootStrapBody
             <h2>@lang('parkinsoft.modifyData')</h2>
         </div>
         <div class="pull-right">
-            <a class="btn btn-primary" href="{{ route('welcome') }}">@lang('parkinsoft.backButton')</a>
+            <a class="btn btn-sm backButton" href="{{ route('welcome') }}">@lang('parkinsoft.backButton')</a>
         </div>
     </div>
 </div>
@@ -76,7 +76,7 @@ BootStrapBody
                 </div>
 
     <div class="col-xs-12 col-sm-12 col-md-12">
-            <button type="submit" class="btn btn-primary">@lang('parkinsoft.editButton')</button>
+            <button type="submit" class="btn btn-sm editButton">@lang('parkinsoft.editButton')</button>
     </div>
 </form>
 </div>
@@ -97,7 +97,7 @@ BootStrapBody
                             {{ $message }}
                         </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">@lang('parkinsoft.closeButton')</button>
+                        <button type="button" class="btn btn-sm closeButton" data-dismiss="modal">@lang('parkinsoft.closeButton')</button>
                     </div>
                 </div>
             </div>

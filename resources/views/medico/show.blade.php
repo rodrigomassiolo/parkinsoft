@@ -7,7 +7,7 @@
                 <h2>@lang('parkinsoft.medicShowTitle')</h2>
             </div>
             <div class="pull-right">
-                <a class="btn btn-primary" href="{{ route('medico.index') }}">  @lang('parkinsoft.backButton')</a>
+                <a class="btn btn-sm backButton" href="{{ route('medico.index') }}">  @lang('parkinsoft.backButton')</a>
             </div>
         </div>
     </div>

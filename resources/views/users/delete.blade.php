@@ -33,10 +33,10 @@ BootStrapBody
 
         <div class="form-group row">
             <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                <a class="btn btn-primary" href="{{ route('welcome') }}">@lang('parkinsoft.backButton')</a>
+                <a class="btn btn-sm backButton" href="{{ route('welcome') }}">@lang('parkinsoft.backButton')</a>
             </div>            
             <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                <button type="submit" class="btn btn-danger">
+                <button type="submit" class="btn btn-sm btn-danger">
                 @lang('parkinsoft.deleteAccount')
                 </button>
             </div>

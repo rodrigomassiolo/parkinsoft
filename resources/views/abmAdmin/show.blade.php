@@ -7,7 +7,7 @@
                 <h2>@lang('parkinsoft.adminModalTitle')</h2>
             </div>
             <div class="pull-right">
-                <a class="btn btn-primary" href="{{ route('abmAdmin.index') }}"> @lang('parkinsoft.backButton')</a>
+                <a class="btn btn-sm backButton" href="{{ route('abmAdmin.index') }}"> @lang('parkinsoft.backButton')</a>
             </div>
         </div>
     </div>

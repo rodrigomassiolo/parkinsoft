@@ -138,8 +138,8 @@ BootStrapBody
 
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
-                                <button type="submit" class="btn btn-primary">
-                                    Crear
+                                <button type="submit" class="btn btn-sm createButton">
+                                @lang('parkinsoft.createButton')
                                 </button>
                             </div>
                         </div>

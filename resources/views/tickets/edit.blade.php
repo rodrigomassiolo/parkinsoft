@@ -39,17 +39,17 @@
                         
                         @if($ticket->status == 1)
                             <input type='hidden' name='foobar' value=0/>
-                            <input type="checkbox" name="status" checked value=1> ¿Cerrar este ticket?
+                            <input type="checkbox" name="status" checked value=1> @lang('parkinsoft.closeTicket')
                         @else
                             <input type='hidden' name='foobar' value=0 />
-                            <input type="checkbox" name="status" value=1> ¿Cerrar este ticket?
+                            <input type="checkbox" name="status" value=1> @lang('parkinsoft.closeTicket')
                         @endif
                         </label>
                     </div>
 
                     <div class="form-group">
                         <div class="col-lg-10 col-lg-offset-2">
-                        <a class="btn btn-danger" href="{!! action('TicketsController@show', $ticket->slug) !!}"> @lang('parkinsoft.cancelButton')</a>
+                        <a class="btn btn-sm cancelButton" href="{!! action('TicketsController@show', $ticket->slug) !!}"> @lang('parkinsoft.cancelButton')</a>
                          
                             <button type="submit" class="btn btn-primary">Actualizar</button>
                         </div>

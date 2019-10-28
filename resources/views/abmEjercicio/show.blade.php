@@ -11,7 +11,7 @@
             </div>
 
             <div class="pull-right">
-                <a class="btn btn-primary" href="{{ route('abmEjercicio.index') }}"> @lang('parkinsoft.backButton')</a>
+                <a class="btn btn-sm backButton" href="{{ route('abmEjercicio.index') }}"> @lang('parkinsoft.backButton')</a>
             </div>
 
         </div>

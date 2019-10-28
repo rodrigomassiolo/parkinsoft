@@ -58,7 +58,7 @@
                             {{ $message }}
                         </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">@lang('parkinsoft.closeButton')</button>
+                        <button type="button" class="btn btn-sm closeButton" data-dismiss="modal">@lang('parkinsoft.closeButton')</button>
                     </div>
                 </div>
             </div>
@@ -80,7 +80,7 @@
                         </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">@lang('parkinsoft.cancelButton')</button>
-                        <button type="button" onclick="BD.deleteBD();" class="btn btn-secondary">@lang('parkinsoft.acceptButton')</button>
+                        <button type="button" onclick="BD.deleteBD();" class="btn acceptButton">@lang('parkinsoft.acceptButton')</button>
                     </div>
                 </div>
             </div>
@@ -118,7 +118,7 @@
                         
                         </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">@lang('parkinsoft.backButton')</button>
+                        <button type="button" class="btn backButton" data-dismiss="modal">@lang('parkinsoft.backButton')</button>
                         <button type="button" onclick="BD.createIndex();" class="btn btn-secondary" data-dismiss="modal">@lang('parkinsoft.BDCreateNewButton')</button>
                     </div>
                 </div>
@@ -143,7 +143,7 @@
                         </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">@lang('parkinsoft.cancelButton')</button>
-                        <button type="button" onclick="BD.CreateIndexPut();" class="btn btn-secondary">@lang('parkinsoft.acceptButton')</button>
+                        <button type="button" onclick="BD.CreateIndexPut();" class="btn acceptButton">@lang('parkinsoft.acceptButton')</button>
                     </div>
                 </div>
             </div>
@@ -164,7 +164,7 @@
                             @lang('parkinsoft.BDDeleteIndexMessage')          
                         </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">@lang('parkinsoft.closeButton')</button>
+                        <button type="button" class="btn closeButton" data-dismiss="modal">@lang('parkinsoft.closeButton')</button>
                     </div>
                 </div>
             </div>

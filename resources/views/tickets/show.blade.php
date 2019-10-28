@@ -13,7 +13,7 @@
                 </p>
             </div>
             <a href="{!! action('TicketsController@edit', $ticket->slug) !!}" 
-                class="btn btn-info float-left">
+                class="btn btn-sm closeButton float-left">
                 @lang('parkinsoft.ticketCloseButton')
             </a>
 

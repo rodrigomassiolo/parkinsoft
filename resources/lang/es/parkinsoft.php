@@ -141,6 +141,7 @@ return [
     'forgetPassword' => '¿Olvidó su contraseña?',
     'noAccount' => '¿No tenés cuenta?',
     'registerHere' => 'Registrate aqui proximamente.',
+    'closeTicket' => '¿Cerrar este ticket?',
   
 
     /*

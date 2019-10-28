@@ -93,7 +93,7 @@
                     @lang('parkinsoft.showButton')
                 </a>
     
-                <a class="btn btn-primary btn-sm" href="{{ route('abmEjercicio.edit',$row->id) }}" 
+                <a class="btn btn-sm editButton" href="{{ route('abmEjercicio.edit',$row->id) }}" 
                     data-toggle="tooltip">
                     <span data-feather="edit"></span>
                     @lang('parkinsoft.editButton')
@@ -135,7 +135,7 @@
                             {{ $message }}
                         </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">@lang('parkinsoft.closeButton')</button>
+                        <button type="button" class="btn btn-sm closeButton" data-dismiss="modal">@lang('parkinsoft.closeButton')</button>
                     </div>
                 </div>
             </div>
@@ -156,8 +156,8 @@
                             @lang('parkinsoft.exerciseConfirmDelete')
                         </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">@lang('parkinsoft.cancelButton')</button>
-                        <button type="button" onclick="Exercise.deleteExercise();" class="btn btn-secondary">@lang('parkinsoft.acceptButton')</button>
+                        <button type="button" class="btn btn-sm cancelButton" data-dismiss="modal">@lang('parkinsoft.cancelButton')</button>
+                        <button type="button" class="btn btn-sm acceptButton" onclick="Exercise.deleteExercise();">@lang('parkinsoft.acceptButton')</button>
                     </div>
                 </div>
             </div>

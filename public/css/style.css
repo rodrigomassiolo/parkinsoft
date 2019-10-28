@@ -24,34 +24,6 @@
   .col-10 {width: 83.33%;}
   .col-11 {width: 91.66%;}
   .col-12 {width: 100%;}
-  
-  /* @media only screen and (max-width: 768px) {
-  
-    [class*="col-"] {
-      width: 100%;
-    }
-  } */
-
-
-  /* @media only screen and (min-width: 767px) {
-    div.inputs select{
-      width: 100%;
-    }
-    div.inputs input{
-      width: 100%;
-      
-    } 
-
-    .tableInfo{
-      text-align: center;
-      font-size: 23vw;
-    }
-
-    .titleInfo{
-      text-align: center;
-      font-size: 5vw;
-    }
-  } */
 
   @media only screen and (max-width: 992px) {
     .flag{
@@ -123,3 +95,34 @@
 .showAction{
   display: block !important;
 }
+
+.backButton{
+    color: #fff;
+    background-color: #007bff;
+    border-color: #007bff;
+}
+
+.editButton{
+  color: #fff;
+  background-color: #007bff;
+  border-color: #007bff;
+}
+
+.closeButton{
+  color: #fff;
+  background-color: #dc3545;
+  border-color: #dc3545;
+}
+
+.acceptButton{
+  color: #fff;
+  background-color: #28a745;
+  border-color: #28a745;
+}
+
+.createButton{
+  color: #fff;
+  background-color: #28a745;
+  border-color: #28a745;
+}
+

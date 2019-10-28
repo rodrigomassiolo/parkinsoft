@@ -8,7 +8,7 @@
             <h2>@lang('parkinsoft.exerciseCreateNew')</h2>
         </div>
         <div class="pull-right">
-            <a class="btn btn-primary" href="{{ route('abmEjercicio.index') }}"> @lang('parkinsoft.backButton')</a>
+            <a class="btn btn-sm backButton" href="{{ route('abmEjercicio.index') }}"> @lang('parkinsoft.backButton')</a>
         </div>
     </div>
 </div>
@@ -52,7 +52,7 @@
         </div>        
 
         <div class="col-xs-12 col-sm-12 col-md-12 text-center">
-                <button type="submit" class="btn btn-primary">@lang('parkinsoft.createButton')</button>
+                <button type="submit" class="btn btn-sm createButton">@lang('parkinsoft.createButton')</button>
         </div>
 
     </div>

@@ -88,7 +88,7 @@
                         @lang('parkinsoft.showButton')
                     </a>
     
-                    <a class="btn btn-primary btn-sm" href="{{ route('operacion.edit',$row->id) }}">
+                    <a class="btn btn-sm editButton" href="{{ route('operacion.edit',$row->id) }}">
                         <span class=""></span> @lang('parkinsoft.editButton')</a>
    
                     @csrf
@@ -126,7 +126,7 @@
                             {{ $message }}
                         </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">@lang('parkinsoft.closeButton')</button>
+                        <button type="button" class="btn btn-sm closeButton" data-dismiss="modal">@lang('parkinsoft.closeButton')</button>
                     </div>
                 </div>
             </div>
@@ -147,8 +147,8 @@
                             @lang('parkinsoft.operacionConfirmDelete')
                         </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">@lang('parkinsoft.cancelButton')</button>
-                        <button type="button" onclick="Operacion.deleteOperacion();" class="btn btn-secondary">@lang('parkinsoft.acceptButton')</button>
+                        <button type="button" class="btn btn-sm cancelButton" data-dismiss="modal">@lang('parkinsoft.cancelButton')</button>
+                        <button type="button" onclick="Operacion.deleteOperacion();" class="btn btn-sm acceptButton">@lang('parkinsoft.acceptButton')</button>
                     </div>
                 </div>
             </div>
