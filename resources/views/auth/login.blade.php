@@ -60,15 +60,15 @@ BootStrapBody
                         </a>
                     </div>
                 </div>
-                <div class="form-group ">
+                <!-- <div class="form-group ">
                             <div class="col-md-12 control">
                                 <div style="border-top: 1px solid#888; padding-top:15px; font-size:85%" >
                                     @lang('parkinsoft.noAccount') 
                                 <a href="{{ route('register') }}">
                                 @lang('parkinsoft.registerHere') 
                                 </a>
-                            </div>
-                </div>
+                    </div>
+                </div> -->
                 </div>    
             </form>
              

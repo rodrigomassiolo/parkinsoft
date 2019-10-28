@@ -52,7 +52,7 @@
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
                     <strong>@lang('parkinsoft.nacDate'):</strong>
-                    <input type="date" name="nacimiento" value="{{ $user->nacimiento }}" 
+                    <input type="date" name="nacimiento" required min="1900-01-01" max="2099-12-31" value="{{ $user->nacimiento }}" 
                     class="form-control">
                 </div>
             </div>

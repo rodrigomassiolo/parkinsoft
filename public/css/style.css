@@ -126,3 +126,15 @@
   border-color: #28a745;
 }
 
+.sendButton{
+  color: #fff;
+  background-color: #007bff;
+  border-color: #007bff;
+  font-size: 1.5vw !important;
+  width: 10%;
+}
+
+.ejercicioInfo{
+  font-weight: bold;
+}
+

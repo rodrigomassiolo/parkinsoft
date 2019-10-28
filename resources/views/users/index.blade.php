@@ -52,7 +52,7 @@ BootStrapBody
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <div class="form-group">
                         <strong>@lang('parkinsoft.nacDate'):</strong>
-                        <input class="form-control" type="date" value="{{ Auth::user()->nacimiento }}" id="nacimiento" name="nacimiento" required>
+                        <input class="form-control" type="date" value="{{ Auth::user()->nacimiento }}" id="nacimiento" name="nacimiento" required min="1900-01-01" max="2099-12-31">
                     </div>
                 </div>
                        

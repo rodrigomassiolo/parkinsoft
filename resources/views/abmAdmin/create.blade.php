@@ -15,10 +15,13 @@
    
 @if ($errors->any())
     <div class="alert alert-danger">
-        @lang('parkinsoft.errorDescription').<br><br>
+    @lang('parkinsoft.errorDescription').<br><br>
         <ul>
+        @if($errors->has('password'))
+            <li>@lang('parkinsoft.passwordFormat')</li>
+        @endif
             @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
+                <li>{{ $error }}</li> 
             @endforeach
         </ul>
     </div>
@@ -66,14 +69,14 @@
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
             <strong>@lang('parkinsoft.nacDate'):</strong>
-              <input class="form-control" type="date" id="nacimiento" name="nacimiento" required>
+              <input class="form-control" type="date" id="nacimiento" required min="1900-01-01" max="2099-12-31">
             </div>
         </div>
 
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
                 <strong>@lang('parkinsoft.email'):</strong>
-                <input type="text" name="email" class="form-control">
+                <input type="email" name="email" class="form-control" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2, 4}$">
             </div>
         </div>
 
@@ -81,6 +84,12 @@
             <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
                 <strong>@lang('parkinsoft.password'):</strong>
                 <input id="password" type="password" class="form-control" name="password" required>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12">
+            <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
+                <strong>@lang('parkinsoft.passwordConfirm'):</strong>
+                    <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
             </div>
         </div>
 

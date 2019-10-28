@@ -8,6 +8,7 @@ $( document ).ready(function() {
     $('#BDMessageModal').modal('show');
     $('#myDataModal').modal('show');
   
+  
     $('#Operacion_user_id').select2(
         {
           language:'es',

@@ -21,12 +21,14 @@
         @lang('parkinsoft.uploadAudio')
       </a>
     </li>
+    @if (Auth::user()->rol->type == 0 || Auth::user()->rol->type == 1 ) 
     <li class="nav-item">
       <a class="nav-link" href="{{ route('TestLevodopa') }}">
         <span data-feather="activity"></span> 
         @lang('parkinsoft.levodopaTest')
       </a>
     </li>  
+    @endif 
     @if (Auth::user()->rol->type == 0) 
     <li class="nav-item">
       <a class="nav-link" href="{{ route('medico.index') }}">
@@ -90,7 +92,7 @@
       </li>
      <form action="{{ route('donwloadApk') }}" method="GET">
       @csrf
-        <a class="nav-link" href="{{ route('donwloadApk') }}" data-toggle="tooltip" title="Mostrar">
+        <a class="nav-link" href="{{ route('donwloadApk') }}" data-toggle="tooltip">
           <span data-feather="download"></span>
           @lang('parkinsoft.downloadAppLink')
         </a>

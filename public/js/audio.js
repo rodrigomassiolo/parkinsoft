@@ -2,10 +2,19 @@
 $( document ).ready(function() {
 /*******Audio Index ****/
     $('#audio_select_ejercicio').on('change',function(e){
-        $('#ejercicioDesc').html(e.target[e.target.value].attributes[1].value);
+        // $('#ejercicioDesc').html(e.target[e.target.value].attributes[1].value);
+        $('#audio_select_ejercicio').children().each(
+            function(){
+                if($(this)[0].selected == true){
+                    // $('#ejercicioDesc').html( $(this)[0].attributes[1].value);
+                    $('#ejercicioDesc').val( $(this)[0].attributes[1].value);
+                }
+            }
+        )
+
       });
     var preset = $("#audio_preset_paciente").val();
-    if(preset){
+    if(preset >= 0){
     $("#user").val(preset); 
     $("#user").prop('disabled', true);
     }  

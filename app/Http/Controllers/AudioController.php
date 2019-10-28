@@ -41,7 +41,7 @@ class AudioController extends Controller
             })->get();
         }
         else{
-            $pacientes = null;
+             $pacientes = null;
         }
 
         $params = array('usuario' => $user);
@@ -430,7 +430,8 @@ class AudioController extends Controller
             $this->plotRmd('pdf_document', $absPath.$name.".pdf",$ejercicios,$energy,$eGemaps,$chroma,$audspec,$prosody);
             return response()->download($absPath.$name.'.pdf');
         }
-        
+        $var = \Lang::get('parkinsoft.oneConfiguration');
+        return redirect()->back()->withSuccess($var);
     }
 
     public function plotRmd($tipoSalida, $pathsalida,$ejercicios, $energy,$eGemaps,$chroma,$audspec,$prosody){    

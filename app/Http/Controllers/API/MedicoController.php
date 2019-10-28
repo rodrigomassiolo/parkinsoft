@@ -77,7 +77,7 @@ class MedicoController extends Controller
             'genero' => 'required|string|max:1',
             'nacimiento' => 'required|date',
             'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:6',
+            'password' => 'required|string|min:6|regex:/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{6,}$/',
         ]);
         $jsonReq = json_decode($request->getContent(), true);
         if($jsonReq['confirmaPassword'] != $jsonReq['password'])	{

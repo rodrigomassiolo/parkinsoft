@@ -43,6 +43,7 @@ return [
     'deleteButton' => 'Eliminar',
     'showButton' => 'Mostrar',
     'exampleButton' => 'Ejemplo',
+    'sendButton' => 'Enviar',
     'showActionsButton' => 'Mostar acciones',
     'showHtmlGraphicButton' => 'Ver grafico',
     'downloadPdfGraphicButton' => 'Descargar como PDF',
@@ -142,7 +143,22 @@ return [
     'noAccount' => '¿No tenés cuenta?',
     'registerHere' => 'Registrate aqui proximamente.',
     'closeTicket' => '¿Cerrar este ticket?',
+    'isLevodopaLabel' => '¿Es Levodopa?',
+    'uploadAudioLabel' => 'Cargue un Audio',
+    'uploadAudioTitle' => 'Cargar Audio',
+    'audioQuality' => 'Calidad del audio',
+    'exerciseDescription' => 'Descripción del ejercicio',
   
+    'selectExerciseType' => 'Seleccione ejercicio',
+    'selectPatient' => 'Seleccione paciente',
+    'selectAudioQuality' => 'Seleccione calidad del audio',
+
+    'compareAudioFirst' => 'Primer audio a comparar',
+    'compareAudioSecond' => 'Segundo audio a comparar',
+
+    'oneConfiguration' => 'Debe seleccionar al menos una configuración',
+
+    'passwordFormat' => 'El password debe tener de 8 a 16 caracteres, incluyendo al menos una minuscula, una mayuscula, un numero y un caracter especial.',
 
     /*
     |--------------------------------------------------------------------------

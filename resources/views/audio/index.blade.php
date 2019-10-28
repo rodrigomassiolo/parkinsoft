@@ -3,18 +3,19 @@
 
 @section('MainContent')
 
-<h4 class="titleInfo">
-  Ingresar Audio
-</h4>
+<h2 class="titleInfo">
+  @lang('parkinsoft.uploadAudioTitle')
+</h2>
 <br>
 
 <form action="{{ route('sendAudio') }}" method="POST" enctype="multipart/form-data">
     @csrf
   <div class="form-group row inputs">
     @if($pacientes != null)
-    <div class="col-md-3 col-sm-3 col-lg-3">
-        @lang('parkinsoft.patient')
-        <select name="user" id="user" class="form-control">
+    <div class="col-md-6 col-sm-6 col-lg-3">
+        <strong>@lang('parkinsoft.patient'):</strong>
+        <select name="user" id="user" class="form-control" required>
+          <option selected disabled hidden style='display: none' value=''>@lang('parkinsoft.selectPatient')</option>
           @foreach ($pacientes as $paciente)
             <option value="{{ $paciente->id }}"> {{ $paciente->usuario }} </option>
           @endforeach
@@ -22,55 +23,58 @@
       </div>
     @endif  
     <input type="hidden" id="audio_preset_paciente" value="{{ $preset }}">
-    <div class="col-md-3 col-sm-3 col-lg-3">
+    <div class="col-md-6 col-sm-6 col-lg-3">
       <input type="hidden" name="View" value="1">
-      <label for="ejercicio">Tipo de Ejercicio</label>
-      <select name="ejercicio" id="audio_select_ejercicio" class="form-control">
+      <strong>@lang('parkinsoft.exerciseType'):</strong>
+      <select name="ejercicio" id="audio_select_ejercicio" class="form-control" required>
+        <option selected disabled hidden style='display: none' value='' >@lang('parkinsoft.selectExerciseType')</option>
         @foreach ($ejercicio as $ej)
           <option value="{{ $ej->id }}" desc="{{ $ej->descripcion }}"> {{ $ej->nombre }} </option>
         @endforeach
       </select>
     </div>
-    <div class="col-md-3 col-sm-3 col-lg-3">
-      <label for="es_levodopa">¿Es Levodopa?</label>
+    <div class="col-md-6 col-sm-6 col-lg-3">
+      <strong>@lang('parkinsoft.isLevodopaLabel'):</strong>
       <select id="es_levodopa" name="es_levodopa" class="form-control"><option value=0>NO</option><option value=1>SI</option></select>
     </div>
-    <div class="col-md-3 col-sm-3 col-lg-3"  style="display: none;">
-      <label for="modo_levodopa">ON/OFF</label>
+    <div class="col-md-6 col-sm-6 col-lg-3"  style="display: none;">
+        <strong>@lang('parkinsoft.onOff'):</strong>
       <select id="modo_levodopa" name="modo_levodopa" class="form-control"><option value="ON">ON</option><option value="OFF">OFF</option></select>
     </div>
+  </div>  
+
+  <div class="form-group row inputs">
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+      <strong> @lang('parkinsoft.exerciseDescription'):</strong>
+        <input type="text" disabled class="form-control" id ="ejercicioDesc" value="">
+      </div>
   </div>
-  <div class="col-xs-12 col-sm-12 col-md-12">
+
+  <div class="form-group row inputs">
     <div class="col-md-6 col-sm-6 col-lg-6">
-      <label for="audio">Cargue un Audio</label>
+        <strong>@lang('parkinsoft.uploadAudioLabel'):</strong>
       <input type="file" class="form-control-file" id="audio" name="audio">
     </div>
-    <div class="col-md-2 col-sm-2 col-lg-2">
-        <label for="origen_audio">Calidad del audio</label>
-        <select id="origen_audio" name="origen_audio" class="form-control"><option value="celular">Celular</option><option value="profesional">Profesional</option></select>
+    <div class="col-md-6 col-sm-6 col-lg-6">
+        <strong>@lang('parkinsoft.audioQuality'):</strong>
+        <select id="origen_audio" name="origen_audio" class="form-control">
+            <option selected disabled hidden style='display: none' value='celular' required>@lang('parkinsoft.selectAudioQuality')</option>          
+            <option value="celular">Celular</option>
+            <option value="profesional">Profesional</option>
+        </select>
     </div>
   </div>
-  <div class="col-xs-12 col-sm-12 col-md-12">
-      <div class="form-group"><div class="form-group">
-        <strong>Medicacion</strong> 
-        <input type="text" name="ultimaMedicacion" placeholder="Ingrese la última medicación tomada y la hora" class="form-control">
+  <div class="form-group row inputs">
+      <div class="col-xs-12 col-sm-12 col-md-12">
+          <strong>@lang('parkinsoft.medication'):</strong> 
+          <input type="text" name="ultimaMedicacion" placeholder="Ingrese la última medicación tomada y la hora" class="form-control">
       </div>
-    </div>
   </div>
-<br>
 
-  <div class="form-group row">
-    <h6 class="ejercicioInfo" id ="ejercicioInfo"> 
-     Descripción del ejercicio:
-    </h6>
-    <span style="display:inline-block; width:25px;"></span>
-    <h6 class="ejercicioDesc" id ="ejercicioDesc"> 
-        {{ $ej->descripcion }}
-    </h6>
-  </div>
-  <br>
-  <div class="centerButton">
-      <button type="submit"> Enviar </button>
+  <div class="centerButton row">
+    <div class="col-lg-12" style="text-align:center">
+      <button type="submit" class="btn btn-sm sendButton"> @lang('parkinsoft.sendButton') </button>
+    </div>
   </div>
   
 </form>

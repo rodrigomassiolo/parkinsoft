@@ -47,7 +47,7 @@
             <div class="col-xs-3 col-sm-3 col-md-3">
                 <div class="form-group">
                     <strong>@lang('parkinsoft.nacDate'):</strong>
-                    <input type="date" name="nacimiento" class="form-control" 
+                    <input type="date" name="nacimiento" required min="1900-01-01" max="2099-12-31" class="form-control" 
                     value= "{{Request::old('nacimiento')}}">
                 </div>
             </div>
@@ -95,7 +95,7 @@
             <td>{{ $row->genero}}</td>
             <td>{{ $row->nacimiento}}</td>
             <td>
-                <form action="{{ route('abmAdmin.destroy',$row->id) }}" method="POST">
+                
    
                     <a class="btn btn-info btn-sm"  href="{{ route('abmAdmin.show',[$row->id]) }}">
                     <span data-feather="trash"></span>
@@ -107,6 +107,8 @@
                         @lang('parkinsoft.editButton')
                     </a>
    
+
+                <form action="{{ route('abmAdmin.destroy',$row->id) }}" method="POST">
                     @csrf
                     @method('DELETE')
       

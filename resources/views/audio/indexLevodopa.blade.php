@@ -70,8 +70,8 @@
         <tr>
             <th>@lang('parkinsoft.user')</th>
             <th>@lang('parkinsoft.description')</th>
-            <th>No Ej. OFF</th>
-            <th>No Ej. OFF</th>
+            <th>N° Ej. OFF</th>
+            <th>N° Ej. OFF</th>
             <th>@lang('parkinsoft.createDate')</th>
             <th width="320px">@lang('parkinsoft.actions')</th>
         </tr>
@@ -91,7 +91,7 @@
             <td>{{ $row->fecha}}</td>
             <td>
             <button type="button" class="btn btn-primary" id="{{$row->pacienteejercicio_OFF_id}}"
-                 data-toggle="modal" data-target="#levoModal" data-whatever="{{$row->user_id}},{{$row->pacienteejercicio_OFF_id}},{{$row->pacienteejercicio_ON_id}}">Mostrar acciones</button>
+                 data-toggle="modal" data-target="#levoModal" data-whatever="{{$row->user_id}},{{$row->pacienteejercicio_OFF_id}},{{$row->pacienteejercicio_ON_id}}">@lang('parkinsoft.showActionsButton')</button>
             </td>
         </tr>
         @endif

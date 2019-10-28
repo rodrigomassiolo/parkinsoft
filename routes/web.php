@@ -190,24 +190,42 @@ Route::post('/audio/processAudio','AudioController@processAudio')->middleware('a
 Route::get('AvailableAudio/{id}', function($id){
 	$response = $id;
 
-	 $comparable = PacienteEjercicio::findOrFail($response);
+	$comparable = PacienteEjercicio::findOrFail($response);
 
-	if (!$id) {
-        $html = '<option value="">'.trans('parkinsoft.pleaseSelect').'</option>';
-    } else {
-        $html = '';
-		$result = 
-			PacienteEjercicio::where('user_id',"=", $comparable->user_id)->where("id","<>",$comparable->id)
-			->whereHas('ejercicio',function($q) use($comparable){
-			$q->where('nombre',"=",$comparable->ejercicio->nombre);
-		})->get();;
+	$result = 
+	PacienteEjercicio::where('user_id',"=", $comparable->user_id)->where("id","<>",$comparable->id)
+		->whereHas('ejercicio',function($q) use($comparable){
+		$q->where('nombre',"=",$comparable->ejercicio->nombre);
+	})->get();;
 
-        foreach ($result as $res) {
-				$html .= '<option value="'.$res->id.'">'.$res->created_at.'</option>';
-        }
-    }
+	$item=[];
 
-     return response()->json(['html' => $html]);
+	foreach($result as $r){
+
+		$text = $r->ejercicio->nombre;
+		$date = $r->updated_at;
+
+		$added = ['id' => $r["id"],'text' =>  $text .' - '. $date ];
+
+		array_push($item,$added);
+	}
+
+	// if (!$id) {
+    //     $html = '<option value="">'.trans('parkinsoft.pleaseSelect').'</option>';
+    // } else {
+    //     $html = '';
+	// 	$result = 
+	// 		PacienteEjercicio::where('user_id',"=", $comparable->user_id)->where("id","<>",$comparable->id)
+	// 		->whereHas('ejercicio',function($q) use($comparable){
+	// 		$q->where('nombre',"=",$comparable->ejercicio->nombre);
+	// 	})->get();;
+
+    //     foreach ($result as $res) {
+	// 			$html .= '<option value="'.$res->id.'">'.$res->created_at.'</option>';
+    //     }
+    // }
+	$response = ['items' => $item];
+	return response()->json($response);
 })->middleware('auth');;
 
 

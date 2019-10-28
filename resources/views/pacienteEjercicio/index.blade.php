@@ -69,12 +69,6 @@
     </div>
 
     </div>
-   
-    @if ($message = Session::get('success'))
-        <div class="alert alert-success">
-            <p>{{ $message }}</p>
-        </div>
-    @endif
 
     <table class="table table-bordered table-sm table-hover">
     <thead>
@@ -109,7 +103,7 @@
             <td>{{ $row->created_at }}</td>
             <td>
                 <button type="button" class="btn btn-primary" id="{{$row->id}}"
-                 data-toggle="modal" data-target="#exampleModal" data-whatever="{{$row->id}}">@lang('parkinsoft.showActionsButton')</button>
+                 data-toggle="modal" data-target="#exampleModal" onclick="Lista.fillSelector({{$row->id}});" data-whatever="{{$row->id}}">@lang('parkinsoft.showActionsButton')</button>
             </td>
         </tr>
         @endforeach
@@ -130,41 +124,35 @@
         <form method = "POST" id="graphicForm">
           <div class="form-group">
           @csrf
-            <label><input type="checkbox" name="Energy" value="1"> Energy</label><br>
+            <label><input type="checkbox" name="Energy"  value="1"> Energy</label><br>
             <label><input type="checkbox" name="eGemaps" value="1"> eGemaps</label><br>
-            <label><input type="checkbox" name="Chroma" value="1"> Chroma</label><br>
+            <label><input type="checkbox" name="Chroma"  value="1"> Chroma</label><br>
             <label><input type="checkbox" name="Audspec" value="1"> Audspec</label><br>
             <label><input type="checkbox" name="Prosody" value="1"> Prosody</label><br>    
     
-            <div id="compareDiv">
-                <label>
-                    <input type="checkbox" name="Compare1" value="1" id="che1">
-                    @lang('parkinsoft.compareAudio')
-                </label><br>
 
-                <div id="selector1" style="display:none">
-                    <select id="se1" name="CompareAudio1">
-                        <option value=""></option>
-                    </select>
-                </div>
-
-                <div id="compareDiv2">
-
-                    <label><input type="checkbox" name="Compare2" value="1" id="che2">@lang('parkinsoft.compareAudio')</label><br>
-
-                    <div id="selector2" style="display:none">
-                        <select id="se2" name="CompareAudio2">
-                            <option value=""></option>
-                        </select>
+            <div id="CompareDiv">
+                <div class="row">
+                    <div class="col-10 offset-2-md">
+                        <strong>@lang('parkinsoft.compareAudioFirst'):</strong>
+                        <select id="se1" name="CompareAudio1"></select>
                     </div>
-              </div>  
+                </div>
+                <div class="row">
+                    <div class="col-10 offset-2-md">
+                        <strong>@lang('parkinsoft.compareAudioSecond'):</strong>
+                        <select id="se2" name="CompareAudio2"></select>
+                    </div>
+                </div>
+            </div>
+
             </div>
 
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-sm closeButton" data-dismiss="modal">@lang('parkinsoft.closeButton')</button>
-            <button type="submit" name="View" value="1" class="btn btn-primary" onClick="Lista.generateGraphic();">@lang('parkinsoft.showHtmlGraphicButton')</button>
-            <button type="submit" name="output" value="pdf" class="btn btn-primary" onClick="Lista.downloadGraphic();">@lang('parkinsoft.downloadPdfGraphicButton')</button>
+            <button type="submit" name="View" value="1" class="btn btn-sm btn-primary" onClick="Lista.generateGraphic();">@lang('parkinsoft.showHtmlGraphicButton')</button>
+            <button type="submit" name="output" value="pdf" class="btn btn-sm btn-primary" onClick="Lista.downloadGraphic();">@lang('parkinsoft.downloadPdfGraphicButton')</button>
           </div>   
         </form>
       </div>
@@ -172,6 +160,27 @@
     </div>
   </div>
 </div>
-    
+
+@if ($message = Session::get('success'))
+        <!-- Modal -->
+        <div class="modal fade" id="oneGraphicModal" tabindex="-1" role="dialog" aria-labelledby="adminMessageModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="adminMessageModalLabel">@lang('parkinsoft.selectGraphic')</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                            </button>
+                    </div>
+                        <div class="modal-body">
+                            {{ $message }}
+                        </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-sm closeButton" data-dismiss="modal">@lang('parkinsoft.closeButton')</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+@endif
       
 @endsection

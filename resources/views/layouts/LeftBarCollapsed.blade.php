@@ -18,9 +18,11 @@
             @lang('parkinsoft.uploadAudio')
         </a>
 
+        @if (Auth::user()->rol->type == 0 || Auth::user()->rol->type == 1 ) 
         <a class="dropdown-item" href="{{ route('TestLevodopa') }}">
             @lang('parkinsoft.levodopaTest')
         </a>
+        @endif
 
         @if (Auth::user()->rol->type == 0) 
         <a class="dropdown-item" href="{{ route('medico.index') }}">
@@ -66,7 +68,7 @@
 
         <form action="{{ route('donwloadApk') }}" method="GET">
             @csrf
-            <a class="dropdown-item" href="{{ route('donwloadApk') }}" data-toggle="tooltip" title="Mostrar">
+            <a class="dropdown-item" href="{{ route('donwloadApk') }}" data-toggle="tooltip">
                 @lang('parkinsoft.downloadAppLink')
             </a>
         </form>

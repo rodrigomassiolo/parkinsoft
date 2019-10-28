@@ -48,7 +48,7 @@
             <div class="col-xs-3 col-sm-3 col-md-3">
                 <div class="form-group">
                     <strong>@lang('parkinsoft.nacDate'):</strong>
-                    <input type="date" name="nacimiento" class="form-control" 
+                    <input type="date" name="nacimiento" required min="1900-01-01" max="2099-12-31" class="form-control" 
                     value= "{{Request::old('nacimiento')}}">
                 </div>
             </div>

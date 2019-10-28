@@ -61,7 +61,7 @@ class MedicoController extends Controller
             'genero' => 'required|string|max:1',
             'nacimiento' => 'required|date',
             'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:6',
+            'password' => 'required|string|min:8|max:16|regex:/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/',
         ]);
   
         $make1 = \mb_substr($request['nombre'],0,2);
