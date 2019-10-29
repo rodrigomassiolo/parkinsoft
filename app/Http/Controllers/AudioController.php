@@ -34,6 +34,7 @@ class AudioController extends Controller
         $rol_id = Auth::user()->rol_id;
         $rol = Rol::where('id', $rol_id)->get();
 
+        $params = array();
         if($rol[0]->type == 0 || $rol[0]->type == 1){
 
             $pacientes = User::whereHas('rol',function($q){
@@ -42,12 +43,11 @@ class AudioController extends Controller
         }
         else{
              $pacientes = null;
+             $params = array('usuario' => $user);
         }
 
-        $params = array('usuario' => $user);
-        // $PacienteEjercicio = PacienteEjercicio::where('user_id','=',$user)->paginate(10);
+        $PacienteEjercicio = PacienteEjercicio::filter($params)->orderBy('created_at', 'desc')->paginate(10);
 
-        $PacienteEjercicio = PacienteEjercicio::filter($params)->paginate(10);
 
         $ejercicio = Ejercicio::all();
 

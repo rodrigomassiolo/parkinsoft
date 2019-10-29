@@ -79,34 +79,58 @@
   
 </form>
 
-@if(Auth::user()->rol->type == 2)
+
 <br><br>
 <h6 class="tableInfo"
   >Historial de audios subidos
 </h6>
 
 <table class="table table-bordered table-sm table-hover">
-    <thead>
-        <tr>
-            <th>No</th>
-            <th>Ejercicio</th>
-            <th>Fecha de Creación</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach ($PacienteEjercicio as $row)
-        <tr>
-            <td>{{ $row->id }}</td>  
-            <td>{{ $row->ejercicio->descripcion }}</td>
-            <td>{{ $row->created_at }} </td> 
-      
-        </tr>
-        @endforeach
-        </tbody>
-    </table>
+  <thead>
+    <tr>
+        <th>No</th>
+        <th>@lang('parkinsoft.user')</th>
+        <th>@lang('parkinsoft.exercise')</th>
+        <th>@lang('parkinsoft.status')</th>
+        <th>@lang('parkinsoft.isLevodopa')</th>
+        <th>@lang('parkinsoft.onOff')</th>
+        <th>@lang('parkinsoft.createDate')</th>
+        @if(Auth::user()->rol->type == 0 || Auth::user()->rol->type == 1)
+        <th width="320px">@lang('parkinsoft.actions')</th>
+        @endif
+    </tr>
+</thead>
+  <tbody>
+      @foreach ($PacienteEjercicio as $row)
+      <tr>
+          <td>{{ $row->id }}</td>  
+          <td>{{ $row->user->usuario }}</td>
+          <td>{{ $row->ejercicio->nombre }}</td>
+          <td>{{ $row->status }}</td>
+          @if($row->es_levodopa == 1 )
+              <td>@lang('parkinsoft.yes')</td>
+          @else
+              <td>No</td>
+          @endif
+          @if($row->es_levodopa == 1)
+              <td>{{ $row->modo_levodopa }}</td>
+          @else
+              <td>-</td>
+          @endif
+          <td>{{ $row->created_at }}</td>
+              @if(Auth::user()->rol->type == 0 || Auth::user()->rol->type == 1)
+              <td>
+                <button type="button" class="btn btn-primary" id="{{$row->id}}"
+                data-toggle="modal" data-target="#exampleModal" onclick="Lista.fillSelector({{$row->id}});" data-whatever="{{$row->id}}">@lang('parkinsoft.process')</button>
+              </td>
+              @endif
+          </tr>
+          @endforeach
+  </tbody>
+</table>
 
        {!! $PacienteEjercicio->render() !!}
-@endif
+
 
 
 @if ($message = Session::get('success'))
@@ -130,6 +154,55 @@
   </div>
 </div>
 @endif
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+      <h4 class="modal-title" id="exampleModalLabel">@lang('parkinsoft.selectGraphic')</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      </div>
+      <div class="modal-body">
+        <input type="hidden" id="row" name="row">
+        <form method = "POST" id="graphicForm">
+          <div class="form-group">
+          @csrf
+            <label><input type="checkbox" name="Energy"  value="1"> Energy</label><br>
+            <label><input type="checkbox" name="eGemaps" value="1"> eGemaps</label><br>
+            <label><input type="checkbox" name="Chroma"  value="1"> Chroma</label><br>
+            <label><input type="checkbox" name="Audspec" value="1"> Audspec</label><br>
+            <label><input type="checkbox" name="Prosody" value="1"> Prosody</label><br>    
+    
+
+            <div id="CompareDiv">
+                <div class="row">
+                    <div class="col-10 offset-2-md">
+                        <strong>@lang('parkinsoft.compareAudioFirst'):</strong>
+                        <select id="se1" name="CompareAudio1"></select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-10 offset-2-md">
+                        <strong>@lang('parkinsoft.compareAudioSecond'):</strong>
+                        <select id="se2" name="CompareAudio2"></select>
+                    </div>
+                </div>
+            </div>
+
+            </div>
+
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-sm closeButton" data-dismiss="modal">@lang('parkinsoft.closeButton')</button>
+            <button type="submit" name="View" value="1" class="btn btn-sm btn-primary" onClick="Lista.generateGraphic();">@lang('parkinsoft.showHtmlGraphicButton')</button>
+            <button type="submit" name="output" value="pdf" class="btn btn-sm btn-primary" onClick="Lista.downloadGraphic();">@lang('parkinsoft.downloadPdfGraphicButton')</button>
+          </div>   
+        </form>
+      </div>
+    
+    </div>
+  </div>
+</div>
 
 @endsection
 
