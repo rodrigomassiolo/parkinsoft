@@ -61,6 +61,8 @@ return [
     'process' => 'Procesar',
     'historial' => 'Ver Historial',
 
+    'accountConfirmDelete' => '¿Realmente desea eliminar su cuenta?',
+
     /*
     |--------------------------------------------------------------------------
     | DataBase
