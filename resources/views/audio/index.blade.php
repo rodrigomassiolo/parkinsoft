@@ -79,6 +79,7 @@
   
 </form>
 
+@if(Auth::user()->rol->type == 2)
 <br><br>
 <h6 class="tableInfo"
   >Historial de audios subidos
@@ -105,7 +106,7 @@
     </table>
 
        {!! $PacienteEjercicio->render() !!}
-
+@endif
 
 
 @if ($message = Session::get('success'))

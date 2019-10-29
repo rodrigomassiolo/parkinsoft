@@ -5,7 +5,7 @@
     <div class="row">
         <div class="col-lg-12 margin-tb">
             <div class="pull-left">
-                <h2>@lang('parkinsoft.abmMedicLink')</h2>
+                <h2>@lang('parkinsoft.abmMedicTitle')</h2>
             </div>
             <div class="float-right">
                 <a class="btn btn-success btn-sm" href="{{ route('medicamento.create') }}"> Crear Medicamento</a>

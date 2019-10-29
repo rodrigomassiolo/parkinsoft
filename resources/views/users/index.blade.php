@@ -33,6 +33,23 @@ BootStrapBody
     <form method="POST" action="{{ route('user/update') }}">
                 {{ csrf_field() }}
 
+
+                <div class="col-xs-12 col-sm-12 col-md-12">
+                    <div class="form-group">
+                        <strong>@lang('parkinsoft.user'):</strong>
+                        <input class="form-control" disabled type="text" value="{{ Auth::user()->usuario }}">
+                    </div>
+                </div>
+
+                <div class="col-xs-12 col-sm-12 col-md-12">
+                    <div class="form-group">
+                        <strong>@lang('parkinsoft.email'):</strong>
+                        <input class="form-control" disabled type="text" value="{{ Auth::user()->email }}">
+                    </div>
+                </div>
+
+
+
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <div class="form-group{{ $errors->has('genero') ? ' has-error' : '' }}">
                     <strong>@lang('parkinsoft.gender'):</strong>
@@ -76,7 +93,7 @@ BootStrapBody
                 </div>
 
     <div class="col-xs-12 col-sm-12 col-md-12">
-            <button type="submit" class="btn btn-sm editButton">@lang('parkinsoft.editButton')</button>
+            <button type="submit" class="btn btn-sm editButton">@lang('parkinsoft.modifyModalTitle')</button>
     </div>
 </form>
 </div>

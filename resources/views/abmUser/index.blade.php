@@ -1,11 +1,11 @@
 @extends('layouts.BootStrapBody')
-@section('title',trans("parkinsoft.abmUserLink"))
+@section('title',trans("parkinsoft.abmUserLinkTitle"))
 
 @section('MainContent')
     <div class="row">
         <div class="col-lg-12 margin-tb">
             <div class="pull-center titleInfo">
-                <h2>@lang("parkinsoft.abmUserLink")</h2>
+                <h2>@lang("parkinsoft.abmUserLinkTitle")</h2>
             </div>
             <div class="float-right">
                 <a href="{{ route('abmUser.create') }}" class="btn btn-success" >
@@ -140,7 +140,7 @@
                     </form>
                     <form action="{{ route('operacion.index') }}" method="GET">
                         <input type="hidden" name="user_id" value="{{$row->id}}">
-                        <button class="btn btn-info btn-sm" type="submit">@lang('parkinsoft.operacionLink')</button>           
+                        <button class="btn btn-info btn-sm" type="submit">@lang('parkinsoft.operacionLinkTitle')</button>           
                     </form>
             </td>
         </tr>

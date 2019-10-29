@@ -5,7 +5,7 @@
     <div class="row">
         <div class="col-lg-12 margin-tb">
             <div class="pull-left titleInfo">
-                <h2>@lang('parkinsoft.operacionLink')</h2>
+                <h2>@lang('parkinsoft.operacionLinkTitle')</h2>
             </div>
             <div class="float-right">
                 <a class="btn btn-success btn-sm" href="{{ route('operacion.create') }}"> @lang('parkinsoft.operacionCreateNew')</a>

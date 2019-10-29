@@ -7,7 +7,7 @@
         <div class="col-lg-12 margin-tb">
 
             <div class="pull-left titleInfo">
-                <h2>@lang('parkinsoft.abmExerciseLink')</h2>
+                <h2>@lang('parkinsoft.abmExerciseLinkTitle')</h2>
             </div>
 
             <div class="pull-right">

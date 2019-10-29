@@ -91,7 +91,7 @@
             <td>{{ $row->fecha}}</td>
             <td>
             <button type="button" class="btn btn-primary" id="{{$row->pacienteejercicio_OFF_id}}"
-                 data-toggle="modal" data-target="#levoModal" data-whatever="{{$row->user_id}},{{$row->pacienteejercicio_OFF_id}},{{$row->pacienteejercicio_ON_id}}">@lang('parkinsoft.showActionsButton')</button>
+                 data-toggle="modal" data-target="#levoModal" data-whatever="{{$row->user_id}},{{$row->pacienteejercicio_OFF_id}},{{$row->pacienteejercicio_ON_id}}">@lang('parkinsoft.process')</button>
             </td>
         </tr>
         @endif

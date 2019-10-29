@@ -22,15 +22,21 @@
                 <fieldset>
                     <legend>Editar ticket</legend>
                     <div class="form-group">
-                        <label for="title" class="col-lg-2 control-label">Título</label>
+                        <label for="title" class="col-lg-2 control-label">@lang('parkinsoft.title')</label>
                         <div class="col-lg-10">
-                            <input type="text" class="form-control" id="title" name="title" value="{!! $ticket->title !!}">
+                            <input type="text" class="form-control" id="title" name="title" disabled value="{!! $ticket->title !!}">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="content" class="col-lg-2 control-label">Contenido</label>
+                        <label for="content" class="col-lg-2 control-label">@lang('parkinsoft.description')</label>
                         <div class="col-lg-10">
-                            <textarea class="form-control" rows="3" id="content" name="content">{!! $ticket->content !!}</textarea>
+                            <textarea class="form-control" rows="3" id="" name="" disabled>{!! $ticket->content !!}</textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="content" class="col-lg-2 control-label">@lang('parkinsoft.response')</label>
+                        <div class="col-lg-10">
+                            <textarea class="form-control" rows="3" id="content" name="content"></textarea>
                         </div>
                     </div>
 
@@ -39,10 +45,10 @@
                         
                         @if($ticket->status == 1)
                             <input type='hidden' name='foobar' value=0/>
-                            <input type="checkbox" name="status" checked value=1> @lang('parkinsoft.closeTicket')
+                            @lang('parkinsoft.closeTicket') <input type="checkbox" name="status" checked value=1> 
                         @else
                             <input type='hidden' name='foobar' value=0 />
-                            <input type="checkbox" name="status" value=1> @lang('parkinsoft.closeTicket')
+                            @lang('parkinsoft.closeTicket') <input type="checkbox" name="status" value=1> 
                         @endif
                         </label>
                     </div>
@@ -51,7 +57,7 @@
                         <div class="col-lg-10 col-lg-offset-2">
                         <a class="btn btn-sm cancelButton" href="{!! action('TicketsController@show', $ticket->slug) !!}"> @lang('parkinsoft.cancelButton')</a>
                          
-                            <button type="submit" class="btn btn-primary">Actualizar</button>
+                            <button type="submit" class="btn btn-sm editButton">@lang('parkinsoft.actualizar')</button>
                         </div>
                     </div>
                 </fieldset>

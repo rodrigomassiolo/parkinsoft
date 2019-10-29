@@ -134,6 +134,12 @@
   width: 10%;
 }
 
+.cancelButton{
+  color: #fff;
+  background-color: #dc3545;
+  border-color: #dc3545;
+}
+
 .ejercicioInfo{
   font-weight: bold;
 }

@@ -103,7 +103,7 @@
             <td>{{ $row->created_at }}</td>
             <td>
                 <button type="button" class="btn btn-primary" id="{{$row->id}}"
-                 data-toggle="modal" data-target="#exampleModal" onclick="Lista.fillSelector({{$row->id}});" data-whatever="{{$row->id}}">@lang('parkinsoft.showActionsButton')</button>
+                 data-toggle="modal" data-target="#exampleModal" onclick="Lista.fillSelector({{$row->id}});" data-whatever="{{$row->id}}">@lang('parkinsoft.process')</button>
             </td>
         </tr>
         @endforeach

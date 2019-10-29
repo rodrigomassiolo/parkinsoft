@@ -268,3 +268,7 @@ Route::post('/BaseDeDatos/deleteIndex','BaseDeDatosController@deleteIndex')
 
 Route::get('/BaseDeDatos/getColumnSelect','BaseDeDatosController@getColumnSelect')
 ->middleware('auth');
+
+
+
+Route::get('/user/historial','UserController@historial')->middleware('auth')->name('historial');

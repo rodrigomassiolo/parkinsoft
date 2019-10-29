@@ -72,6 +72,7 @@
             <a class="dropdown-item" href="{{ route('user') }}">@lang('parkinsoft.userDate')</a>
 
             @if (Auth::user()->rol->type == 2)
+              <a class="dropdown-item" href="{{ route('historial') }}">@lang('parkinsoft.historial')</a>
               <a class="dropdown-item" href="{{ route('user/delete') }}">@lang('parkinsoft.deleteAccount')</a>
             @endif  
             <a class="dropdown-item" href="{{ route('logout') }}"

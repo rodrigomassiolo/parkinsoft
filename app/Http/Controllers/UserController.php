@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\User;
 use App\Http\Requests\UserFormRequest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
+use App\PacienteEjercicio;
 
 
 class UserController extends Controller
@@ -22,6 +25,13 @@ class UserController extends Controller
             ['email', '=', $actualUser],
         ])->first();
 
+        $request->validate([
+            'genero' => 'required|string|max:1',
+            'nacimiento' => 'required|date',
+            'password' => 'required|string|min:8|max:16|regex:/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/',
+        ]);
+
+
         $user0->genero = $request->get('genero');
         $user0->nacimiento = $request->get('nacimiento');
         $user0->password = bcrypt($request->get('password'));
@@ -37,5 +47,16 @@ class UserController extends Controller
         return view('users.delete');
     }
 
+    public function historial(){
+
+        $user = Auth::user()->usuario;
+
+        $params = array('usuario' => $user);
+
+        $PacienteEjercicio = PacienteEjercicio::filter($params);
+
+
+        return view('users.historial',compact('PacienteEjercicio'));
+    }
 
 }

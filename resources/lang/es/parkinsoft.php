@@ -17,19 +17,26 @@ return [
     |--------------------------------------------------------------------------
     */
 
-    'accionDropdown' => 'Acciones',
-    'ticketsLink' => 'Tickets',
-    'contactLink' => 'Contactenos',
-    'uploadAudio' => 'Cargar audio',
-    'abmMedicLink' => 'Medicos',
-    'abmUserLink' => 'Pacientes',
-    'abmAdminLink' => 'Admin',
-    'abmExerciseLink' => 'Ejercicios',
-    'audioListLink' => 'Ejercicios realizados',
+    'abmMedicTitle' => 'Medicos',
+    'ticketsLinkTitle' => 'Tickets',
+    'abmUserLinkTitle' => 'Pacientes',
+    'abmAdminLinkTitle'      => 'Admin',
+    'abmExerciseLinkTitle' => 'Ejercicios',
+    'operacionLinkTitle' => 'Operaciones',
+
+    'accionDropdown'    => 'Acciones',
+    'ticketsLink'       => 'Gestionar Tickets',
+    'contactLink'       => 'Contactenos',
+    'uploadAudio'       => 'Cargar audio',
+    'abmMedicLink'      => 'Gestionar Medicos',
+    'abmUserLink'       => 'Gestionar Pacientes',
+    'abmAdminLink'      => 'Gestionar Admin',
+    'abmExerciseLink'   => 'Gestionar Ejercicios',
+    'audioListLink'     => 'Ejercicios realizados',
     'audioListLinkAssigned' => 'Ejercicios asignados',
     'downloadAppLink' => 'Descargar App',
     'pleaseSelect' => 'Seleccionar opción',
-    'operacionLink' => 'Operaciones',
+    'operacionLink' => 'Gestionar Operaciones',
 
     'errorDescription' => 'Hubo errores en los datos ingresados',
     'closeButton' => 'Cerrar',
@@ -49,7 +56,10 @@ return [
     'downloadPdfGraphicButton' => 'Descargar como PDF',
     'deleteAccount' => 'Eliminar Cuenta',
     'compareAudio' => 'Comparar audio',
-    'deleteAccountWarning' => '¿Realmente desea eliminar su cuenta? Esta acción no puede ser revertida',
+    'deleteAccountWarning' => '¿Ud. realmente desea eliminar su cuenta de Parkinsoft?',
+
+    'process' => 'Procesar',
+    'historial' => 'Ver Historial',
 
     /*
     |--------------------------------------------------------------------------
@@ -57,14 +67,16 @@ return [
     |--------------------------------------------------------------------------
     */
 
-     'BDLink' => 'Base de Datos',
-     'BDShowColumnsButton' => 'Mostrar Columnas',
-     'BDConfirmDelete' => '¿Desea realmente eliminar el indice?',
-     'BDColumnModalTitle' => 'Columnas',
-     'BDColumnName' => 'Nombre de columna',
+     'BDLink'               => 'Gestionar Base de Datos',
+     'BDLinkTitle'          => 'Base de Datos',
+     'BDShowColumnsButton'  => 'Mostrar Columnas',
+     'BDConfirmDelete'      => '¿Desea realmente eliminar el indice?',
+     'BDColumnModalTitle'   => 'Columnas',
+     'BDColumnName'         => 'Nombre de columna',
      'BDIndexName' => 'Nombre de indice',
      'BDDeleteIndexMessage' => 'El indice fue eliminado correctamente.',
      'BDCreateNewButton' => 'Crear Indice',
+     'nameTable' => 'Nombre de la tabla',
 
     /*
     |--------------------------------------------------------------------------
@@ -130,7 +142,7 @@ return [
     'uploadAudio' => 'Cargar audio',
     'assingExercise' => 'Asignar ejercicio',
     'userDate' => 'Mis datos',
-    'modifyData' => 'Modificar datos',
+    'modifyData' => 'Editar datos',
     'selectGraphic' => 'Seleccionar tipo de grafico',
     'status' => 'Estado',
     'isLevodopa' => 'Levodopa',
@@ -276,17 +288,20 @@ return [
     |--------------------------------------------------------------------------
     */
 
-    'ticketInsertComment' => 'Ingresar comentario',
-    'ticketResponse'    => 'Contestar',
+    'ticketInsertComment' => 'Agregar comentario',
+    'ticketResponse'    => 'Comentar',
     'ticketCloseButton' => 'Cerrar',
-    'ticketNewHelp' => 'Envia una ticket para dudas y consultas.',
-    'ticketNewContent' => 'Contenido',
+    'ticketNewHelp' => 'Envianos tu consulta.',
+    'ticketNewContent' => 'Descripción',
     'ticketNewTitle' => 'Titulo',
     'ticketNewPageTitle' => 'Crear ticket',
     'ticketNewMessageSuccessful' => 'Su ticket ha sido creado.',
     'ticketUpdateMessageSuccessful' => '¡El ticket ha sido actualizado!',
     'ticketUpdateWithMailMessageSuccessful' => 'Se ha enviado un email al usuario con la respuesta',
     'deleteMessageSuccessful' => 'El ticket ha sido borrado',
+    'title' => 'Titulo',
+    'response' => 'Respuesta',
+    'actualizar' => 'Actualizar',
 
     /*
     |--------------------------------------------------------------------------

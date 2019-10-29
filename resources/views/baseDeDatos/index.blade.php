@@ -5,7 +5,7 @@
     <div class="row">
         <div class="col-lg-12 margin-tb">
             <div class="pull-left">
-                <h2>@lang('parkinsoft.BDLink')</h2>
+                <h2>@lang('parkinsoft.BDLinkTitle')</h2>
             </div>
         </div>
     </div>
@@ -19,7 +19,7 @@
     <table class="table table-bordered table-sm table-hover">
     <thead>
         <tr>
-            <th>@lang('parkinsoft.name')</th>
+            <th>@lang('parkinsoft.nameTable')</th>
             <th width="280px">@lang('parkinsoft.actions')</th>
         </tr>
     </thead>

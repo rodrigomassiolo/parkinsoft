@@ -18,7 +18,7 @@ BootStrapBody
                         </div>
                     @endif
                     
-                    <h6>Ingrese la direccion de email a la que se enviara la nueva contraseña</h6>                    
+                    <h6>Por favor, ingrese un email al cual enviarle su nueva contraseña</h6>                    
                     <form class="form-horizontal" method="POST" action="{{ route('resetPassword') }}">
                         {{ csrf_field() }}
 
