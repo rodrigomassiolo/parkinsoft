@@ -30,7 +30,7 @@ class OperacionController extends Controller
             $params['user_id'] = $paciente_id;
         }
         else{
-            $notDeleted = array('deleted_at','no');
+            $notDeleted = array('rol'=>'2');
             $pacientes = User::filter($notDeleted)->get();
         }
         $operacion = Operacion::filter($params)->paginate(10);

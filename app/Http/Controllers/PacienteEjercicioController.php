@@ -45,7 +45,7 @@ class PacienteEjercicioController extends Controller
                 $pacientes[0] = User::findOrFail($paciente_id);
                 $params['usuario'] = $pacientes[0]->usuario;
             } else{//todos
-                $notDeleted = array('deleted_at','no');
+                $notDeleted = array('rol'=>'2');
                 $pacientes = User::filter($notDeleted)->get();
             }
         }
