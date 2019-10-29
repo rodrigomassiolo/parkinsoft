@@ -33,6 +33,8 @@ $('#exampleModal').on('show.bs.modal', function (event) {
 
       $('#graphicForm').append('<input type="hidden" name="output" value="html">');
       
+      $('#graphicForm').append('<input type="hidden" name="View" value="1">');
+
       $("#graphicForm")
       // .attr('action', '/listaDeEjercicios/show/' + $('#row').val())
       .attr('action', '/audio/processAudio')
@@ -44,6 +46,8 @@ $('#exampleModal').on('show.bs.modal', function (event) {
       var pacienteEjercicio = $('#row').val();
 
       $('#graphicForm').append('<input type="hidden" value="'+ pacienteEjercicio +'" name="pacienteEjercicio">');
+
+      $('#graphicForm').append('<input type="hidden" name="output" value="pdf">');
 
       $("#graphicForm")
       .attr('action', '/audio/processAudio')
@@ -105,55 +109,6 @@ $('#exampleModal').on('show.bs.modal', function (event) {
 
 
     },
-
-    // addListener: function(){
-    //   $('#che1').change(function() {
-    //     if($('#che1')[0].checked == true){
-    //       Lista.fillSelector('1');
-    //     }else{
-    //       $('#compareDiv').html(
-    //        '<div id="compareDiv">'
-    //        +  '<label><input type="checkbox" name="Compare1" value="1" id="che1"> Comparar audio</label><br>'
-    //        +  '<div id="selector1" style="display:none">'
-    //        +    '<select id="se1" name="CompareAudio1">'
-    //        +      '<option value=""></option>'
-    //        +    '</select>'
-    //        + '</div>'
-
-    //        +' <div id="compareDiv2">'
-    //        +  ' <label><input type="checkbox" name="Compare2" value="1" id="che2"> Comparar audio</label><br>'
-    //        +  ' <div id="selector2" style="display:none">'
-    //        +'     <select id="se2" name="CompareAudio2">'
-    //        +'         <option value=""></option>'
-    //        +'     </select>'
-    //        +  ' </div>'
-    //        +' </div>'
-    //       +'</div>'
-    //       )
-          
-    //       Lista.addListener();
-    //       ;
-    //     }
-    //   });
-
-
-    //   $('#che2').change(function() {
-    //     if($('#che2')[0].checked == true){
-    //       Lista.fillSelector('2');
-    //     }else{
-    //       $('#compareDiv2').html(
-    //        +' <label><input type="checkbox" name="Compare2" value="1" id="che2"> Comparar audio</label><br>'
-    //        +' <div id="selector2" style="display:none">'
-    //        +'     <select id="se2" name="CompareAudio2">'
-    //        +'         <option value=""></option>'
-    //        +'     </select>'
-    //        +' </div>'
-    //       );
-    //       Lista.addListener();
-    //     }
-       
-    //   });
-    // }
 
   }
 
