@@ -7,6 +7,8 @@ $( document ).ready(function() {
     $('#operacionMessageModal').modal('show');
     $('#BDMessageModal').modal('show');
     $('#myDataModal').modal('show');
+
+    $('#ticketModalMSG').modal('show');
   
   
     $('#Operacion_user_id').select2(

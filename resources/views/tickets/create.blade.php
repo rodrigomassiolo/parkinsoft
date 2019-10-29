@@ -30,12 +30,6 @@
                         </div>
                     </div>
                     
-                    <!-- @if (Auth::user()) 
-                    <label for="email" class="col-lg-2 control-label">Email</label>
-                        <div class="col-lg-10">
-                            <input required type="text" class="form-control" id="email" placeholder="Ingrese email" name="email">
-                        </div>
-                    @endif  -->
                     <div class="form-group">
                         <div class="col-lg-10 col-lg-offset-2">
                             
@@ -46,4 +40,30 @@
             </form>
         </div>
     </div>
+
+    @if ($message = Session::get('success'))
+        <!-- Modal -->
+        <div class="modal fade" id="ticketModalMSG" tabindex="-1" role="dialog" aria-labelledby="ticketModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="ticketModalLabel">@lang('parkinsoft.ticketNewPageTitle')</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                            </button>
+                    </div>
+                  
+                        <div class="modal-body">
+                            {{ $message }}
+                        </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-sm closeButton" data-dismiss="modal">@lang('parkinsoft.closeButton')</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @endif
+
+
+
 @endsection
