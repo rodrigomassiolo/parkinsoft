@@ -34,16 +34,18 @@ class AudioController extends Controller
         $rol_id = Auth::user()->rol_id;
         $rol = Rol::where('id', $rol_id)->get();
 
-        $params = array();
+        
+
         if($rol[0]->type == 0 || $rol[0]->type == 1){
 
             $pacientes = User::whereHas('rol',function($q){
                 $q->where('type','=',2);
             })->get();
+            $params = array('status' => 'realizado');
         }
         else{
              $pacientes = null;
-             $params = array('usuario' => $user);
+             $params = array('status' => 'realizado','usuario' => $user);
         }
 
         $PacienteEjercicio = PacienteEjercicio::filter($params)->orderBy('created_at', 'desc')->paginate(10);
