@@ -68,6 +68,8 @@ class TicketsController extends Controller
        if($api){ return $ticket; }
        $data = array(
         'ticket' => $slug,
+        'title' => $ticket->title,
+        'content' => $ticket->content
          );
 
          Mail::send('emails.ticket', $data, function ($message) {
@@ -75,7 +77,7 @@ class TicketsController extends Controller
             //Hay que poner el mail de admin higia
             
             //Hay que poner el usuario
-            $message->to('martinnviqueira@gmail.com')->subject('¡Hay un nuevo ticket, leelo!');
+            $message->to('martinnviqueira@gmail.com')->subject('¡Hay un nuevo ticket!');
          });
 
          $var = \Lang::get('parkinsoft.ticketNewMessageSuccessful');
@@ -158,6 +160,9 @@ class TicketsController extends Controller
         }
         
         if($ticket->status == 1){
+
+            $user = User::where('id',$ticket->user_id);
+
             $data = array(
                'response' => $comment->content,
                 );
@@ -166,7 +171,7 @@ class TicketsController extends Controller
                 //Hay que poner el mail de admin higia
 
                 //Hay que poner el usuario
-                $message->to('martinnviqueira@gmail.com')->subject('Consulta Parkinsoft');
+                $message->to($user->email)->subject('Consulta Parkinsoft');
             });
             if($api) { return "cerrado"; }
             
