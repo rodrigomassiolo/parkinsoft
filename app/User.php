@@ -64,6 +64,12 @@ class User extends Authenticatable
        {
            $query->where('idioma', 'LIKE', trim($params['idioma']) . '%');
        }
+       if ( isset($params['rol']) && trim($params['rol']) !== '' )
+       {
+           $query->whereHas('rol', function($query) use($params){
+               $query->where('type', '=', trim($params['rol']));
+           });
+       }
         return $query;
     }
 
