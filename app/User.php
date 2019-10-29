@@ -64,6 +64,12 @@ class User extends Authenticatable
        {
            $query->where('idioma', 'LIKE', trim($params['idioma']) . '%');
        }
+       if ( isset($params['deleted_at']) && trim($params['deleted_at']) !== '' )
+       {
+           $query->whereHas('rol', function($query) use($params){
+               $query->where('type', '!=',3);
+           });
+       }
         return $query;
     }
 

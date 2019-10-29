@@ -45,7 +45,8 @@ class PacienteEjercicioController extends Controller
                 $pacientes[0] = User::findOrFail($paciente_id);
                 $params['usuario'] = $pacientes[0]->usuario;
             } else{//todos
-                $pacientes = User::all();
+                $notDeleted = array('deleted_at','no');
+                $pacientes = User::filter($notDeleted)->get();
             }
         }
         $PacienteEjercicio_ = PacienteEjercicio::filter($params)->get();
@@ -93,7 +94,7 @@ class PacienteEjercicioController extends Controller
     public function indexLevodopa(Request $request)
     {
         $api = substr ( $request->path(), 0,3 ) == 'api';
-        $pacientes;
+        $pacientes=array();
         if(!$api){
             $pacientes = User::whereHas('rol',function($q){
                 $q->where('type','=',2);
