@@ -24,6 +24,15 @@ parenergy <- params$energy
 paraudspec <- params$audspec 
 parprosody <- params$prosody 
 pareGemaps <- params$eGemaps 
+
+#Datos pacientes##################################################################################################################################
+
+queryPaciente<- paste0("select usuario, genero,nacimiento,email,medicacion,idioma from users where id = (select user_id from egemaps where ejerciciopaciente_id IN ", paej,")")
+datosPaciente <- dbGetQuery(mydb,queryPaciente)
+
+queryAudios <- paste0("select a.audio_name as 'nombre del audio',a.created_at as 'creado en',b.nombre as 'nombre del ejercicio',b.descripcion as 'descripción del ejercicio' from pacienteejercicio as a inner join ejercicio as b on a.ejercicio_id = b.id where a.id in ",paej)
+datosAudios <- dbGetQuery(mydb,queryAudios)
+
 #CHROMA###########################################################################################################################################
 if (parchroma == 1) {
 querychoma <- paste0("SELECT * FROM CHROMA WHERE ejerciciopaciente_id IN ", paej ," ORDER BY ejerciciopaciente_id, id")
@@ -78,12 +87,12 @@ if(nrow(auxTable)>1){
 }
 
 for(j in 1:nrow( auxTable)){
-	auxDatos <- datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[j],]
-	for(i in 0:11){
-	resultado[i * 3 + (j-1) * 36 + 1,3]=min(auxDatos[,i+6])
-	resultado[i * 3 + (j-1) * 36 + 2,3]=mean(auxDatos[,i+6])
-	resultado[i * 3 + (j-1) * 36 + 3,3]=max(auxDatos[,i+6])}}
-	
+  auxDatos <- datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[j],]
+  for(i in 0:11){
+  resultado[i * 3 + (j-1) * 36 + 1,3]=min(auxDatos[,i+6])
+  resultado[i * 3 + (j-1) * 36 + 2,3]=mean(auxDatos[,i+6])
+  resultado[i * 3 + (j-1) * 36 + 3,3]=max(auxDatos[,i+6])}}
+  
 resultado$ejerciciopaciente_id <- ejerciciopaciente_id
 
 resultadoMMM <- resultado
@@ -184,8 +193,8 @@ ejerciciopaciente_id <- as.character(rep(auxTable$Var1[1], 201))
 
 if(nrow(auxTable)>1){
 for(i in 2:nrow(auxTable)){
-	wave <- c(wave, 0.5*sin(datosegemap$F1frequency_sma3nz_amean[i] * xs) + 0.25*sin(datosegemap$F2frequency_sma3nz_amean[i] * xs) + 0.125 * sin(datosegemap$F3frequency_sma3nz_amean[i] * xs))
-	ejerciciopaciente_id <- c(ejerciciopaciente_id,as.character(rep(auxTable$Var1[i], 201)))}
+  wave <- c(wave, 0.5*sin(datosegemap$F1frequency_sma3nz_amean[i] * xs) + 0.25*sin(datosegemap$F2frequency_sma3nz_amean[i] * xs) + 0.125 * sin(datosegemap$F3frequency_sma3nz_amean[i] * xs))
+  ejerciciopaciente_id <- c(ejerciciopaciente_id,as.character(rep(auxTable$Var1[i], 201)))}
 }
 
 resultado <- expand.grid(xs = rep(xs,nrow(auxTable)))
@@ -213,17 +222,17 @@ geom_text(aes(y=vowel$f2), hjust=0.3,vjust=1.5)
 resumeneGemaps$Primero_Audio <- c(datosegemap$F0semitoneFrom27_5Hz_sma3nz_amean[1],datosegemap$F1frequency_sma3nz_amean[1],datosegemap$F2frequency_sma3nz_amean[1],datosegemap$F3frequency_sma3nz_amean[1],datosegemap$jitterLocal_sma3nz_amean[1],datosegemap$jitterLocal_sma3nz_stddevNorm[1],datosegemap$shimmerLocaldB_sma3nz_amean[1],datosegemap$shimmerLocaldB_sma3nz_stddevNorm[1])
 
 if(nrow(auxTable) > 1){
-	if(nrow(auxTable) == 3){
-	vowelGraph <- vowelGraph +  geom_point(aes(x=datosegemap$F1frequency_sma3nz_amean[2],y=datosegemap$F2frequency_sma3nz_amean[2],color= as.character(datosegemap$ejerciciopaciente_id[2])),size = 3)
-	vowelGraph <- vowelGraph +  geom_point(aes(x=datosegemap$F1frequency_sma3nz_amean[3],y=datosegemap$F2frequency_sma3nz_amean[3],color= as.character(datosegemap$ejerciciopaciente_id[3])),size = 3)
-	
-	resumeneGemaps$Segundo_Audio <- c(datosegemap$F0semitoneFrom27_5Hz_sma3nz_amean[2],datosegemap$F1frequency_sma3nz_amean[2],datosegemap$F2frequency_sma3nz_amean[2],datosegemap$F3frequency_sma3nz_amean[2],datosegemap$jitterLocal_sma3nz_amean[2],datosegemap$jitterLocal_sma3nz_stddevNorm[2],datosegemap$shimmerLocaldB_sma3nz_amean[2],datosegemap$shimmerLocaldB_sma3nz_stddevNorm[2])
-	resumeneGemaps$Tercer_Audio <- c(datosegemap$F0semitoneFrom27_5Hz_sma3nz_amean[3],datosegemap$F1frequency_sma3nz_amean[3],datosegemap$F2frequency_sma3nz_amean[3],datosegemap$F3frequency_sma3nz_amean[3],datosegemap$jitterLocal_sma3nz_amean[3],datosegemap$jitterLocal_sma3nz_stddevNorm[3],datosegemap$shimmerLocaldB_sma3nz_amean[3],datosegemap$shimmerLocaldB_sma3nz_stddevNorm[3])
-	}else{
-	vowelGraph <- vowelGraph +  geom_point(aes(x=datosegemap$F1frequency_sma3nz_amean[2],y=datosegemap$F2frequency_sma3nz_amean[2],color= as.character(datosegemap$ejerciciopaciente_id[2])),size = 3)
-	
-	resumeneGemaps$Segundo_Audio <- c(datosegemap$F0semitoneFrom27_5Hz_sma3nz_amean[2],datosegemap$F1frequency_sma3nz_amean[2],datosegemap$F2frequency_sma3nz_amean[2],datosegemap$F3frequency_sma3nz_amean[2],datosegemap$jitterLocal_sma3nz_amean[2],datosegemap$jitterLocal_sma3nz_stddevNorm[2],datosegemap$shimmerLocaldB_sma3nz_amean[2],datosegemap$shimmerLocaldB_sma3nz_stddevNorm[2])
-	}
+  if(nrow(auxTable) == 3){
+  vowelGraph <- vowelGraph +  geom_point(aes(x=datosegemap$F1frequency_sma3nz_amean[2],y=datosegemap$F2frequency_sma3nz_amean[2],color= as.character(datosegemap$ejerciciopaciente_id[2])),size = 3)
+  vowelGraph <- vowelGraph +  geom_point(aes(x=datosegemap$F1frequency_sma3nz_amean[3],y=datosegemap$F2frequency_sma3nz_amean[3],color= as.character(datosegemap$ejerciciopaciente_id[3])),size = 3)
+  
+  resumeneGemaps$Segundo_Audio <- c(datosegemap$F0semitoneFrom27_5Hz_sma3nz_amean[2],datosegemap$F1frequency_sma3nz_amean[2],datosegemap$F2frequency_sma3nz_amean[2],datosegemap$F3frequency_sma3nz_amean[2],datosegemap$jitterLocal_sma3nz_amean[2],datosegemap$jitterLocal_sma3nz_stddevNorm[2],datosegemap$shimmerLocaldB_sma3nz_amean[2],datosegemap$shimmerLocaldB_sma3nz_stddevNorm[2])
+  resumeneGemaps$Tercer_Audio <- c(datosegemap$F0semitoneFrom27_5Hz_sma3nz_amean[3],datosegemap$F1frequency_sma3nz_amean[3],datosegemap$F2frequency_sma3nz_amean[3],datosegemap$F3frequency_sma3nz_amean[3],datosegemap$jitterLocal_sma3nz_amean[3],datosegemap$jitterLocal_sma3nz_stddevNorm[3],datosegemap$shimmerLocaldB_sma3nz_amean[3],datosegemap$shimmerLocaldB_sma3nz_stddevNorm[3])
+  }else{
+  vowelGraph <- vowelGraph +  geom_point(aes(x=datosegemap$F1frequency_sma3nz_amean[2],y=datosegemap$F2frequency_sma3nz_amean[2],color= as.character(datosegemap$ejerciciopaciente_id[2])),size = 3)
+  
+  resumeneGemaps$Segundo_Audio <- c(datosegemap$F0semitoneFrom27_5Hz_sma3nz_amean[2],datosegemap$F1frequency_sma3nz_amean[2],datosegemap$F2frequency_sma3nz_amean[2],datosegemap$F3frequency_sma3nz_amean[2],datosegemap$jitterLocal_sma3nz_amean[2],datosegemap$jitterLocal_sma3nz_stddevNorm[2],datosegemap$shimmerLocaldB_sma3nz_amean[2],datosegemap$shimmerLocaldB_sma3nz_stddevNorm[2])
+  }
 }
 }  
 #######################################################################################################################
@@ -235,6 +244,15 @@ dbDisconnect(mydb)
 
 
 ```{r pressure, echo=FALSE}
+#Datos de la paciente y audio##########################
+kable(datosPaciente,caption="Datos del paciente")
+
+if(nrow(auxTable)>1){
+kable(datosAudios,caption="Datos de los audios")
+}else{
+  kable(datosAudios,caption="Datos del audios")
+}
+
 #CHROMA######################################################################################
 if (parchroma == 1) {
 plot(chromagraph)
@@ -281,6 +299,7 @@ kable(resumeneGemaps,caption="Tabla de los valores del eGemaps")
 #VOWEL
 plot(vowelGraph)
 kable(vowel[1:5,],caption="Tabla de los valores del Vowel")
+kable(resumeneGemaps,caption="Variables sofre frecuencias medias, shimmer y jitter")
 }
 #############################################################################################
 ```
