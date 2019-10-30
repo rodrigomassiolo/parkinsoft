@@ -28,7 +28,7 @@ class UserController extends Controller
         $request->validate([
             'genero' => 'required|string|max:1',
             'nacimiento' => 'required|date',
-            'password' => 'required|string|min:8|max:16|regex:/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/',
+            'password' => 'required|string|min:8|max:16|regex:/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$/',
         ]);
 
 

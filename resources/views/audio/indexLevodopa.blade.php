@@ -113,11 +113,11 @@
           <input type="hidden" id="levo2" name="CompareAudio1">
           <div class="form-group">
           @csrf
-            <label><input type="checkbox" name="Energy" value="1"> Energy</label><br>
-            <label><input type="checkbox" name="eGemaps" value="1"> eGemaps</label><br>
-            <label><input type="checkbox" name="Chroma" value="1"> Chroma</label><br>
-            <label><input type="checkbox" name="Audspec" value="1"> Audspec</label><br>
-            <label><input type="checkbox" name="Prosody" value="1"> Prosody</label><br>    
+            <label><input type="checkbox" name="Energy"  value="1" checked> Energy</label><br>
+            <label><input type="checkbox" name="eGemaps" value="1" checked> eGemaps</label><br>
+            <label><input type="checkbox" name="Chroma"  value="1" checked> Chroma</label><br>
+            <label><input type="checkbox" name="Audspec" value="1" checked> Audspec</label><br>
+            <label><input type="checkbox" name="Prosody" value="1" checked> Prosody</label><br>  
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-sm closeButton" data-dismiss="modal">@lang('parkinsoft.closeButton')</button>

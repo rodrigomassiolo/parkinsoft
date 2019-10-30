@@ -124,11 +124,11 @@
         <form method = "POST" id="graphicForm">
           <div class="form-group">
           @csrf
-            <label><input type="checkbox" name="Energy"  value="1"> Energy</label><br>
-            <label><input type="checkbox" name="eGemaps" value="1"> eGemaps</label><br>
-            <label><input type="checkbox" name="Chroma"  value="1"> Chroma</label><br>
-            <label><input type="checkbox" name="Audspec" value="1"> Audspec</label><br>
-            <label><input type="checkbox" name="Prosody" value="1"> Prosody</label><br>    
+            <label><input type="checkbox" name="Energy"  value="1" checked> Energy</label><br>
+            <label><input type="checkbox" name="eGemaps" value="1" checked> eGemaps</label><br>
+            <label><input type="checkbox" name="Chroma"  value="1" checked> Chroma</label><br>
+            <label><input type="checkbox" name="Audspec" value="1" checked> Audspec</label><br>
+            <label><input type="checkbox" name="Prosody" value="1" checked> Prosody</label><br>  
     
 
             <div id="CompareDiv">

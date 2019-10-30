@@ -7,7 +7,14 @@
 <h2>¡Ticket!</h2>
 
 <div>
-    Tienes un nuevo Ticket. La id del ticket es {!! $ticket !!}!
+    Se ha generado una nueva consulta en Parkinsoft. El id del ticket es {!! $ticket !!}!
+</div>
+
+<div>
+    El titulo es: {!! $title !!}
+</div>
+<div>
+    Contenido: {!! $content !!}
 </div>
 
 </body>

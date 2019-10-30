@@ -84,6 +84,13 @@ class PacienteEjercicio extends Model
             $query->where('origen_audio', '=', trim($params['origen_audio']));
         }
         
+        if ( isset($params['deleted_at']) && trim($params['deleted_at']) !== '' )
+        {
+            $query->whereHas('ejercicio', function($query) use($params){
+                $query->where('deleted_at', null);
+            });
+        }
+
         return $query;
     }
 

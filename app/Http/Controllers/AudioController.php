@@ -41,11 +41,12 @@ class AudioController extends Controller
             $pacientes = User::whereHas('rol',function($q){
                 $q->where('type','=',2);
             })->get();
-            $params = array('status' => 'realizado');
+            $params = array('status' => 'realizado', 'deleted_at' => 'a');
+            
         }
         else{
              $pacientes = null;
-             $params = array('status' => 'realizado','usuario' => $user);
+             $params = array('status' => 'realizado','usuario' => $user,'deleted_at' => 'a');
         }
 
         $PacienteEjercicio = PacienteEjercicio::filter($params)->orderBy('created_at', 'desc')->paginate(10);
@@ -75,7 +76,7 @@ class AudioController extends Controller
             })->get();
         }
 
-        $params = array('usuario' => $user);
+        $params = array('usuario' => $user, 'deleted_at' => 'a');
 
         $PacienteEjercicio = PacienteEjercicio::filter($params)->paginate(10);
 
