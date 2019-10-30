@@ -1,5 +1,5 @@
 ---
-title: "Análisis de la voz"
+title: "Analisis de la voz"
 author: "realizado por: Higia"
 params: 
   data: args
@@ -30,7 +30,7 @@ pareGemaps <- params$eGemaps
 queryPaciente<- paste0("select usuario, genero,nacimiento,email,medicacion,idioma from users where id = (SELECT user_id FROM pacienteEjercicio WHERE id IN ", paej," LIMIT 1)")
 datosPaciente <- dbGetQuery(mydb,queryPaciente)
 
-queryAudios <- paste0("select a.audio_name as 'nombre del audio',a.created_at as 'creado en',b.nombre as 'nombre del ejercicio',b.descripcion as 'descripción del ejercicio' from pacienteEjercicio as a inner join ejercicio as b on a.ejercicio_id = b.id where a.id in ",paej)
+queryAudios <- paste0("select a.audio_name as 'nombre del audio',a.created_at as 'creado en',b.nombre as 'nombre del ejercicio',b.descripcion as 'descripcion del ejercicio' from pacienteEjercicio as a inner join ejercicio as b on a.ejercicio_id = b.id where a.id in ",paej)
 datosAudios <- dbGetQuery(mydb,queryAudios)
 
 #CHROMA###########################################################################################################################################
@@ -74,7 +74,7 @@ chromaLineMax <- ggplot(datosMaxChroma,aes(x=tiempo,y=tono))+geom_line()+ geom_h
 
 auxTable <- as.data.frame(auxTable)
 
- x <- data.frame(Medicion = c('minimo','medio','máximo'))
+ x <- data.frame(Medicion = c('minimo','medio','maximo'))
  y <- data.frame(Tono = rep(c('DO', 'DO#', 'RE', 'RE#', 'MI' ,'FA', 'FA#', 'SOL', 'SOL#', 'LA', 'LA#', 'SI'),times = nrow(auxTable)))
  resultado <- merge(x,y,by = NULL)
  resultado$Energia <- 0
@@ -97,7 +97,7 @@ resultado$ejerciciopaciente_id <- ejerciciopaciente_id
 
 resultadoMMM <- resultado
 
-maxmeanminGraph <- ggplot(resultado,aes( x=Tono,y=Energia, fill = Medicion)) + geom_bar(stat = 'identity',position=position_dodge()) + scale_fill_brewer(palette="Paired") + labs(title='Mínimo, Medio y Máximo') + facet_grid(~ejerciciopaciente_id)
+maxmeanminGraph <- ggplot(resultado,aes( x=Tono,y=Energia, fill = Medicion)) + geom_bar(stat = 'identity',position=position_dodge()) + scale_fill_brewer(palette="Paired") + labs(title='Minimo, Medio y Maximo') + facet_grid(~ejerciciopaciente_id)
 
 }
 ###################################################################################################################################################
@@ -160,7 +160,7 @@ resultado$ejerciciopaciente_id = datosprosody$ejerciciopaciente_id
 #copio para poder alterar los valores
 resultado2F0_Vol_Prob <- resultado
 
-#Busco el efecto de que tengan la misma proporción
+#Busco el efecto de que tengan la misma proporcion
 resultado2F0_Vol_Prob$voiceProb = resultado2F0_Vol_Prob$voiceProb * max(resultado$F0_sma)
 
 datosprosody <- datosprosody[,6:ncol(datosprosody)]
@@ -203,7 +203,7 @@ resultado$ejerciciopaciente_id <- ejerciciopaciente_id
 
 formanteGraph <- ggplot(resultado,aes(x=xs,y=wave)) + geom_line() + labs(title = "Transformada de fourier con las medias de F1, F2 y F3") + facet_grid(~ejerciciopaciente_id)
 
-resumeneGemaps <- expand.grid (NombreVariable = c ("Media F0","Media F1","Media F2","Media F3","Media de jitter Local","Desviación estándar de jitter Local en DB","Media de shimmer Local","Desviación estándar de shimmer Local en dB"))
+resumeneGemaps <- expand.grid (NombreVariable = c ("Media F0","Media F1","Media F2","Media F3","Media de jitter Local","Desviacion estandar de jitter Local en DB","Media de shimmer Local","Desviacion estandar de shimmer Local en dB"))
 
 ## Vowel
 vowel <- data.frame(vocal = c('a','e','i','o','u'),
@@ -211,11 +211,11 @@ vowel <- data.frame(vocal = c('a','e','i','o','u'),
                     f2 = c(1470,1800,2300,890,700))
 
 #Grafico de vowel
-vowelGraph <- ggplot(vowel,aes(x = f1)) + geom_point(aes(y = f2,color="vowel")) +  labs(title = "Diagráma de vowel") +
+vowelGraph <- ggplot(vowel,aes(x = f1)) + geom_point(aes(y = f2,color="vowel")) +  labs(title = "Diagrama de vowel") +
 geom_point(aes(x=datosegemap$F1frequency_sma3nz_amean,y=datosegemap$F2frequency_sma3nz_amean,color= as.character(datosegemap$ejerciciopaciente_id)))
 
 
-vowelGraph <- ggplot(vowel,aes(x = f1,label=vocal)) + geom_point(aes(y = f2,color="vowel"),size = 3) +  labs(title = "Diagráma de vowel") +
+vowelGraph <- ggplot(vowel,aes(x = f1,label=vocal)) + geom_point(aes(y = f2,color="vowel"),size = 3) +  labs(title = "Diagrama de vowel") +
 geom_point(aes(x=datosegemap$F1frequency_sma3nz_amean[1],y=datosegemap$F2frequency_sma3nz_amean[1],color= as.character(datosegemap$ejerciciopaciente_id[1])),size=3)+
 geom_text(aes(y=vowel$f2), hjust=0.3,vjust=1.5)
 
@@ -240,7 +240,7 @@ dbDisconnect(mydb)
 ```
 
 
-# Resumen de Gráficos y datos
+# Resumen de Graficos y datos
 
 
 ```{r pressure, echo=FALSE}
