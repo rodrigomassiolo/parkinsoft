@@ -71,7 +71,7 @@
             <th>@lang('parkinsoft.user')</th>
             <th>@lang('parkinsoft.description')</th>
             <th>N° Ej. OFF</th>
-            <th>N° Ej. OFF</th>
+            <th>N° Ej. ON</th>
             <th>@lang('parkinsoft.createDate')</th>
             <th width="320px">@lang('parkinsoft.actions')</th>
         </tr>

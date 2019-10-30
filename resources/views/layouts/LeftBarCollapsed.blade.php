@@ -30,7 +30,7 @@
         </a>
         @endif
 
-        @if (Auth::user()->rol->type == 0) 
+        @if (Auth::user()->rol->type == 0 || Auth::user()->rol->type == 1) 
         <a class="dropdown-item" href="{{ route('abmUser.index') }}">
             @lang('parkinsoft.abmUserLink')
         </a>

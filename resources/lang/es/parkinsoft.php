@@ -294,7 +294,7 @@ return [
     'ticketNewHelp' => 'Envianos tu consulta.',
     'ticketNewContent' => 'Descripción',
     'ticketNewTitle' => 'Titulo',
-    'ticketNewPageTitle' => 'Crear ticket',
+    'ticketNewPageTitle' => 'Cargá tu consulta',
     'ticketNewMessageSuccessful' => 'Su ticket ha sido creado.',
     'ticketUpdateMessageSuccessful' => '¡El ticket ha sido actualizado!',
     'ticketUpdateWithMailMessageSuccessful' => 'Se ha enviado un email al usuario con la respuesta',

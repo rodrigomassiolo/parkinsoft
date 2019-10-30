@@ -97,4 +97,24 @@ return [
     'exerciseNewMessageSuccessful' => 'Ejercicio creado correctamente',
     'exerciseUpdateMessageSuccessful' => 'Ejercicio modificado correctamente',
 
+        /*
+    |--------------------------------------------------------------------------
+    | Ticket--> TRADUCIR
+    |--------------------------------------------------------------------------
+    */
+
+    'ticketInsertComment' => 'Agregar comentario',
+    'ticketResponse'    => 'Comentar',
+    'ticketCloseButton' => 'Cerrar',
+    'ticketNewHelp' => 'Envianos tu consulta.',
+    'ticketNewContent' => 'Descripción',
+    'ticketNewTitle' => 'Titulo',
+    'ticketNewPageTitle' => 'Cargá tu consulta',
+    'ticketNewMessageSuccessful' => 'Su ticket ha sido creado.',
+    'ticketUpdateMessageSuccessful' => '¡El ticket ha sido actualizado!',
+    'ticketUpdateWithMailMessageSuccessful' => 'Se ha enviado un email al usuario con la respuesta',
+    'deleteMessageSuccessful' => 'El ticket ha sido borrado',
+    'title' => 'Titulo',
+    'response' => 'Respuesta',
+    'actualizar' => 'Actualizar',
 ];

@@ -37,7 +37,7 @@
       </a>
     </li>  
      @endif 
-     @if (Auth::user()->rol->type == 0) 
+     @if (Auth::user()->rol->type == 0 || Auth::user()->rol->type == 1) 
     <li class="nav-item">
       <a class="nav-link" href="{{ route('abmUser.index') }}">
         <span data-feather="heart"></span>
@@ -53,7 +53,7 @@
       </a>
     </li>
      @endif  
-     @if (Auth::user()->rol->type == 0) 
+     @if (Auth::user()->rol->type == 0 || Auth::user()->rol->type == 1) 
     <li class="nav-item">
       <a class="nav-link" href="{{ route('abmEjercicio.index') }}">
         <span data-feather="activity"></span>
