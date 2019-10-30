@@ -60,6 +60,7 @@ return [
 
     'process' => 'Procesar',
     'historial' => 'Ver Historial',
+    'noHistorialToShow' => 'Todavia no tiene audios subidos!.',
 
     'accountConfirmDelete' => '¿Realmente desea eliminar su cuenta?',
 
@@ -79,6 +80,8 @@ return [
      'BDDeleteIndexMessage' => 'El indice fue eliminado correctamente.',
      'BDCreateNewButton' => 'Crear Indice',
      'nameTable' => 'Nombre de la tabla',
+     'BDCreateIndexMessage' => 'El indice fue creado correctamente',
+     'BDModalTitle' => 'Indice',
 
     /*
     |--------------------------------------------------------------------------

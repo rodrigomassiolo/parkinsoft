@@ -211,7 +211,8 @@ $( document ).ready(function() {
           'X-CSRF-TOKEN': $('input[name="_token"]').attr('value')
           },
         success:function(data){
-          alert('creado');
+          $('.modal').modal('hide');
+          $("#createM").modal('show');
         }
      });
     }
