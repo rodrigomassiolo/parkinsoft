@@ -27,10 +27,10 @@ pareGemaps <- params$eGemaps
 
 #Datos pacientes##################################################################################################################################
 
-queryPaciente<- paste0("select usuario, genero,nacimiento,email,medicacion,idioma from users where id = (select user_id from egemaps where ejerciciopaciente_id IN ", paej,")")
+queryPaciente<- paste0("select usuario, genero,nacimiento,email,medicacion,idioma from users where id = (SELECT user_id FROM pacienteEjercicio WHERE id IN ", paej," LIMIT 1)")
 datosPaciente <- dbGetQuery(mydb,queryPaciente)
 
-queryAudios <- paste0("select a.audio_name as 'nombre del audio',a.created_at as 'creado en',b.nombre as 'nombre del ejercicio',b.descripcion as 'descripción del ejercicio' from pacienteejercicio as a inner join ejercicio as b on a.ejercicio_id = b.id where a.id in ",paej)
+queryAudios <- paste0("select a.audio_name as 'nombre del audio',a.created_at as 'creado en',b.nombre as 'nombre del ejercicio',b.descripcion as 'descripción del ejercicio' from pacienteEjercicio as a inner join ejercicio as b on a.ejercicio_id = b.id where a.id in ",paej)
 datosAudios <- dbGetQuery(mydb,queryAudios)
 
 #CHROMA###########################################################################################################################################
@@ -245,7 +245,7 @@ dbDisconnect(mydb)
 
 ```{r pressure, echo=FALSE}
 #Datos de la paciente y audio##########################
-kable(datosPaciente,caption="Datos del paciente")
+kable(datosPaciente[1,],caption="Datos del paciente")
 
 if(nrow(auxTable)>1){
 kable(datosAudios,caption="Datos de los audios")
@@ -299,7 +299,6 @@ kable(resumeneGemaps,caption="Tabla de los valores del eGemaps")
 #VOWEL
 plot(vowelGraph)
 kable(vowel[1:5,],caption="Tabla de los valores del Vowel")
-kable(resumeneGemaps,caption="Variables sofre frecuencias medias, shimmer y jitter")
 }
 #############################################################################################
 ```
