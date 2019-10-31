@@ -205,7 +205,7 @@ class AbmEjercicioController extends Controller
                         ->withSuccess($var);
     }
 
-    public function download_example($ejercicio_id)
+    public function download_example($ejercicio_id,Request $request)
     {
         $ejercicio = Ejercicio::findOrFail($ejercicio_id);
         if(!$ejercicio){
@@ -222,7 +222,11 @@ class AbmEjercicioController extends Controller
             return response()->download($file, $ejercicio->nombre.'.mp3', $headers);
         }
         else{ 
-            return redirect()->back()->withSuccess("No hay audio de Ejemplo para este Ejercicio");
+            $api = substr( $request->path(), 0,3 ) == 'api';
+            if($api){
+                return "No hay audio de ejemplo para este Ejercicio";
+            }
+            return redirect()->back()->withSuccess("No hay audio de ejemplo para este Ejercicio");
         }
     }
 
