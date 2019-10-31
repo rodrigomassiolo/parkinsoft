@@ -89,10 +89,12 @@
             <td>{{ $row->pacienteejercicio_OFF_id  }}</td>
             <td>{{ $row->pacienteejercicio_ON_id}}</td>
             <td>{{ $row->fecha}}</td>
+            @if(Auth::user()->rol->type == 0 || Auth::user()->rol->type == 1)
             <td>
             <button type="button" class="btn btn-primary" id="{{$row->pacienteejercicio_OFF_id}}"
                  data-toggle="modal" data-target="#levoModal" data-whatever="{{$row->user_id}},{{$row->pacienteejercicio_OFF_id}},{{$row->pacienteejercicio_ON_id}}">@lang('parkinsoft.process')</button>
             </td>
+            @endif
         </tr>
         @endif
         @endforeach

@@ -101,10 +101,12 @@
                 <td>-</td>
             @endif
             <td>{{ $row->created_at }}</td>
+            @if(Auth::user()->rol->type == 0 || Auth::user()->rol->type == 1)
             <td>
                 <button type="button" class="btn btn-primary" id="{{$row->id}}"
                  data-toggle="modal" data-target="#exampleModal" onclick="Lista.fillSelector({{$row->id}});" data-whatever="{{$row->id}}">@lang('parkinsoft.process')</button>
             </td>
+            @endif
         </tr>
         @endforeach
         </tbody>
