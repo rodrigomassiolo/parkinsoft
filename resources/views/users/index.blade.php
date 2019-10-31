@@ -72,6 +72,20 @@ BootStrapBody
                         <input class="form-control" type="date" value="{{ Auth::user()->nacimiento }}" id="nacimiento" name="nacimiento" required min="1900-01-01" max="2099-12-31">
                     </div>
                 </div>
+
+                <div class="col-xs-12 col-sm-12 col-md-12">
+                    <div class="form-group">
+                        <strong>@lang('parkinsoft.language'):</strong>
+                        <input class="form-control" type="text" name="idioma" value="{{ Auth::user()->idioma }}" required>
+                    </div>
+                </div>
+
+                <div class="col-xs-12 col-sm-12 col-md-12">
+                    <div class="form-group">
+                        <strong>@lang('parkinsoft.medication'):</strong>
+                        <input class="form-control" type="text" name="medicamento" value="{{ Auth::user()->medicacion }}" required>
+                    </div>
+                </div>
                        
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <div class="form-group">

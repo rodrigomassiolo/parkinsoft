@@ -29,12 +29,16 @@ class UserController extends Controller
             'genero' => 'required|string|max:1',
             'nacimiento' => 'required|date',
             'password' => 'required|string|min:8|max:16|regex:/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$/',
+            'medicamento' => 'required|string|max:50',
+            'idioma' => 'required|string|max:15'
         ]);
 
 
         $user0->genero = $request->get('genero');
         $user0->nacimiento = $request->get('nacimiento');
         $user0->password = bcrypt($request->get('password'));
+        $user0->idioma = $request->get('idioma');
+        $user0->medicamento = $request->get('medicamento');
 
         $user0->update();
 
