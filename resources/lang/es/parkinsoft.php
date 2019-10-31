@@ -51,7 +51,7 @@ return [
     'showButton' => 'Mostrar',
     'exampleButton' => 'Ejemplo',
     'sendButton' => 'Enviar',
-    'showActionsButton' => 'Mostar acciones',
+    'showActionsButton' => 'Mostrar acciones',
     'showHtmlGraphicButton' => 'Ver grafico',
     'downloadPdfGraphicButton' => 'Descargar como PDF',
     'deleteAccount' => 'Eliminar Cuenta',
