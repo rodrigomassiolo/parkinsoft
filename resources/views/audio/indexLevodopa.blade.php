@@ -88,7 +88,7 @@
             <td>{{ $row->ejercicio_descripcion }}</td>
             <td>{{ $row->pacienteejercicio_OFF_id  }}</td>
             <td>{{ $row->pacienteejercicio_ON_id}}</td>
-            <td>{{ $row->fecha}}</td>
+            <td>{{ Carbon\Carbon::parse($row->fecha)->format('d/m/Y')}}</td>
             @if(Auth::user()->rol->type == 0 || Auth::user()->rol->type == 1)
             <td>
             <button type="button" class="btn btn-primary" id="{{$row->pacienteejercicio_OFF_id}}"

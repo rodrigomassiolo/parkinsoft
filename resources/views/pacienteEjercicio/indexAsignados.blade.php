@@ -107,7 +107,7 @@
             @else
                 <td>-</td>
             @endif
-            <td>{{ $row->created_at }}</td>
+            <td>{{ Carbon\Carbon::parse($row->created_at)->format('d/m/Y') }}</td>
             <td>
                 <form action="{{ route('realizarEjercicio')}}" method="GET">
                         <input type="hidden" name="pacienteEjercicio" value="{{$row->id}}">

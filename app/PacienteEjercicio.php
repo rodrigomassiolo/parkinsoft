@@ -17,7 +17,7 @@ class PacienteEjercicio extends Model
     
     protected $fillable = [
         'user_id', 'ejercicio_id','audio_path','audio_name','audio_ext','ultimaMedicacion','es_levodopa','modo_levodopa','origen_audio','status'];
-    
+
     public function user()
     {
         return $this->hasOne('App\User','id','user_id');

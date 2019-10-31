@@ -108,7 +108,7 @@
             @else
                 <td>-</td>
             @endif
-            <td>{{ $row->created_at }}</td>
+            <td>{{ Carbon\Carbon::parse($row->created_at)->format('d/m/Y') }}</td>
             @if(Auth::user()->rol->type == 0 || Auth::user()->rol->type == 1)
             <td>
                 <button type="button" class="btn btn-primary" id="{{$row->id}}"

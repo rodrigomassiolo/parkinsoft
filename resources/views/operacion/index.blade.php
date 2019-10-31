@@ -68,7 +68,7 @@
         <tr>
             <td>{{ $row->id }}</td>  
             <td>{{ $row->user->usuario }}</td>
-            <td>{{ $row->fecha }}</td>
+            <td>{{ Carbon\Carbon::parse($row->fecha)->format('d/m/Y') }}</td>
             <td>{{ $row->descripcion}}</td>
             <td>
                 <form action="{{ route('operacion.destroy',$row->id) }}" method="POST">

@@ -103,7 +103,7 @@
             <td>{{ $row->email }}</td>
             <td>{{ $row->usuario }}</td>
             <td>{{ $row->genero}}</td>
-            <td>{{ $row->nacimiento}}</td>
+            <td>{{ Carbon\Carbon::parse($row->nacimiento)->format('d/m/Y')}}</td>
             <td>
        
    
