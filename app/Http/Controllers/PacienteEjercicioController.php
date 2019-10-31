@@ -218,7 +218,7 @@ class PacienteEjercicioController extends Controller
         }
         $ejercicio = Ejercicio::all();
 
-        return view('pacienteEjercicio.asignar',compact('PacienteEjercicio','ejercicio','pacientes','preset'));
+        return view('pacienteEjercicio.asignar',compact('ejercicio','pacientes','preset'));
 
     }
 
