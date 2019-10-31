@@ -43,7 +43,7 @@
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
             <strong>@lang('parkinsoft.date')</strong>   
-              <input class="form-control" type="date" id="fecha" name="fecha" required>
+              <input class="form-control" type="date" id="fecha" name="fecha" required min="1900-01-01" max="2099-12-31">
             </div>
         </div>
 

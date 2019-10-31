@@ -40,7 +40,7 @@
                 <div class="form-group">
                     <strong>@lang('parkinsoft.date')</strong>
                     <input type="date" name="fecha" value="{{ $operacion->fecha }}" 
-                    class="form-control">
+                    class="form-control" min="1900-01-01" max="2099-12-31">
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12 text-center">

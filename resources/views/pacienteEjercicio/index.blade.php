@@ -46,7 +46,7 @@
             <div class="col-xs-3 col-sm-3 col-md-3">
                 <div class="form-group">
                     <strong>@lang('parkinsoft.date'):</strong>
-                    <input type="date" name="created_at" class="form-control" 
+                    <input type="date" name="created_at" class="form-control" min="1900-01-01" max="2099-12-31"
                      value= "{{Request::old('created_at')}}">
                 </div>
             </div>
