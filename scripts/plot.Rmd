@@ -30,12 +30,12 @@ pareGemaps <- params$eGemaps
 queryPaciente<- paste0("select usuario, genero,nacimiento,email,medicacion,idioma from users where id = (SELECT user_id FROM pacienteEjercicio WHERE id IN ", paej," LIMIT 1)")
 datosPaciente <- dbGetQuery(mydb,queryPaciente)
 
-queryAudios <- paste0("select a.audio_name as 'nombre del audio',a.created_at as 'creado en',b.nombre as 'nombre del ejercicio',b.descripcion as 'descripcion del ejercicio' from pacienteEjercicio as a inner join ejercicio as b on a.ejercicio_id = b.id where a.id in ",paej)
+queryAudios <- paste0("select a.id as 'ID',a.audio_name as 'nombre del audio',a.created_at as 'creado en',b.nombre as 'nombre del ejercicio',b.descripcion as 'descripcion del ejercicio' from pacienteEjercicio as a inner join ejercicio as b on a.ejercicio_id = b.id where a.id in ",paej," order by a.ejercicio_id")
 datosAudios <- dbGetQuery(mydb,queryAudios)
 
 #CHROMA###########################################################################################################################################
 if (parchroma == 1) {
-querychoma <- paste0("SELECT * FROM CHROMA WHERE ejerciciopaciente_id IN ", paej ," ORDER BY ejerciciopaciente_id, id")
+querychoma <- paste0("SELECT a.id,created,a.user_id,b.audio_name as 'ejerciciopaciente_id',frame,DO,DO_SOST,RE,RE_SOST,MI,FA,FA_SOST,SOL,SOL_SOST,LA,LA_SOST,SI FROM CHROMA as a inner join pacienteEjercicio as b on a.ejerciciopaciente_id = b.id WHERE ejerciciopaciente_id IN ", paej ," ORDER BY a.ejerciciopaciente_id, a.id")
 datosChroma <- dbGetQuery(mydb,querychoma)
 auxTable <- table(datosChroma$ejerciciopaciente_id)
 auxTable <- as.data.frame(auxTable)
@@ -99,26 +99,84 @@ resultadoMMM <- resultado
 
 maxmeanminGraph <- ggplot(resultado,aes( x=Tono,y=Energia, fill = Medicion)) + geom_bar(stat = 'identity',position=position_dodge()) + scale_fill_brewer(palette="Paired") + labs(title='Minimo, Medio y Maximo') + facet_grid(~ejerciciopaciente_id)
 
+resultadoChroma <- expand.grid(c('ID','DO', 'DO#', 'RE', 'RE#', 'MI' ,'FA', 'FA#', 'SOL', 'SOL#', 'LA', 'LA#', 'SI'))
+resultadoChroma$Primero_Audio_minimo <- c(datosAudios$'nombre del audio'[1],min(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[1],6]),min(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[1],7]),min(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[1],8]),min(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[1],9]),
+min(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[1],10]),min(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[1],11]),min(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[1],12]),min(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[1],13]),min(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[1],14]),
+min(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[1],15]),min(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[1],16]),min(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[1],17]))
+
+resultadoChroma$Primero_Audio_medio <- c(datosAudios$'nombre del audio'[1],mean(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[1],6]),mean(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[1],7]),mean(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[1],8]),mean(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[1],9]),
+mean(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[1],10]),mean(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[1],11]),mean(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[1],12]),mean(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[1],13]),mean(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[1],14]),
+mean(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[1],15]),mean(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[1],16]),mean(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[1],17]))
+
+resultadoChroma$Primero_Audio_maximo <- c(datosAudios$'nombre del audio'[1],max(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[1],6]),max(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[1],7]),max(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[1],8]),max(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[1],9]),
+max(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[1],10]),max(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[1],11]),max(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[1],12]),max(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[1],13]),max(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[1],14]),
+max(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[1],15]),max(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[1],16]),max(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[1],17]))
+
+if(nrow(auxTable) >= 2){
+resultadoChroma$Segundo_Audio_minimo <- c(datosAudios$'nombre del audio'[2],min(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[2],6]),min(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[2],7]),min(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[2],8]),min(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[2],9]),
+min(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[2],10]),min(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[2],11]),min(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[2],12]),min(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[2],13]),min(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[2],14]),
+min(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[2],15]),min(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[2],16]),min(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[2],17]))
+
+resultadoChroma$Segundo_Audio_medio <- c(datosAudios$'nombre del audio'[2],mean(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[2],6]),mean(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[2],7]),mean(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[2],8]),mean(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[2],9]),
+mean(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[2],10]),mean(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[2],11]),mean(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[2],12]),mean(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[2],13]),mean(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[2],14]),
+mean(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[2],15]),mean(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[2],16]),mean(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[2],17]))
+
+resultadoChroma$Segundo_Audio_maximo <- c(datosAudios$'nombre del audio'[2],max(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[2],6]),max(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[2],7]),max(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[2],8]),max(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[2],9]),
+max(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[2],10]),max(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[2],11]),max(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[2],12]),max(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[2],13]),max(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[2],14]),
+max(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[2],15]),max(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[2],16]),max(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[2],17]))
+}
+
+if(nrow(auxTable) == 3){
+resultadoChroma$Tercer_Audio_minimo <- c(datosAudios$'nombre del audio'[3],min(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[3],6]),min(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[3],7]),min(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[3],8]),min(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[3],9]),
+min(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[3],10]),min(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[3],11]),min(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[3],12]),min(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[3],13]),min(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[3],14]),
+min(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[3],15]),min(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[3],16]),min(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[3],17]))
+
+resultadoChroma$Tercer_Audio_medio <- c(datosAudios$'nombre del audio'[3],mean(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[3],6]),mean(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[3],7]),mean(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[3],8]),mean(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[3],9]),
+mean(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[3],10]),mean(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[3],11]),mean(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[3],12]),mean(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[3],13]),mean(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[3],14]),
+mean(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[3],15]),mean(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[3],16]),mean(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[3],17]))
+
+resultadoChroma$Tercer_Audio_maximo <- c(datosAudios$'nombre del audio'[3],max(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[3],6]),max(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[3],7]),max(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[3],8]),max(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[3],9]),
+max(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[3],10]),max(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[3],11]),max(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[3],12]),max(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[3],13]),max(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[3],14]),
+max(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[3],15]),max(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[3],16]),max(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[3],17]))
+}
+
 }
 ###################################################################################################################################################
 
 #ENERGY###########################################################################################################################################
 if (parenergy == 1) {
-queryenergy <- paste0("SELECT * FROM ENERGY WHERE ejerciciopaciente_id IN ", paej ," ORDER BY ejerciciopaciente_id, id")
+queryenergy <- paste0("SELECT a.id, created, a.user_id, b.audio_name as 'ejerciciopaciente_id', frameIndex, frameTime, pcm_LOGenergy FROM ENERGY as a inner join pacienteEjercicio as b on a.ejerciciopaciente_id = b.id  WHERE ejerciciopaciente_id IN ", paej ," ORDER BY a.ejerciciopaciente_id, a.id")
 datosenergy <- dbGetQuery(mydb,queryenergy)
 
 ejerciciopaciente_id <- datosenergy$ejerciciopaciente_id
 datos2 <- data.frame(tiempo=c(datosenergy$frameTime),LogEnergy=c(datosenergy$pcm_LOGenergy))
 datos2$ejerciciopaciente_id <- datosenergy$ejerciciopaciente_id 
-datosEnergy <- datos2
+datosEnergy <- data.frame(c('minimo','media','maximo'),c(min(datos2$LogEnergy),mean(datos2$LogEnergy),max(datos2$LogEnergy)))
 energygraph <- ggplot(datos2,aes(x=tiempo,y=LogEnergy))+geom_line()+ geom_hline(yintercept=max(datos2$LogEnergy), linetype="dashed", color = "red") + 
   geom_hline(yintercept=min(datos2$LogEnergy), linetype="dashed", color = "blue") + geom_hline(yintercept=mean(datos2$LogEnergy), linetype="dashed", color = "green") + labs(title='Energia de la voz') + facet_grid(~ejerciciopaciente_id)
+
+
+resultadoEnergy <- expand.grid(c('ID','Energy'))
+resultadoEnergy$Primero_Audio_minimo <- c(datosAudios$'nombre del audio'[1],min(datosenergy[datosenergy$ejerciciopaciente_id ==  auxTable$Var1[1],6]))
+resultadoEnergy$Primero_Audio_medio <- c(datosAudios$'nombre del audio'[1],mean(datosenergy[datosenergy$ejerciciopaciente_id ==  auxTable$Var1[1],6]))
+resultadoEnergy$Primero_Audio_maximo <- c(datosAudios$'nombre del audio'[1],max(datosenergy[datosenergy$ejerciciopaciente_id ==  auxTable$Var1[1],6]))
+
+if(nrow(auxTable) >= 2){
+resultadoEnergy$Segundo_Audio_minimo <- c(datosAudios$'nombre del audio'[2],min(datosenergy[datosenergy$ejerciciopaciente_id ==  auxTable$Var1[2],6]))
+resultadoEnergy$Segundo_Audio_medio <- c(datosAudios$'nombre del audio'[2],mean(datosenergy[datosenergy$ejerciciopaciente_id ==  auxTable$Var1[2],6]))
+resultadoEnergy$Segundo_Audio_maximo <- c(datosAudios$'nombre del audio'[2],max(datosenergy[datosenergy$ejerciciopaciente_id ==  auxTable$Var1[2],6]))}
+
+if(nrow(auxTable) == 3){
+resultadoEnergy$Tercer_Audio_minimo <- c(datosAudios$'nombre del audio'[3],min(datosenergy[datosenergy$ejerciciopaciente_id ==  auxTable$Var1[3],6]))
+resultadoEnergy$Tercer_Audio_medio <- c(datosAudios$'nombre del audio'[3],mean(datosenergy[datosenergy$ejerciciopaciente_id ==  auxTable$Var1[3],6]))
+resultadoEnergy$Tercer_Audio_maximo <- c(datosAudios$'nombre del audio'[3],max(datosenergy[datosenergy$ejerciciopaciente_id ==  auxTable$Var1[3],6]))}
+
 }
 ###################################################################################################################################################
 
 #AUDSPEC###########################################################################################################################################
 if (paraudspec == 1) {
-queryaudspec <- paste0("SELECT * FROM AUDSPEC WHERE ejerciciopaciente_id IN ", paej ," ORDER BY ejerciciopaciente_id, id")
+queryaudspec <- paste0("SELECT a.id, created, a.user_id, b.audio_name as 'ejerciciopaciente_id', frameTime, audSpec_0, audSpec_1, audSpec_2, audSpec_3, audSpec_4, audSpec_5, audSpec_6, audSpec_7, audSpec_8, audSpec_9, audSpec_10, audSpec_11, audSpec_12, audSpec_13, audSpec_14, audSpec_15, audSpec_16, audSpec_17, audSpec_18, audSpec_19, audSpec_20, audSpec_21, audSpec_22, audSpec_23, audSpec_24, audSpec_25 FROM AUDSPEC as a inner join pacienteEjercicio as b on a.ejerciciopaciente_id = b.id  WHERE ejerciciopaciente_id IN ", paej ," ORDER BY a.ejerciciopaciente_id, a.id")
 datosaudspec <- dbGetQuery(mydb,queryaudspec)
 
 auxTable <- table(datosaudspec$ejerciciopaciente_id)
@@ -131,15 +189,64 @@ if(nrow(auxTable)>1){
     frame <- c(frame,seq(0,(auxTable$Freq[i]-1)*0.01,0.01))}
 }
 
+vectorEjercicios <- datosaudspec$ejerciciopaciente_id
 datosaudspec$frameTime <- frame
 
 ejerciciopaciente_id <- as.character(rep(datosaudspec$ejerciciopaciente_id,times = 26))
 
-resultadoAudspect <- expand.grid(Tiempo_segundos = datosaudspec$frameTime,Espectro = seq(0,25,1))
+resultadoAudspect <- expand.grid(Tiempo_segundos = datosaudspec$frameTime,Frecuencia = seq(0,8000,(8000/25)))
 resultadoAudspect$intensidad <- unlist(datosaudspec[,6:31],use.names=FALSE)
 resultadoAudspect$ejerciciopaciente_id <- ejerciciopaciente_id
-datosaudspec <- datosaudspec[,5:ncol(datosaudspec)]
-audspectgraph <- ggplot(resultadoAudspect, aes(Tiempo_segundos, Espectro, z= intensidad)) + geom_tile(aes(fill = intensidad)) + theme_bw() + labs(title='AudSpect')+ facet_grid(~ejerciciopaciente_id)
+
+audspectgraph <- ggplot(resultadoAudspect, aes(Tiempo_segundos, Frecuencia, z= intensidad)) + geom_tile(aes(fill = intensidad)) + theme_bw() + labs(title='AudSpect')+ facet_grid(~ejerciciopaciente_id)
+
+#Tono mas destacado en el tiempo
+
+aux <- vector(length=nrow(datosaudspec))
+for(i in 1:nrow(datosaudspec)){
+  aux[i]= which.max(unlist(datosaudspec[i,6:31],use.names=FALSE)) }
+
+datosMaxAudspect <- data.frame(tiempo=datosaudspec$frameTime, Frecuencia = aux)
+datosMaxAudspect$ejerciciopaciente_id <- vectorEjercicios
+
+audspecLineMax <- ggplot(datosMaxAudspect,aes(x=tiempo,y=Frecuencia))+geom_line()+ geom_hline(yintercept=max(datosMaxAudspect$Frecuencia), linetype="dashed", color = "red") + 
+  geom_hline(yintercept=min(datosMaxAudspect$Frecuencia), linetype="dashed", color = "blue") + geom_hline(yintercept=mean(datosMaxAudspect$Frecuencia), linetype="dashed", color = "green") + labs(title='Banda de frecuencia con el maxima intensidad')+ facet_grid(ejerciciopaciente_id~.)+
+  scale_y_continuous(labels = as.character(resultado$banda_de_frecuencia), breaks = resultado$banda_de_frecuencia)
+
+
+#Maximos, minimos y media
+
+auxTable <- as.data.frame(auxTable)
+
+ x <- data.frame(Medicion = c('minimo','medio','maximo'))
+ y <- data.frame(banda_de_frecuencia = rep(seq(1,26,1),times = nrow(auxTable)))
+ bandasDatos <- data.frame( banda_de_frecuencia = seq(1,26,1))
+ bandasDatos$bandas = c("0-307","0308-615","0616-923","0924-1231","1232-1539","1540-1847","1848-2155","2156-2463","2464-2771","2772-3079","3080-3387","3388-3695","3696-4003","4004-4311","4312-4619","4620-4927","4928-5235","5236-5543","5544-5851","5852-6159","6160-6467","6468-6774",
+ "6775-7082","7083-7390","7391-7698","7699-8006")
+ resultado <- merge(x,y,by = NULL)
+ resultado$Energia <- 0
+
+ejerciciopaciente_id <- as.character(rep(auxTable$Var1[1],times = 78))
+
+if(nrow(auxTable)>1){
+  for(j in 2:nrow( auxTable)){
+    ejerciciopaciente_id <- c(ejerciciopaciente_id,as.character(rep(auxTable$Var1[j],times = 78)))}
+}
+
+for(j in 1:nrow( auxTable)){
+  auxDatos <- datosaudspec[datosaudspec$ejerciciopaciente_id ==  auxTable$Var1[j],6:31]
+  for(i in 0:25){
+  resultado[i * 3 + (j-1) * 78 + 1,3]=min(auxDatos[,i+1])
+  resultado[i * 3 + (j-1) * 78 + 2,3]=mean(auxDatos[,i+1])
+  resultado[i * 3 + (j-1) * 78 + 3,3]=max(auxDatos[,i+1])}}
+  
+resultado$ejerciciopaciente_id <- ejerciciopaciente_id
+
+resultadoMMMAudspect <- resultado
+
+maxmeanminAudspectGraph <- ggplot(resultado,aes( x=banda_de_frecuencia,y=Energia, fill = Medicion)) + geom_bar(stat = 'identity',position=position_dodge()) + scale_fill_brewer(palette="Paired") + labs(title='Minimo, Medio y Maximo') + facet_grid(ejerciciopaciente_id~.) +
+scale_x_continuous(labels = as.character(resultado$banda_de_frecuencia), breaks = resultado$banda_de_frecuencia)
+
 }
 #audspectgraph <- ggplot(resultadoAudspect, aes(Tiempo_segundos, Espectro, z= intensidad)) + geom_tile(aes(fill = intensidad)) + theme_bw() + labs(title='AudSpect') + scale_fill_gradient(low="black", high="blue") 
 ####################################################################################################################################################
@@ -147,7 +254,7 @@ audspectgraph <- ggplot(resultadoAudspect, aes(Tiempo_segundos, Espectro, z= int
 ##PROSODY############################################################################################################################
 #F0 con probabilidad
 if (parprosody == 1) {
-queryprosody <- paste0("SELECT * FROM PROSODY WHERE ejerciciopaciente_id IN ", paej ," ORDER BY ejerciciopaciente_id, id")
+queryprosody <- paste0("SELECT a.id, created, a.user_id,  b.audio_name as 'ejerciciopaciente_id', frameTime, voiceProb_sma, F0_sma, pcm_loudness_sma, name FROM PROSODY as a inner join pacienteEjercicio as b on a.ejerciciopaciente_id = b.id WHERE ejerciciopaciente_id IN ", paej ," ORDER BY a.ejerciciopaciente_id, a.id")
 datosprosody <- dbGetQuery(mydb,queryprosody)
 
 #paso los datos a un data frame
@@ -163,14 +270,35 @@ resultado2F0_Vol_Prob <- resultado
 #Busco el efecto de que tengan la misma proporcion
 resultado2F0_Vol_Prob$voiceProb = resultado2F0_Vol_Prob$voiceProb * max(resultado$F0_sma)
 
-datosprosody <- datosprosody[,6:ncol(datosprosody)]
-
 #grafico probabilidad
 F0_Prob = ggplot(resultado2F0_Vol_Prob, aes(frame))+
   geom_line(aes(y=resultado2F0_Vol_Prob$F0_sma,col="F0")) +
   geom_line(aes(y=resultado2F0_Vol_Prob$voiceProb,col="Proba. de voz")) +
   geom_hline(yintercept=max(resultado2F0_Vol_Prob$F0_sma), linetype="dashed", color = "blue")+
   labs(x="Frames",y="Hertz",col = "Leyenda",title = "F0 y probabilidad de voz") + facet_grid(~ejerciciopaciente_id)
+
+
+
+resultadoF0_Vol_Prob <- expand.grid(c('ID','F0',"Probabilidad","Volumen"))
+resultadoF0_Vol_Prob$Primero_Audio_minimo <- c(datosAudios$'nombre del audio'[1],min(datosprosody[datosprosody$ejerciciopaciente_id ==  auxTable$Var1[1],7]),min(datosprosody[datosprosody$ejerciciopaciente_id ==  auxTable$Var1[1],6]),min(datosprosody[datosprosody$ejerciciopaciente_id ==  auxTable$Var1[1],8]))
+resultadoF0_Vol_Prob$Primero_Audio_medio <- c(datosAudios$'nombre del audio'[1],mean(datosprosody[datosprosody$ejerciciopaciente_id ==  auxTable$Var1[1],7]),mean(datosprosody[datosprosody$ejerciciopaciente_id ==  auxTable$Var1[1],6]),mean(datosprosody[datosprosody$ejerciciopaciente_id ==  auxTable$Var1[1],8]))
+resultadoF0_Vol_Prob$Primero_Audio_maximo <- c(datosAudios$'nombre del audio'[1],max(datosprosody[datosprosody$ejerciciopaciente_id ==  auxTable$Var1[1],7]),max(datosprosody[datosprosody$ejerciciopaciente_id ==  auxTable$Var1[1],6]),max(datosprosody[datosprosody$ejerciciopaciente_id ==  auxTable$Var1[1],8]))
+
+if(nrow(auxTable) >= 2){
+resultadoF0_Vol_Prob$Segundo_Audio_minimo <- c(datosAudios$'nombre del audio'[2],min(datosprosody[datosprosody$ejerciciopaciente_id ==  auxTable$Var1[2],7]),min(datosprosody[datosprosody$ejerciciopaciente_id ==  auxTable$Var1[2],6]),min(datosprosody[datosprosody$ejerciciopaciente_id ==  auxTable$Var1[2],8]))
+resultadoF0_Vol_Prob$Segundo_Audio_medio <- c(datosAudios$'nombre del audio'[2],mean(datosprosody[datosprosody$ejerciciopaciente_id ==  auxTable$Var1[2],7]),mean(datosprosody[datosprosody$ejerciciopaciente_id ==  auxTable$Var1[2],6]),mean(datosprosody[datosprosody$ejerciciopaciente_id ==  auxTable$Var1[2],8]))
+resultadoF0_Vol_Prob$Segundo_Audio_maximo <- c(datosAudios$'nombre del audio'[2],max(datosprosody[datosprosody$ejerciciopaciente_id ==  auxTable$Var1[2],7]),max(datosprosody[datosprosody$ejerciciopaciente_id ==  auxTable$Var1[2],6]),max(datosprosody[datosprosody$ejerciciopaciente_id ==  auxTable$Var1[2],8]))}
+
+if(nrow(auxTable) == 3){
+resultadoF0_Vol_Prob$Tercer_Audio_minimo <- c(datosAudios$'nombre del audio'[3],min(datosprosody[datosprosody$ejerciciopaciente_id ==  auxTable$Var1[3],7]),min(datosprosody[datosprosody$ejerciciopaciente_id ==  auxTable$Var1[3],6]),min(datosprosody[datosprosody$ejerciciopaciente_id ==  auxTable$Var1[3],8]))
+resultadoF0_Vol_Prob$Tercer_Audio_medio <- c(datosAudios$'nombre del audio'[3],mean(datosprosody[datosprosody$ejerciciopaciente_id ==  auxTable$Var1[3],7]),mean(datosprosody[datosprosody$ejerciciopaciente_id ==  auxTable$Var1[3],6]),mean(datosprosody[datosprosody$ejerciciopaciente_id ==  auxTable$Var1[3],8]))
+resultadoF0_Vol_Prob$Tercer_Audio_maximo <- c(datosAudios$'nombre del audio'[3],max(datosprosody[datosprosody$ejerciciopaciente_id ==  auxTable$Var1[3],7]),max(datosprosody[datosprosody$ejerciciopaciente_id ==  auxTable$Var1[3],6]),max(datosprosody[datosprosody$ejerciciopaciente_id ==  auxTable$Var1[3],8]))}
+
+datosprosody[datosprosody$ejerciciopaciente_id ==  auxTable$Var1[1],8] <- max(datosprosody[datosprosody$ejerciciopaciente_id ==  auxTable$Var1[1],7]) * datosprosody[datosprosody$ejerciciopaciente_id ==  auxTable$Var1[1],8] / max(datosprosody[datosprosody$ejerciciopaciente_id ==  auxTable$Var1[1],8])
+datosprosody[datosprosody$ejerciciopaciente_id ==  auxTable$Var1[2],8] <- max(datosprosody[datosprosody$ejerciciopaciente_id ==  auxTable$Var1[2],7]) * datosprosody[datosprosody$ejerciciopaciente_id ==  auxTable$Var1[2],8] / max(datosprosody[datosprosody$ejerciciopaciente_id ==  auxTable$Var1[2],8])
+datosprosody[datosprosody$ejerciciopaciente_id ==  auxTable$Var1[3],8] <- max(datosprosody[datosprosody$ejerciciopaciente_id ==  auxTable$Var1[3],7]) * datosprosody[datosprosody$ejerciciopaciente_id ==  auxTable$Var1[3],8] / max(datosprosody[datosprosody$ejerciciopaciente_id ==  auxTable$Var1[3],8])
+
+resultado2F0_Vol_Prob$loudness <- datosprosody$pcm_loudness_sma
 
 #Grafico Volumen y F0
 F0_Volumen = ggplot(resultado2F0_Vol_Prob, aes(frame))+
@@ -184,7 +312,7 @@ F0_Volumen = ggplot(resultado2F0_Vol_Prob, aes(frame))+
 #Formantes
 if (pareGemaps == 1) {
 ##datos = dbReadTable(mydb,"EGEMAPS")
-queryegemaps <- paste0("SELECT * FROM EGEMAPS WHERE ejerciciopaciente_id IN ", paej ," ORDER BY ejerciciopaciente_id, id")
+queryegemaps <- paste0("SELECT a.id, created, a.user_id, b.audio_name as 'ejerciciopaciente_id', frameTime, F0semitoneFrom27_5Hz_sma3nz_amean, F0semitoneFrom27_5Hz_sma3nz_stddevNorm, F0semitoneFrom27_5Hz_sma3nz_percentile20_0, F0semitoneFrom27_5Hz_sma3nz_percentile50_0, F0semitoneFrom27_5Hz_sma3nz_percentile80_0, F0semitoneFrom27_5Hz_sma3nz_pctlrange0_2, F0semitoneFrom27_5Hz_sma3nz_meanRisingSlope, F0semitoneFrom27_5Hz_sma3nz_stddevRisingSlope, F0semitoneFrom27_5Hz_sma3nz_meanFallingSlope, F0semitoneFrom27_5Hz_sma3nz_stddevFallingSlope, loudness_sma3_amean, loudness_sma3_stddevNorm, loudness_sma3_percentile20_0, loudness_sma3_percentile50_0, loudness_sma3_percentile80_0, loudness_sma3_pctlrange0_2, loudness_sma3_meanRisingSlope, loudness_sma3_stddevRisingSlope, loudness_sma3_meanFallingSlope, loudness_sma3_stddevFallingSlope, spectralFlux_sma3_amean, spectralFlux_sma3_stddevNorm, mfcc1_sma3_amean, mfcc1_sma3_stddevNorm, mfcc2_sma3_amean, mfcc2_sma3_stddevNorm, mfcc3_sma3_amean, mfcc3_sma3_stddevNorm, mfcc4_sma3_amean, mfcc4_sma3_stddevNorm, jitterLocal_sma3nz_amean, jitterLocal_sma3nz_stddevNorm, shimmerLocaldB_sma3nz_amean, shimmerLocaldB_sma3nz_stddevNorm, HNRdBACF_sma3nz_amean, HNRdBACF_sma3nz_stddevNorm, logRelF0_H1_H2_sma3nz_amean, logRelF0_H1_H2_sma3nz_stddevNorm, logRelF0_H1_A3_sma3nz_amean, logRelF0_H1_A3_sma3nz_stddevNorm, F1frequency_sma3nz_amean, F1frequency_sma3nz_stddevNorm, F1bandwidth_sma3nz_amean, F1bandwidth_sma3nz_stddevNorm, F1amplitudeLogRelF0_sma3nz_amean, F1amplitudeLogRelF0_sma3nz_stddevNorm, F2frequency_sma3nz_amean, F2frequency_sma3nz_stddevNorm, F2bandwidth_sma3nz_amean, F2bandwidth_sma3nz_stddevNorm, F2amplitudeLogRelF0_sma3nz_amean, F2amplitudeLogRelF0_sma3nz_stddevNorm, F3frequency_sma3nz_amean, F3frequency_sma3nz_stddevNorm, F3bandwidth_sma3nz_amean, F3bandwidth_sma3nz_stddevNorm, F3amplitudeLogRelF0_sma3nz_amean, F3amplitudeLogRelF0_sma3nz_stddevNorm, alphaRatioV_sma3nz_amean, alphaRatioV_sma3nz_stddevNorm, hammarbergIndexV_sma3nz_amean, hammarbergIndexV_sma3nz_stddevNorm, slopeV0_500_sma3nz_amean, slopeV0_500_sma3nz_stddevNorm, slopeV500_1500_sma3nz_amean, slopeV500_1500_sma3nz_stddevNorm, spectralFluxV_sma3nz_amean, spectralFluxV_sma3nz_stddevNorm, mfcc1V_sma3nz_amean, mfcc1V_sma3nz_stddevNorm, mfcc2V_sma3nz_amean, mfcc2V_sma3nz_stddevNorm, mfcc3V_sma3nz_amean, mfcc3V_sma3nz_stddevNorm, mfcc4V_sma3nz_amean, mfcc4V_sma3nz_stddevNorm, alphaRatioUV_sma3nz_amean, hammarbergIndexUV_sma3nz_amean, slopeUV0_500_sma3nz_amean, slopeUV500_1500_sma3nz_amean, spectralFluxUV_sma3nz_amean, loudnessPeaksPerSec, VoicedSegmentsPerSec, MeanVoicedSegmentLengthSec, StddevVoicedSegmentLengthSec, MeanUnvoicedSegmentLength, StddevUnvoicedSegmentLength, equivalentSoundLevel_dBp, name FROM EGEMAPS as a inner join pacienteEjercicio as b on a.ejerciciopaciente_id = b.id WHERE ejerciciopaciente_id IN ", paej ," ORDER BY a.ejerciciopaciente_id, a.id")
 datosegemap <- dbGetQuery(mydb,queryegemaps)
 
 xs   <- seq(-1/2*pi,1/2*pi,pi/200)
@@ -203,7 +331,7 @@ resultado$ejerciciopaciente_id <- ejerciciopaciente_id
 
 formanteGraph <- ggplot(resultado,aes(x=xs,y=wave)) + geom_line() + labs(title = "Transformada de fourier con las medias de F1, F2 y F3") + facet_grid(~ejerciciopaciente_id)
 
-resumeneGemaps <- expand.grid (NombreVariable = c ("Media F0","Media F1","Media F2","Media F3","Media de jitter Local","Desviacion estandar de jitter Local en DB","Media de shimmer Local","Desviacion estandar de shimmer Local en dB"))
+resumeneGemaps <- expand.grid (NombreVariable = c ("Media_F0","Media_F1","Media_F2","Media_F3","Media_de_jitter_Local","Desviacion_estandar_de_jitter_Local_en_DB","Media_de_shimmer_Local","Desviacion_estandar_de_shimmer_Local_en_dB"))
 
 ## Vowel
 vowel <- data.frame(vocal = c('a','e','i','o','u'),
@@ -257,36 +385,33 @@ kable(datosAudios,caption="Datos de los audios")
 if (parchroma == 1) {
 plot(chromagraph)
 
-kable(datosChroma[1:70,],caption="Tabla de los valores del chroma")
-
 plot(chromaLineMax)
-kable(datosMaxChroma[1:70,],caption="Tabla de los valores del chroma")
 
 plot(maxmeanminGraph)
-kable(resultadoMMM[1:12,],caption="Tabla de los valores del Altas, media y baja del Chroma")
+kable(resultadoChroma,caption="Tabla de los valores del maximos, media y baja de Chroma")
 }
 #############################################################################################
 
 #ENERGY######################################################################################
 if (parenergy == 1) {
 plot(energygraph)
-kable(datosEnergy[1:70,],caption="Tabla de los valores del Energy")
+kable(resultadoEnergy,caption="Tabla de los valores maximos, medios y bajos de Energy")
 }
 #############################################################################################
 
 #AUDSPEC#####################################################################################
 if (paraudspec == 1) {
 plot(audspectgraph)
-kable(resultadoAudspect[1:70,],caption="Tabla de los valores del AudSpect")
+plot(audspecLineMax)
+plot(maxmeanminAudspectGraph)
 }
 #############################################################################################
 
 #PROSODY####################################################################################
 if (parprosody == 1) {
 plot(F0_Prob)
-
 plot(F0_Volumen)
-kable(resultado2F0_Vol_Prob[1:70,],caption="Tabla de los valores del F0 y Volumen")
+kable(resultadoF0_Vol_Prob,caption="Tabla de los valores maximos, medios y bajos de F0, probabilidad y volumen")
 }
 #############################################################################################
 
@@ -294,7 +419,6 @@ kable(resultado2F0_Vol_Prob[1:70,],caption="Tabla de los valores del F0 y Volume
 #FORMANTES
 if (pareGemaps == 1) {
 plot(formanteGraph)
-kable(resultado[1:70,],caption="Tabla de los valores del Formantes")
 kable(resumeneGemaps,caption="Tabla de los valores del eGemaps")
 #VOWEL
 plot(vowelGraph)
