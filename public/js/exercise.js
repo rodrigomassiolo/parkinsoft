@@ -119,8 +119,9 @@ $( document ).ready(function() {
         },
         data:{nombre_index:del[2], tabla: del[0],View:1},
         success:function(data){
-          $('.modal').modal('hide');
-          $('#okModalLabel').modal('show');
+          // $('.modal').modal('hide');
+          // $('#okModalLabel').modal('show');
+          alert("pepon");
         }
      });
     },
