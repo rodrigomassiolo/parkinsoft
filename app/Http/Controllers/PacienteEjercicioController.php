@@ -9,6 +9,7 @@ use App\Rol;
 use App\Ejercicio;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class PacienteEjercicioController extends Controller
 {
@@ -297,6 +298,35 @@ class PacienteEjercicioController extends Controller
                         ->with('success','Ejercicio modificado correctamente');
     }
 
+    public function download_voice_audio($paciente_ejercicio_id,Request $request)
+    {
+        $api = substr( $request->path(), 0,3 ) == 'api';
+        $paciente_ejercicio = PacienteEjercicio::findOrFail($paciente_ejercicio_id);
+        if(!$paciente_ejercicio){
+            if($api){
+                return "Error No existe el Ejercicio Realizado";
+            }
+            return redirect()->back()->withSuccess("Error: Este ejercicio no existe");
+        }
+        $path = $paciente_ejercicio->audio_path;
+        $name= $paciente_ejercicio->audio_name.'.'.$paciente_ejercicio->audio_ext;
+        $file= storage_path('app').$path.$name;
+
+        $headers = array(
+                'Content-Type: audio/mpeg',
+                );
+
+        if(Storage::disk('local')->exists($path.$name)){
+            return response()->download($file, $name, $headers);
+        }
+        else{ 
+
+            if($api){
+                return "Error No hay audio de este Ejercicio";
+            }
+            return redirect()->back()->withSuccess("Error No hay audio de este Ejercicio");
+        }
+    }
     /**
      * Remove the specified resource from storage.
      *
