@@ -53,6 +53,16 @@ class PacienteEjercicio extends Model
         {
             $query->where('created_at', '>=', trim($params['created_at']));
         }
+
+        if ( isset($params['created_atFrom']) && trim($params['created_atFrom']) !== '' )
+        {
+            $query->where('created_at', '>=', trim($params['created_atFrom']));
+        }
+        if ( isset($params['created_atTo']) && trim($params['created_atTo']) !== '' )
+        {
+            $query->where('created_at', '<=', trim($params['created_atTo']));
+        }
+
         if ( isset($params['user_id']) && trim($params['user_id']) !== '' )
         {
             $query->where('user_id', '=', trim($params['user_id']));

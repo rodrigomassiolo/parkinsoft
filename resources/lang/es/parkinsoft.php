@@ -130,6 +130,8 @@ return [
     'user' => 'Usuario',
     'description' => 'Descripción',
     'date' => 'Fecha',
+    'dateFrom' => 'Fecha desde',
+    'dateTo' => 'Fecha hasta',
     'name' => 'Nombre',
     'surname' => 'Apellido',
     'actions' => 'Acciones',
@@ -137,6 +139,9 @@ return [
     'createDate' => 'Fecha de creación',
     'email' => 'Email',
     'nacDate' => 'Fecha de nacimiento',
+    'nacDateFrom' => 'Fecha de nacimiento desde',
+    'nacDateTo' => 'Fecha de nacimiento hasta',
+
     'dni' => 'Dni',
     'password' => 'Password',
     'passwordConfirm' => 'Confirmar password',

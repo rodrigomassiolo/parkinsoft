@@ -56,6 +56,14 @@ class User extends Authenticatable
        {
            $query->where('nacimiento', '=', trim($params['nacimiento']));
        }
+       if ( isset($params['nacimientoFrom']) && trim($params['nacimientoFrom']) !== '' )
+       {
+           $query->where('nacimiento', '>=', trim($params['nacimientoFrom']));
+       }
+       if ( isset($params['nacimientoTo']) && trim($params['nacimientoTo']) !== '' )
+       {
+           $query->where('nacimiento', '<=', trim($params['nacimientoTo']));
+       }
        if ( isset($params['usuario']) && trim($params['usuario']) !== '' )
        {
            $query->where('usuario', 'LIKE', trim($params['usuario']. '%'));

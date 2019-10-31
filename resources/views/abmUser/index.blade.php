@@ -45,13 +45,22 @@
                      value= "{{Request::old('genero')}}">
                 </div>
             </div>
+        </div>
+        <div class="row">
             <div class="col-xs-3 col-sm-3 col-md-3">
-                <div class="form-group">
-                    <strong>@lang('parkinsoft.nacDate'):</strong>
-                    <input type="date" name="nacimiento" min="1900-01-01" max="2099-12-31" class="form-control" 
-                    value= "{{Request::old('nacimiento')}}">
+                    <div class="form-group">
+                        <strong>@lang('parkinsoft.nacDateFrom'):</strong>
+                        <input type="date" name="nacimientoFrom" min="1900-01-01" max="2099-12-31" class="form-control" 
+                        value= "{{Request::old('nacimientoFrom')}}">
+                    </div>
                 </div>
-            </div>
+                <div class="col-xs-3 col-sm-3 col-md-3">
+                    <div class="form-group">
+                        <strong>@lang('parkinsoft.nacDateTo'):</strong>
+                        <input type="date" name="nacimientoTo" min="1900-01-01" max="2099-12-31" class="form-control" 
+                        value= "{{Request::old('nacimientoTo')}}">
+                    </div>
+                </div>
         </div>
         <div>
             <div class="row">
