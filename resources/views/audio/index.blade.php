@@ -55,7 +55,16 @@
         <strong>@lang('parkinsoft.uploadAudioLabel'):</strong>
       <input type="file" class="form-control-file" id="audio" name="audio">
     </div>
-    <div class="col-md-6 col-sm-6 col-lg-6">
+    <div class="col-md-2 col-sm-2 col-lg-2">
+    <strong>@lang('parkinsoft.exerciseAudio'):</strong>
+    <a class="btn btn-success btn-sm" id="btnExample" href=""
+        data-toggle="tooltip" title="Descargar Audio de Ejemplo"> 
+        <span data-feather="download"></span>
+        @lang('parkinsoft.exerciseDownload')
+    </a>
+  </div>
+
+    <div class="col-md-4 col-sm-4 col-lg-4">
         <strong>@lang('parkinsoft.audioQuality'):</strong>
         <select id="origen_audio" name="origen_audio" class="form-control">
             <option selected disabled hidden style='display: none' value='celular' required>@lang('parkinsoft.selectAudioQuality')</option>          

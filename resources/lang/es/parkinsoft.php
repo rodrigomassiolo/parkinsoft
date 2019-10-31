@@ -248,6 +248,7 @@ return [
     'exerciseDownloadExample' => 'Descargar audio de ejemplo',
     'exerciseAudio' => 'Audio de ejemplo',
     'exerciseEdit' => 'Editar ejercicio',
+    'exerciseDownload' => 'Descargar',
 
 
     /*

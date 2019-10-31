@@ -211,13 +211,19 @@ class AbmEjercicioController extends Controller
         if(!$ejercicio){
             return response()->json(['invalid_ejercicio'], 400);
         }
+
         $file= storage_path('app').'/'. $ejercicio->audio_example_path;
 
         $headers = array(
                 'Content-Type: audio/mpeg',
                 );
 
-        return response()->download($file, $ejercicio->nombre.'.mp3', $headers);
+        if(Storage::disk('local')->exists($ejercicio->audio_example_path)){
+            return response()->download($file, $ejercicio->nombre.'.mp3', $headers);
+        }
+        else{ 
+            return redirect()->back()->withSuccess("No hay audio de Ejemplo para este Ejercicio");
+        }
     }
 
     public function ffmpeg($name,$extens){

@@ -121,6 +121,7 @@ class AudioController extends Controller
             }
             return response()->json(['invalid_file_upload'], 400);
         }
+        return $file->getClientSize() ;
         if($file->getClientSize() > $file->getMaxFilesize()){
             if($request->has('View')){
                 $var = \Lang::get('parkinsoft.audioFileTooBig');

@@ -11,6 +11,7 @@ $( document ).ready(function() {
                 }
             }
         )
+        $("#btnExample").attr("href","http://"+window.location.hostname+'/ejercicio/download_example/'+$("#audio_select_ejercicio").val());
 
       });
     var preset = $("#audio_preset_paciente").val();
