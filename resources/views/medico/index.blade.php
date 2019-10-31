@@ -90,7 +90,7 @@
             <td>{{ $row->nombre }}</td>
             <td>{{ $row->apellido }}</td>
             <td>{{ $row->matricula  }}</td>
-            <td>{{ $row->created_at}}</td>
+            <td>{{ Carbon\Carbon::parse($row->created_at)->format('d/m/Y')}}</td>
             <td>
                 <form action="{{ route('medico.destroy',$row->id) }}" method="POST">
    
