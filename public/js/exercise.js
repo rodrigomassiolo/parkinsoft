@@ -117,10 +117,11 @@ $( document ).ready(function() {
         headers: {
           'X-CSRF-TOKEN': $('input[name="_token"]').attr('value')
         },
-        data:{nombre_index:del[2], tabla: table[0],View:1},
+        data:{nombre_index:del[2], tabla: del[0],View:1},
         success:function(data){
-          $('.modal').modal('hide');
-          $('#okModalLabel').modal('show');
+          // $('.modal').modal('hide');
+          // $('#okModalLabel').modal('show');
+          alert("pepon");
         }
      });
     },
