@@ -359,7 +359,9 @@ plot(chromagraph)
 plot(chromaLineMax)
 
 plot(maxmeanminGraph)
+}
 
+if (parchroma == 1) {
 kable(resultadoChroma[,1:3],caption="Tabla de los valores del maximos, media y baja de Chroma")
 
 if(nrow(auxTable) >= 2){
@@ -367,14 +369,17 @@ kable(resultadoChroma[,4:6],caption="Tabla de los valores del maximos, media y b
 
 if(nrow(auxTable) == 3){
 kable(resultadoChroma[,7:9],caption="Tabla de los valores del maximos, media y baja de Chroma")}
-
 }
+
+
 #############################################################################################
 
 #ENERGY######################################################################################
 if (parenergy == 1) {
 plot(energygraph)
+}
 
+if (parenergy == 1) {
 kable(resultadoEnergy[,1:3],caption="Tabla de los valores maximos, medios y bajos de Energy")
 
 if(nrow(auxTable) >= 2){
@@ -404,7 +409,6 @@ plot(F0_Prob)
 if (pareGemaps == 1) {
 plot(formanteGraph)
 kable(resumeneGemaps,caption="Tabla de los valores del eGemaps")
-
 }
 
 if(pareGemaps == 1){
