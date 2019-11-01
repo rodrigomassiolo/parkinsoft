@@ -38,6 +38,9 @@ class AnotadorController extends Controller
             'content' => $request->get('content'),
             'user_id' => Auth::user()->id
         ));
+
+        $comment->save();
+
         return redirect()->back()->with('status', '¡Tu comentario ha sido creado!');
     }
 
