@@ -276,34 +276,6 @@ F0_Prob = ggplot(resultado2F0_Vol_Prob, aes(frame))+
   geom_line(aes(y=resultado2F0_Vol_Prob$voiceProb,col="Proba. de voz")) +
   geom_hline(yintercept=max(resultado2F0_Vol_Prob$F0_sma), linetype="dashed", color = "blue")+
   labs(x="Frames",y="Hertz",col = "Leyenda",title = "F0 y probabilidad de voz") + facet_grid(~ejerciciopaciente_id)
-
-
-
-resultadoF0_Vol_Prob <- expand.grid(c('ID','F0',"Probabilidad","Volumen"))
-resultadoF0_Vol_Prob$Primero_Audio_minimo <- c(datosAudios$'nombre del audio'[1],min(datosprosody[datosprosody$ejerciciopaciente_id ==  auxTable$Var1[1],7]),min(datosprosody[datosprosody$ejerciciopaciente_id ==  auxTable$Var1[1],6]),min(datosprosody[datosprosody$ejerciciopaciente_id ==  auxTable$Var1[1],8]))
-resultadoF0_Vol_Prob$Primero_Audio_medio <- c(datosAudios$'nombre del audio'[1],mean(datosprosody[datosprosody$ejerciciopaciente_id ==  auxTable$Var1[1],7]),mean(datosprosody[datosprosody$ejerciciopaciente_id ==  auxTable$Var1[1],6]),mean(datosprosody[datosprosody$ejerciciopaciente_id ==  auxTable$Var1[1],8]))
-resultadoF0_Vol_Prob$Primero_Audio_maximo <- c(datosAudios$'nombre del audio'[1],max(datosprosody[datosprosody$ejerciciopaciente_id ==  auxTable$Var1[1],7]),max(datosprosody[datosprosody$ejerciciopaciente_id ==  auxTable$Var1[1],6]),max(datosprosody[datosprosody$ejerciciopaciente_id ==  auxTable$Var1[1],8]))
-
-if(nrow(auxTable) >= 2){
-resultadoF0_Vol_Prob$Segundo_Audio_minimo <- c(datosAudios$'nombre del audio'[2],min(datosprosody[datosprosody$ejerciciopaciente_id ==  auxTable$Var1[2],7]),min(datosprosody[datosprosody$ejerciciopaciente_id ==  auxTable$Var1[2],6]),min(datosprosody[datosprosody$ejerciciopaciente_id ==  auxTable$Var1[2],8]))
-resultadoF0_Vol_Prob$Segundo_Audio_medio <- c(datosAudios$'nombre del audio'[2],mean(datosprosody[datosprosody$ejerciciopaciente_id ==  auxTable$Var1[2],7]),mean(datosprosody[datosprosody$ejerciciopaciente_id ==  auxTable$Var1[2],6]),mean(datosprosody[datosprosody$ejerciciopaciente_id ==  auxTable$Var1[2],8]))
-resultadoF0_Vol_Prob$Segundo_Audio_maximo <- c(datosAudios$'nombre del audio'[2],max(datosprosody[datosprosody$ejerciciopaciente_id ==  auxTable$Var1[2],7]),max(datosprosody[datosprosody$ejerciciopaciente_id ==  auxTable$Var1[2],6]),max(datosprosody[datosprosody$ejerciciopaciente_id ==  auxTable$Var1[2],8]))}
-
-if(nrow(auxTable) == 3){
-resultadoF0_Vol_Prob$Tercer_Audio_minimo <- c(datosAudios$'nombre del audio'[3],min(datosprosody[datosprosody$ejerciciopaciente_id ==  auxTable$Var1[3],7]),min(datosprosody[datosprosody$ejerciciopaciente_id ==  auxTable$Var1[3],6]),min(datosprosody[datosprosody$ejerciciopaciente_id ==  auxTable$Var1[3],8]))
-resultadoF0_Vol_Prob$Tercer_Audio_medio <- c(datosAudios$'nombre del audio'[3],mean(datosprosody[datosprosody$ejerciciopaciente_id ==  auxTable$Var1[3],7]),mean(datosprosody[datosprosody$ejerciciopaciente_id ==  auxTable$Var1[3],6]),mean(datosprosody[datosprosody$ejerciciopaciente_id ==  auxTable$Var1[3],8]))
-resultadoF0_Vol_Prob$Tercer_Audio_maximo <- c(datosAudios$'nombre del audio'[3],max(datosprosody[datosprosody$ejerciciopaciente_id ==  auxTable$Var1[3],7]),max(datosprosody[datosprosody$ejerciciopaciente_id ==  auxTable$Var1[3],6]),max(datosprosody[datosprosody$ejerciciopaciente_id ==  auxTable$Var1[3],8]))}
-
-aux <- max(datosprosody[datosprosody$ejerciciopaciente_id ==  auxTable$Var1[1],7]) * datosprosody[datosprosody$ejerciciopaciente_id ==  auxTable$Var1[1],8] / max(datosprosody[datosprosody$ejerciciopaciente_id ==  auxTable$Var1[1],8])
-aux = c(aux,max(datosprosody[datosprosody$ejerciciopaciente_id ==  auxTable$Var1[2],7]) * datosprosody[datosprosody$ejerciciopaciente_id ==  auxTable$Var1[2],8] / max(datosprosody[datosprosody$ejerciciopaciente_id ==  auxTable$Var1[2],8]))
-aux = c(aux,max(datosprosody[datosprosody$ejerciciopaciente_id ==  auxTable$Var1[3],7]) * datosprosody[datosprosody$ejerciciopaciente_id ==  auxTable$Var1[3],8] / max(datosprosody[datosprosody$ejerciciopaciente_id ==  auxTable$Var1[3],8]))
-
-resultado2F0_Vol_Prob$loudness <- aux
-#Grafico Volumen y F0
-F0_Volumen = ggplot(resultado2F0_Vol_Prob, aes(frame))+
-  geom_line(aes(y=resultado2F0_Vol_Prob$F0_sma,col="F0")) +
-  geom_line(aes(y=resultado2F0_Vol_Prob$loudness,col="Volumen")) +
-  labs(x="Frames",y="Hertz",col = "Leyenda",title = "F0 y Volumen") + facet_grid(~ejerciciopaciente_id)
 }  
 ##############################################################################################################################################
 
@@ -424,15 +396,6 @@ plot(maxmeanminAudspectGraph)
 #PROSODY####################################################################################
 if (parprosody == 1) {
 plot(F0_Prob)
-plot(F0_Volumen)
-
-kable(resultadoF0_Vol_Prob[,1:3],caption="Tabla de los valores maximos, medios y bajos de F0, probabilidad y volumen")
-
-if(nrow(auxTable) >= 2){
-kable(resultadoF0_Vol_Prob[,4:6],caption="Tabla de los valores maximos, medios y bajos de F0, probabilidad y volumen")}
-
-if(nrow(auxTable) == 3){
-kable(resultadoF0_Vol_Prob[,7:9],caption="Tabla de los valores maximos, medios y bajos de F0, probabilidad y volumen")}
 }
 #############################################################################################
 
