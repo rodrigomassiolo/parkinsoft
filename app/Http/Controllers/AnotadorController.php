@@ -34,7 +34,7 @@ class AnotadorController extends Controller
 
     public function comment(Request $request){
         $comment = new Comment(array(
-            'post_id' => $request->get('anotador_id'),
+            'anotador_id' => $request->get('anotador_id'),
             'content' => $request->get('content'),
             'user_id' => Auth::user()->id
         ));
