@@ -105,19 +105,42 @@
             <td>{{ $row->genero}}</td>
             <td>{{ Carbon\Carbon::parse($row->nacimiento)->format('d/m/Y')}}</td>
             <td>
-       
-   
+
+            <form>
                     <a class="btn btn-info btn-sm" href="{{ route('abmUser.show',[$row->id]) }}"
                     data-toggle="tooltip">
                     <span data-feather="eye"></span>
                         @lang('parkinsoft.showButton')
                     </a>
-    
+            </form>
+            <form>
                     <a class="btn btn-sm editButton" href="{{ route('abmUser.edit',$row->id) }}" 
                     data-toggle="tooltip">
                     <span data-feather="edit"></span>
                     @lang('parkinsoft.editButton')
                     </a>
+            </form>
+            <form action="{{ route('audio')}}" method="GET">
+                    <input type="hidden" name="paciente_id" value="{{$row->id}}">
+
+                    <button class="btn btn-success btn-sm" type="submit">@lang('parkinsoft.uploadAudio')</button>           
+            </form>
+                    <form action="{{ route('ejercicioPacienteAsignar')}}" method="GET">
+                            <input type="hidden" name="paciente_id" value="{{$row->id}}">
+                            <button class="btn btn-success btn-sm" type="submit">@lang('parkinsoft.assingExercise')</button>           
+                    </form>
+                    <form action="{{ route('listaDeEjerciciosRealizados')}}" method="GET">
+                        <input type="hidden" name="paciente_id" value="{{$row->id}}">
+                        <button class="btn btn-primary btn-sm" type="submit">@lang('parkinsoft.audioListLink')</button>           
+                    </form>
+                    <form action="{{ route('listaDeEjerciciosAsignados')}}" method="GET">
+                        <input type="hidden" name="paciente_id" value="{{$row->id}}">
+                        <button class="btn btn-primary btn-sm" type="submit">@lang('parkinsoft.audioListLinkAssigned')</button>           
+                    </form>
+                    <form action="{{ route('operacion.index') }}" method="GET">
+                        <input type="hidden" name="user_id" value="{{$row->id}}">
+                        <button class="btn btn-info btn-sm" type="submit">@lang('parkinsoft.operacionLinkTitle')</button>           
+                    </form>
                     <form action="{{ route('abmUser.destroy',$row->id) }}" method="POST">
                         @csrf
                         @method('DELETE')
@@ -129,27 +152,6 @@
                             <span data-feather="trash-2"></span>
                             @lang('parkinsoft.deleteButton')
                         </button>
-                    </form>
-                    <form action="{{ route('audio')}}" method="GET">
-                        <input type="hidden" name="paciente_id" value="{{$row->id}}">
-
-                        <button class="btn btn-info btn-sm" type="submit">@lang('parkinsoft.uploadAudio')</button>           
-                    </form>
-                    <form action="{{ route('ejercicioPacienteAsignar')}}" method="GET">
-                            <input type="hidden" name="paciente_id" value="{{$row->id}}">
-                            <button class="btn btn-info btn-sm" type="submit">@lang('parkinsoft.assingExercise')</button>           
-                    </form>
-                    <form action="{{ route('listaDeEjerciciosRealizados')}}" method="GET">
-                        <input type="hidden" name="paciente_id" value="{{$row->id}}">
-                        <button class="btn btn-info btn-sm" type="submit">@lang('parkinsoft.audioListLink')</button>           
-                    </form>
-                    <form action="{{ route('listaDeEjerciciosAsignados')}}" method="GET">
-                        <input type="hidden" name="paciente_id" value="{{$row->id}}">
-                        <button class="btn btn-info btn-sm" type="submit">@lang('parkinsoft.audioListLinkAssigned')</button>           
-                    </form>
-                    <form action="{{ route('operacion.index') }}" method="GET">
-                        <input type="hidden" name="user_id" value="{{$row->id}}">
-                        <button class="btn btn-info btn-sm" type="submit">@lang('parkinsoft.operacionLinkTitle')</button>           
                     </form>
             </td>
         </tr>
