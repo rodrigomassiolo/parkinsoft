@@ -246,6 +246,7 @@ return [
     'exerciseDuplicateMessageSuccessful' => 'El ejercicio que intenta cargar ya existe',
     'exerciseCreateNew' => 'Crear Ejercicio',
     'exerciseDownloadExample' => 'Descargar audio de ejemplo',
+    'downloadAudioPaciente' => 'Escuchar',
     'exerciseAudio' => 'Audio de ejemplo',
     'exerciseEdit' => 'Editar ejercicio',
     'exerciseDownload' => 'Descargar',

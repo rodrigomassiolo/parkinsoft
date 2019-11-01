@@ -96,6 +96,8 @@ return [
 
     'exerciseNewMessageSuccessful' => 'Ejercicio creado correctamente',
     'exerciseUpdateMessageSuccessful' => 'Ejercicio modificado correctamente',
+    'exerciseDownloadExample' => 'Download Audio Example',
+    'downloadAudioPaciente' => 'Listen',
 
         /*
     |--------------------------------------------------------------------------

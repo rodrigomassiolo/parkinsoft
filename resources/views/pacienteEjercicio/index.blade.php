@@ -111,8 +111,18 @@
             <td>{{ Carbon\Carbon::parse($row->created_at)->format('d/m/Y') }}</td>
             @if(Auth::user()->rol->type == 0 || Auth::user()->rol->type == 1)
             <td>
-                <button type="button" class="btn btn-primary" id="{{$row->id}}"
-                 data-toggle="modal" data-target="#exampleModal" onclick="Lista.fillSelector({{$row->id}});" data-whatever="{{$row->id}}">@lang('parkinsoft.process')</button>
+                <div class="col-xs-12 col-sm-12 col-md-12">
+                        <div class="col-xs-6 col-sm-6 col-md-6">
+                    <button type="button" class="btn btn-primary" id="{{$row->id}}"
+                    data-toggle="modal" data-target="#exampleModal" onclick="Lista.fillSelector({{$row->id}});" data-whatever="{{$row->id}}">@lang('parkinsoft.process')</button>
+                </div>
+                    <div class="col-xs-6 col-sm-6 col-md-6">
+                    <form action="{{ route('download_voice_audio',$row->id) }}" method="POST">
+                        @csrf
+                        <button type="submit" class="btn btn-success">@lang('parkinsoft.downloadAudioPaciente')</button>
+                    </form>
+                </div>
+                </div>
             </td>
             @endif
         </tr>
