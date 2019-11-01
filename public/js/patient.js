@@ -22,6 +22,7 @@ var PatientActions = {
         $("#realizeButton").val(element);
         $("#assignedButton").val(element);
         $("#surgeryButton").val(element);
+        $("#formAnotador").attr('action', '/anotador/' + element);
         $("#anotadorButton").val(element);
 
 

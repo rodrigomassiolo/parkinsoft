@@ -105,25 +105,25 @@
             <td>{{ $row->genero}}</td>
             <td>{{ Carbon\Carbon::parse($row->nacimiento)->format('d/m/Y')}}</td>
             <td>
-
-            <button type="button" class="btn btn-primary btn-sm" data-whatever="{{$row->id}}"
-                            data-toggle="modal"  data-target="#PatientModal">
-                            <span data-feather="trash-2"></span>
-                            @lang('parkinsoft.showActionsButton')
-            </button>
-            <form action="{{ route('abmUser.destroy',$row->id) }}" method="POST">
-                @csrf
-                @method('DELETE')
-
-                <button type="submit" style="display:none" id="deleteButton{{$row->id}}" ></button>
-
-                <button type="button" class="btn btn-danger btn-sm" data-whatever="{{$row->id}}"
-                    data-toggle="modal"  data-target="#deleteUserModal" title="Eliminar">
-                    <span data-feather="trash-2"></span>
-                    @lang('parkinsoft.deleteButton')
+            <div class="row">
+                <button type="button" class="btn btn-primary btn-sm" data-whatever="{{$row->id}}"
+                                data-toggle="modal"  data-target="#PatientModal">
+                                <span data-feather="trash-2"></span>
+                                @lang('parkinsoft.showActionsButton')
                 </button>
-            </form>
+                <form action="{{ route('abmUser.destroy',$row->id) }}" method="POST">
+                    @csrf
+                    @method('DELETE')
 
+                    <button type="submit" style="display:none" id="deleteButton{{$row->id}}" ></button>
+
+                    <button type="button" class="btn btn-danger btn-sm" data-whatever="{{$row->id}}"
+                        data-toggle="modal"  data-target="#deleteUserModal" title="Eliminar">
+                        <span data-feather="trash-2"></span>
+                        @lang('parkinsoft.deleteButton')
+                    </button>
+                </form>
+            </div>
             </td>
         </tr>
         @endforeach
@@ -221,7 +221,7 @@
                 <input type="hidden" name="user_id" id="surgeryButton" value="">
                 <button class="btn btn-info btn-sm" type="submit">@lang('parkinsoft.operacionLinkTitle')</button>
             </form>
-            <form action="{{ route('anotador',0) }}" method="GET">
+            <form action="{{ route('anotador',0) }}" method="GET" id="formAnotador">
                     <input type="hidden" name="user_id" id="anotadorButton" value="">
                     <button class="btn btn-info btn-sm" type="submit">@lang('parkinsoft.anotadorLinkTitle')</button>
             </form>
