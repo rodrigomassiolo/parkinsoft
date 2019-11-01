@@ -37,7 +37,7 @@
             <hr>
 
               <div class="well well bs-component">
-        <form class="form-horizontal" method="post" action="/comment">
+        <form class="form-horizontal" method="post" action="/anotar">
 
             @foreach($errors->all() as $error)
                 <p class="alert alert-danger">{{ $error }}</p>
