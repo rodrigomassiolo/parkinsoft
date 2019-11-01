@@ -7,6 +7,7 @@ use Laravel\Passport\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use App\Rol;
+use App\Anotador;
 
 class User extends Authenticatable
 {
@@ -34,6 +35,18 @@ class User extends Authenticatable
     public function rol()
     {
         return $this->hasOne('App\Rol','id','rol_id');
+    }
+
+    public function Anotador()
+    {
+        $anotador = Anotador::where('user_id',$this->id)->first();        
+        if(!$anotador){
+            $anotador = Anotador::create([
+                'title'=>"Anotador de ".$this->usuario,
+                'user_id'=>$this->id,
+            ]);
+        }
+        return $anotador;
     }
 
     public function operaciones()

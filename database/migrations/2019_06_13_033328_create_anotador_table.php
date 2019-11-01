@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateCommentsTable extends Migration
+class CreateAnotadorTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,14 +12,11 @@ class CreateCommentsTable extends Migration
      * @return void
      */
     public function up()
-    {
-        Schema::create('comments', function (Blueprint $table) {
+    {//https://laravel.com/docs/5.8/migrations
+        Schema::create('anotador', function (Blueprint $table) {
             $table->increments('id');
-            $table->text('content');
-            $table->integer('post_id')->nullable();
-            $table->integer('anotador_id')->nullable();
+            $table->string('title', 255);
             $table->integer('user_id')->nullable();
-            $table->tinyInteger('status')->default(1);
             $table->timestamps();
         });
     }
@@ -31,6 +28,6 @@ class CreateCommentsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('comments');
+        Schema::dropIfExists('anotador');
     }
 }

@@ -332,6 +332,15 @@ return [
     'operacionEdit' => 'Editar Operación',
     'operacionShowTitle' => 'Operación',
 
+    /*
+    |--------------------------------------------------------------------------
+    | Anotador
+    |--------------------------------------------------------------------------
+    */
+    'anotadorLinkTitle' => 'Anotador',
+    'anotadorgoBack' => 'Volver al Paciente',
+    'anotadorInsertComment' => 'Escriba una nueva nota',
+    'anotadorResponse' => 'Guardar'
 
 
 ];

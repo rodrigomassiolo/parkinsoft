@@ -141,6 +141,10 @@
                         <input type="hidden" name="user_id" value="{{$row->id}}">
                         <button class="btn btn-info btn-sm" type="submit">@lang('parkinsoft.operacionLinkTitle')</button>           
                     </form>
+                    <form action="{{ route('anotador',$row->id) }}" method="GET">
+                            <input type="hidden" name="user_id" value="{{$row->id}}">
+                            <button class="btn btn-info btn-sm" type="submit">@lang('parkinsoft.anotadorLinkTitle')</button>           
+                        </form>
                     <form action="{{ route('abmUser.destroy',$row->id) }}" method="POST">
                         @csrf
                         @method('DELETE')

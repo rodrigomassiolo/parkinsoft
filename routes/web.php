@@ -273,3 +273,4 @@ Route::get('/BaseDeDatos/getColumnSelect','BaseDeDatosController@getColumnSelect
 
 
 Route::get('/user/historial','UserController@historial')->middleware('auth')->name('historial');
+Route::get('/anotador/{user_id}', 'AnotadorController@show')->middleware('auth')->name('anotador');

@@ -119,4 +119,15 @@ return [
     'title' => 'Titulo',
     'response' => 'Respuesta',
     'actualizar' => 'Actualizar',
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Anotador
+    |--------------------------------------------------------------------------
+    */
+    'anotadorLinkTitle' => 'Notes',
+    'anotadorgoBack' => 'Back to Patients',
+    'anotadorInsertComment' => 'Write a new Note',
+    'anotadorResponse' => 'Save'
 ];
