@@ -1,6 +1,7 @@
 
 $( document ).ready(function() {
 /*******Audio Index ****/
+$("#btnExample").attr("href","http://"+window.location.hostname+'/ejercicio/download_example/'+$("#audio_select_ejercicio").val());
     $('#audio_select_ejercicio').on('change',function(e){
         // $('#ejercicioDesc').html(e.target[e.target.value].attributes[1].value);
         $('#audio_select_ejercicio').children().each(
@@ -59,3 +60,4 @@ $( document ).ready(function() {
 //     }
 
 // }
+
