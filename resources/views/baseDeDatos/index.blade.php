@@ -182,7 +182,7 @@
                             </button>
                     </div>
                   
-                        <div class="modal-body" id="okModalBody">
+                        <div class="modal-body" id="createMBody">
                             @lang('parkinsoft.BDCreateIndexMessage')          
                         </div>
                     <div class="modal-footer">
