@@ -119,7 +119,7 @@ $( document ).ready(function() {
         },
         data:{nombre_index:del[2], tabla: del[0],View:1},
         success:function(data){
-           $('.modal').modal('hide');
+           //$('.modal').modal('hide');
            $("#createMBody").html = '';
            $("#createMBody").html('El indice fue eliminado correctamente.');
            $('#createM').modal('show');
