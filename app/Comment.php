@@ -21,5 +21,8 @@ class Comment extends Model
         if ( isset($params['post_id']) && trim($params['post_id'] !== '') ) {
             $query->where('post_id', '=', trim($params['post_id']));
         }
+        if ( isset($params['anotador_id']) && trim($params['anotador_id'] !== '') ) {
+            $query->where('anotador_id', '=', trim($params['anotador_id']));
+        }
     }
 }
