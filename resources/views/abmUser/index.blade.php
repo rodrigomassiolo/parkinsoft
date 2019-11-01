@@ -187,14 +187,14 @@
         <div class="modal-body">
             <input type="hidden" id="rowValue">
             <form>
-                    <a class="btn btn-info btn-sm" href="{{ route('abmUser.show') }}"
+                    <a class="btn btn-info btn-sm" href="{{ route('abmUser.show',0) }}"
                     data-toggle="tooltip" id="showButton">
                     <span data-feather="eye"></span>
                         @lang('parkinsoft.showButton')
                     </a>
             </form>
             <form>
-                    <a class="btn btn-sm editButton" href="{{ route('abmUser.edit') }}"
+                    <a class="btn btn-sm editButton" href="{{ route('abmUser.edit',0) }}"
                     data-toggle="tooltip" id="editButton">
                     <span data-feather="edit"></span>
                     @lang('parkinsoft.editButton')
@@ -221,7 +221,7 @@
                 <input type="hidden" name="user_id" id="surgeryButton" value="">
                 <button class="btn btn-info btn-sm" type="submit">@lang('parkinsoft.operacionLinkTitle')</button>
             </form>
-            <form action="{{ route('anotador') }}" method="GET">
+            <form action="{{ route('anotador',0) }}" method="GET">
                     <input type="hidden" name="user_id" id="anotadorButton" value="">
                     <button class="btn btn-info btn-sm" type="submit">@lang('parkinsoft.anotadorLinkTitle')</button>
             </form>
