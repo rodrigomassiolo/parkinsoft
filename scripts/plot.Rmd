@@ -294,9 +294,9 @@ resultadoF0_Vol_Prob$Tercer_Audio_minimo <- c(datosAudios$'nombre del audio'[3],
 resultadoF0_Vol_Prob$Tercer_Audio_medio <- c(datosAudios$'nombre del audio'[3],mean(datosprosody[datosprosody$ejerciciopaciente_id ==  auxTable$Var1[3],7]),mean(datosprosody[datosprosody$ejerciciopaciente_id ==  auxTable$Var1[3],6]),mean(datosprosody[datosprosody$ejerciciopaciente_id ==  auxTable$Var1[3],8]))
 resultadoF0_Vol_Prob$Tercer_Audio_maximo <- c(datosAudios$'nombre del audio'[3],max(datosprosody[datosprosody$ejerciciopaciente_id ==  auxTable$Var1[3],7]),max(datosprosody[datosprosody$ejerciciopaciente_id ==  auxTable$Var1[3],6]),max(datosprosody[datosprosody$ejerciciopaciente_id ==  auxTable$Var1[3],8]))}
 
-datosprosody[datosprosody$ejerciciopaciente_id ==  auxTable$Var1[1],8] <- max(datosprosody[datosprosody$ejerciciopaciente_id ==  auxTable$Var1[1],7]) * datosprosody[datosprosody$ejerciciopaciente_id ==  auxTable$Var1[1],8] / max(datosprosody[datosprosody$ejerciciopaciente_id ==  auxTable$Var1[1],8])
-datosprosody[datosprosody$ejerciciopaciente_id ==  auxTable$Var1[2],8] <- max(datosprosody[datosprosody$ejerciciopaciente_id ==  auxTable$Var1[2],7]) * datosprosody[datosprosody$ejerciciopaciente_id ==  auxTable$Var1[2],8] / max(datosprosody[datosprosody$ejerciciopaciente_id ==  auxTable$Var1[2],8])
-datosprosody[datosprosody$ejerciciopaciente_id ==  auxTable$Var1[3],8] <- max(datosprosody[datosprosody$ejerciciopaciente_id ==  auxTable$Var1[3],7]) * datosprosody[datosprosody$ejerciciopaciente_id ==  auxTable$Var1[3],8] / max(datosprosody[datosprosody$ejerciciopaciente_id ==  auxTable$Var1[3],8])
+# datosprosody[datosprosody$ejerciciopaciente_id ==  auxTable$Var1[1],8] <- max(datosprosody[datosprosody$ejerciciopaciente_id ==  auxTable$Var1[1],7]) * datosprosody[datosprosody$ejerciciopaciente_id ==  auxTable$Var1[1],8] / max(datosprosody[datosprosody$ejerciciopaciente_id ==  auxTable$Var1[1],8])
+# datosprosody[datosprosody$ejerciciopaciente_id ==  auxTable$Var1[2],8] <- max(datosprosody[datosprosody$ejerciciopaciente_id ==  auxTable$Var1[2],7]) * datosprosody[datosprosody$ejerciciopaciente_id ==  auxTable$Var1[2],8] / max(datosprosody[datosprosody$ejerciciopaciente_id ==  auxTable$Var1[2],8])
+# datosprosody[datosprosody$ejerciciopaciente_id ==  auxTable$Var1[3],8] <- max(datosprosody[datosprosody$ejerciciopaciente_id ==  auxTable$Var1[3],7]) * datosprosody[datosprosody$ejerciciopaciente_id ==  auxTable$Var1[3],8] / max(datosprosody[datosprosody$ejerciciopaciente_id ==  auxTable$Var1[3],8])
 
 resultado2F0_Vol_Prob$loudness <- datosprosody$pcm_loudness_sma
 
@@ -420,6 +420,7 @@ kable(resultadoF0_Vol_Prob,caption="Tabla de los valores maximos, medios y bajos
 if (pareGemaps == 1) {
 plot(formanteGraph)
 kable(resumeneGemaps,caption="Tabla de los valores del eGemaps")
+print(resumeneGemaps)
 #VOWEL
 plot(vowelGraph)
 kable(vowel[1:5,],caption="Tabla de los valores del Vowel")
