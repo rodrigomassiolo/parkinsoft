@@ -90,16 +90,16 @@ return [
     */
 
     'infoSiteTag' => 'Quienes Somos',
-    'infoSiteBody1' => 'Nosotros somos HigIA, conformados cinco compañeros de la carrera ingeniería en informática de la Universidad de La Matanza.',
+    'infoSiteBody1' => 'Nosotros somos HigIA, conformado por cinco compañeros de la carrera ingeniería en informática de la Universidad de La Matanza.',
     'infoSiteBody2' => 'Como objetivo, nos abocamos a realizar desarrollos informáticos orientadas al área de salud. Por esta razón, nos interesa poder brindar soluciones a diversos problemas e innovar en nuevas tecnologías.',
     'infoSiteBody3' => 'Contamos con los conocimientos necesarios para poder afrontar los desafíos que se nos propongan. Por ello, buscamos mantenernos en la vanguardia en las técnicas y tecnologías que se aplicar hoy día en el desarrollo de software y hardware.',
     'infoSiteBody4' => 'Trabajar en cooperación con nuestros usuarios para lograr los objetivos propuestos y coordinar con diferentes áreas de la salud para enriquecer nuestros conocimientos para poder ofrecer alternativas en las posibles soluciones a un determinado problema.',
-    
+
     'infoProjTag' => 'Proyecto',
 
     'infoProjBody1' => 'Parkinsoft es el primer desarrollo de HigIA. El objetivo es crear una herramienta que permita al médico realizar el seguimiento de la afección de la voz a pacientes de Parkinson.',
     'infoProjBody2' => 'A partir de un archivo de audio (grabación) de la voz de un paciente, se procesa para obtener múltiples variables a analizar. Son estos resultados los que permitirán llevar a cabo distintos tipos de análisis sobre la voz del paciente.',
-    
+
     'infoProjList1Title' => 'La herramienta tiene como entrada:',
     'infoProjList1Bullet1' => 'Grabaciones de voz de los pacientes con el celular por medio de una aplicación y en ambientes controlados.',
     'infoProjList1Bullet2' => 'Grabaciones durante el test de Levodopa en On y OFF, antes y después de la intervención quirúrgica.',
@@ -109,14 +109,14 @@ return [
 
     'infoProjList3Title' => 'Parkinsoft se compone de dos partes principales:',
     'infoProjList3Bullet1' => 'Una aplicación mobile (android) con la cual el paciente podrá realizar grabaciones de su voz y enviarlas a nuestro servidor donde se procesarán y se guardarán los resultados obtenidos. Cabe destacar en este punto, que el paciente no podrá visualizar dichos resultados. Además, la aplicación solicitará grabarse al paciente en períodos que definamos.',
-    'infoProjList3Bullet2' => 'Un sitio web donde el médico pueda observar los resultados de los análisis realizados a los audios de los pacientes. Este sitio web cubre además la posibilidad de subir las grabaciones que se generen fuera de la aplicación mobile.Una aplicación mobile (android) con la cual el paciente podrá realizar grabaciones de su voz y enviarlas a nuestro servidor donde se procesarán y se guardarán los resultados obtenidos. Cabe destacar en este punto, que el paciente no podrá visualizar dichos resultados. Además, la aplicación solicitará grabarse al paciente en períodos que definamos.',
+    'infoProjList3Bullet2' => 'Un sitio web donde el médico pueda observar los resultados de los análisis realizados a los audios de los pacientes. Este sitio web cubre además la posibilidad de subir las grabaciones que se generen fuera de la aplicación mobile.',
 
     'infoProjList4Title' => 'Ventajas de nuestra herramienta, sobre otras ya utilizadas:',
     'infoProjList4Bullet1' => 'Seguimiento en el tiempo.',
     'infoProjList4Bullet2' => 'Versatilidad de análisis (no estamos atados a una herramienta standard).',
     'infoProjList4Bullet3' => 'Posibilidad a futuro de adaptar la herramienta a otras Enfermedades/patologías.',
     'infoProjList4Bullet4' => 'Gratuita, este proyecto es para nosotros una forma de devolver a la universidad y a la comunidad la posibilidad de estudiar de forma gratuita en una universidad pública.',
-    
+
     /*
     |--------------------------------------------------------------------------
     | Filters
@@ -170,7 +170,7 @@ return [
     'uploadAudioTitle' => 'Cargar Audio',
     'audioQuality' => 'Calidad del audio',
     'exerciseDescription' => 'Descripción del ejercicio',
-  
+
     'selectExerciseType' => 'Seleccione ejercicio',
     'selectPatient' => 'Seleccione paciente',
     'selectAudioQuality' => 'Seleccione calidad del audio',
@@ -197,7 +197,7 @@ return [
     'levodopaModalTitle' => 'Carga de audio',
     'levodopaModalBody' => '!Su audio ha sido cargado correctamente!',
     'levodopaModalButton' => 'Cerrar',
-    
+
     /*
     |--------------------------------------------------------------------------
     | Abm Users

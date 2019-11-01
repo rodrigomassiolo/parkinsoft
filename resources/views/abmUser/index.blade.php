@@ -22,7 +22,7 @@
         <div class="collapse show" id="filterPanel">
         <form action="{{ route('abmUser.index') }}" method="GET">
         @csrf
-  
+
         <div class="row">
             <div class="col-xs-3 col-sm-3 col-md-3">
                 <div class="form-group">
@@ -34,14 +34,14 @@
             <div class="col-xs-3 col-sm-3 col-md-3">
                 <div class="form-group">
                     <strong> @lang('parkinsoft.user'):</strong>
-                    <input type="text" name="usuario" class="form-control" 
+                    <input type="text" name="usuario" class="form-control"
                      value= "{{Request::old('usuario')}}">
                 </div>
             </div>
             <div class="col-xs-3 col-sm-3 col-md-3">
                 <div class="form-group">
                     <strong> @lang('parkinsoft.gender'):</strong>
-                    <input type="text" name="genero" class="form-control" maxlength="1" 
+                    <input type="text" name="genero" class="form-control" maxlength="1"
                      value= "{{Request::old('genero')}}">
                 </div>
             </div>
@@ -50,14 +50,14 @@
             <div class="col-xs-3 col-sm-3 col-md-3">
                     <div class="form-group">
                         <strong>@lang('parkinsoft.nacDateFrom'):</strong>
-                        <input type="date" name="nacimientoFrom" min="1900-01-01" max="2099-12-31" class="form-control" 
+                        <input type="date" name="nacimientoFrom" min="1900-01-01" max="2099-12-31" class="form-control"
                         value= "{{Request::old('nacimientoFrom')}}">
                     </div>
                 </div>
                 <div class="col-xs-3 col-sm-3 col-md-3">
                     <div class="form-group">
                         <strong>@lang('parkinsoft.nacDateTo'):</strong>
-                        <input type="date" name="nacimientoTo" min="1900-01-01" max="2099-12-31" class="form-control" 
+                        <input type="date" name="nacimientoTo" min="1900-01-01" max="2099-12-31" class="form-control"
                         value= "{{Request::old('nacimientoTo')}}">
                     </div>
                 </div>
@@ -66,21 +66,21 @@
             <div class="row">
                 <div class="col-xs-6 col-sm-6 col-md-6" style="margin-bottom: 1%;">
                         <button type="submit" class="btn btn-primary">@lang('parkinsoft.filterFilters')</button>
-                </div>             
+                </div>
                 </form>
-                    
+
                 <div class="col-xs-6 col-sm-6 col-md-6" style="margin-bottom: 1%;">
                     <form action="{{ route('abmUser.index') }}" method="GET">
                         @csrf
                         <button type="submit" class="btn btn-primary">@lang('parkinsoft.clearFilters')</button>
                     </form>
                 </div>
-               
+
             </div>
     </div>
 
     </div>
-   
+
     <div style="display:none">
         <input type="hidden" id="UserDeleteRowHidden">
     </div>
@@ -99,64 +99,31 @@
     <tbody>
         @foreach ($user as $row)
         <tr>
-            <td>{{ $row->id }}</td>  
+            <td>{{ $row->id }}</td>
             <td>{{ $row->email }}</td>
             <td>{{ $row->usuario }}</td>
             <td>{{ $row->genero}}</td>
             <td>{{ Carbon\Carbon::parse($row->nacimiento)->format('d/m/Y')}}</td>
             <td>
 
-            <form>
-                    <a class="btn btn-info btn-sm" href="{{ route('abmUser.show',[$row->id]) }}"
-                    data-toggle="tooltip">
-                    <span data-feather="eye"></span>
-                        @lang('parkinsoft.showButton')
-                    </a>
-            </form>
-            <form>
-                    <a class="btn btn-sm editButton" href="{{ route('abmUser.edit',$row->id) }}" 
-                    data-toggle="tooltip">
-                    <span data-feather="edit"></span>
-                    @lang('parkinsoft.editButton')
-                    </a>
-            </form>
-            <form action="{{ route('audio')}}" method="GET">
-                    <input type="hidden" name="paciente_id" value="{{$row->id}}">
-
-                    <button class="btn btn-success btn-sm" type="submit">@lang('parkinsoft.uploadAudio')</button>           
-            </form>
-                    <form action="{{ route('ejercicioPacienteAsignar')}}" method="GET">
-                            <input type="hidden" name="paciente_id" value="{{$row->id}}">
-                            <button class="btn btn-success btn-sm" type="submit">@lang('parkinsoft.assingExercise')</button>           
-                    </form>
-                    <form action="{{ route('listaDeEjerciciosRealizados')}}" method="GET">
-                        <input type="hidden" name="paciente_id" value="{{$row->id}}">
-                        <button class="btn btn-primary btn-sm" type="submit">@lang('parkinsoft.audioListLink')</button>           
-                    </form>
-                    <form action="{{ route('listaDeEjerciciosAsignados')}}" method="GET">
-                        <input type="hidden" name="paciente_id" value="{{$row->id}}">
-                        <button class="btn btn-primary btn-sm" type="submit">@lang('parkinsoft.audioListLinkAssigned')</button>           
-                    </form>
-                    <form action="{{ route('operacion.index') }}" method="GET">
-                        <input type="hidden" name="user_id" value="{{$row->id}}">
-                        <button class="btn btn-info btn-sm" type="submit">@lang('parkinsoft.operacionLinkTitle')</button>           
-                    </form>
-                    <form action="{{ route('anotador',$row->id) }}" method="GET">
-                            <input type="hidden" name="user_id" value="{{$row->id}}">
-                            <button class="btn btn-info btn-sm" type="submit">@lang('parkinsoft.anotadorLinkTitle')</button>           
-                        </form>
-                    <form action="{{ route('abmUser.destroy',$row->id) }}" method="POST">
-                        @csrf
-                        @method('DELETE')
-
-                        <button type="submit" style="display:none" id="deleteButton{{$row->id}}" ></button>
-
-                        <button type="button" class="btn btn-danger btn-sm" data-whatever="{{$row->id}}"
-                            data-toggle="modal"  data-target="#deleteUserModal" title="Eliminar">
+            <button type="button" class="btn btn-danger btn-sm" data-whatever="{{$row->id}}"
+                            data-toggle="modal"  data-target="#PatientModal" onclick="PatientActions.loadModal({{$row->id}});">
                             <span data-feather="trash-2"></span>
-                            @lang('parkinsoft.deleteButton')
-                        </button>
-                    </form>
+                            @lang('parkinsoft.showActions')
+            </button>
+            <form action="{{ route('abmUser.destroy',$row->id) }}" method="POST">
+                @csrf
+                @method('DELETE')
+
+                <button type="submit" style="display:none" id="deleteButton{{$row->id}}" ></button>
+
+                <button type="button" class="btn btn-danger btn-sm" data-whatever="{{$row->id}}"
+                    data-toggle="modal"  data-target="#deleteUserModal" title="Eliminar">
+                    <span data-feather="trash-2"></span>
+                    @lang('parkinsoft.deleteButton')
+                </button>
+            </form>
+
             </td>
         </tr>
         @endforeach
@@ -175,7 +142,7 @@
                             <span aria-hidden="true">&times;</span>
                             </button>
                     </div>
-                  
+
                         <div class="modal-body">
                             {{ $message }}
                         </div>
@@ -208,5 +175,63 @@
             </div>
         </div>
 
-      
+<div class="modal fade" id="PatientModal" tabindex="-1" role="dialog" aria-labelledby="PatientModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="PatientModalLabel">@lang('parkinsoft.actions')</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+            </div>
+        <div class="modal-body">
+            <input type="hidden" id="rowValue">
+            <form>
+                    <a class="btn btn-info btn-sm" href="{{ route('abmUser.show') }}"
+                    data-toggle="tooltip" id="showButton">
+                    <span data-feather="eye"></span>
+                        @lang('parkinsoft.showButton')
+                    </a>
+            </form>
+            <form>
+                    <a class="btn btn-sm editButton" href="{{ route('abmUser.edit') }}"
+                    data-toggle="tooltip" id="editButton">
+                    <span data-feather="edit"></span>
+                    @lang('parkinsoft.editButton')
+                    </a>
+            </form>
+            <form action="{{ route('audio')}}" method="GET">
+                    <input type="hidden" name="paciente_id" id="audioButton" value="">
+
+                    <button class="btn btn-success btn-sm" type="submit">@lang('parkinsoft.uploadAudio')</button>
+            </form>
+            <form action="{{ route('ejercicioPacienteAsignar')}}" method="GET">
+                    <input type="hidden" name="paciente_id" id="assignButton" value="">
+                    <button class="btn btn-success btn-sm" type="submit">@lang('parkinsoft.assingExercise')</button>
+            </form>
+            <form action="{{ route('listaDeEjerciciosRealizados')}}" method="GET">
+                <input type="hidden" name="paciente_id" id="realizeButton" value="">
+                <button class="btn btn-primary btn-sm" type="submit">@lang('parkinsoft.audioListLink')</button>
+            </form>
+            <form action="{{ route('listaDeEjerciciosAsignados')}}" method="GET">
+                <input type="hidden" name="paciente_id" id="assignedButton" value="">
+                <button class="btn btn-primary btn-sm" type="submit">@lang('parkinsoft.audioListLinkAssigned')</button>
+            </form>
+            <form action="{{ route('operacion.index') }}" method="GET">
+                <input type="hidden" name="user_id" id="surgeryButton" value="">
+                <button class="btn btn-info btn-sm" type="submit">@lang('parkinsoft.operacionLinkTitle')</button>
+            </form>
+            <form action="{{ route('anotador') }}" method="GET">
+                    <input type="hidden" name="user_id" id="anotadorButton" value="">
+                    <button class="btn btn-info btn-sm" type="submit">@lang('parkinsoft.anotadorLinkTitle')</button>
+            </form>
+        </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-sm cancelButton" data-dismiss="modal">@lang('parkinsoft.closeButton')</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
 @endsection

@@ -25,6 +25,7 @@
   <script type="text/javascript" src="{{ asset('js/listaDeEjercicios.js') }}"></script>
   <script type="text/javascript" src="{{ asset('js/exercise.js') }}"></script>
   <script type="text/javascript" src="{{ asset('js/audio.js') }}"></script>
+  <script type="text/javascript" src="{{ asset('js/patient.js') }}"></script>
 
 </body>
 
