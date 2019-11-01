@@ -149,28 +149,6 @@
             </div>
         </div>
 
-        <!-- Message -->
-        <div class="modal fade" id="okModal" tabindex="-1" role="dialog" aria-labelledby="okModalLabel">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="okModalLabel">@lang('parkinsoft.BDModalTitle')</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                            </button>
-                    </div>
-                  
-                        <div class="modal-body" id="okModalBody">
-                            @lang('parkinsoft.BDDeleteIndexMessage')          
-                        </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn closeButton" data-dismiss="modal">@lang('parkinsoft.closeButton')</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
      <!-- Message -->
      <div class="modal fade" id="createM" tabindex="-1" role="dialog" aria-labelledby="createML">
             <div class="modal-dialog" role="document">
