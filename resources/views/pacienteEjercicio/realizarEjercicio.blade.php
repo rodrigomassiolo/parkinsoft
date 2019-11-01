@@ -23,7 +23,7 @@
       <input type="hidden" name="Realizado" value="1">
       <input type="hidden" name="paciente_ejercicio" value="{{$pacienteEjercicio_id}}">
       <label for="ejercicio">Tipo de Ejercicio</label>
-      <select name="ejercicio" id="ejercicio" class="form-control">
+      <select name="ejercicio" id="audio_select_ejercicio" class="form-control">
         <option value="{{ $ejercicio->id }}" desc="{{ $ejercicio->descripcion }}"> {{ $ejercicio->nombre }} </option>
       </select>
     </div>
@@ -43,6 +43,14 @@
       <input type="file" class="form-control-file" id="audio" name="audio">
     </div>
     <div class="col-md-2 col-sm-2 col-lg-2">
+      <strong>@lang('parkinsoft.exerciseAudio'):</strong>
+      <a class="btn btn-success btn-sm" id="btnExample" href=""
+          data-toggle="tooltip" title="Descargar Audio de Ejemplo"> 
+          <span data-feather="download"></span>
+          @lang('parkinsoft.exerciseDownload')
+      </a>
+    </div>
+    <div class="col-md-4 col-sm-4 col-lg-4">
         <label for="origen_audio">Calidad del audio</label>
         <select id="origen_audio" name="origen_audio" class="form-control"><option value="celular">Celular</option><option value="profesional">Profesional</option></select>
     </div>
