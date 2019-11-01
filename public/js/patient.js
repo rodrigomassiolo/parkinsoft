@@ -6,6 +6,7 @@ $('#PatientModal').on('show.bs.modal', function (event) {
     var button = $(event.relatedTarget)
     var recipient = button.data('whatever')
     $('#rowValue').val(recipient)
+    PatientActions.loadModal($('#rowValue').val());
 })
 
 

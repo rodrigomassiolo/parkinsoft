@@ -106,10 +106,10 @@
             <td>{{ Carbon\Carbon::parse($row->nacimiento)->format('d/m/Y')}}</td>
             <td>
 
-            <button type="button" class="btn btn-danger btn-sm" data-whatever="{{$row->id}}"
-                            data-toggle="modal"  data-target="#PatientModal" onclick="PatientActions.loadModal({{$row->id}});">
+            <button type="button" class="btn btn-primary btn-sm" data-whatever="{{$row->id}}"
+                            data-toggle="modal"  data-target="#PatientModal">
                             <span data-feather="trash-2"></span>
-                            @lang('parkinsoft.showActions')
+                            @lang('parkinsoft.showActionsButton')
             </button>
             <form action="{{ route('abmUser.destroy',$row->id) }}" method="POST">
                 @csrf
