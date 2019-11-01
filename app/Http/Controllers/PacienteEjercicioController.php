@@ -54,7 +54,8 @@ class PacienteEjercicioController extends Controller
         $PacienteEjercicio = array();
         foreach ($PacienteEjercicio_ as $key => $value) {
             $ejercicio = Ejercicio::where('id',$value->ejercicio_id)->first();
-            if($ejercicio != null){
+            $paciente = User::where('id',$value->user_id)->first();
+            if($ejercicio != null && $paciente['usuario']!=""){
                 $value->ejercicio = $ejercicio;
                 $PacienteEjercicio [] = $value;
             }
