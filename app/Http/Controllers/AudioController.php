@@ -41,18 +41,17 @@ class AudioController extends Controller
             $pacientes = User::whereHas('rol',function($q){
                 $q->where('type','=',2);
             })->get();
-            $params = array('status' => 'realizado', 'deleted_at' => 'a');
+            $params = array('status' => 'realizado', 'user_exists' => 'y','deleted_at' => 'a');
             
         }
         else{
              $pacientes = null;
-             $params = array('status' => 'realizado','usuario' => $user,'deleted_at' => 'a');
+             $params = array('status' => 'realizado','usuario' => $user,'user_exists' => 'y', 'deleted_at' => 'a');
         }
 
         $PacienteEjercicio = PacienteEjercicio::filter($params)->orderBy('created_at', 'desc')->paginate(10);
 
-
-        $ejercicio = Ejercicio::all();
+        $ejercicio = Ejercicio::filter(array('notdeleted'=>'y'))->get();
 
         return view('audio.index',compact('PacienteEjercicio','ejercicio','pacientes','preset'))
             ->with('i', (request()->input('page', 1) - 1) * 10);
@@ -121,7 +120,7 @@ class AudioController extends Controller
             }
             return response()->json(['invalid_file_upload'], 400);
         }
-        return $file->getClientSize() ;
+
         if($file->getClientSize() > $file->getMaxFilesize()){
             if($request->has('View')){
                 $var = \Lang::get('parkinsoft.audioFileTooBig');

@@ -53,7 +53,6 @@ class Ejercicio extends Model
         if ( isset($params['descripcion']) && trim($params['descripcion'] !== '') ) {
            $query->where('descripcion', 'LIKE','%'. trim($params['descripcion']) . '%');
        }
-       
         return $query;
     }
 }

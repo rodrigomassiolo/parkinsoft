@@ -101,6 +101,12 @@ class PacienteEjercicio extends Model
             });
         }
 
+        if ( isset($params['user_exists']) && trim($params['user_exists']) !== '' )
+        {
+            $query->whereHas('user', function($query) use($params){
+                $query->where('usuario','!=','');
+            });
+        }
         return $query;
     }
 
