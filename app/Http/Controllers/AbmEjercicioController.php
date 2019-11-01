@@ -143,6 +143,22 @@ class AbmEjercicioController extends Controller
             'descripcion' => 'required'
         ]);
 
+        $exist = Ejercicio::where([
+                            ['nombre','=',$request['nombre']],
+                            ['id','<>',$id]
+                            ])->get();
+
+        if($exist){
+            if($api){ 
+                //return "Duplicate";
+               return response()->json("Duplicate", 400);
+            }else{
+                $var = \Lang::get('parkinsoft.exerciseDuplicateMessageSuccessful');
+                    return redirect()->route('abmEjercicio.index')
+                        ->withSuccess($var);
+            }
+        }
+
         $ejercicio = Ejercicio::findOrFail($id);
 
         $ejercicio->update($request->all());
@@ -196,6 +212,9 @@ class AbmEjercicioController extends Controller
         $api = substr ( $request->path(), 0,3 ) == 'api';
         $ejercicio = Ejercicio::where('id',$id)->first();
         
+        $ejercicio->nombre = $ejercicio->nombre . '_deleted_'. date("YmdHiS");
+        $ejercicio->update();
+
         $ejercicio->delete();
 
         if($api){ return 'ok'; }
