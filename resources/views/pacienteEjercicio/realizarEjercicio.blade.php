@@ -22,7 +22,7 @@
     <div class="col-md-3 col-sm-3 col-lg-3">
       <input type="hidden" name="Realizado" value="1">
       <input type="hidden" name="paciente_ejercicio" value="{{$pacienteEjercicio_id}}">
-      <label for="ejercicio">lang('parkinsoft.exerciseType')</label>
+      <label for="ejercicio">@lang('parkinsoft.exerciseType')</label>
       <select name="ejercicio" id="audio_select_ejercicio" class="form-control">
         <option value="{{ $ejercicio->id }}" desc="{{ $ejercicio->descripcion }}"> {{ $ejercicio->nombre }} </option>
       </select>
