@@ -61,9 +61,9 @@ class MedicoController extends Controller
             'genero' => 'required|string|max:1',
             'nacimiento' => 'required|date',
             'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:8|max:16|regex:/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/',
+            'password' => 'required|string|min:8|max:16|regex:/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$/',
         ]);
-  
+
         $make1 = \mb_substr($request['nombre'],0,2);
         $make2 = \mb_substr($request['apellido'],0,2);
         $make3 = substr($request['dni'],-3);
@@ -132,7 +132,7 @@ class MedicoController extends Controller
      */
     public function update(Request $request, Medico $medico)
     {
-        
+
         $request->validate([
             'matricula' =>  array(
                 'required',
@@ -147,7 +147,7 @@ class MedicoController extends Controller
             'nombre' => 'required|string|max:255',
             'apellido' => 'required|string|max:255'
         ]);
-  
+
         $medico->update($request->all());
 
 
