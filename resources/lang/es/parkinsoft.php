@@ -17,6 +17,12 @@ return [
     |--------------------------------------------------------------------------
     */
 
+    'energy' => 'Energia',
+    'eGemaps' => 'Frecuencia y vocales',
+    'Chroma' => 'Chroma',
+    'Audspec' => 'Espectrograma',
+    'Prosody' => 'Frecuencia Base y Probabilidad',
+
     'aditionalData' => 'Datos adicionales',
     'profile' => 'Perfil',
     'audioULabel' => 'Audio',

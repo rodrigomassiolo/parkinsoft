@@ -14,6 +14,14 @@ return [
     | General
     |--------------------------------------------------------------------------
     */
+
+    'energy' => 'Energy',
+    'eGemaps' => 'Frequency and vowels',
+    'Chroma' => 'Chroma',
+    'Audspec' => 'Spectrogram',
+    'Prosody' => 'Base Frequency and Probability',
+
+
     'aditionalData' => 'Aditional data',
     'profile' => 'Profile',
     'audioULabel' => 'Audio',

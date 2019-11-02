@@ -19,7 +19,7 @@
         <div class="collapse show" id="filterPanel">
         <form action="{{ route('listaDeEjerciciosRealizados') }}" method="GET">
         @csrf
-  
+
         <div class="row">
             <input type="hidden" id="paciente_id" name="paciente_id" value="{{ $paciente_id }}">
             <div class="col-md-3 col-sm-3 col-lg-3">
@@ -32,7 +32,7 @@
                         <option value="{{ $paciente->id }}"> {{ $paciente->usuario }} </option>
                       @endforeach
                 </select>
-            </div>  
+            </div>
             <div class="col-md-3 col-sm-3 col-lg-3">
                     <strong>@lang('parkinsoft.exerciseType'):</strong>
                     <select name="ejercicio_id" id="ejercicio_id" class="form-control">
@@ -63,16 +63,16 @@
             <div class="row">
                 <div class="col-xs-6 col-sm-6 col-md-6" style="margin-bottom: 1%;">
                         <button type="submit" class="btn btn-primary">@lang('parkinsoft.filterFilters')</button>
-                </div>             
+                </div>
                 </form>
-                    
+
                     <div class="col-xs-6 col-sm-6 col-md-6" style="margin-bottom: 1%;">
                         <form action="{{ route('listaDeEjerciciosRealizados') }}" method="GET">
                         @csrf
                         <button type="submit" class="btn btn-primary">@lang('parkinsoft.clearFilters')</button>
                         </form>
                     </div>
-                
+
             </div>
     </div>
 
@@ -94,7 +94,7 @@
     <tbody>
         @foreach ($PacienteEjercicio as $row)
         <tr>
-            <td>{{ $row->id }}</td>  
+            <td>{{ $row->id }}</td>
             <td>{{ $row->user->usuario }}</td>
             <td>{{ $row->ejercicio->nombre }}</td>
             <td>{{ $row->status }}</td>
@@ -129,7 +129,7 @@
         @endforeach
         </tbody>
     </table>
-  
+
        {{-- {!! $PacienteEjercicio->render() !!} --}}
 
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
@@ -144,12 +144,12 @@
         <form method = "POST" id="graphicForm">
           <div class="form-group">
           @csrf
-            <label><input type="checkbox" name="Energy"  value="1" checked> Energy</label><br>
-            <label><input type="checkbox" name="eGemaps" value="1" checked> eGemaps</label><br>
-            <label><input type="checkbox" name="Chroma"  value="1" checked> Chroma</label><br>
-            <label><input type="checkbox" name="Audspec" value="1" checked> Audspec</label><br>
-            <label><input type="checkbox" name="Prosody" value="1" checked> Prosody</label><br>  
-    
+            <label><input type="checkbox" name="Energy"  value="1" checked> @lang('parkinsoft.energy')</label><br>
+            <label><input type="checkbox" name="eGemaps" value="1" checked> @lang('parkinsoft.eGemaps')</label><br>
+            <label><input type="checkbox" name="Chroma"  value="1" checked> @lang('parkinsoft.Chroma')</label><br>
+            <label><input type="checkbox" name="Audspec" value="1" checked> @lang('parkinsoft.Audspec')</label><br>
+            <label><input type="checkbox" name="Prosody" value="1" checked> @lang('parkinsoft.Prosody')</label><br>
+
 
             <div id="CompareDiv">
                 <div class="row">
@@ -173,10 +173,10 @@
             <button type="button" class="btn btn-sm closeButton" data-dismiss="modal">@lang('parkinsoft.closeButton')</button>
             <button type="submit" name="View" value="1" class="btn btn-sm btn-primary" onClick="Lista.generateGraphic();">@lang('parkinsoft.showHtmlGraphicButton')</button>
             <button type="submit" name="output" value="pdf" class="btn btn-sm btn-primary" onClick="Lista.downloadGraphic();">@lang('parkinsoft.downloadPdfGraphicButton')</button>
-          </div>   
+          </div>
         </form>
       </div>
-    
+
     </div>
   </div>
 </div>
@@ -202,5 +202,5 @@
             </div>
         </div>
 @endif
-      
+
 @endsection

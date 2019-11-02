@@ -21,7 +21,7 @@
           @endforeach
         </select>
       </div>
-    @endif  
+    @endif
     <input type="hidden" id="audio_preset_paciente" value="{{ $preset }}">
     <div class="col-md-6 col-sm-6 col-lg-3">
       <input type="hidden" name="View" value="1">
@@ -41,7 +41,7 @@
         <strong>@lang('parkinsoft.onOff'):</strong>
       <select id="modo_levodopa" name="modo_levodopa" class="form-control"><option value="ON">ON</option><option value="OFF">OFF</option></select>
     </div>
-  </div>  
+  </div>
 
   <div class="form-group row inputs">
       <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
@@ -58,7 +58,7 @@
     <div class="col-md-2 col-sm-2 col-lg-2">
     <strong>@lang('parkinsoft.exerciseAudio'):</strong>
     <a class="btn btn-success btn-sm" id="btnExample" href=""
-        data-toggle="tooltip" title="Descargar Audio de Ejemplo"> 
+        data-toggle="tooltip" title="Descargar Audio de Ejemplo">
         <span data-feather="download"></span>
         @lang('parkinsoft.exerciseDownload')
     </a>
@@ -67,7 +67,7 @@
     <div class="col-md-4 col-sm-4 col-lg-4">
         <strong>@lang('parkinsoft.audioQuality'):</strong>
         <select id="origen_audio" name="origen_audio" class="form-control">
-            <option selected disabled hidden style='display: none' value='celular' required>@lang('parkinsoft.selectAudioQuality')</option>          
+            <option selected disabled hidden style='display: none' value='celular' required>@lang('parkinsoft.selectAudioQuality')</option>
             <option value="celular">Celular</option>
             <option value="profesional">Profesional</option>
         </select>
@@ -75,7 +75,7 @@
   </div>
   <div class="form-group row inputs">
       <div class="col-xs-12 col-sm-12 col-md-12">
-          <strong>@lang('parkinsoft.medication'):</strong> 
+          <strong>@lang('parkinsoft.medication'):</strong>
           <input type="text" name="ultimaMedicacion" placeholder="Ingrese la última medicación tomada y la hora" class="form-control">
       </div>
   </div>
@@ -85,7 +85,7 @@
       <button type="submit" class="btn btn-sm sendButton"> @lang('parkinsoft.sendButton') </button>
     </div>
   </div>
-  
+
 </form>
 
 
@@ -112,7 +112,7 @@
   <tbody>
       @foreach ($PacienteEjercicio as $row)
       <tr>
-          <td>{{ $row->id }}</td>  
+          <td>{{ $row->id }}</td>
           <td>{{ $row->user->usuario }}</td>
           <td>{{ $row->ejercicio->nombre }}</td>
           <td>{{ $row->status }}</td>
@@ -185,12 +185,12 @@
         <form method = "POST" id="graphicForm">
           <div class="form-group">
           @csrf
-            <label><input type="checkbox" name="Energy"  value="1" checked> Energy</label><br>
-            <label><input type="checkbox" name="eGemaps" value="1" checked> eGemaps</label><br>
-            <label><input type="checkbox" name="Chroma"  value="1" checked> Chroma</label><br>
-            <label><input type="checkbox" name="Audspec" value="1" checked> Audspec</label><br>
-            <label><input type="checkbox" name="Prosody" value="1" checked> Prosody</label><br>    
-    
+            <label><input type="checkbox" name="Energy"  value="1" checked> @lang('parkinsoft.energy')</label><br>
+            <label><input type="checkbox" name="eGemaps" value="1" checked> @lang('parkinsoft.eGemaps')</label><br>
+            <label><input type="checkbox" name="Chroma"  value="1" checked> @lang('parkinsoft.Chroma')</label><br>
+            <label><input type="checkbox" name="Audspec" value="1" checked> @lang('parkinsoft.Audspec')</label><br>
+            <label><input type="checkbox" name="Prosody" value="1" checked> @lang('parkinsoft.Prosody')</label><br>
+
 
             <div id="CompareDiv">
                 <div class="row">
@@ -214,10 +214,10 @@
             <button type="button" class="btn btn-sm closeButton" data-dismiss="modal">@lang('parkinsoft.closeButton')</button>
             <button type="submit" name="View" value="1" class="btn btn-sm btn-primary" onClick="Lista.generateGraphic();">@lang('parkinsoft.showHtmlGraphicButton')</button>
             <button type="submit" name="output" value="pdf" class="btn btn-sm btn-primary" onClick="Lista.downloadGraphic();">@lang('parkinsoft.downloadPdfGraphicButton')</button>
-          </div>   
+          </div>
         </form>
       </div>
-    
+
     </div>
   </div>
 </div>

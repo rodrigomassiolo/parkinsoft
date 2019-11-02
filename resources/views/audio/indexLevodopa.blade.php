@@ -19,12 +19,12 @@
                 @endforeach
               </select>
           </div>
-        @endif 
+        @endif
     </div>
     <div class="col-md-6 col-sm-6 col-lg-3">
           <button type="submit" class="btn btn-primary"> @lang('parkinsoft.filterFilters')</button>
     </div>
-    
+
   </form>
   <form method="GET" action="{{ route('TestLevodopa') }}">
   <input type="hidden" value="" name="user_id">
@@ -51,11 +51,11 @@
           </select>
       </div>
       @endif
-      </div> 
+      </div>
       <div class="col-md-6 col-sm-6 col-lg-3">
           <button type="submit" class="btn btn-primary"> @lang('parkinsoft.filterFilters')</button>
     </div>
-    
+
   </form>
   <form method="GET" action="{{ route('TestLevodopa') }}">
   <input type="hidden" value="" name="user_id">
@@ -63,7 +63,7 @@
     <button type="submit" class="btn btn-primary"> @lang('parkinsoft.clearFilters')</button>
     </div>
   </form>
-  <div> 
+  <div>
 
     <table class="table table-bordered table-sm table-hover">
     <thead>
@@ -115,20 +115,20 @@
           <input type="hidden" id="levo2" name="CompareAudio1">
           <div class="form-group">
           @csrf
-            <label><input type="checkbox" name="Energy"  value="1" checked> Energy</label><br>
-            <label><input type="checkbox" name="eGemaps" value="1" checked> eGemaps</label><br>
-            <label><input type="checkbox" name="Chroma"  value="1" checked> Chroma</label><br>
-            <label><input type="checkbox" name="Audspec" value="1" checked> Audspec</label><br>
-            <label><input type="checkbox" name="Prosody" value="1" checked> Prosody</label><br>  
+            <label><input type="checkbox" name="Energy"  value="1" checked> @lang('parkinsoft.energy')</label><br>
+            <label><input type="checkbox" name="eGemaps" value="1" checked> @lang('parkinsoft.eGemaps')</label><br>
+            <label><input type="checkbox" name="Chroma"  value="1" checked> @lang('parkinsoft.Chroma')</label><br>
+            <label><input type="checkbox" name="Audspec" value="1" checked> @lang('parkinsoft.Audspec')</label><br>
+            <label><input type="checkbox" name="Prosody" value="1" checked> @lang('parkinsoft.Prosody')</label><br>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-sm closeButton" data-dismiss="modal">@lang('parkinsoft.closeButton')</button>
             <button type="submit" name="View" value="1" class="btn btn-primary" onclick="Levo.generateGraphicLevo();">Ver grafico</button>
             <button type="submit" name="output" value="pdf" class="btn btn-primary" onclick="Levo.downloadGraphicLevo();">Descargar como PDF</button>
-          </div>   
+          </div>
         </form>
       </div>
-    
+
     </div>
   </div>
 </div>
