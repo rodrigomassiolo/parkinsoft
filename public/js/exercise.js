@@ -9,8 +9,10 @@ $( document ).ready(function() {
     $('#myDataModal').modal('show');
 
     $('#ticketModalMSG').modal('show');
-  
-  
+    $('#audioModal').modal('show');
+    $('#indexassignModal').modal('show');
+
+
     $('#Operacion_user_id').select2(
         {
           language:'es',
@@ -36,8 +38,8 @@ $( document ).ready(function() {
   });
 
   $('#deleteExerciseModal').on('show.bs.modal', function (event) {
-    var button = $(event.relatedTarget) 
-    var recipient = button.data('whatever') 
+    var button = $(event.relatedTarget)
+    var recipient = button.data('whatever')
     $('#ExerciseDeleteRowHidden').val(recipient)
   })
 
@@ -50,8 +52,8 @@ $( document ).ready(function() {
   }
 
   $('#deleteAdminModal').on('show.bs.modal', function (event) {
-    var button = $(event.relatedTarget) 
-    var recipient = button.data('whatever') 
+    var button = $(event.relatedTarget)
+    var recipient = button.data('whatever')
     $('#AdminDeleteRowHidden').val(recipient)
   })
 
@@ -64,8 +66,8 @@ $( document ).ready(function() {
   }
 
   $('#deleteUserModal').on('show.bs.modal', function (event) {
-    var button = $(event.relatedTarget) 
-    var recipient = button.data('whatever') 
+    var button = $(event.relatedTarget)
+    var recipient = button.data('whatever')
     $('#UserDeleteRowHidden').val(recipient)
   })
 
@@ -78,8 +80,8 @@ $( document ).ready(function() {
   }
 
   $('#deleteMedicModal').on('show.bs.modal', function (event) {
-    var button = $(event.relatedTarget) 
-    var recipient = button.data('whatever') 
+    var button = $(event.relatedTarget)
+    var recipient = button.data('whatever')
     $('#MedicDeleteRowHidden').val(recipient)
   })
 
@@ -92,8 +94,8 @@ $( document ).ready(function() {
   }
 
   $('#deleteOperacionModal').on('show.bs.modal', function (event) {
-    var button = $(event.relatedTarget) 
-    var recipient = button.data('whatever') 
+    var button = $(event.relatedTarget)
+    var recipient = button.data('whatever')
     $('#OperacionDeleteRowHidden').val(recipient)
   })
 
@@ -138,7 +140,7 @@ $( document ).ready(function() {
         success:function(data){
 
           var table = $("#columnTableBody");
-          
+
           table.html('');
 
           table.append(data);
