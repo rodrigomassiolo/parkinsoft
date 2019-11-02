@@ -99,46 +99,64 @@ resultadoMMM <- resultado
 
 maxmeanminGraph <- ggplot(resultado,aes( x=Tono,y=Energia, fill = Medicion)) + geom_bar(stat = 'identity',position=position_dodge()) + scale_fill_brewer(palette="Paired") + labs(title='Minimo, Medio y Maximo') + facet_grid(~ejerciciopaciente_id)
 
-resultadoChroma <- expand.grid(c('ID','DO', 'DO#', 'RE', 'RE#', 'MI' ,'FA', 'FA#', 'SOL', 'SOL#', 'LA', 'LA#', 'SI'))
-resultadoChroma$Primero_Audio_minimo <- c(datosAudios$'nombre del audio'[1],min(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[1],6]),min(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[1],7]),min(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[1],8]),min(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[1],9]),
-min(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[1],10]),min(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[1],11]),min(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[1],12]),min(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[1],13]),min(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[1],14]),
-min(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[1],15]),min(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[1],16]),min(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[1],17]))
+datosAux <- c(rep(1,12),
+    min(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[1],6]),min(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[1],7]),min(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[1],8]),min(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[1],9]),
+    min(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[1],10]),min(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[1],11]),min(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[1],12]),min(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[1],13]),min(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[1],14]),
+    min(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[1],15]),min(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[1],16]),min(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[1],17]),
+    datosChroma$frame[which.min(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[1],6])],datosChroma$frame[which.min(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[1],7])],datosChroma$frame[which.min(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[1],8])],datosChroma$frame[which.min(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[1],9])],
+    datosChroma$frame[which.min(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[1],10])],datosChroma$frame[which.min(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[1],11])],datosChroma$frame[which.min(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[1],12])],datosChroma$frame[which.min(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[1],13])],datosChroma$frame[which.min(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[1],14])],
+    datosChroma$frame[which.min(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[1],15])],datosChroma$frame[which.min(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[1],16])],datosChroma$frame[which.min(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[1],17])],
+    mean(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[1],6]),mean(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[1],7]),mean(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[1],8]),mean(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[1],9]),
+    mean(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[1],10]),mean(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[1],11]),mean(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[1],12]),mean(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[1],13]),mean(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[1],14]),
+    mean(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[1],15]),mean(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[1],16]),mean(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[1],17]),
+    max(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[1],6]),max(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[1],7]),max(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[1],8]),max(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[1],9]),
+    max(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[1],10]),max(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[1],11]),max(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[1],12]),max(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[1],13]),max(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[1],14]),
+    max(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[1],15]),max(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[1],16]),max(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[1],17]),
+    datosChroma$frame[which.max(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[1],6])],datosChroma$frame[which.max(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[1],7])],datosChroma$frame[which.max(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[1],8])],datosChroma$frame[which.max(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[1],9])],
+    datosChroma$frame[which.max(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[1],10])],datosChroma$frame[which.max(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[1],11])],datosChroma$frame[which.max(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[1],12])],datosChroma$frame[which.max(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[1],13])],datosChroma$frame[which.max(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[1],14])],
+    datosChroma$frame[which.max(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[1],15])],datosChroma$frame[which.max(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[1],16])],datosChroma$frame[which.max(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[1],17])])
 
-resultadoChroma$Primero_Audio_medio <- c(datosAudios$'nombre del audio'[1],mean(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[1],6]),mean(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[1],7]),mean(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[1],8]),mean(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[1],9]),
-mean(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[1],10]),mean(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[1],11]),mean(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[1],12]),mean(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[1],13]),mean(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[1],14]),
-mean(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[1],15]),mean(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[1],16]),mean(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[1],17]))
-
-resultadoChroma$Primero_Audio_maximo <- c(datosAudios$'nombre del audio'[1],max(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[1],6]),max(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[1],7]),max(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[1],8]),max(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[1],9]),
-max(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[1],10]),max(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[1],11]),max(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[1],12]),max(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[1],13]),max(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[1],14]),
-max(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[1],15]),max(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[1],16]),max(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[1],17]))
 
 if(nrow(auxTable) >= 2){
-resultadoChroma$Segundo_Audio_minimo <- c(datosAudios$'nombre del audio'[2],min(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[2],6]),min(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[2],7]),min(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[2],8]),min(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[2],9]),
-min(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[2],10]),min(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[2],11]),min(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[2],12]),min(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[2],13]),min(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[2],14]),
-min(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[2],15]),min(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[2],16]),min(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[2],17]))
-
-resultadoChroma$Segundo_Audio_medio <- c(datosAudios$'nombre del audio'[2],mean(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[2],6]),mean(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[2],7]),mean(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[2],8]),mean(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[2],9]),
-mean(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[2],10]),mean(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[2],11]),mean(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[2],12]),mean(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[2],13]),mean(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[2],14]),
-mean(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[2],15]),mean(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[2],16]),mean(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[2],17]))
-
-resultadoChroma$Segundo_Audio_maximo <- c(datosAudios$'nombre del audio'[2],max(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[2],6]),max(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[2],7]),max(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[2],8]),max(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[2],9]),
-max(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[2],10]),max(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[2],11]),max(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[2],12]),max(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[2],13]),max(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[2],14]),
-max(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[2],15]),max(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[2],16]),max(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[2],17]))
+datosAux <- c(datosAux,rep(2,12),
+    min(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[2],6]),min(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[2],7]),min(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[2],8]),min(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[2],9]),
+    min(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[2],10]),min(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[2],11]),min(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[2],12]),min(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[2],13]),min(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[2],14]),
+    min(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[2],15]),min(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[2],16]),min(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[2],17]),
+    datosChroma$frame[which.min(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[2],6])],datosChroma$frame[which.min(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[2],7])],datosChroma$frame[which.min(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[2],8])],datosChroma$frame[which.min(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[2],9])],
+    datosChroma$frame[which.min(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[2],10])],datosChroma$frame[which.min(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[2],11])],datosChroma$frame[which.min(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[2],12])],datosChroma$frame[which.min(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[2],13])],datosChroma$frame[which.min(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[2],14])],
+    datosChroma$frame[which.min(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[2],15])],datosChroma$frame[which.min(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[2],16])],datosChroma$frame[which.min(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[2],17])],
+    mean(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[2],6]),mean(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[2],7]),mean(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[2],8]),mean(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[2],9]),
+    mean(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[2],10]),mean(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[2],11]),mean(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[2],12]),mean(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[2],13]),mean(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[2],14]),
+    mean(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[2],15]),mean(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[2],16]),mean(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[2],17]),
+    max(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[2],6]),max(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[2],7]),max(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[2],8]),max(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[2],9]),
+    max(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[2],10]),max(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[2],11]),max(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[2],12]),max(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[2],13]),max(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[2],14]),
+    max(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[2],15]),max(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[2],16]),max(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[2],17]),
+    datosChroma$frame[which.max(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[2],6])],datosChroma$frame[which.max(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[2],7])],datosChroma$frame[which.max(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[2],8])],datosChroma$frame[which.max(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[2],9])],
+    datosChroma$frame[which.max(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[2],10])],datosChroma$frame[which.max(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[2],11])],datosChroma$frame[which.max(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[2],12])],datosChroma$frame[which.max(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[2],13])],datosChroma$frame[which.max(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[2],14])],
+    datosChroma$frame[which.max(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[2],15])],datosChroma$frame[which.max(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[2],16])],datosChroma$frame[which.max(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[2],17])])
 }
 
 if(nrow(auxTable) == 3){
-resultadoChroma$Tercer_Audio_minimo <- c(datosAudios$'nombre del audio'[3],min(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[3],6]),min(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[3],7]),min(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[3],8]),min(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[3],9]),
-min(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[3],10]),min(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[3],11]),min(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[3],12]),min(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[3],13]),min(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[3],14]),
-min(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[3],15]),min(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[3],16]),min(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[3],17]))
-
-resultadoChroma$Tercer_Audio_medio <- c(datosAudios$'nombre del audio'[3],mean(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[3],6]),mean(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[3],7]),mean(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[3],8]),mean(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[3],9]),
-mean(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[3],10]),mean(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[3],11]),mean(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[3],12]),mean(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[3],13]),mean(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[3],14]),
-mean(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[3],15]),mean(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[3],16]),mean(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[3],17]))
-
-resultadoChroma$Tercer_Audio_maximo <- c(datosAudios$'nombre del audio'[3],max(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[3],6]),max(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[3],7]),max(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[3],8]),max(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[3],9]),
-max(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[3],10]),max(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[3],11]),max(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[3],12]),max(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[3],13]),max(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[3],14]),
-max(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[3],15]),max(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[3],16]),max(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[3],17]))
+datosAux <- c(datosAux,rep(3,12),
+    min(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[3],6]),min(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[3],7]),min(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[3],8]),min(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[3],9]),
+    min(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[3],10]),min(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[3],11]),min(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[3],12]),min(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[3],13]),min(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[3],14]),
+    min(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[3],15]),min(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[3],16]),min(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[3],17]),
+    datosChroma$frame[which.min(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[3],6])],datosChroma$frame[which.min(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[3],7])],datosChroma$frame[which.min(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[3],8])],datosChroma$frame[which.min(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[3],9])],
+    datosChroma$frame[which.min(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[3],10])],datosChroma$frame[which.min(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[3],11])],datosChroma$frame[which.min(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[3],12])],datosChroma$frame[which.min(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[3],13])],datosChroma$frame[which.min(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[3],14])],
+    datosChroma$frame[which.min(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[3],15])],datosChroma$frame[which.min(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[3],16])],datosChroma$frame[which.min(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[3],17])],
+    mean(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[3],6]),mean(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[3],7]),mean(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[3],8]),mean(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[3],9]),
+    mean(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[3],10]),mean(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[3],11]),mean(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[3],12]),mean(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[3],13]),mean(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[3],14]),
+    mean(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[3],15]),mean(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[3],16]),mean(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[3],17]),
+    max(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[3],6]),max(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[3],7]),max(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[3],8]),max(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[3],9]),
+    max(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[3],10]),max(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[3],11]),max(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[3],12]),max(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[3],13]),max(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[3],14]),
+    max(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[3],15]),max(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[3],16]),max(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[3],17]),
+    datosChroma$frame[which.max(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[3],6])],datosChroma$frame[which.max(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[3],7])],datosChroma$frame[which.max(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[3],8])],datosChroma$frame[which.max(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[3],9])],
+    datosChroma$frame[which.max(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[3],10])],datosChroma$frame[which.max(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[3],11])],datosChroma$frame[which.max(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[3],12])],datosChroma$frame[which.max(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[3],13])],datosChroma$frame[which.max(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[3],14])],
+    datosChroma$frame[which.max(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[3],15])],datosChroma$frame[which.max(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[3],16])],datosChroma$frame[which.max(datosChroma[datosChroma$ejerciciopaciente_id ==  auxTable$Var1[3],17])])
 }
+resultadoChroma <- matrix(datosAux,ncol=12,byrow=TRUE)
+colnames(resultadoChroma) <- c("DO", "DO#", "RE", "RE#", "MI" ,"FA", "FA#", "SOL", "SOL#", "LA", "LA#", "SI")
+rownames(resultadoChroma) <- rep(c("audio","minimo","tiempo","media","maximo","tiempo"),nrow(auxTable))
 
 }
 ###################################################################################################################################################
@@ -156,20 +174,27 @@ energygraph <- ggplot(datos2,aes(x=tiempo,y=LogEnergy))+geom_line()+ geom_hline(
   geom_hline(yintercept=min(datos2$LogEnergy), linetype="dashed", color = "blue") + geom_hline(yintercept=mean(datos2$LogEnergy), linetype="dashed", color = "green") + labs(title='Energia de la voz') + facet_grid(~ejerciciopaciente_id)
 
 
-resultadoEnergy <- expand.grid(c('ID','Energy'))
-resultadoEnergy$Primero_Audio_minimo <- c(datosAudios$'nombre del audio'[1],min(datosenergy[datosenergy$ejerciciopaciente_id ==  auxTable$Var1[1],6]))
-resultadoEnergy$Primero_Audio_medio <- c(datosAudios$'nombre del audio'[1],mean(datosenergy[datosenergy$ejerciciopaciente_id ==  auxTable$Var1[1],6]))
-resultadoEnergy$Primero_Audio_maximo <- c(datosAudios$'nombre del audio'[1],max(datosenergy[datosenergy$ejerciciopaciente_id ==  auxTable$Var1[1],6]))
+datosAux <-c(1
+            ,min(datosenergy[datosenergy$ejerciciopaciente_id ==  auxTable$Var1[1],7])
+            ,mean(datosenergy[datosenergy$ejerciciopaciente_id ==  auxTable$Var1[1],7])
+            ,max(datosenergy[datosenergy$ejerciciopaciente_id ==  auxTable$Var1[1],7]))
+
 
 if(nrow(auxTable) >= 2){
-resultadoEnergy$Segundo_Audio_minimo <- c(datosAudios$'nombre del audio'[2],min(datosenergy[datosenergy$ejerciciopaciente_id ==  auxTable$Var1[2],6]))
-resultadoEnergy$Segundo_Audio_medio <- c(datosAudios$'nombre del audio'[2],mean(datosenergy[datosenergy$ejerciciopaciente_id ==  auxTable$Var1[2],6]))
-resultadoEnergy$Segundo_Audio_maximo <- c(datosAudios$'nombre del audio'[2],max(datosenergy[datosenergy$ejerciciopaciente_id ==  auxTable$Var1[2],6]))}
+datosAux <-c(datosAux,2
+            ,min(datosenergy[datosenergy$ejerciciopaciente_id ==  auxTable$Var1[2],7])
+            ,mean(datosenergy[datosenergy$ejerciciopaciente_id ==  auxTable$Var1[2],7])
+            ,max(datosenergy[datosenergy$ejerciciopaciente_id ==  auxTable$Var1[2],7]))}
 
 if(nrow(auxTable) == 3){
-resultadoEnergy$Tercer_Audio_minimo <- c(datosAudios$'nombre del audio'[3],min(datosenergy[datosenergy$ejerciciopaciente_id ==  auxTable$Var1[3],6]))
-resultadoEnergy$Tercer_Audio_medio <- c(datosAudios$'nombre del audio'[3],mean(datosenergy[datosenergy$ejerciciopaciente_id ==  auxTable$Var1[3],6]))
-resultadoEnergy$Tercer_Audio_maximo <- c(datosAudios$'nombre del audio'[3],max(datosenergy[datosenergy$ejerciciopaciente_id ==  auxTable$Var1[3],6]))}
+datosAux <-c(datosAux,3
+            ,min(datosenergy[datosenergy$ejerciciopaciente_id ==  auxTable$Var1[3],7])
+            ,mean(datosenergy[datosenergy$ejerciciopaciente_id ==  auxTable$Var1[3],7])
+            ,max(datosenergy[datosenergy$ejerciciopaciente_id ==  auxTable$Var1[3],7]))}
+
+resultadoEnergy <- matrix(datosAux,ncol=1,byrow=TRUE)
+colnames(resultadoEnergy3) <- c("Energy")
+rownames(resultadoEnergy3) <- c("audios","minimo","media","maximo")
 
 }
 ###################################################################################################################################################
@@ -276,6 +301,38 @@ F0_Prob = ggplot(resultado2F0_Vol_Prob, aes(frame))+
   geom_line(aes(y=resultado2F0_Vol_Prob$voiceProb,col="Proba. de voz")) +
   geom_hline(yintercept=max(resultado2F0_Vol_Prob$F0_sma), linetype="dashed", color = "blue")+
   labs(x="Frames",y="Hertz",col = "Leyenda",title = "F0 y probabilidad de voz") + facet_grid(~ejerciciopaciente_id)
+  
+datosAux <- c( rep(1,2)
+            ,min(datosprosody[datosprosody$ejerciciopaciente_id == auxTable$Var1[1],7]),min(datosprosody[datosprosody$ejerciciopaciente_id == auxTable$Var1[1],6])
+            ,datosprosody$frameTime[which.min(datosprosody[datosprosody$ejerciciopaciente_id == auxTable$Var1[1],7])],datosprosody$frameTime[which.min(datosprosody[datosprosody$ejerciciopaciente_id ==  auxTable$Var1[1],6])]
+            ,mean(datosprosody[datosprosody$ejerciciopaciente_id == auxTable$Var1[1],7]),mean(datosprosody[datosprosody$ejerciciopaciente_id == auxTable$Var1[1],6])
+            ,max(datosprosody[datosprosody$ejerciciopaciente_id == auxTable$Var1[1],7]),max(datosprosody[datosprosody$ejerciciopaciente_id ==  auxTable$Var1[1],6])
+            ,datosprosody$frameTime[which.max(datosprosody[datosprosody$ejerciciopaciente_id == auxTable$Var1[1],7])],datosprosody$frameTime[which.max(datosprosody[datosprosody$ejerciciopaciente_id ==  auxTable$Var1[1],6])])
+
+
+
+if(nrow(auxTable) >= 2){
+datosAux <- c(datosAux, rep(2,2)
+            ,min(datosprosody[datosprosody$ejerciciopaciente_id == auxTable$Var1[2],7]),min(datosprosody[datosprosody$ejerciciopaciente_id == auxTable$Var1[2],6])
+            ,datosprosody$frameTime[which.min(datosprosody[datosprosody$ejerciciopaciente_id == auxTable$Var1[2],7])],datosprosody$frameTime[which.min(datosprosody[datosprosody$ejerciciopaciente_id ==  auxTable$Var1[2],6])]
+            ,mean(datosprosody[datosprosody$ejerciciopaciente_id == auxTable$Var1[2],7]),mean(datosprosody[datosprosody$ejerciciopaciente_id == auxTable$Var1[2],6])
+            ,max(datosprosody[datosprosody$ejerciciopaciente_id == auxTable$Var1[2],7]),max(datosprosody[datosprosody$ejerciciopaciente_id ==  auxTable$Var1[2],6])
+            ,datosprosody$frameTime[which.max(datosprosody[datosprosody$ejerciciopaciente_id == auxTable$Var1[2],7])],datosprosody$frameTime[which.max(datosprosody[datosprosody$ejerciciopaciente_id ==  auxTable$Var1[2],6])])
+}
+
+if(nrow(auxTable) == 3){
+datosAux <- c(datosAux, rep(3,2)
+            ,min(datosprosody[datosprosody$ejerciciopaciente_id == auxTable$Var1[3],7]),min(datosprosody[datosprosody$ejerciciopaciente_id == auxTable$Var1[3],6])
+            ,datosprosody$frameTime[which.min(datosprosody[datosprosody$ejerciciopaciente_id == auxTable$Var1[3],7])],datosprosody$frameTime[which.min(datosprosody[datosprosody$ejerciciopaciente_id ==  auxTable$Var1[3],6])]
+            ,mean(datosprosody[datosprosody$ejerciciopaciente_id == auxTable$Var1[3],7]),mean(datosprosody[datosprosody$ejerciciopaciente_id == auxTable$Var1[3],6])
+            ,max(datosprosody[datosprosody$ejerciciopaciente_id == auxTable$Var1[3],7]),max(datosprosody[datosprosody$ejerciciopaciente_id ==  auxTable$Var1[3],6])
+            ,datosprosody$frameTime[which.max(datosprosody[datosprosody$ejerciciopaciente_id == auxTable$Var1[3],7])],datosprosody$frameTime[which.max(datosprosody[datosprosody$ejerciciopaciente_id ==  auxTable$Var1[3],6])])}
+
+resultadoProsody <- matrix(datosAux,ncol=2,byrow=TRUE)
+colnames(resultadoProsody) <- c("F0","Probabilidad")
+rownames(resultadoProsody) <- rep(c("audio","minimo","tiempo","media","maximo","tiempo"),nrow(auxTable))
+
+
 }  
 ##############################################################################################################################################
 
@@ -347,7 +404,7 @@ dbDisconnect(mydb)
 kable(datosPaciente[1,],caption="Datos del paciente")
 
 if(nrow(auxTable)>1){
-kable(datosAudios,caption="Datos de los audios")
+ kable(datosAudios,caption="Datos de los audios")
 }else{
   kable(datosAudios,caption="Datos del audios")
 }
@@ -359,34 +416,18 @@ plot(chromagraph)
 plot(chromaLineMax)
 
 plot(maxmeanminGraph)
+
+kable(resultadoChroma,caption="Tabla de los valores del maximos, media y baja de Chroma")
+
+
 }
-
-if (parchroma == 1) {
-kable(resultadoChroma[,1:3],caption="Tabla de los valores del maximos, media y baja de Chroma")
-
-if(nrow(auxTable) >= 2){
-kable(resultadoChroma[,4:6],caption="Tabla de los valores del maximos, media y baja de Chroma")}
-
-if(nrow(auxTable) == 3){
-kable(resultadoChroma[,7:9],caption="Tabla de los valores del maximos, media y baja de Chroma")}
-}
-
-
 #############################################################################################
 
 #ENERGY######################################################################################
 if (parenergy == 1) {
 plot(energygraph)
-}
 
-if (parenergy == 1) {
-kable(resultadoEnergy[,1:3],caption="Tabla de los valores maximos, medios y bajos de Energy")
-
-if(nrow(auxTable) >= 2){
-kable(resultadoEnergy[,4:6],caption="Tabla de los valores maximos, medios y bajos de Energy")}
-
-if(nrow(auxTable) == 3){
-kable(resultadoEnergy[,7:9],caption="Tabla de los valores maximos, medios y bajos de Energy")}
+kable(resultadoEnergy,caption="Tabla de los valores maximos, medios y bajos de Energy ")
 }
 #############################################################################################
 
@@ -401,6 +442,8 @@ plot(maxmeanminAudspectGraph)
 #PROSODY####################################################################################
 if (parprosody == 1) {
 plot(F0_Prob)
+
+kable(resultadoProsody,caption="Tabla de los valores maximos, medios y bajos de F0, probabilidad y volumen")
 }
 #############################################################################################
 
@@ -409,6 +452,7 @@ plot(F0_Prob)
 if (pareGemaps == 1) {
 plot(formanteGraph)
 kable(resumeneGemaps,caption="Tabla de los valores del eGemaps")
+
 }
 
 if(pareGemaps == 1){
