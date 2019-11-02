@@ -418,8 +418,9 @@ print("Muestra cual fue el tono con mayor intensidad a largo del tiempo")
 plot(maxmeanminGraph)
 print("Muestra la maxima, media y menor energia de los 12 en un audio a lo largo del tiempo")
 kable(resultadoChroma[,1:8],caption="Tabla de los valores del maximos, media y baja de Chroma")
-kable(resultadoChroma[,9:12],caption="Tabla de los valores del maximos, media y baja de Chroma")
-
+}
+if (parchroma == 1) {
+  kable(resultadoChroma[,9:12],caption="Tabla de los valores del maximos, media y baja de Chroma")
 }
 #############################################################################################
 
