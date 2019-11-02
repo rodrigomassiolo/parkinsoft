@@ -105,7 +105,7 @@
             <td>{{ $row->genero}}</td>
             <td>{{ Carbon\Carbon::parse($row->nacimiento)->format('d/m/Y')}}</td>
             <td>
-            <div class="row">
+
                 <button type="button" class="btn btn-primary btn-sm" data-whatever="{{$row->id}}"
                                 data-toggle="modal" style="float:left;" data-target="#PatientModal">
                                 <span data-feather="trash-2"></span>
@@ -123,7 +123,7 @@
                         @lang('parkinsoft.deleteButton')
                     </button>
                 </form>
-            </div>
+
             </td>
         </tr>
         @endforeach
@@ -186,11 +186,11 @@
             </div>
         <div class="modal-body">
             <input type="hidden" id="rowValue">
-            <strong>@lang('parkinsoft.aditionalData')</strong>
+            <strong style="border-bottom: 1px solid #dee2e6;">@lang('parkinsoft.profile')</strong>
             <div class="row" id="profile">
                 <div class="col-6">
                     <form>
-                            <a class="btn btn-info btn-sm" href="{{ route('abmUser.show',0) }}"
+                            <a class="btn btn-info" href="{{ route('abmUser.show',0) }}"
                             data-toggle="tooltip" id="showButton">
                             <span data-feather="eye"></span>
                                 @lang('parkinsoft.showButton')
@@ -199,7 +199,7 @@
                 </div>
                 <div class="col-6">
                     <form>
-                            <a class="btn btn-sm editButton" href="{{ route('abmUser.edit',0) }}"
+                            <a class="btn btn-info" href="{{ route('abmUser.edit',0) }}"
                             data-toggle="tooltip" id="editButton">
                             <span data-feather="edit"></span>
                             @lang('parkinsoft.editButton')
@@ -207,46 +207,46 @@
                     </form>
                 </div>
             </div>
-            <strong>@lang('parkinsoft.aditionalData')</strong>
+            <strong style="border-bottom: 1px solid #dee2e6;">@lang('parkinsoft.audioULabel')</strong>
             <div class="row" id="audio">
             <div class="col-6">
                 <form action="{{ route('audio')}}" method="GET">
                         <input type="hidden" name="paciente_id" id="audioButton" value="">
 
-                        <button class="btn btn-success btn-sm" type="submit">@lang('parkinsoft.uploadAudio')</button>
+                        <button class="btn btn-success" type="submit">@lang('parkinsoft.uploadAudio')</button>
                 </form>
             </div>
             <div class="col-6">
                 <form action="{{ route('ejercicioPacienteAsignar')}}" method="GET">
                         <input type="hidden" name="paciente_id" id="assignButton" value="">
-                        <button class="btn btn-success btn-sm" type="submit">@lang('parkinsoft.assingExercise')</button>
+                        <button class="btn btn-success" type="submit">@lang('parkinsoft.assingExercise')</button>
                 </form>
             </div>
             <div class="col-6">
                 <form action="{{ route('listaDeEjerciciosRealizados')}}" method="GET">
                     <input type="hidden" name="paciente_id" id="realizeButton" value="">
-                    <button class="btn btn-primary btn-sm" type="submit">@lang('parkinsoft.audioListLink')</button>
+                    <button class="btn btn-success" type="submit">@lang('parkinsoft.audioListLink')</button>
                 </form>
             </div>
             <div class="col-6">
                 <form action="{{ route('listaDeEjerciciosAsignados')}}" method="GET">
                     <input type="hidden" name="paciente_id" id="assignedButton" value="">
-                    <button class="btn btn-primary btn-sm" type="submit">@lang('parkinsoft.audioListLinkAssigned')</button>
+                    <button class="btn btn-success" type="submit">@lang('parkinsoft.audioListLinkAssigned')</button>
                 </form>
             </div>
             </div>
-            <strong>@lang('parkinsoft.aditionalData')</strong>
+            <strong style="border-bottom: 1px solid #dee2e6;">@lang('parkinsoft.aditionalData')</strong>
             <div class="row" id="aditionalDat">
                 <div class="col-6">
                     <form action="{{ route('operacion.index') }}" method="GET">
                         <input type="hidden" name="user_id" id="surgeryButton" value="">
-                        <button class="btn btn-info btn-sm" type="submit">@lang('parkinsoft.operacionLinkTitle')</button>
+                        <button class="btn btn-primary" type="submit">@lang('parkinsoft.operacionLinkTitle')</button>
                     </form>
                 </div>
                 <div class="col-6">
                     <form action="{{ route('anotador',0) }}" method="GET" id="formAnotador">
                             <input type="hidden" name="user_id" id="anotadorButton" value="">
-                            <button class="btn btn-info btn-sm" type="submit">@lang('parkinsoft.anotadorLinkTitle')</button>
+                            <button class="btn btn-primary" type="submit">@lang('parkinsoft.anotadorLinkTitle')</button>
                     </form>
                 </div>
             </div>
