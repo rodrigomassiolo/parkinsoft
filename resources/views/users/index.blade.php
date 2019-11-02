@@ -16,7 +16,7 @@ BootStrapBody
         </div>
     </div>
 </div>
-   
+
 
 @if ($errors->any())
     <div class="alert alert-danger">
@@ -61,7 +61,7 @@ BootStrapBody
                             <option selected>{{ Auth::user()->genero }}</option>
                             <option value="M">M</option>
                         @endif
-                        </select>                 
+                        </select>
                     </div>
                 </diV>
 
@@ -86,7 +86,7 @@ BootStrapBody
                         <input class="form-control" type="text" name="medicamento" value="{{ Auth::user()->medicacion }}" required>
                     </div>
                 </div>
-                       
+
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <div class="form-group">
                         <strong>@lang('parkinsoft.password'):</strong>
@@ -123,7 +123,7 @@ BootStrapBody
                             <span aria-hidden="true">&times;</span>
                             </button>
                     </div>
-                  
+
                         <div class="modal-body">
                             {{ $message }}
                         </div>

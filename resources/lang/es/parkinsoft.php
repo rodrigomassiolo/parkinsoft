@@ -23,6 +23,32 @@ return [
     'Audspec' => 'Espectrograma',
     'Prosody' => 'Frecuencia Base y Probabilidad',
 
+    'cargaDeaudioModal' => 'Carga de audio',
+
+    'audioHistoryTable' => 'Historial de audios subidos',
+
+    'emailSendResponseText' => 'Se ha enviado un email con su nueva contraseña. Por favor revise su casilla.',
+
+    'forgotPassword1' => 'Olvidaste tu Password',
+    'forgotPassword2' => 'Para volver a ingresar por favor usé el siguiente Password Temporal',
+
+    'assignExercise' => 'Asignar Ejercicio',
+
+    'assign' => 'Asignar',
+
+    'assignExerciseModalTitle' => 'Asignación de Ejercicio',
+
+    'doExercise' => 'Realizar Ejercicio',
+
+    'editTicketLegend' => 'Editar ticket',
+
+    'ticketTitleTable' => 'Título',
+
+    'details' => 'Detalle',
+
+    'comment' => 'Comentario',
+    'noTickets' => 'No hay Tickets',
+
     'aditionalData' => 'Datos adicionales',
     'profile' => 'Perfil',
     'audioULabel' => 'Audio',

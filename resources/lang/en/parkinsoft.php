@@ -21,6 +21,28 @@ return [
     'Audspec' => 'Spectrogram',
     'Prosody' => 'Base Frequency and Probability',
 
+    'cargaDeaudioModal' => 'Upload audio',
+
+    'emailSendResponseText' => 'An email with your new password has been sent. Please check your email box.',
+
+    'forgotPassword1' => 'Forgot your password',
+    'forgotPassword2' => 'To re-enter please use the following Temporary Password',
+
+    'assignExercise' => 'Assign Exercise',
+
+    'assign' => 'Assign',
+    'assignExerciseModalTitle' => 'Exercise assign',
+
+    'doExercise' => 'Make Exercise',
+
+    'editTicketLegend' => 'Edit ticket',
+
+    'noTickets' => 'There are no tickets',
+    'ticketTitleTable' => 'Title',
+
+    'details' => 'Details',
+
+    'comment' => 'Comment',
 
     'aditionalData' => 'Aditional data',
     'profile' => 'Profile',

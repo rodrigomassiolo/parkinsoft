@@ -5,7 +5,7 @@
 
 @if(Auth::user()->rol->type == 2)
 <h2 class="titleInfo">
-    Historial de audios subidos
+    @lang('parkinsoft.audioHistoryTable')
 </h2>
 <br>
 
@@ -14,17 +14,17 @@
         <thead>
             <tr>
                 <th>No</th>
-                <th>Ejercicio</th>
-                <th>Fecha de Creación</th>
+                <th>@lang('parkinsoft.exercise')</th>
+                <th>@lang('parkinsoft.createDate')</th>
             </tr>
         </thead>
         <tbody>
             @foreach ($PacienteEjercicio as $row)
             <tr>
-                <td>{{ $row->id }}</td>  
+                <td>{{ $row->id }}</td>
                 <td>{{ $row->ejercicio->descripcion }}</td>
-                <td>{{ $row->created_at }} </td> 
-        
+                <td>{{ $row->created_at }} </td>
+
             </tr>
             @endforeach
             </tbody>

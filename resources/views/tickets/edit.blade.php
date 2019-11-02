@@ -20,7 +20,7 @@
                 <input type="hidden" name="_token" value="{!! csrf_token() !!}">
 
                 <fieldset>
-                    <legend>Editar ticket</legend>
+                    <legend>@lang('parkinsoft.editTicketLegend')</legend>
                     <div class="form-group">
                         <label for="title" class="col-lg-2 control-label">@lang('parkinsoft.title')</label>
                         <div class="col-lg-10">
@@ -42,13 +42,13 @@
 
                     <div class="form-group">
                         <label>
-                        
+
                         @if($ticket->status == 1)
                             <input type='hidden' name='foobar' value=0/>
-                            @lang('parkinsoft.closeTicket') <input type="checkbox" name="status" checked value=1> 
+                            @lang('parkinsoft.closeTicket') <input type="checkbox" name="status" checked value=1>
                         @else
                             <input type='hidden' name='foobar' value=0 />
-                            @lang('parkinsoft.closeTicket') <input type="checkbox" name="status" value=1> 
+                            @lang('parkinsoft.closeTicket') <input type="checkbox" name="status" value=1>
                         @endif
                         </label>
                     </div>
@@ -56,7 +56,7 @@
                     <div class="form-group">
                         <div class="col-lg-10 col-lg-offset-2">
                         <a class="btn btn-sm cancelButton" href="{!! action('TicketsController@show', $ticket->slug) !!}"> @lang('parkinsoft.cancelButton')</a>
-                         
+
                             <button type="submit" class="btn btn-sm editButton">@lang('parkinsoft.actualizar')</button>
                         </div>
                     </div>
