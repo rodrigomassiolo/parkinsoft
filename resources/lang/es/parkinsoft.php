@@ -17,6 +17,10 @@ return [
     |--------------------------------------------------------------------------
     */
 
+    'aditionalData' => 'Datos adicionales',
+    'profile' => 'Perfil',
+    'audioULabel' => 'Audio',
+
     'abmMedicTitle' => 'Medicos',
     'ticketsLinkTitle' => 'Tickets',
     'abmUserLinkTitle' => 'Pacientes',
