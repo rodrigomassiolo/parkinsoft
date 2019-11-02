@@ -427,7 +427,7 @@ kable(resultadoChroma,caption="Tabla de los valores del maximos, media y baja de
 if (parenergy == 1) {
 plot(energygraph)
 
-kable(resultadoEnergy,caption="Tabla de los valores maximos, medios y bajos de Energy ")
+resultadoEnergy
 }
 #############################################################################################
 
@@ -443,7 +443,7 @@ plot(maxmeanminAudspectGraph)
 if (parprosody == 1) {
 plot(F0_Prob)
 
-kable(resultadoProsody,caption="Tabla de los valores maximos, medios y bajos de F0, probabilidad y volumen")
+resultadoProsody
 }
 #############################################################################################
 
@@ -451,13 +451,13 @@ kable(resultadoProsody,caption="Tabla de los valores maximos, medios y bajos de 
 #FORMANTES
 if (pareGemaps == 1) {
 plot(formanteGraph)
-kable(resumeneGemaps,caption="Tabla de los valores del eGemaps")
+resumeneGemaps
 
 }
 
 if(pareGemaps == 1){
  plot(vowelGraph)
-kable(vowel,caption="Tabla de los valores del Vowel")
+vowel
 }
 #############################################################################################
 ```
