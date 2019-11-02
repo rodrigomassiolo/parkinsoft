@@ -90,8 +90,8 @@
 
 
 <br><br>
-<h6 class="tableInfo"
-  >Historial de audios subidos
+<h6 class="tableInfo">
+    @lang('parkinsoft.audioHistoryTable')
 </h6>
 
 <table class="table table-bordered table-sm table-hover">
@@ -157,7 +157,7 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Carga de audio</h5>
+        <h5 class="modal-title" id="exampleModalLabel">@lang('parkinsoft.cargaDeaudioModal')</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>

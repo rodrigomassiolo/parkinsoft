@@ -7,8 +7,8 @@
 <h2>higia.com.ar</h2>
 
 <div>
-    Olvidaste tu Password.<br>
-    Para volver a ingresar por favor usé el siguiente Password Temporal:<br>
+@lang('parkinsoft.forgotPassword1').<br>
+@lang('parkinsoft.forgotPassword2'):<br>
     </h3>{!! $pass !!}</h3>
 </div>
 

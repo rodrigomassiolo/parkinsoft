@@ -13,15 +13,15 @@
             </div>
         @endif
         @if ($tickets->isEmpty())
-            <p> No hay Tickets.</p>
+            <p> @lang('parkinsoft.noTickets').</p>
         @else
             <table class="table">
                 <thead>
                     <tr>
                         <th>ID</th>
-                        <th>Título</th>
-                        <th>Detalle</th>
-                        <th>Usuario</th>
+                        <th>@lang('parkinsoft.ticketTitleTable')</th>
+                        <th>@lang('parkinsoft.details')</th>
+                        <th>@lang('parkinsoft.user')</th>
                     </tr>
                 </thead>
                 <tbody>

@@ -8,11 +8,11 @@
             <div class="content">
                 <h2 class="header">{!! $ticket->title !!}</h2>
                 <p> <strong>Status:</strong>: {!! $ticket->status ? 'Pendiente' : 'Respondido' !!}</p>
-                <p> 
-                <strong>Consulta:</strong> {!! $ticket->content !!} 
+                <p>
+                <strong>Consulta:</strong> {!! $ticket->content !!}
                 </p>
             </div>
-            <a href="{!! action('TicketsController@edit', $ticket->slug) !!}" 
+            <a href="{!! action('TicketsController@edit', $ticket->slug) !!}"
                 class="btn btn-sm closeButton float-left">
                 @lang('parkinsoft.ticketCloseButton')
             </a>
@@ -25,17 +25,17 @@
             <table class="table table-bordered table-sm table-hover">
                 <thead>
                     <tr>
-                        <th>Usuario</th>
-                        <th>Comentario</th>
-                        <th>Fecha de Creación</th>
+                        <th>@lang('parkinsoft.user')</th>
+                        <th>@lang('parkinsoft.comment')</th>
+                        <th>@lang('parkinsoft.createDate')</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach($comments as $comment)
                     <tr>
-                        <td>{{ $comment->user_id }}</td>  
+                        <td>{{ $comment->user_id }}</td>
                         <td>{{ $comment->content }}</td>
-                        <td>{{ $comment->created_at }} </td> 
+                        <td>{{ $comment->created_at }} </td>
                     </tr>
                     @endforeach
                 </tbody>

@@ -5,6 +5,6 @@ BootStrapBody
 
 @section('MainContent')
 <div class="container">
-    <h6>Se ha enviado un email con su nueva contraseña. Por favor revise su casilla.</h6>
+    <h6>@lang('parkinsoft.emailSendResponseText')</h6>
 </div>
 @endsection
