@@ -8,11 +8,16 @@ return [
     | The following language lines are used for the parkinsoft web app English
     |
     */
+
     /*
     |--------------------------------------------------------------------------
     | General
     |--------------------------------------------------------------------------
     */
+    'aditionalData' => 'Aditional data',
+    'profile' => 'Profile',
+    'audioULabel' => 'Audio',
+
     'abmMedicTitle' => 'Doctors',
     'ticketsLinkTitle' => 'Tickets',
     'abmUserLinkTitle' => 'Patients',
@@ -82,11 +87,11 @@ return [
     'infoSiteBody2' => 'As an objective, we focus on developing informatics programs oriented to the health area. For this reason, we are interested in being able to provide solutions to various problems and innovate in new technologies.',
     'infoSiteBody3' => 'We have the necessary knowledge to be able to face the challenges that are proposed to us. Therefore, we seek to remain at the forefront in the techniques and technologies that are applied today in the development of software and hardware.',
     'infoSiteBody4' => 'Work in cooperation with our users to achieve the proposed objectives and coordinate with different areas of health to enrich our knowledge in order to offer alternatives in possible solutions to a given problem.',
-    
+
     'infoProjTag' => 'Project',
     'infoProjBody1' => 'Parkinsoft is the first HigIA development. The goal is to create a program that allows the doctor to track the condition of the voice in Parkinsons patients.',
     'infoProjBody2' => 'From an audio file (recording) of a patients voice, it is processed to obtain multiple variables to analyze. It is these results that will allow different types of analysis on the patients voice.',
-    
+
     'infoProjList1Title' => 'The program has as input:',
     'infoProjList1Bullet1' => 'Voice recordings of patients with the cell phone through an application and in controlled environments.',
     'infoProjList1Bullet2' => 'Recordings during the Levodopa test on and off, before and after surgery.',
@@ -100,7 +105,7 @@ return [
     'infoProjList4Bullet2' => 'Versatility of analysis (we are not tied to a standard tool).',
     'infoProjList4Bullet3' => 'Future possibility of adapting the tool to other diseases / pathologies.',
     'infoProjList4Bullet4' => 'Free, this project is for us a way to give back to the university and the community the possibility of studying for free in a public university.',
-    
+
     /*
     |--------------------------------------------------------------------------
     | Filters
@@ -152,7 +157,7 @@ return [
     'uploadAudioTitle' => 'Upload Audio',
     'audioQuality' => 'Audio quality',
     'exerciseDescription' => 'Exercise description',
-  
+
     'selectExerciseType' => 'Select Exercise',
     'selectPatient' => 'Select Patient',
     'selectAudioQuality' => 'Select audio quality',
@@ -174,7 +179,7 @@ return [
     'levodopaModalTitle' => 'Upload audio',
     'levodopaModalBody' => 'Audio uploaded successfully!',
     'levodopaModalButton' => 'Close',
-    
+
     /*
     |--------------------------------------------------------------------------
     | Abm Users
